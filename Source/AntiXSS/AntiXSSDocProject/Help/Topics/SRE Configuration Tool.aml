@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="ab2d273c-0d34-48cd-86ea-26749db4ff4f" revisionNumber="0">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>This topic will walk you through the Configuration Utility topics.</para>
+    </introduction>
+
+    <section>
+      <!--h1-->
+      <title>The Security Runtime Engine Configuration Utility</title>
+      <content>
+        <para>
+          The Security Runtime Engine (SRE) Configuration Utility (ConfigGen.exe)
+          is a Windows forms application used for generating the SRE configuration
+          file. The utility works by comparing the controls present in your application's
+          binaries with a master input file, encodingcontrols.xml.
+          When it finds a match between a control in your application and a pattern
+          in the encodingcontrols.xml file, it knows what kind of controls require encoding your application.
+        </para>
+      </content>
+    </section>
+
+    <section>
+      <!--h2-->
+      <title>Using ConfigGen.exe</title>
+      <content>
+        <list class="ordered">
+          <listItem>
+            <para>
+              Run ConfigGen.exe as you would any other Windows executable program. The utility displays
+              the Configuration Generator for SRE dialog box.
+            </para>
+          </listItem>
+        </list>
+        <para>&#160;</para>
+        <mediaLink>
+          <image placement="center" xlink:href="SREConfig1"/>
+        </mediaLink>
+        <para>&#160;</para>
+        <para>
+          Enable Double Encoding Protection defends against double (re-)encoding
+          of your output, and so possibly skewing your results.
+        </para>
+        <para>
+          EncodeDerivedControls defines whether to encode controls which are derived from the classes
+          found in the ControlEncodingContext nodes of the antixssmodule.config configuration file.
+        </para>
+        <para>
+          <ui>MarkAntiXSSOutput</ui> is a switch that controls whether source encoded through Anti-XSS is highlighted when displayed. (<link xlink:href="da9ed57c-53d1-45f1-812e-397f2d691bb7">How to Use MarkAntiXSSOutput Feature</link>). The color dropdown list contains comprehensive list of colors that can be used for color coding the output.
+        </para>
+        <alert class="note">
+          Do not use the MarkAntiXssOutput switch for production.
+        </alert>
+        <para>
+          2. Click the Browse button and navigate to an assembly of
+          your application. &#160;When you select it, it appears in the ASP.NET Assembly text box.
+        </para>
+        <para>
+          3. Click the Analyze button and the utility processes the assembly. &#160;You
+          see the results of its analysis in the Analysis window.
+        </para>
+        <para>
+          4. Click the Generate button to create your configuration file. &#160;The utility
+          displays a Browse For Folder dialog box which you can use to define a location for your configuration file.
+        </para>
+        <para>&#160;</para>
+        <mediaLink>
+          <image placement="center" xlink:href="SREConfig2"/>
+        </mediaLink>
+        <para>&#160;</para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>See Also:</title>
+      <content>
+        <para>
+          <link xlink:href="c97fadbd-9dd2-433f-b577-dbc499ce9e4b">Anti-XSS Security Runtime Engine</link>
+        </para>
+        <para>
+          <link xlink:href="3e0cb435-94b3-41ba-b99a-aff0bf3ef4f2">Deploying Security Runtime Engine</link>
+        </para>
+        <para>
+          <link xlink:href="f4427194-6d84-407f-ab34-5f7d5d9f318f">SRE Configuartion Sample</link>
+        </para>
+        <para>
+          <link xlink:href="f4ea6c72-740b-4efd-bbbf-195a41aa775f">SRE Performance Data Sheet</link>
+        </para>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <!-- Supported Link Types
+    
+         All of the following linking mechanisms may be used in the topic's content 
+         as well as in the related topics section.
+    
+    Linking to API reference documentation: 
+    
+		    <codeEntityReference>API reference ID</codeEntityReference>
+
+    Linking to external resources and custom HTML topics: 
+
+        <externalLink>
+          <linkText>  Required hyperlink text  </linkText>
+          <linkAlternateText>  Optional link title  </linkAlternateText>
+          <linkUri>  Required URI  </linkUri>
+        </externalLink>
+    
+    Linking to other conceptual topics: 
+    
+        <link xlink:href="GUID topic name (without file extension)" />
+        
+    Linking to named references:
+    
+        (Refer to the project's Help\Settings\links.xml file for more information)
+    
+        <link xref="id"> Optional link text </link>
+        <link vref="id or URI"> Optional link text </link>
+        
+    -->
+
+      <!-- Example Usage 
+
+      <codeEntityReference>T:MyNamespace.MyClass</codeEntityReference>
+      <codeEntityReference>P:MyNamespace.MyClass.MyProp</codeEntityReference>
+      <codeEntityReference>M:System.IO.File.OpenText(System.String)</codeEntityReference>
+
+      <externalLink>
+        <linkText>Sandcastle Styles</linkText>
+        <linkAlternateText>Sandcastle Styles on CodePlex</linkAlternateText>
+        <linkUri>http://www.codeplex.com/SandcastleStyles</linkUri>
+      </externalLink>
+
+      <externalLink>
+        <linkText>Change Log</linkText>
+        <linkUri>ChangeLog.html</linkUri>
+      </externalLink>
+
+      <link xlink:href="2BFD9215-1216-403d-8C46-8420A4D01B83"/>
+      
+      <link xref="home">Our Home Page</link>
+      <link vref="/controls/design.aspx">Control Architecture</link>
+      -->
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

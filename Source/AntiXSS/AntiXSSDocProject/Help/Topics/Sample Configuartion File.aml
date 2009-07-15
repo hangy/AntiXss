@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="f4427194-6d84-407f-ab34-5f7d5d9f318f" revisionNumber="0">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>This topic describes the sample configuration file created by the configuration utility of SRE.</para>
+    </introduction>
+
+    <section>
+      <!--h1-->
+      <title>Sample antixssmodule.config File</title>
+      <content>
+        <para>
+          The following is a sample antixssmodule.config file that is created when you run the Security Runtime Engine configuration utility.
+        </para>
+        <example>
+          <code language="XML">
+  <![CDATA[
+  <?xml version="1.0" encoding="utf-8"?>
+  
+    <Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    
+    <!--This section lists the controls and encoding contexts supported by SRE-->
+    <ControlEncodingContexts>
+        <ControlEncodingContext FullClassName="System.Web.UI.WebControls.Label" PropertyName="Text" EncodingContext="Html" />
+        <ControlEncodingContext FullClassName="System.Web.UI.WebControls.HyperLink" PropertyName="Text" EncodingContext="Html" />
+    </ControlEncodingContexts>
+    
+    <!--This section can be used to configure double encoding support-->
+    <DoubleEncodingFilter Enabled="True" />
+    
+    <!--This section can be used to configure encoding for derived controls-->
+    <EncodeDerivedControls Enabled="True" />
+    
+    <!--This section can be used to configure color coding of the output -->
+    <MarkAntiXssOutput Enabled="False" Color="Blue"/>
+
+    <!--This section includes the configuration for suppressing SRE for the listed files and folders-->
+    <Suppressions>
+        <Exclude Path="/Page_1.aspx" />
+        <Exclude Path="/ExcludedDirectory/Page_2.aspx" />
+    </Suppressions>
+
+  </Configuration>]]>
+          </code>
+        </example>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>FullClassName</title>
+      <content>
+        <para>
+          The fully qualified class name of the control which needs to be encoded.
+        </para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>PropertyName</title>
+      <content>
+        <para>The name of the property which needs to be encoded.</para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>EncodingContext</title>
+      <content>
+        <para>
+          The type of encoding which needs to be applied. &#160;Valid
+          attribute values are Html, HtmlAttribute, Xml, and XmlAttribute.
+        </para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>ControlEncodingContext</title>
+      <content>
+        <para>
+          This node defines a control and its encoding context. Multiple nodes
+          may exist of different controls; the same class name and property name
+          must not exist twice. With each control, the full class name, property
+          name and encoding context must be defined. Other attributes are ignored.
+        </para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>DoubleEncodingFilter</title>
+      <content>
+        <para>
+          This node defines whether double encoding filter is enabled or not.
+          The Enabled attribute must be a Boolean value; by default it is set to false.
+        </para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>EncodeDerivedControls</title>
+      <content>
+        <para>
+          This node defines whether to encode derived controls which are derived
+          from the classes defined in the ControlEncodingContext
+          nodes. The Enabled attribute must be a Boolean value; by default it is set to false.
+        </para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>Exclude</title>
+      <content>
+        <para>
+          As the name implies, this node defines pages that will be excluded from
+          encoding. The Exclude node must be included in the Suppressions
+          node. The Path attribute must include the full virtual path of the page that should be excluded.
+        </para>
+      </content>
+    </section>
+
+    <para>&#160;</para>
+
+    <section>
+      <!--h3-->
+      <title>See Also:</title>
+      <content>
+        <para>
+          <link xlink:href="c97fadbd-9dd2-433f-b577-dbc499ce9e4b">Anti-XSS Security Runtime Engine</link>
+        </para>
+        <para>
+          <link xlink:href="3e0cb435-94b3-41ba-b99a-aff0bf3ef4f2">Deploying Security Runtime Engine</link>
+        </para>
+        <para>
+          <link xlink:href="ab2d273c-0d34-48cd-86ea-26749db4ff4f">SRE Configuration Tool</link>
+        </para>
+        <para>
+          <link xlink:href="f4ea6c72-740b-4efd-bbbf-195a41aa775f">SRE Performance Data Sheet</link>
+        </para>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <!-- Supported Link Types
+    
+         All of the following linking mechanisms may be used in the topic's content 
+         as well as in the related topics section.
+    
+    Linking to API reference documentation: 
+    
+		    <codeEntityReference>API reference ID</codeEntityReference>
+
+    Linking to external resources and custom HTML topics: 
+
+        <externalLink>
+          <linkText>  Required hyperlink text  </linkText>
+          <linkAlternateText>  Optional link title  </linkAlternateText>
+          <linkUri>  Required URI  </linkUri>
+        </externalLink>
+    
+    Linking to other conceptual topics: 
+    
+        <link xlink:href="GUID topic name (without file extension)" />
+        
+    Linking to named references:
+    
+        (Refer to the project's Help\Settings\links.xml file for more information)
+    
+        <link xref="id"> Optional link text </link>
+        <link vref="id or URI"> Optional link text </link>
+        
+    -->
+
+      <!-- Example Usage 
+
+      <codeEntityReference>T:MyNamespace.MyClass</codeEntityReference>
+      <codeEntityReference>P:MyNamespace.MyClass.MyProp</codeEntityReference>
+      <codeEntityReference>M:System.IO.File.OpenText(System.String)</codeEntityReference>
+
+      <externalLink>
+        <linkText>Sandcastle Styles</linkText>
+        <linkAlternateText>Sandcastle Styles on CodePlex</linkAlternateText>
+        <linkUri>http://www.codeplex.com/SandcastleStyles</linkUri>
+      </externalLink>
+
+      <externalLink>
+        <linkText>Change Log</linkText>
+        <linkUri>ChangeLog.html</linkUri>
+      </externalLink>
+
+      <link xlink:href="2BFD9215-1216-403d-8C46-8420A4D01B83"/>
+      
+      <link xref="home">Our Home Page</link>
+      <link vref="/controls/design.aspx">Control Architecture</link>
+      -->
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

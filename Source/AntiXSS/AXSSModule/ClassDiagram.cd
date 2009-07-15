@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="AntiXssLibrary.AntiXssModule" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAEBAAAAAAAACAEAAAAAAAAAACAAQAAAA=</HashCode>
+      <FileName>AntiXssModule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AntiXssLibrary.SupressAntiXssEncodingAttribute" Collapsed="true">
+    <Position X="3" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SupressAntiXssEncodingAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntiXssLibrary.Configuration.ControlEncodingContext" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQIAAgACgAAAAAAAAAAAAAAAAAAAAgABAAAA=</HashCode>
+      <FileName>Configuration\ControlEncodingContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntiXssLibrary.Configuration.ControlEncodingContexts" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Configuration\ControlEncodingContexts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntiXssLibrary.Configuration.ModuleConfiguration" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAhAAogAAAAIAAFAAAJACAAABAAgAACAAAAQBAAAAAA=</HashCode>
+      <FileName>Configuration\ModuleConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntiXssLibrary.PageProtection.XssProtection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAgAAAAAAAAAAFAAIAAIAgQAAAAAAAAA=</HashCode>
+      <FileName>PageProtection\XssProtection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="AntiXssLibrary.PageProtection.IPageProtection" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>PageProtection\IPageProtection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="AntiXssLibrary.Configuration.EncodingContexts" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAEAAAAAAAAAAEAAAAABAAACAAACAAAAAA=</HashCode>
+      <FileName>Configuration\ControlEncodingContext.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

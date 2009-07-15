@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="80f14899-d124-41b7-bed1-08118ac0da95" revisionNumber="0">
+  <developerGlossaryDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <glossary>
+      <title>Optional glossary title</title>
+      
+      <glossaryDiv>
+        <title>Optional glossary division</title>
+        
+        <glossaryEntry>
+          <terms>
+            <term termClass="unused">A glossary term</term>
+          </terms>
+          <definition>
+            <para>The terms' definition</para>
+          </definition>
+        </glossaryEntry>
+        
+      </glossaryDiv>
+      
+    </glossary>
+    
+  </developerGlossaryDocument>
+</topic>

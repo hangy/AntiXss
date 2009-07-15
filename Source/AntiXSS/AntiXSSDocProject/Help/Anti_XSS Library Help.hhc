@@ -1,0 +1,215 @@
+﻿<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML/EN">
+<HTML>
+  <BODY>
+
+<UL>
+  <LI><OBJECT type="text/sitemap">
+    <param name="Name" value="Welcome">
+    <param name="Local" value="html\97c3adfa-6b22-49a9-b4e8-1d4253bb5df0.htm">
+  </OBJECT></LI>
+</UL>
+<UL>
+  <LI><OBJECT type="text/sitemap">
+    <param name="Name" value="Anti-XSS Library">
+    <param name="Local" value="html\039e984c-748f-4241-930c-1d59a2bcc4b8.htm">
+  </OBJECT></LI>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="How To Use Anti-XSS Library">
+      <param name="Local" value="html\7a006e82-8045-408f-b80c-628743f2c0ea.htm">
+    </OBJECT></LI>
+  </UL>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="How to Use MarkAntiXSSOutput Feature">
+      <param name="Local" value="html\da9ed57c-53d1-45f1-812e-397f2d691bb7.htm">
+    </OBJECT></LI>
+  </UL>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="The White List">
+      <param name="Local" value="html\9e14bafd-de75-498d-aeda-1cf3b9816bc6.htm">
+    </OBJECT></LI>
+  </UL>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="Anti-XSSPerformanceDataSheet">
+      <param name="Local" value="html\18e42276-8f31-4d57-9571-6fa9c1f69372.htm">
+    </OBJECT></LI>
+  </UL>
+</UL>
+<UL>
+  <LI><OBJECT type="text/sitemap">
+    <param name="Name" value="Anti-XSS Security Runtime Engine">
+    <param name="Local" value="html\c97fadbd-9dd2-433f-b577-dbc499ce9e4b.htm">
+  </OBJECT></LI>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="Deploying Security Runtime Engine">
+      <param name="Local" value="html\3e0cb435-94b3-41ba-b99a-aff0bf3ef4f2.htm">
+    </OBJECT></LI>
+  </UL>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="SRE Configuration Tool">
+      <param name="Local" value="html\ab2d273c-0d34-48cd-86ea-26749db4ff4f.htm">
+    </OBJECT></LI>
+  </UL>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="SRE Configuartion Sample">
+      <param name="Local" value="html\f4427194-6d84-407f-ab34-5f7d5d9f318f.htm">
+    </OBJECT></LI>
+  </UL>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="SRE Performance Data Sheet">
+      <param name="Local" value="html\f4ea6c72-740b-4efd-bbbf-195a41aa775f.htm">
+    </OBJECT></LI>
+  </UL>
+</UL>
+<UL>
+  <LI><OBJECT type="text/sitemap">
+    <param name="Name" value="Anti-XSS Test Harness">
+    <param name="Local" value="html\a5caa272-b25d-4f02-8df5-8e42b01df4d9.htm">
+  </OBJECT></LI>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="XSS Validation Test Bench">
+      <param name="Local" value="html\f0bf6d6d-b437-4c9f-811f-6f23aad7654f.htm">
+    </OBJECT></LI>
+  </UL>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="Performance Test Bench">
+      <param name="Local" value="html\5b080580-36ad-4715-9c61-952509070730.htm">
+    </OBJECT></LI>
+  </UL>
+</UL>
+<UL>
+  <LI><OBJECT type="text/sitemap">
+    <param name="Name" value="Migration Steps">
+    <param name="Local" value="html\570338d8-8326-4aa5-9240-aec8d8b0a5bc.htm">
+  </OBJECT></LI>
+</UL>
+<UL>
+  <LI><OBJECT type="text/sitemap">
+    <param name="Name" value="Important Notes">
+    <param name="Local" value="html\a476c055-1d9c-44d6-bc66-cf3ae002917f.htm">
+  </OBJECT></LI>
+</UL>
+<UL>
+  <LI><OBJECT type="text/sitemap">
+    <param name="Name" value="Frequently Asked Questions">
+    <param name="Local" value="html\f9184958-3ac3-4d1a-8fee-9450b7cbed7b.htm">
+  </OBJECT></LI>
+</UL>
+<UL>
+  <LI><OBJECT type="text/sitemap">
+    <param name="Name" value="Microsoft.Security.Application Namespace">
+    <param name="Local" value="html\N_Microsoft_Security_Application.htm">
+  </OBJECT></LI>
+  <UL>
+    <LI><OBJECT type="text/sitemap">
+      <param name="Name" value="AntiXss Class">
+      <param name="Local" value="html\T_Microsoft_Security_Application_AntiXss.htm">
+    </OBJECT></LI>
+    <UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="AntiXss Members">
+        <param name="Local" value="html\AllMembers_T_Microsoft_Security_Application_AntiXss.htm">
+      </OBJECT></LI>
+    </UL>
+    <UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="AntiXss Constructor ">
+        <param name="Local" value="html\C_Microsoft_Security_Application_AntiXss_ctor.htm">
+      </OBJECT></LI>
+    </UL>
+    <UL>
+      <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="AntiXss Methods ">
+        <param name="Local" value="html\Methods_T_Microsoft_Security_Application_AntiXss.htm">
+      </OBJECT></LI>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="HtmlAttributeEncode Method ">
+          <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_HtmlAttributeEncode_1_72eac341.htm">
+        </OBJECT></LI>
+      </UL>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="HtmlEncode Method ">
+          <param name="Local" value="html\O_T_Microsoft_Security_Application_AntiXss_HtmlEncode.htm">
+        </OBJECT></LI>
+        <UL>
+          <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="HtmlEncode Method (String)">
+            <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_HtmlEncode_1_72eac341.htm">
+          </OBJECT></LI>
+        </UL>
+        <UL>
+          <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="HtmlEncode Method (String, KnownColor)">
+            <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_HtmlEncode_2_a83b7196.htm">
+          </OBJECT></LI>
+        </UL>
+      </UL>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="JavaScriptEncode Method ">
+          <param name="Local" value="html\O_T_Microsoft_Security_Application_AntiXss_JavaScriptEncode.htm">
+        </OBJECT></LI>
+        <UL>
+          <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="JavaScriptEncode Method (String)">
+            <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_JavaScriptEncode_1_72eac341.htm">
+          </OBJECT></LI>
+        </UL>
+        <UL>
+          <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="JavaScriptEncode Method (String, Boolean)">
+            <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_JavaScriptEncode_2_00bbdc3f.htm">
+          </OBJECT></LI>
+        </UL>
+      </UL>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="UrlEncode Method ">
+          <param name="Local" value="html\O_T_Microsoft_Security_Application_AntiXss_UrlEncode.htm">
+        </OBJECT></LI>
+        <UL>
+          <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="UrlEncode Method (String)">
+            <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_UrlEncode_1_72eac341.htm">
+          </OBJECT></LI>
+        </UL>
+        <UL>
+          <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="UrlEncode Method (String, Int32)">
+            <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_UrlEncode_2_01b939db.htm">
+          </OBJECT></LI>
+        </UL>
+      </UL>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="VisualBasicScriptEncode Method ">
+          <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_VisualBasicScriptEncode_1_72eac341.htm">
+        </OBJECT></LI>
+      </UL>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="XmlAttributeEncode Method ">
+          <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_XmlAttributeEncode_1_72eac341.htm">
+        </OBJECT></LI>
+      </UL>
+      <UL>
+        <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="XmlEncode Method ">
+          <param name="Local" value="html\M_Microsoft_Security_Application_AntiXss_XmlEncode_1_72eac341.htm">
+        </OBJECT></LI>
+      </UL>
+    </UL>
+  </UL>
+</UL>  </BODY>
+</HTML>

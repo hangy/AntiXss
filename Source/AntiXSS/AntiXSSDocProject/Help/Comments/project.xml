@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="R:Project">
+      <summary>API Reference</summary>
+    </member>
+    <member name="N:Microsoft.Security.Application">
+      <summary>
+        <font size="1">The Anti-Cross Site Scripting Library utilizes the Principle of Inclusions, sometimes referred to as <i>white-listing</i> to provide protection against Cross-Site Scripting attacks. With white-listing protection algorithms looks for valid inputs and automatically treats everything outside that set as a potential attack. This library can be used as a defense in depth approach with other mitigation techniques and is suitable for applications with high security requirements.</font>
+      </summary>
+    </member>
+  </members>
+</doc>

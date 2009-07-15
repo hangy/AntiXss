@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="f9184958-3ac3-4d1a-8fee-9450b7cbed7b" revisionNumber="0">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>This topic provides the frequently asked questions and answers on Microsoft Anti-XSS Library and SRE.</para>
+      <list class="bullet">
+        <listItem>
+          <para>
+            &#160;<link xlink:href="#AntiXSS">Anti-XSS Library FAQ</link>
+          </para>
+        </listItem>
+        <listItem>
+          <para>
+            &#160;<link xlink:href="#SRE">Security Runtime Engine FAQ</link>
+          </para>
+        </listItem>
+      </list>
+    </introduction>
+
+    <section address="AntiXSS">
+      <!--h1-->
+      <title>Anti-XSS Library FAQ</title>
+      <content>
+        <para>
+          Q.
+          When I implement the Microsoft Anti-Cross Site Scripting Library to encode
+          un-trusted input, the output comes out corrupted. &#160;For
+          instance, if the input is Hello Microsoft! and the encoding method is
+          Microsoft.Security.Application.AntiXss.HtmlEncode, the output displayed
+          on the browser is Hello Microsoft&amp;#38;&amp;#35;33&amp;#59;. &#160;What's
+          happening?
+        </para>
+        <para>
+          A. Check to ensure that the
+          un-trusted input is encoded only once. Trace the un-trusted input as it
+          enters your application to when it leaves the application as output. This
+          condition is commonly encountered when the un-trusted input is incorrectly
+          encoded twice or more.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. If I encode un-trusted input
+          such as Hello Microsoft! twice or more with System.Web.HttpUtility.HtmlEncode
+          the output is displayed correctly. &#160;Why is this?
+        </para>
+        <para>
+          A. This is because System.Web.HttpUtility.HtmlEncode
+          and other encoding methods in that namespace take a different approach
+          used by the Microsoft Anti-Cross Site Scripting Library (principle of
+          exclusions) and encode only certain characters designated as potentially
+          dangerous such as &lt;, &gt;, &amp;, ' and characters with ASCII decimal
+          values of 160-255. &#160;Since none of these characters
+          occur in the un-trusted input, the un-trusted input is left untouched
+          even under multiple encodings.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. I am currently using the
+          .NET Framework System.Web.HttpUtility.HtmlEncode and other encoding methods
+          in this class to encode output. &#160;Is the Microsoft
+          Anti-Cross Site Scripting Library fixing some vulnerability in these methods?
+          &#160;Are they still safe to use? &#160;&#160;&#160;
+        </para>
+        <para>
+          A. The encoding methods native
+          to the .NET Framework are safe to use and no vulnerability is being addressed
+          by this release of the Microsoft Anti-Cross Site Scripting Library. &#160;The
+          Microsoft Anti-Cross Site Scripting Library differs from these methods
+          in that it uses the principle of inclusions technique where a set of valid
+          characters are first defined and anything outside that set is automatically
+          encoded.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. When I use Microsoft.Security.Application.AntiXss.UrlEncode
+          to encode the input http://www.microsoft.com/security/ I get back http%3a%2f%2fwww.microsoft.com%2fsecurity%2f.
+          &#160;When I place this into an A tag (i.e &lt;a href='http%3a%2f%2fwww.microsoft.com%2fsecurity%2f'&gt;Click
+          me&lt;/a&gt;), the link doesn't work. &#160;What's happening?
+        </para>
+        <para>
+          A. The UrlEncode method is meant
+          to be used to encode un-trusted data used in the context of URLs (for
+          instance, if the un-trusted data is being used as a value within a query
+          string) and not the URL itself. &#160;If the URL itself
+          is the un-trusted input, then you could perform input validation using
+          regular expressions such as the following to validate the URL:
+        </para>
+        <para>^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+=&amp;amp;%\$#_]*)?$</para>
+        <para>
+          Also, please see the Contoso Bookmark Page sample in the '˜Samples' installation
+          directory. &#160;This application takes URLs as input
+          from users and writes the URLs into an A tag, and then uses input validation
+          with regular expressions to protect against injection attacks.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. Is there a discussion forum
+          for this library?
+        </para>
+        <para>
+          A. Yes, please visit <externalLink>
+            <linkText>http://forums.asp.net/1107.aspx</linkText>
+            <linkUri>http://forums.asp.net/1107.aspx</linkUri>
+          </externalLink>.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. Are there any additional
+          resources I can read to learn how to protect my Web-applications against
+          XSS attacks?
+        </para>
+        <para>
+          A. Yes, please refer to the following resources from the Patterns &amp; Practices teams:
+        </para>
+        <list class="bullet">
+          <listItem>
+            <para>
+              <externalLink>
+                <linkText>How To: Prevent Cross-Site Scripting in ASP.NET</linkText>
+                <linkUri>http://msdn.microsoft.com/en-us/library/ms998274.aspx</linkUri>
+              </externalLink>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <externalLink>
+                <linkText>How To: Protect From Injection Attacks in ASP.NET</linkText>
+                <linkUri>http://msdn.microsoft.com/en-us/library/bb355989.aspx</linkUri>
+              </externalLink>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <externalLink>
+                <linkText>Design Guidelines for Secure Web Applications</linkText>
+                <linkUri>http://msdn.microsoft.com/en-us/library/aa302420.aspx</linkUri>
+              </externalLink>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <externalLink>
+                <linkText>How To: Use Regular Expressions to Constrain Input in ASP.NET</linkText>
+                <linkUri>http://msdn.microsoft.com/en-us/library/ms998267.aspx</linkUri>
+              </externalLink>
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <section address="SRE">
+      <!--h1-->
+      <title>Security Runtime Engine FAQ</title>
+      <content>
+        <para>
+          Q. Which types of controls are encoded by SRE?
+        </para>
+        <para>
+          A. SRE encodes data on the server side. That means any ASP.NET control which is configured 
+          in the AntiXssModule.config file and which has the runat=”server” attribute set can be encoded by the SRE.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. Why isn’t Response.Write() text being encoded by SRE?
+        </para>
+        <para>
+          A. The Response.Write() method directly writes text to the response stream. 
+          Because it can be invoked before PreRender or after PreRender, SRE cannot intercept 
+          these calls and so be able to encode the data.  Consequently, SRE uses the Page.PreRender event to encode control data.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. Why can’t some page controls be suppressed using the SuppressAntiXssEncoding attribute?
+        </para>
+        <para>
+          To be able to suppress the attribute on a page or field (control) you need to first 
+          define the control in its associated code behind class. As web projects created in 
+          Visual Studio 2003 don’t contain .designer.cs files and ASP.NET generates the designer file in the background, 
+          SupressAntiXssEncode attribute cannot be employed in this scenario.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. Why can’t a folder be excluded from encoding?
+        </para>
+        <para>
+          A. Because only file-based exclusion is supported in this version of SRE.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. What is the most optimal way to deploy SRE?
+        </para>
+        <para>
+          A. SRE can be most simply deployed in 3 steps:
+        </para>
+        <para>
+        1. Copy the binaries from &lt;Installation Folder=""&gt;
+          \SRE\Module to the application’s bin directory.
+        </para>
+        <para>
+        2. Copy the antixssmodule.config file from &lt;Installation Folder=""&gt;
+            \SRE\Module to the application’s root folder.
+        </para>
+        <para>
+          3. Enable the http module in web.config.
+        </para>
+        <para>
+          For more detailed information, please check the help file topic
+           <internalLink>
+           <linkText>"Security Runtime Engine&#92;Deploying the Security Runtime Engine.”</linkText>
+            <linkUri>"3e0cb435-94b3-41ba-b99a-aff0bf3ef4f2"</linkUri>
+           </internalLink>
+        </para>
+            <para>&#160;</para>
+        <para>
+          Q. Can SRE encode data bound controls?
+        </para>
+        <para>
+          A. Yes, SRE can encode data bound controls such as DataGrid, GridView, DataList, ListView, 
+          Repeater and other controls which support &lt;ItemTemplate&gt;.
+        </para>
+        <para>&#160;</para>
+        <para>
+          Q. Why is SRE ConfigGen not picking up controls inside DataGrid or DataList?
+        </para>
+        <para>
+          A. SRE ConfigGen identifies controls that need to be encoded by reflecting the controls in the web application binary. 
+          Due to the limitations of its implementation, ConfigGen cannot reflect what controls are present in &lt;ItemTemplate&gt;
+            . You can work around this by manually adding the control detail in antixssmodule.config, or by using the default 
+            configuration file from &lt;Installation Folder&gt;&#92;SRE&#92;Module.
+        </para>
+        <para>&#160;</para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>See Also:</title>
+      <content>
+        <para>
+          <link xlink:href="039e984c-748f-4241-930c-1d59a2bcc4b8">Anti-XSS Library</link>
+        </para>
+        <para>
+          <link xlink:href="c97fadbd-9dd2-433f-b577-dbc499ce9e4b">Anti-XSS Security Runtime Engine (SRE)</link>
+        </para>
+        <para>
+          <link xlink:href="a5caa272-b25d-4f02-8df5-8e42b01df4d9">Anti-XSS Test Harness</link>
+        </para>
+        <para>
+          <link xlink:href="f9184958-3ac3-4d1a-8fee-9450b7cbed7b">Frequently Asked Questions (FAQ)</link>
+        </para>
+        <para>
+          <codeEntityReference>N:Microsoft.Security.Application</codeEntityReference>
+        </para>
+        <para>&#160;</para>
+      </content>
+    </section>
+    <relatedTopics>
+      <!-- Supported Link Types
+    
+         All of the following linking mechanisms may be used in the topic's content 
+         as well as in the related topics section.
+    
+    Linking to API reference documentation: 
+    
+		    <codeEntityReference>API reference ID</codeEntityReference>
+
+    Linking to external resources and custom HTML topics: 
+
+        <externalLink>
+          <linkText>  Required hyperlink text  </linkText>
+          <linkAlternateText>  Optional link title  </linkAlternateText>
+          <linkUri>  Required URI  </linkUri>
+        </externalLink>
+    
+    Linking to other conceptual topics: 
+    
+        <link xlink:href="GUID topic name (without file extension)" />
+        
+    Linking to named references:
+    
+        (Refer to the project's Help\Settings\links.xml file for more information)
+    
+        <link xref="id"> Optional link text </link>
+        <link vref="id or URI"> Optional link text </link>
+        
+    -->
+
+      <!-- Example Usage 
+
+      <codeEntityReference>T:MyNamespace.MyClass</codeEntityReference>
+      <codeEntityReference>P:MyNamespace.MyClass.MyProp</codeEntityReference>
+      <codeEntityReference>M:System.IO.File.OpenText(System.String)</codeEntityReference>
+
+      <externalLink>
+        <linkText>Sandcastle Styles</linkText>
+        <linkAlternateText>Sandcastle Styles on CodePlex</linkAlternateText>
+        <linkUri>http://www.codeplex.com/SandcastleStyles</linkUri>
+      </externalLink>
+
+      <externalLink>
+        <linkText>Change Log</linkText>
+        <linkUri>ChangeLog.html</linkUri>
+      </externalLink>
+
+      <link xlink:href="2BFD9215-1216-403d-8C46-8420A4D01B83"/>
+      
+      <link xref="home">Our Home Page</link>
+      <link vref="/controls/design.aspx">Control Architecture</link>
+      -->
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

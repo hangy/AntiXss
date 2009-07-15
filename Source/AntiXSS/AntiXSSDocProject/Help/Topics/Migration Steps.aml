@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="570338d8-8326-4aa5-9240-aec8d8b0a5bc" revisionNumber="0">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        This section outlines important migration notes for existing Microsoft Anti-Cross Site Scripting V1.5 users.
+      </para>
+    </introduction>
+
+    <section>
+      <!--h1-->
+      <title>Migration Steps for Anti-XSS V1.5 Users </title>
+      <content>
+        <para>
+          Existing Microsoft Anti-Cross Site Scripting V1.5 users
+          using the previous class name, Microsoft.Security.Application.AntiXSSLibrary,
+          can continue using this class name and method names in V1.5 without requiring
+          any implementation modifications. &#160;This old namespace
+          is marked obsolete and users should use the Microsoft.Security.Application.AntiXss
+          class instead.
+        </para>
+        <example>
+          <code>
+            <![CDATA[
+  namespace Microsoft.Application.Security 
+  {
+
+  System.Obsolete("Use the Microsoft.Security.Application.AntiXss class")] 
+
+  public class AntiXSSLibrary : AntiXss { 
+
+  // To support V1.0 users using the original class name 
+  
+  }
+
+  // New class name
+  public class AntiXss { 
+  
+  ...
+  
+}
+  }]]>
+          </code>
+        </example>
+        <para>&#160;</para>
+      </content>
+    </section>
+
+    <section>
+      <!--h3-->
+      <title>See Also:</title>
+      <content>
+        <para>
+          <link xlink:href="039e984c-748f-4241-930c-1d59a2bcc4b8">Anti-XSS Library</link>
+        </para>
+        <para>
+          <link xlink:href="c97fadbd-9dd2-433f-b577-dbc499ce9e4b">Anti-XSS Security Runtime Engine (SRE)</link>
+        </para>
+        <para>
+          <link xlink:href="a5caa272-b25d-4f02-8df5-8e42b01df4d9">Anti-XSS Test Harness</link>
+        </para>
+        <para>
+          <link xlink:href="f9184958-3ac3-4d1a-8fee-9450b7cbed7b">Frequently Asked Questions (FAQ)</link>
+        </para>
+        <para>
+          <codeEntityReference>N:Microsoft.Security.Application</codeEntityReference>
+        </para>
+        <para>&#160;</para>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <!-- Supported Link Types
+    
+         All of the following linking mechanisms may be used in the topic's content 
+         as well as in the related topics section.
+    
+    Linking to API reference documentation: 
+    
+		    <codeEntityReference>API reference ID</codeEntityReference>
+
+    Linking to external resources and custom HTML topics: 
+
+        <externalLink>
+          <linkText>  Required hyperlink text  </linkText>
+          <linkAlternateText>  Optional link title  </linkAlternateText>
+          <linkUri>  Required URI  </linkUri>
+        </externalLink>
+    
+    Linking to other conceptual topics: 
+    
+        <link xlink:href="GUID topic name (without file extension)" />
+        
+    Linking to named references:
+    
+        (Refer to the project's Help\Settings\links.xml file for more information)
+    
+        <link xref="id"> Optional link text </link>
+        <link vref="id or URI"> Optional link text </link>
+        
+    -->
+
+      <!-- Example Usage 
+
+      <codeEntityReference>T:MyNamespace.MyClass</codeEntityReference>
+      <codeEntityReference>P:MyNamespace.MyClass.MyProp</codeEntityReference>
+      <codeEntityReference>M:System.IO.File.OpenText(System.String)</codeEntityReference>
+
+      <externalLink>
+        <linkText>Sandcastle Styles</linkText>
+        <linkAlternateText>Sandcastle Styles on CodePlex</linkAlternateText>
+        <linkUri>http://www.codeplex.com/SandcastleStyles</linkUri>
+      </externalLink>
+
+      <externalLink>
+        <linkText>Change Log</linkText>
+        <linkUri>ChangeLog.html</linkUri>
+      </externalLink>
+
+      <link xlink:href="2BFD9215-1216-403d-8C46-8420A4D01B83"/>
+      
+      <link xref="home">Our Home Page</link>
+      <link vref="/controls/design.aspx">Control Architecture</link>
+      -->
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

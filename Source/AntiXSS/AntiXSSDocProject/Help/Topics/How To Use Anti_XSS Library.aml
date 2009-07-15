@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="7a006e82-8045-408f-b80c-628743f2c0ea" revisionNumber="0">
+  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        This topic will walk you through how to use Microsoft Anti-Cross Site Scripting Library topics.
+      </para>
+    </introduction>
+
+    <!-- Specify at least one procedure or section/procedure and codeExample -->
+    <sections>
+      <section>
+        <title>Using the Anti-XSS Library</title>
+        <content>
+          <para>
+            You can use the <ui>Microsoft Anti-Cross Site Scripting Library</ui> to protect your ASP.NET Web-applications from cross-site scripting (XSS) attacks. To properly use the <ui>Microsoft
+            Anti-Cross Site Scripting Library</ui> to protect your ASP.NET Web-applications, you need to:
+          </para>
+          <para>&#160;</para>
+          <list class="bullet">
+            <listItem>
+              <para>
+                &#160;Step 1: Review the ASP.NET code that generates output
+              </para>
+            </listItem>
+            <listItem>
+              <para>
+                &#160;Step 2: Determine whether the output includes untrusted input parameters
+              </para>
+            </listItem>
+            <listItem>
+              <para>
+                &#160;Step 3: Determine the encoding method to use
+              </para>
+            </listItem>
+            <listItem>
+              <para>&#160;Step 4: Encode output</para>
+            </listItem>
+          </list>
+        </content>
+      </section>
+
+      <section>
+        <title>Step 1: Review the ASP.NET Code that Generates Output</title>
+        <content>
+          <para>
+            XSS attacks are dependent on the ability of untrusted input to be embedded as output, and so code that generates output must first be identified.  Some common vectors include calls to Response.Write and ASP.NET ASP &lt;% = calls within the code.
+          </para>
+        </content>
+      </section>
+      
+      <section>
+        <title>Step 2: Determine if the Output Contains Untrusted Input Parameters</title>
+        <content>
+          <para>
+            Once you have identified those lines in your source code that generate output, they should be analyzed to determine if the output is the product of untrusted input; for example, input from users or some other untrusted automated source.  If the output does come from untrusted input, then that untrusted input will require encoding.
+          </para>
+          <para>
+            Some common sources of untrusted input include:
+          </para>
+          <para>&#160;</para>
+          <list class="bullet">
+            <listItem>
+              <para>
+                &#160;Application variables
+              </para>
+            </listItem>
+            <listItem>
+              <para>&#160;Cookies</para>
+            </listItem>
+            <listItem>
+              <para>&#160;Databases</para>
+            </listItem>
+            <listItem>
+              <para>
+                &#160;Form fields
+              </para>
+            </listItem>
+            <listItem>
+              <para>
+                &#160;Query String variables
+              </para>
+            </listItem>
+            <listItem>
+              <para>
+                &#160;Session variables
+              </para>
+            </listItem>
+          </list>
+          <para>
+            If you are uncertain whether output may contain untrusted text, then it is best to err on the side of caution and to encode the output anyways.
+          </para>
+        </content>
+      </section>
+
+      <section>
+        <title>Step 3: Determine the Encoding Method to Use</title>
+        <content>
+          <para>
+            Determine the proper encoding method to use.  This is dependent on the context of how the untrusted input is being employed.  For example, if the untrusted input will be used to set an HTML attribute, then the Microsoft.Security.Application.HtmlAttributeEncode method should be used to encode the untrusted input.
+          </para>
+          <para>&#160;</para>
+          <example>
+            <code>
+  <![CDATA[
+  // Vulnerable code
+  // Note that untrusted input is being as an HTML attribute
+  Literal1.Text = ”<hr size='[untrusted input here]'></hr>”;
+
+  // Modified code
+  Literal1.Text = ”<hr size='+Microsoft.Security.Application.AntiXss.HtmlAttributeEncode([untrusted input here])+'></hr>”;
+  ]]>
+            </code>
+          </example>
+          <para>
+            Alternatively for example, if the untrusted input will be used within a JavaScript code block, then you should use Microsoft.Security.Application.JavaScriptEncode to encode its output.
+          </para>
+          <para>
+            The following table comprises examples to help you determine the appropriate encoding method to use to encode output that may contain untrusted output.
+          </para>
+
+          <table>
+            <tableHeader>
+              <row>
+                <entry>
+                  <para>Encoding Method</para>
+                </entry>
+                <entry>
+                  <para>Should be Used if …</para>
+                </entry>
+                <entry>
+                  <para>Example / Pattern</para>
+                </entry>
+              </row>
+            </tableHeader>
+            <row>
+              <entry>
+                <para>
+                  <codeEntityReference>M:Microsoft.Security.Application.AntiXss.HtmlEncode(System.String)</codeEntityReference>
+              </para></entry>
+              <entry>
+                <para>Untrusted input is used in HTML output, except when assigning to an HTML attribute.</para></entry>
+              <entry>
+                <para>&lt;a href=”http://www.contoso.com”&gt;Click Here [Untrusted input]&lt;/a&gt;</para></entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <codeEntityReference>M:Microsoft.Security.Application.AntiXss.HtmlAttributeEncode(System.String)</codeEntityReference>
+              </para></entry>
+              <entry>
+                <para>Untrusted input is used as an HTML attribute</para></entry>
+              <entry>
+                <para>&lt;hr noshade size=[Untrusted input]&gt;</para></entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <codeEntityReference>M:Microsoft.Security.Application.AntiXss.JavaScriptEncode(System.String)</codeEntityReference>
+              </para></entry>
+              <entry>
+                <para>untrusted input is used within a JavaScript context</para></entry>
+              <entry>
+                <para>&lt;script type=”text/javascript”&gt;</para>
+                <para>…</para>
+                <para>[Untrusted input]</para>
+                <para>…</para>
+                <para>&lt;/script&gt;</para></entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <codeEntityReference>M:Microsoft.Security.Application.AntiXss.UrlEncode(System.String)</codeEntityReference>
+              </para></entry>
+              <entry>
+                <para>Untrusted input is used in a URL (such as a value in a querystring)</para></entry>
+              <entry>
+                <para>&lt;a href=”http://search.msn.com/results.aspx?q=[Untrusted input]”&gt;Click Here!&lt;/a&gt;</para></entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <codeEntityReference>M:Microsoft.Security.Application.AntiXss.VisualBasicScriptEncode(System.String)</codeEntityReference>
+              </para></entry>
+              <entry>
+                <para>Untrusted input is used within a Visual Basic Script context</para></entry>
+              <entry>
+                <para>&lt;script type=”text/vbscript” language=”vbscript”&gt;</para>
+                <para>…</para>
+                <para>[Untrusted input]</para>
+                <para>…</para>
+                <para>&lt;/script&gt;</para></entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <codeEntityReference>M:Microsoft.Security.Application.AntiXss.XmlEncode(System.String)</codeEntityReference>
+              </para></entry>
+              <entry>
+                <para>Untrusted input is used in XML output, except when assigning to a XML attribute.</para></entry>
+              <entry>
+                <para>&lt;xml_tag&gt;[Untrusted input]&lt;/xml_tag&gt;</para></entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <codeEntityReference>M:Microsoft.Security.Application.AntiXss.XmlAttributeEncode(System.String)</codeEntityReference>
+                </para>
+              </entry>
+              <entry>
+                <para>Untrusted input is used as a XML attribute</para>
+              </entry>
+              <entry>
+                <para>&lt;xml_tag attribute=[Untrusted input]&gt;Some Text&lt;/xml_tag&gt;</para>
+              </entry>
+            </row>
+          </table>
+          <para>&#160;</para>
+          <para>
+            A sample Web-application that demonstrations how and when to use each of the above encoding methods can be found in the Samples installation directory.
+          </para>
+        </content>
+      </section>
+      
+      <section>
+        <title>Step 4: Encode Output</title>
+        <content>
+          <para>
+            Use the appropriate encoding method to encode output (see Step 3). &#160;Some important things to remember about encoding outputs:
+          </para>
+          <para>&#160;</para>
+          <list class="bullet">
+            <listItem>
+              <para>Outputs should be encoded only once.</para>
+            </listItem>
+            <listItem>
+              <para>
+                Output encoding should be done as close to the actual writing of the output as possible. &#160;For example, if an application is reading user input and then processing the input and then writing it back out in some form, then encoding should happen just before the output is written.
+              </para>
+            </listItem>
+          </list>
+          <para>&#160;</para>
+          <example>
+            <code>
+  // Incorrect sequence!!!
+  protected void Button1_Click(object sender, EventArgs e)
+  {
+    // Read input
+    String Input = TextBox1.Text;
+    // Encode untrusted input
+    Input = Microsoft.Security.Application.AntiXss.HtmlEncode(Input);
+    
+    // Process input
+    ...
+    
+    // Write Output
+    Response.Write(”The input you gave was” + Input );
+    
+  }
+
+  // Correct Sequence ****
+  protected void Button1_Click(object sender, EventArgs e)
+  {
+    // Read input
+    String Input = TextBox1.Text;
+
+    // Process input
+    ...
+    
+    // Encode untrusted input and write output
+    Response.Write(”The input you gave was” + Microsoft.Security.Application.AntiXss.HtmlEncode(Input));
+    
+  }
+            </code>
+          </example>
+        </content>
+      </section>
+    </sections>
+
+    <para>&#160;</para>
+
+    <section>
+      <!--h3-->
+      <title>See Also:</title>
+      <content>
+        <para>
+          <link xlink:href="039e984c-748f-4241-930c-1d59a2bcc4b8">Introduction</link>
+        </para>
+        <para>
+          <link xlink:href="da9ed57c-53d1-45f1-812e-397f2d691bb7">MarkAntiXSSOutput Feature</link>
+        </para>
+        <para>
+          <link xlink:href="9e14bafd-de75-498d-aeda-1cf3b9816bc6">The White List</link>
+        </para>
+        <para>
+          <link xlink:href="18e42276-8f31-4d57-9571-6fa9c1f69372">Performance Data Sheet</link>
+        </para>
+        <para>&#160;</para>
+      </content>
+    </section>
+
+      <relatedTopics>
+        <!-- Supported Link Types
+    
+         All of the following linking mechanisms may be used in the topic's content 
+         as well as in the related topics section.
+    
+    Linking to API reference documentation: 
+    
+		    <codeEntityReference>API reference ID</codeEntityReference>
+
+    Linking to external resources and custom HTML topics: 
+
+        <externalLink>
+          <linkText>  Required hyperlink text  </linkText>
+          <linkAlternateText>  Optional link title  </linkAlternateText>
+          <linkUri>  Required URI  </linkUri>
+        </externalLink>
+    
+    Linking to other conceptual topics: 
+    
+        <link xlink:href="GUID topic name (without file extension)" />
+                
+    Linking to named references:
+    
+        (Refer to the project's Help\Settings\links.xml file for more information)
+    
+        <link xref="id"> Optional link text </link>
+        <link vref="id or URI"> Optional link text </link>
+        
+    -->
+
+        <!-- Example Usage 
+
+      <codeEntityReference>T:MyNamespace.MyClass</codeEntityReference>
+      <codeEntityReference>P:MyNamespace.MyClass.MyProp</codeEntityReference>
+      <codeEntityReference>M:System.IO.File.OpenText(System.String)</codeEntityReference>
+
+      <externalLink>
+        <linkText>Sandcastle Styles</linkText>
+        <linkAlternateText>Sandcastle Styles on CodePlex</linkAlternateText>
+        <linkUri>http://www.codeplex.com/SandcastleStyles</linkUri>
+      </externalLink>
+
+      <externalLink>
+        <linkText>Change Log</linkText>
+        <linkUri>ChangeLog.html</linkUri>
+      </externalLink>
+
+      <link xlink:href="2BFD9215-1216-403d-8C46-8420A4D01B83"/>
+      
+      <link xref="home">Our Home Page</link>
+      <link vref="/controls/design.aspx">Control Architecture</link>
+      -->
+      </relatedTopics>
+  </developerHowToDocument>
+</topic>
