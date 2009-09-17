@@ -45,7 +45,8 @@ namespace Feedback
             {
                 //Label.Text will place the data inside <span> tag 
                 //thus we are using AntiXss.HtmlEncode to encode the data.
-                lblSessionName.Text = AntiXss.HtmlEncode(Request.QueryString["sname"]);
+                //lblSessionName.Text = AntiXss.HtmlEncode(Request.QueryString["sname"]);
+                lblSessionName.Text = Request.QueryString["sname"];
             }
             lblUser.Text = Context.User.Identity.Name;
             BindRepeater();
@@ -113,9 +114,13 @@ namespace Feedback
             {
                 DataRow dr = ((DataRowView)e.Item.DataItem).Row;
                 //Filtering and encoding the user input and passing it to the appropriate label controls
-                ((Label)e.Item.FindControl("CommentsLabel")).Text = AntiXss.HtmlEncode(dr["Comments"].ToString());
-                ((Label)e.Item.FindControl("NameLabel")).Text = AntiXss.HtmlEncode(dr["Name"].ToString());
-                ((Label)e.Item.FindControl("EmailLabel")).Text = AntiXss.HtmlEncode(dr["Email"].ToString());
+                //((Label)e.Item.FindControl("CommentsLabel")).Text = AntiXss.HtmlEncode(dr["Comments"].ToString());
+                //((Label)e.Item.FindControl("NameLabel")).Text = AntiXss.HtmlEncode(dr["Name"].ToString());
+                //((Label)e.Item.FindControl("EmailLabel")).Text = AntiXss.HtmlEncode(dr["Email"].ToString());
+
+                ((Label)e.Item.FindControl("CommentsLabel")).Text = dr["Comments"].ToString();
+                ((Label)e.Item.FindControl("NameLabel")).Text = dr["Name"].ToString();
+                ((Label)e.Item.FindControl("EmailLabel")).Text = dr["Email"].ToString();
                 
             }
         }    

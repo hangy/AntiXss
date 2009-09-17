@@ -17,12 +17,17 @@ namespace TestAntiXssModule
     
     public partial class _Default : System.Web.UI.Page
     {
-        protected global::System.Web.UI.WebControls.Label Label1;
         
+        protected System.Web.UI.WebControls.Label Label1;
+
+        [Microsoft.Security.Application.SecurityRuntimeEngine.SupressAntiXssEncoding()]
+        protected System.Web.UI.WebControls.Label Label2=new Label();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            Label1.Text = Microsoft.Security.Application.AntiXss.HtmlEncode(Request.QueryString["q"],System.Drawing.KnownColor.Beige);
-            
+            Label1.Text = Request.QueryString["q"];
+            Label2.Text = Request.QueryString["q"];
+            this.Controls.Add(Label2);
         }
 
     }

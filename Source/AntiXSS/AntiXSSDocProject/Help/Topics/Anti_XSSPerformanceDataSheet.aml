@@ -65,9 +65,9 @@
         </list>
         <para>&#160;</para>
         <alert class="note">
-          For obtaining the comparison between AntiXss.HtmlEncode() encoding,
-          HttpUtility.HtmlEncode and No encoding, for same sample application, only
-          the encoding technique code was modified.
+          In obtaining the comparison among AntiXss.HtmlEncode() encoding,
+          HttpUtility.HtmlEncode and No encoding  for same sample application, only
+          the encoding technique code itself was modified.
         </alert>
       </content>
     </section>

@@ -9,7 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Microsoft.Security.Application;
-
+using System.Text;
 //===============================================================================
 // Microsoft Connected Info Security Group samples
 //===============================================================================
@@ -37,7 +37,8 @@ namespace Feedback
                 //Setting the venue using location from the query string
                 //User input is being encoded using HtmlEncode as the Label.Text
                 //places data directly inside HTML elements.
-                lblVenue.Text = AntiXss.HtmlEncode(Request.QueryString["location"],System.Drawing.KnownColor.Yellow);
+                //lblVenue.Text = AntiXss.HtmlEncode(Request.QueryString["location"]);
+                lblVenue.Text = Request.QueryString["location"];
             }
             //Getting the style from querystring
             venueStyle = Request.QueryString["style"];

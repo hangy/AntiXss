@@ -150,6 +150,7 @@ namespace Microsoft.Security.Application.SecurityRuntimeEngine.PageProtection
                             //Based on the encoding type, appropriate encoding method is being called
                             switch (et.EncodingContext)
                             {
+                                default:
                                 case EncodingContexts.Html:
                                     //redirecting to internal helper function
                                     //to check for color coding.
@@ -175,8 +176,9 @@ namespace Microsoft.Security.Application.SecurityRuntimeEngine.PageProtection
                                         strValue = System.Web.HttpUtility.UrlDecode(strValue);
                                     strValue = AntiXss.UrlEncode(strValue);
                                     break;
-                                default:
-                                    throw new IndexOutOfRangeException();
+                                case EncodingContexts.SafeHtml:
+                                    strValue = AntiXss.GetSafeHtmlFragment(strValue);
+                                    break;
                             }
                             objInfo.SetValue(control, strValue, null);
                         }
@@ -192,29 +194,48 @@ namespace Microsoft.Security.Application.SecurityRuntimeEngine.PageProtection
         /// attribute and stores the name of the field in a list.
         /// </summary>
         /// <param name="p">Page which needs to be checked.</param>
-        public static bool IsControlExcluded(Page p, Control c) 
+        public static bool IsControlExcluded(Page page, Control control)
         {
             try
             {
-                object[] attributes = c.GetType().GetCustomAttributes(typeof(SupressAntiXssEncodingAttribute), true);
+                object[] attributes = control.GetType().GetCustomAttributes(typeof(SupressAntiXssEncodingAttribute), true);
                 if (attributes.Length > 0)
                     return true;
 
-
-                FieldInfo[] fi = p.GetType().GetFields(BindingFlags.Instance  | BindingFlags.NonPublic | BindingFlags.Public);
-
+                List<FieldInfo> lstFields = new List<FieldInfo>();
+                //Getting public instance or static members
+                FieldInfo[] fi = page.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
                 for (int i = 0; i < fi.Length; i++)
                 {
-                    attributes = Attribute.GetCustomAttributes(fi[i], typeof(SupressAntiXssEncodingAttribute), true);
+                    //Only checking for fields that are inherited from System.Web.UI.Control class
+                    if (fi[i].FieldType.IsSubclassOf(typeof(Control)))
+                    {
+                        lstFields.Add(fi[i]);
+                    }
+                }
+
+                fi = page.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+                for (int i = 0; i < fi.Length; i++)
+                {
+                    //Only checking for fields that are inherited from System.Web.UI.Control class
+                    if (fi[i].FieldType.IsSubclassOf(typeof(Control)))
+                    {
+                        lstFields.Add(fi[i]);
+                    }
+                }
+
+                for (int i = 0; i < lstFields.Count; i++)
+                {
+                    attributes = Attribute.GetCustomAttributes(lstFields[i], typeof(SupressAntiXssEncodingAttribute), true);
                     if (attributes.Length > 0)
                     {
-                        object control = fi[i].GetValue(p);
-                        if ((control != null) && ((Control)control).UniqueID == c.UniqueID)
+                        object control1 = lstFields[i].GetValue(page);
+                        if ((control1 != null) && ((Control)control1).UniqueID == control.UniqueID)
                             return true;
                     }
                 }
             }
-            catch { throw;  }
+            catch { throw; }
             return false;
         }
 

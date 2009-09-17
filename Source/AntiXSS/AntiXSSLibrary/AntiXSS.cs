@@ -4,6 +4,9 @@ using System;
 using System.Drawing;
 using System.Web;
 using System.Text;
+using System.IO;
+using Microsoft.Exchange.Data.TextConverters;
+using System.Globalization;
 #endregion
 
 #region Namespace - Microsoft.Security.Application
@@ -16,20 +19,22 @@ namespace Microsoft.Security.Application
     ///     Cross-Site Scripting (XSS) attacks in various contextes.
     /// </summary>
     /// <remarks>
-    ///     The Anti-Cross Site Scripting Library utilizes the Principle 
-    ///     of Inclusions, sometimes referred to as <i>white-listing</i> to 
+    ///     The Anti-Cross Site Scripting Library uses the Principle 
+    ///     of Inclusions, sometimes referred to as "white-listing" to 
     ///     provide protection against Cross-Site Scripting attacks.  With
-    ///     white-listing protection algorithms looks for valid inputs and 
-    ///     automatically treats everything outside that set as a 
+    ///     white-listing protection, algorithms look for valid inputs and 
+    ///     automatically treat everything outside that set as a 
     ///     potential attack.  This library can be used as a defense in
-    ///     depth approach with other mitigation techniques and is suitable
+    ///     depth approach with other mitigation techniques. It is suitable
     ///     for applications with high security requirements.
     /// </remarks>
     ///---------------------------------------------------------------------
     ///
 
-    public class AntiXss
+    public sealed class AntiXss
     {
+        private AntiXss() { }
+
         #region MEMBERS
         ///---------------------------------------------------------------------
         /// <summary>
@@ -51,6 +56,7 @@ namespace Microsoft.Security.Application
         /// </summary>
         private static char[][] WhitelistCodes = InitWhitelistCodes();
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         private static char[][] InitWhitelistCodes()
         {
             char[][] allCharacters = new char[65536][];
@@ -103,6 +109,206 @@ namespace Microsoft.Security.Application
 
         #endregion        
 
+        #region HTML Sanitization - Uses HtmlToHtml Class
+
+        #region GetSafeHtml - string input
+
+        /// <summary>
+        /// Returns a safe version of HTML page by either sanitizing or removing all malicious scripts.
+        /// </summary>
+        /// <param name="input">String containing user supplied HTML</param>
+        /// <returns>Safe version of user supplied HTML</returns>
+        /// <remarks>Input string is passed through the HtmlToHtml class where any unsafe HTML
+        /// it might contain is stripped out. A white list of non scriptable tags and attributes
+        /// are used to parse the input HTML page for malicious scripts. For santizing simple 
+        /// HTML fragments see <see cref="GetSafeHtmlFragment(string)"/>.
+        /// </remarks>
+        
+        public static string GetSafeHtml(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
+            TextReader stringReader = null;
+            TextWriter stringWriter = null;
+            HtmlToHtml htmlObject = null;
+
+            try
+            {
+                htmlObject = new HtmlToHtml();
+                stringReader = new StringReader(input);
+                stringWriter = new StringWriter(CultureInfo.InvariantCulture);
+
+                // Set the properties.
+                htmlObject.FilterHtml = true;
+                htmlObject.OutputHtmlFragment = false;
+                htmlObject.NormalizeHtml = true;
+
+                htmlObject.Convert(stringReader, stringWriter);
+
+                if (stringWriter.ToString().Length != 0)
+                    return stringWriter.ToString();
+                else
+                    return string.Empty;
+            }
+            finally
+            {
+                if (stringReader != null)
+                    stringReader.Close();
+
+                if (stringWriter != null)
+                    stringWriter.Close();
+            }
+        }
+
+        #endregion
+
+        #region GetSafeHtmlFragment - string input
+        /// <summary>
+        /// Returns a safe version of HTML fragment by either sanitizing or removing all malicious scripts.
+        /// </summary>
+        /// <param name="input">String containing user supplied HTML</param>
+        /// <returns>Safe version of user supplied HTML</returns>
+        /// <remarks>Input string is passed through the HtmlToHtml class where any unsafe HTML
+        /// it might contain is stripped out. A white list of non scriptable tags and attributes
+        /// are used to parse the input HTML fragment for malicious scripts. For santizing entire 
+        /// HTML pages see <see cref="GetSafeHtml(string)"/>.
+        /// </remarks>
+        public static string GetSafeHtmlFragment(string input)
+        {
+            // Check for NULL || EMPTY
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
+            TextReader stringReader = null;
+            TextWriter stringWriter = null;
+            HtmlToHtml htmlObject = null;
+
+            try
+            {
+                htmlObject = new HtmlToHtml();
+                stringReader = new StringReader(input);
+                stringWriter = new StringWriter(CultureInfo.InvariantCulture);
+
+                // Set the properties.
+                htmlObject.FilterHtml = true;
+                htmlObject.OutputHtmlFragment = true;
+                htmlObject.NormalizeHtml = true;
+
+                htmlObject.Convert(stringReader, stringWriter);
+
+                if (stringWriter.ToString().Length != 0)
+                {
+                    //stripping <div> tags
+                    string output = stringWriter.ToString();
+                    if (output.Substring(0, 5).ToLower() == "<div>")
+                    {
+                        //strpping begin tag
+                        output = output.Substring(5);
+
+                        //stripping end tag + linefeed
+                        output = output.Substring(0, output.Length - 8);
+                    }
+                    return output;
+                }
+                else
+                    return string.Empty;
+            }
+            finally
+            {
+                if (stringReader != null)
+                    stringReader.Close();
+
+                if (stringWriter != null)
+                    stringWriter.Close();
+            }
+        }
+        #endregion
+
+        #region GetSafeHtml - TextReader sourceReader, TextWriter destinationWriter
+        /// <summary>
+        /// Overloaded version where safe version of HTML page is by either sanitizing or removing all malicious scripts.
+        /// </summary>
+        /// <param name="sourceReader">Text reader with input HTML</param>
+        /// <param name="destinationWriter">Text writer to write the safe HTML</param>
+        /// <returns>Safe version of user supplied HTML</returns>
+        /// <remarks>Input string is passed through the HtmlToHtml class where any unsafe HTML
+        /// it might contain is stripped out. A white list of non scriptable tags and attributes
+        /// are used to parse the input HTML page for malicious scripts. For santizing simple 
+        /// HTML fragments see <see cref="GetSafeHtmlFragment(string)"/>.
+        /// </remarks>
+        public static void GetSafeHtml(TextReader sourceReader, TextWriter destinationWriter)
+        {
+            HtmlToHtml htmlObject = htmlObject = new HtmlToHtml();
+
+            // Set the properties.
+            htmlObject.FilterHtml = true;
+            htmlObject.OutputHtmlFragment = false;
+            htmlObject.NormalizeHtml = true;
+
+            htmlObject.Convert(sourceReader, destinationWriter);
+        }
+
+        #endregion
+
+        #region GetSafeHtml - TextReader sourceReader, Stream destinationStream
+        /// <summary>
+        /// Get safe version of HTML.
+        /// </summary>
+        /// <param name="sourceReader"> TextReader as source of HTML</param>
+        /// <param name="destinationStream">Stream as safeHTML</param>
+        public static void GetSafeHtml(TextReader sourceReader, Stream destinationStream)
+        {
+            HtmlToHtml htmlObject = new HtmlToHtml();
+            // Set the properties.
+            htmlObject.FilterHtml = true;
+            htmlObject.OutputHtmlFragment = false;
+            htmlObject.NormalizeHtml = true;
+
+            htmlObject.Convert(sourceReader, destinationStream);
+        }
+        #endregion
+
+        #region GetSafeHtmlFragment - TextReader sourceReader, TextWriter destinationWriter
+        /// <summary>
+        /// Get safe version of HTML fragment.
+        /// </summary>
+        /// <param name="sourceReader"> TextReader as source of HTML</param>
+        /// <param name="destinationWriter">TextWriter as safeHTML</param>
+        public static void GetSafeHtmlFragment(TextReader sourceReader, TextWriter destinationWriter)
+        {
+            HtmlToHtml htmlObject = htmlObject = new HtmlToHtml();
+
+            // Set the properties.
+            htmlObject.FilterHtml = true;
+            htmlObject.OutputHtmlFragment = true;
+            htmlObject.NormalizeHtml = true;
+
+            htmlObject.Convert(sourceReader, destinationWriter);
+        }
+        #endregion
+
+        #region GetSafeHtmlFragment - TextReader sourceReader, Stream destinationStream
+        /// <summary>
+        /// Get safe version of HTML fragment.
+        /// </summary>
+        /// <param name="sourceReader"> TextReader as source of HTML</param>
+        /// <param name="destinationStream">Stream as safeHTML</param>
+        public static void GetSafeHtmlFragment(TextReader sourceReader, Stream destinationStream)
+        {
+            HtmlToHtml htmlObject = new HtmlToHtml();
+
+            // Set the properties.
+            htmlObject.FilterHtml = true;
+            htmlObject.OutputHtmlFragment = true;
+            htmlObject.NormalizeHtml = true;
+
+            htmlObject.Convert(sourceReader, destinationStream);
+        }
+        #endregion
+
+        #endregion
+
         #region Encoding Methods
 
         #region HTMLEncode - string input
@@ -115,7 +321,7 @@ namespace Microsoft.Security.Application
         ///     Encoded string for use in HTML.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are encoded using the &amp;#DECIMAL; notation.
+        /// This function encodes all but known safe characters.  Characters are encoded using  &amp;#DECIMAL; notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -130,7 +336,7 @@ namespace Microsoft.Security.Application
         /// <item><term> </term><description>Other International character ranges</description></item>
         /// </list>
         /// <newpara/>
-        /// Example inputs and encoded outputs:
+        /// Example inputs and their related encoded outputs:
         /// <list type="table">
         /// <item><term>alert('XSS Attack!');</term><description>alert&#40;&#39;XSS Attack&#33;&#39;&#41;&#59;</description></item>
         /// <item><term>user@contoso.com</term><description>user&#64;contoso.com</description></item>
@@ -177,15 +383,15 @@ namespace Microsoft.Security.Application
         #region HTMLEncode - string input, KnownColor clr
         ///---------------------------------------------------------------------
         /// <summary>
-        /// Encodes input string and embeds in a SPAN tag for use in HTML.
+        /// Encodes an input string and embeds it in a &lt;SPAN&gt; tag for use in HTML.
         /// </summary>
         /// <param name="input">String to be encoded</param>
         /// <param name="clr">KnownColor like System.Drawing.KnownColor.CadetBlue</param>
         /// <returns>
-        ///     Encoded string embebded within SPAN tag and style settings for use in HTML.
+        ///     The encoded string is embebded within a &lt;SPAN&gt; tag and style settings for use in HTML.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are encoded using the &amp;#DECIMAL; notation.
+        /// This function encodes all but known safe characters.  Characters are encoded using &amp;#DECIMAL; notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -232,7 +438,7 @@ namespace Microsoft.Security.Application
         ///     Encoded string for use in HTML attributes.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are encoded using the &amp;#DECIMAL; notation.
+        /// This function encodes all but known safe characters.  Characters are encoded using  &amp;#DECIMAL; notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -297,8 +503,8 @@ namespace Microsoft.Security.Application
                 }
             }
             return new String(returnMe, 0, len);
-        }      
-
+        } 
+      
         #endregion
 
         #region URLEncode_Method
@@ -311,7 +517,8 @@ namespace Microsoft.Security.Application
         ///     Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are encoded using the %SINGLE_BYTE_HEX and %uDOUBLE_BYTE_HEX notation.
+        /// This function encodes all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX 
+        /// and %uDOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -331,6 +538,7 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>Anti-Cross%20Site%20Scripting%20Library</description></item>
         /// </list></remarks>
         ///---------------------------------------------------------------------
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         public static string UrlEncode(string input)
         {
             if (String.IsNullOrEmpty(input))
@@ -388,12 +596,13 @@ namespace Microsoft.Security.Application
         /// Encodes input strings for use in universal resource locators (URLs).
         /// </summary>
         /// <param name="input">Input string</param>
-        /// <param name="codepage">Codepage number of the input</param>
+        /// <param name="codePage">Codepage number of the input</param>
         /// <returns>
         ///     Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function will encodes the output as per the encoding parameter (codepage) passed to it. It will encode all but known safe characters.  Encoded characters are encoded using the %SINGLE_BYTE_HEX and %DOUBLE_BYTE_HEX notation.
+        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes 
+        /// all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX and %DOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -413,7 +622,8 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>Anti-Cross%20Site%20Scripting%20Library</description></item>
         /// </list></remarks>
         ///---------------------------------------------------------------------
-        public static string UrlEncode(string input, int codepage)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString(System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
+        public static string UrlEncode(string input, int codePage)
         {
             if (String.IsNullOrEmpty(input))
                 return string.Empty;
@@ -438,7 +648,7 @@ namespace Microsoft.Security.Application
                      ) 
                 {
                     // character needs to be encoded
-                    inputEncoding = Encoding.GetEncoding(codepage);
+                    inputEncoding = Encoding.GetEncoding(codePage);
                     byte[] inputEncodingBytes = inputEncoding.GetBytes(thisChar);
                     int noinputEncodingBytes = inputEncodingBytes.Length;
                     for (int index = 0; index < noinputEncodingBytes; index++)
@@ -477,7 +687,7 @@ namespace Microsoft.Security.Application
         ///     Encoded string for use in XML.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are encoded using the &amp;#DECIMAL; notation.
+        /// This function encodes all but known safe characters.  Characters are encoded using &amp;#DECIMAL; notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -516,7 +726,7 @@ namespace Microsoft.Security.Application
         ///     Encoded string for use in XML attributes.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are encoded using the &amp;#DECIMAL; notation.
+        /// This function encodes all but known safe characters.  Characters are encoded using &amp;#DECIMAL; notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -554,7 +764,7 @@ namespace Microsoft.Security.Application
         ///     Encoded string for use in JavaScript.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are encoded using the \xSINGLE_BYTE_HEX and \uDOUBLE_BYTE_HEX notation.
+        /// This function encodes all but known safe characters.  Characters are encoded using \xSINGLE_BYTE_HEX and \uDOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -578,7 +788,7 @@ namespace Microsoft.Security.Application
         ///---------------------------------------------------------------------
         public static string JavaScriptEncode(string input)
         {
-            return JavaScriptEncode(input, true);
+            return JavaScriptEncode(input, true);            
         }
 
         ///---------------------------------------------------------------------
@@ -586,12 +796,12 @@ namespace Microsoft.Security.Application
         /// Encodes input strings for use in JavaScript.
         /// </summary>
         /// <param name="input">String to be encoded</param>
-        /// /// <param name="flagforQuote">bool flag to determin to emit quote or not. true - emit quote. false = no quote.</param>
+        /// <param name="flagForQuote">Boolean value to determine whether or not to emit quotes. true = emit quote. false = no quote.</param>
         /// <returns>
         ///     Encoded string for use in JavaScript and does not return the output with en quotes.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are encoded using the \xSINGLE_BYTE_HEX and \uDOUBLE_BYTE_HEX notation.
+        /// This function encodes all but known safe characters.  Characters are encoded using \xSINGLE_BYTE_HEX and \uDOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -613,12 +823,13 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>'Anti-Cross Site Scripting Library'</description></item>
         /// </list></remarks>
         ///---------------------------------------------------------------------
-        public static string JavaScriptEncode(string input, bool flagforQuote)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString(System.String)")]
+        public static string JavaScriptEncode(string input, bool flagForQuote)
         {
             // Input validation: empty or null string condition
             if (String.IsNullOrEmpty(input))
             {
-                if (flagforQuote)
+                if (flagForQuote)
                     return (EmptyStringJavaScript);
                 else
                     return "";
@@ -632,7 +843,7 @@ namespace Microsoft.Security.Application
             int thisCharID;
 
             // First step is to start the encoding with an apostrophe if flag is true.
-            if(flagforQuote)                
+            if(flagForQuote)                
                 returnMe[len++] = '\'';
 
             for (int i = 0; i < tLen; i++)
@@ -671,7 +882,7 @@ namespace Microsoft.Security.Application
             }
 
             // Last step is to end the encoding with an apostrophe if flag is true.
-            if (flagforQuote)                
+            if (flagForQuote)                
                 returnMe[len++] = '\'';      
 
             return new String(returnMe, 0, len);
@@ -688,8 +899,8 @@ namespace Microsoft.Security.Application
         ///     Encoded string for use in Visual Basic Script.
         /// </returns>
         /// <remarks>
-        /// This function will encode all but known safe characters.  Encoded characters are 
-        /// encoded using the &#38;chrw(DECIMAL) notation.
+        /// This function encodes all but known safe characters.  Characters are 
+        /// encoded using &#38;chrw(DECIMAL) notation.
         /// <newpara/>
         /// Safe characters include:
         /// <list type="table">
@@ -710,6 +921,7 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>"Anti-Cross Site Scripting Library"</description></item>
         /// </list></remarks>
         ///---------------------------------------------------------------------
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.UInt32.ToString")]
         public static string VisualBasicScriptEncode(string input)
         {
 

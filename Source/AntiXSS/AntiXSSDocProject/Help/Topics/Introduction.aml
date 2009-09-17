@@ -10,10 +10,10 @@
       <title>What is Anti-XSS Library?</title>
       <content>
         <para>
-          The <ui>Microsoft Anti-Cross Site Scripting Library V3.0</ui> (Anti-XSS V3.0) is an encoding library designed to help developers protect their ASP.NET web-based applications from XSS attacks. It differs from most encoding libraries in that it uses the white-listing technique -- sometimes referred to as the principle of inclusions -- to provide protection against XSS attacks.  This approach works by first defining a valid or allowable set of characters, and encodes anything outside this set (invalid characters or potential attacks).  The white-listing approach provides several advantages over other encoding schemes.
+          The <ui>Microsoft Anti-Cross Site Scripting Library V3.1</ui> (Anti-XSS V3.1) is an encoding library designed to help developers protect their ASP.NET web-based applications from XSS attacks. It differs from most encoding libraries in that it uses the white-listing technique -- sometimes referred to as the principle of inclusions -- to provide protection against XSS attacks.  This approach works by first defining a valid or allowable set of characters, and encodes anything outside this set (invalid characters or potential attacks).  The white-listing approach provides several advantages over other encoding schemes.
         </para>
         <para>
-          Anti-XSS Version 3.0 also adds a test harness which allows developers to run both XSS validation and performance tests.
+          Anti-XSS Version 3.1 also adds a test harness which allows developers to run both XSS validation and performance tests.
         </para>
       </content>
     </section>

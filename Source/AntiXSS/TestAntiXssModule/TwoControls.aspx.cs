@@ -19,7 +19,7 @@ namespace TestAntiXssModule
         protected global::System.Web.UI.WebControls.Label Label2;
 
         [Microsoft.Security.Application.SecurityRuntimeEngine.SupressAntiXssEncoding]
-        protected System.Web.UI.WebControls.Label label10;
+        Label label10;
         protected void Page_Load(object sender, EventArgs e)
         {
             label10 = new Label();

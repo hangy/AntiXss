@@ -179,11 +179,7 @@
   
 <item id="feedbackHeader">
   <span id="headfeedbackarea" class="feedbackhead">
-      <a>
-        <includeAttribute name="href" item="MailToLink">
-          <parameter>{0}</parameter>
-          <parameter>{1}</parameter>
-          </includeAttribute>
+      <a href="http://antixss.codeplex.com/Thread/List.aspx" target="_blank">
         <include item="fb_headerFeedBack" />
       </a>
 	</span>

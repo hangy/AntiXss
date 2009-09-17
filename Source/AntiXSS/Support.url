@@ -1,7 +1,7 @@
 [DEFAULT]
-BASEURL=http://blogs.msdn.com/cisg/
+BASEURL=http://antixss.codeplex.com/Thread/List.aspx
 [InternetShortcut]
-URL=http://blogs.msdn.com/cisg/
+URL=http://antixss.codeplex.com/Thread/List.aspx
 IDList=
 IconFile=rss.ico
 IconIndex=1

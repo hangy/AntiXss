@@ -2,7 +2,7 @@
 <topic id="a476c055-1d9c-44d6-bc66-cf3ae002917f" revisionNumber="0">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
-      <para>This topic provides the important notes on Microsoft Anti-Cross Site Scripting Library V3.0.</para>
+      <para>This topic provides the important notes on Microsoft Anti-Cross Site Scripting Library V3.1.</para>
     </introduction>
     <section>
       <!--h1-->
@@ -12,22 +12,23 @@
           <listItem>
             <para>
               &#160;A discussion forum for this library is located at <externalLink>
-                <linkText>http://forums.asp.net/1107/ShowForum.aspx</linkText>
-                <linkUri>http://forums.asp.net/1107/ShowForum.aspx</linkUri>
+                <linkText>http://antixss.codeplex.com/Thread/List.aspx</linkText>
+                <linkUri>http://antixss.codeplex.com/Thread/List.aspx</linkUri>
+                <linkTarget>_blank</linkTarget>
               </externalLink>.
             </para>
           </listItem>
           <listItem>
             <para>
               &#160;When encoding output, ensure that the output is encoded once. &#160;Encoding output
-              multiple times will often result in the output to be displayed incorrectly.
+              multiple times will often result in the output being displayed incorrectly.
             </para>
           </listItem>
           <listItem>
             <para>
-              &#160;If you are using the JavaScriptEncode
-              method to encode un-trusted input, be sure not to place the data returned
-              by this method in quotes or double-quotes as it supplies its own quoting
+              &#160;If you are using the JavaScriptEncode()
+              method to encode un-trusted input, be sure to not enclose the data returned
+              by this method in quotes or double-quotes. The method supplies its own quoting
               context.
               </para>
           </listItem>
@@ -52,7 +53,7 @@
         <para>&#160;</para>
         
         <para>
-          The correct use of JavaScriptEncode with this code is as follows (note the absence of quotes when assigning to s):
+          The correct use of JavaScriptEncode() with this code is as follows (note the absence of quotes when assigning to s):
         </para>
         <example>
           <code>
@@ -70,8 +71,8 @@
         <para>&#160;</para>
         
         <para>
-          Similar to JavaScriptEncode, if you are using VisualBasicScriptEncode
-          method to encode un-trusted input, be sure not to place the data returned
+          Similar to JavaScriptEncode(), if you are using the VisualBasicScriptEncode()
+          method to encode un-trusted input, be sure to not enclose the data returned
           by this method in quotes or double-quotes as it supplies its own quoting
           context. &#160;Consider the following example code:
         </para>
@@ -91,7 +92,7 @@
         <para>&#160;</para>
         
         <para>
-          The correct use of VisualBasicScriptEncode with this code is as follows (note the absence of quotes when assigning
+          The correct use of VisualBasicScriptEncode() with this code is as follows (note the absence of quotes when assigning
           to s):
         </para>
         <example>

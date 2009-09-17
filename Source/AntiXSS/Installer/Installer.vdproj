@@ -33,13 +33,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_178ACC568A3E4454831F494AE455EEB5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_22D9AD49853C55E73A670EAC7AB3AE31"
+        "MsmKey" = "8:_1ED81A76993E4E69A341C246AF1D3110"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -51,25 +45,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_36CB0327B95F6A7D81BA189AA5E323B5"
-        "OwnerKey" = "8:_085D0AA0E18B4BA6A0F494EC06F86F3D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_36CB0327B95F6A7D81BA189AA5E323B5"
-        "OwnerKey" = "8:_D864773201B44FA38ED511B76FD8804E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_36CB0327B95F6A7D81BA189AA5E323B5"
-        "OwnerKey" = "8:_648DD3B115DA4E0B94648AE285F80F63"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_389786929AE04F6CB570D42B8C0F2C3C"
+        "MsmKey" = "8:_35A40EA1B6A1492EADE72ED1A08F9E6F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -81,13 +57,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_45BB4F50E2C54847AD874F0DE5BEC07B"
+        "MsmKey" = "8:_468D850A00B64DEFB892AC3A7ABD1395"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_468D850A00B64DEFB892AC3A7ABD1395"
+        "MsmKey" = "8:_48DD8D56C82947428170CF2B04F91069"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -95,6 +71,30 @@
         {
         "MsmKey" = "8:_521A7AB4EF4740D0A1C80F7F32B3EBF3"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_622ED41AE3EED9CF973B103280F328E1"
+        "OwnerKey" = "8:_085D0AA0E18B4BA6A0F494EC06F86F3D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_622ED41AE3EED9CF973B103280F328E1"
+        "OwnerKey" = "8:_648DD3B115DA4E0B94648AE285F80F63"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_622ED41AE3EED9CF973B103280F328E1"
+        "OwnerKey" = "8:_35A40EA1B6A1492EADE72ED1A08F9E6F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_622ED41AE3EED9CF973B103280F328E1"
+        "OwnerKey" = "8:_1ED81A76993E4E69A341C246AF1D3110"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -123,7 +123,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_81FD7333990B42E28C4E2AD72CDA1282"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8733FAE3185142D1A46B793B110BE484"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_99CBD5F658A946868688156EDDBC2817"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -135,37 +147,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B091F7252AF34F65BADB1E8DD8F0B655"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B2F9029883C04C358B82B7AA9F224195"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C5715F73A00A4DF7BF0F10CAD2B2933E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D49781B1AFE54F1399FC1BCE8F105271"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D864773201B44FA38ED511B76FD8804E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DE8B3BD9A8AF4611B184CB9D774A4BB7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -190,43 +172,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DE8B3BD9A8AF4611B184CB9D774A4BB7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_22D9AD49853C55E73A670EAC7AB3AE31"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DE8B3BD9A8AF4611B184CB9D774A4BB7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D864773201B44FA38ED511B76FD8804E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C5715F73A00A4DF7BF0F10CAD2B2933E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B091F7252AF34F65BADB1E8DD8F0B655"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A34E3EF691D747529846A3E32273388B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_99CBD5F658A946868688156EDDBC2817"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -244,13 +196,31 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_48DD8D56C82947428170CF2B04F91069"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_35A40EA1B6A1492EADE72ED1A08F9E6F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1ED81A76993E4E69A341C246AF1D3110"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_085D0AA0E18B4BA6A0F494EC06F86F3D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_36CB0327B95F6A7D81BA189AA5E323B5"
+        "OwnerKey" = "8:_622ED41AE3EED9CF973B103280F328E1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -267,7 +237,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\AntiXssv30.msi"
+        "OutputFilename" = "8:Debug\\AntiXssV31.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -304,7 +274,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\AntiXSSV30.msi"
+        "OutputFilename" = "8:Release\\AntiXSSV31.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -418,7 +388,7 @@
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_0B4D92503F02432885DB4446420179D5"
             {
             "Name" = "8:NGENUNINSTALLSRE"
-            "Condition" = "8:INSTALLOPTION=2"
+            "Condition" = "8:INSTALLOPTION=2 OR INSTALLOPTION=3"
             "Object" = "8:_792D216229BE4B6381042E2DDE472B53"
             "FileType" = "3:1"
             "InstallAction" = "3:4"
@@ -427,12 +397,26 @@
             "Sequence" = "3:2"
             "Identifier" = "8:_2A2FC751_7A1D_4F92_AE6F_6DD90B4A206D"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/NGENDLL=\"[TARGETDIR]\\SRE\\AntiXssModule.dll\""
+            "CustomActionData" = "8:/NGENDLL=\"[TARGETDIR]\\Security Runtime Engine\\Module\\AntiXssModule.dll\""
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_2CDDA4796DBF48D68C08B592EF5A61DF"
+            {
+            "Name" = "8:NGENUNINSTALLSRELIB"
+            "Condition" = "8:INSTALLOPTION=2 OR INSTALLOPTION=3"
+            "Object" = "8:_792D216229BE4B6381042E2DDE472B53"
+            "FileType" = "3:1"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:3"
+            "Identifier" = "8:_BF49ED3B_6D00_4548_9AD3_9A28B0F3A084"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/NGENDLL=\"[TARGETDIR]\\Security Runtime Engine\\Module\\AntiXssLibrary.dll\""
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_38EDA64983EC498BA34BE975E7154375"
             {
             "Name" = "8:NGENUNINSTALLLIB"
-            "Condition" = "8:INSTALLOPTION=1"
+            "Condition" = "8:INSTALLOPTION=1 OR INSTALLOPTION=3"
             "Object" = "8:_792D216229BE4B6381042E2DDE472B53"
             "FileType" = "3:1"
             "InstallAction" = "3:4"
@@ -443,10 +427,24 @@
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:/NGENDLL=\"[TARGETDIR]\\Library\\AntiXssLibrary.dll\""
             }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_AB38110985454D24981C744F808F5AF6"
+            {
+            "Name" = "8:NGENINSTALLSRELIB"
+            "Condition" = "8:INSTALLOPTION=2 OR INSTALLOPTION=3"
+            "Object" = "8:_792D216229BE4B6381042E2DDE472B53"
+            "FileType" = "3:1"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:3"
+            "Identifier" = "8:_D62CA40B_2911_4858_988E_D73D6B8BBFE5"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/NGENDLL=\"[TARGETDIR]\\Security Runtime Engine\\Module\\AntiXssLibrary.dll\""
+            }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_B78C8F469DB047149F5BBDDA33EB43CA"
             {
             "Name" = "8:NGENINSTALLLIB"
-            "Condition" = "8:INSTALLOPTION=1"
+            "Condition" = "8:INSTALLOPTION=1 OR INSTALLOPTION=3"
             "Object" = "8:_792D216229BE4B6381042E2DDE472B53"
             "FileType" = "3:1"
             "InstallAction" = "3:1"
@@ -460,7 +458,7 @@
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_E26F381490204C3892AE2D2D8ABA10DB"
             {
             "Name" = "8:NGENINSTALLSRE"
-            "Condition" = "8:INSTALLOPTION=2"
+            "Condition" = "8:INSTALLOPTION=2 OR INSTALLOPTION=3"
             "Object" = "8:_792D216229BE4B6381042E2DDE472B53"
             "FileType" = "3:1"
             "InstallAction" = "3:1"
@@ -469,7 +467,7 @@
             "Sequence" = "3:2"
             "Identifier" = "8:_772E5130_BDE7_4D4F_9801_33375B258129"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/NGENDLL=\"[TARGETDIR]\\SRE\\AntiXssModule.dll\""
+            "CustomActionData" = "8:/NGENDLL=\"[TARGETDIR]\\Security Runtime Engine\\Module\\AntiXssModule.dll\""
             }
         }
         "DefaultFeature"
@@ -498,7 +496,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXSSLibrary, Version=3.0.3264.23865, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:AntiXssLibrary, Version=3.1.3524.16873, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_0073DC9FB4FF4D298F1190E32EF3874B"
@@ -549,7 +547,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXssModule, Version=1.0.3265.21681, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:AntiXssModule, Version=1.0.3524.17039, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_085D0AA0E18B4BA6A0F494EC06F86F3D"
@@ -576,40 +574,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_178ACC568A3E4454831F494AE455EEB5"
-            {
-            "SourcePath" = "8:..\\InstallerBinaries\\Help\\Anti-XSS_Library_Help.chm"
-            "TargetName" = "8:Anti-XSS_Library_Help.chm"
-            "Tag" = "8:"
-            "Folder" = "8:_BBE22AD81CD446C090CEC834CFD511FE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_22D9AD49853C55E73A670EAC7AB3AE31"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1ED81A76993E4E69A341C246AF1D3110"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXSSLibrary, Version=3.0.3264.23865, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:AntiXssModule, Version=1.0.3524.17039, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_22D9AD49853C55E73A670EAC7AB3AE31"
+                    "_1ED81A76993E4E69A341C246AF1D3110"
                     {
-                    "Name" = "8:AntiXSSLibrary.DLL"
+                    "Name" = "8:AntiXssModule.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:AntiXSSLibrary.DLL"
+            "SourcePath" = "8:..\\InstallerBinaries\\SampleApp\\AntiXssModule.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D32FC6A933B1476AB840CCBB5401D463"
@@ -623,8 +601,8 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2E7BA9E2D701427FA4EBE565686FFEA2"
@@ -647,43 +625,23 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_36CB0327B95F6A7D81BA189AA5E323B5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_35A40EA1B6A1492EADE72ED1A08F9E6F"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXSSLibrary, Version=3.0.3264.23865, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:SampleApp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_36CB0327B95F6A7D81BA189AA5E323B5"
+                    "_35A40EA1B6A1492EADE72ED1A08F9E6F"
                     {
-                    "Name" = "8:AntiXSSLibrary.DLL"
+                    "Name" = "8:SampleApp.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:AntiXSSLibrary.DLL"
+            "SourcePath" = "8:..\\InstallerBinaries\\SampleApp\\SampleApp.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_A01DCA7E34324EE9A2484398766F61E6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_389786929AE04F6CB570D42B8C0F2C3C"
-            {
-            "SourcePath" = "8:..\\IE.ico"
-            "TargetName" = "8:IE.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_05E610B1E8214A44890A394590F71A43"
+            "Folder" = "8:_D32FC6A933B1476AB840CCBB5401D463"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -718,26 +676,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_45BB4F50E2C54847AD874F0DE5BEC07B"
-            {
-            "SourcePath" = "8:..\\About.url"
-            "TargetName" = "8:About.url"
-            "Tag" = "8:"
-            "Folder" = "8:_975315BED9A54E46AF192A1783DCF56B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_468D850A00B64DEFB892AC3A7ABD1395"
             {
             "SourcePath" = "8:Graphics\\BlankHeader.bmp"
@@ -758,11 +696,42 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_48DD8D56C82947428170CF2B04F91069"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AntiXssLibrary, Version=3.1.3524.16873, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_48DD8D56C82947428170CF2B04F91069"
+                    {
+                    "Name" = "8:AntiXSSLibrary.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\InstallerBinaries\\Module\\AntiXSSLibrary.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A01DCA7E34324EE9A2484398766F61E6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_521A7AB4EF4740D0A1C80F7F32B3EBF3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXSSLibrary, Version=3.0.3264.23865, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:AntiXssLibrary, Version=3.1.3524.16873, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_521A7AB4EF4740D0A1C80F7F32B3EBF3"
@@ -789,6 +758,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_622ED41AE3EED9CF973B103280F328E1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AntiXssLibrary, Version=3.1.3524.16873, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_622ED41AE3EED9CF973B103280F328E1"
+                    {
+                    "Name" = "8:AntiXssLibrary.DLL"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AntiXssLibrary.DLL"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A01DCA7E34324EE9A2484398766F61E6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6455FCE706FA47B79C43E22A06F5E0AE"
             {
             "SourcePath" = "8:..\\help.ico"
@@ -813,7 +813,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXSSTestBench, Version=1.0.3265.21684, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:AntiXSSTestBench, Version=1.0.3524.17142, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_648DD3B115DA4E0B94648AE285F80F63"
@@ -860,6 +860,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_81FD7333990B42E28C4E2AD72CDA1282"
+            {
+            "SourcePath" = "8:..\\InstallerBinaries\\Help\\Anti-XSS_Library_Help.chm"
+            "TargetName" = "8:Anti-XSS_Library_Help.chm"
+            "Tag" = "8:"
+            "Folder" = "8:_BBE22AD81CD446C090CEC834CFD511FE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8733FAE3185142D1A46B793B110BE484"
             {
             "SourcePath" = "8:..\\Support.url"
@@ -880,11 +900,42 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_99CBD5F658A946868688156EDDBC2817"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AntiXssLibrary, Version=3.1.3524.16873, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_99CBD5F658A946868688156EDDBC2817"
+                    {
+                    "Name" = "8:AntiXSSLibrary.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\InstallerBinaries\\SampleApp\\AntiXSSLibrary.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D32FC6A933B1476AB840CCBB5401D463"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A34E3EF691D747529846A3E32273388B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ConfigGen, Version=1.0.3260.28815, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ConfigGen, Version=1.0.3523.28998, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A34E3EF691D747529846A3E32273388B"
@@ -911,156 +962,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B091F7252AF34F65BADB1E8DD8F0B655"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXSSLibrary, Version=3.0.3264.23865, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_B091F7252AF34F65BADB1E8DD8F0B655"
-                    {
-                    "Name" = "8:AntiXSSLibrary.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\InstallerBinaries\\Module\\AntiXSSLibrary.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A01DCA7E34324EE9A2484398766F61E6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B2F9029883C04C358B82B7AA9F224195"
-            {
-            "SourcePath" = "8:..\\InstallerBinaries\\Library\\AntiXSSLibrary.dll.config"
-            "TargetName" = "8:AntiXSSLibrary.dll.config"
-            "Tag" = "8:"
-            "Folder" = "8:_C905FA164CE843D6A89810B7414F80BD"
-            "Condition" = "8:INSTALLOPTION=1 or INSTALLOPTION=3"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C5715F73A00A4DF7BF0F10CAD2B2933E"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXSSLibrary, Version=3.0.3264.23865, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C5715F73A00A4DF7BF0F10CAD2B2933E"
-                    {
-                    "Name" = "8:AntiXSSLibrary.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\InstallerBinaries\\SampleApp\\AntiXSSLibrary.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D32FC6A933B1476AB840CCBB5401D463"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D49781B1AFE54F1399FC1BCE8F105271"
             {
             "SourcePath" = "8:..\\InstallerBinaries\\Eula.rtf"
             "TargetName" = "8:Eula.rtf"
             "Tag" = "8:"
             "Folder" = "8:_975315BED9A54E46AF192A1783DCF56B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D864773201B44FA38ED511B76FD8804E"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AntiXssModule, Version=1.0.3265.21681, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_D864773201B44FA38ED511B76FD8804E"
-                    {
-                    "Name" = "8:AntiXssModule.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\InstallerBinaries\\SampleApp\\AntiXssModule.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D32FC6A933B1476AB840CCBB5401D463"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DE8B3BD9A8AF4611B184CB9D774A4BB7"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SampleApp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_DE8B3BD9A8AF4611B184CB9D774A4BB7"
-                    {
-                    "Name" = "8:SampleApp.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\InstallerBinaries\\SampleApp\\SampleApp.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D32FC6A933B1476AB840CCBB5401D463"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1252,7 +1159,7 @@
                         {
                             "{9EF0B969-E518-4E46-987F-47570745A589}:_2C6A21F7DF6144899E40874FFF948E1A"
                             {
-                            "Name" = "8:Anti-Cross Site Scripting Library v3.0"
+                            "Name" = "8:Anti-Cross Site Scripting Library v3.1"
                             "AlwaysCreate" = "11:TRUE"
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
@@ -1280,23 +1187,23 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Microsoft Anti-Cross Site Scripting Library v3.0"
-        "ProductCode" = "8:{D83760D4-8213-47EF-8A64-B883F0B475F4}"
-        "PackageCode" = "8:{0B2D9F77-864B-4A5C-9237-B47C0381E89E}"
+        "ProductName" = "8:Microsoft Anti-Cross Site Scripting Library v3.1"
+        "ProductCode" = "8:{BFB8D576-E580-4261-A37E-6D6BBC61B655}"
+        "PackageCode" = "8:{3D8935AE-1A87-49D2-9DB0-16DD7FD0BE04}"
         "UpgradeCode" = "8:{454D4160-58A7-4644-B10E-E99A1ADCC38A}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:3.0.0"
+        "ProductVersion" = "8:3.1.0"
         "Manufacturer" = "8:Microsoft Corporation"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Anti-Cross Site Scripting Library v3.0 Setup"
+        "Title" = "8:Anti-Cross Site Scripting Library v3.1 Setup"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Microsoft Corporation"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Anti-Cross Site Scripting Library v3.0 Installer"
+        "ARPCOMMENTS" = "8:Anti-Cross Site Scripting Library v3.1 Installer"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
@@ -1451,24 +1358,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_178ACC568A3E4454831F494AE455EEB5"
+            "Target" = "8:_81FD7333990B42E28C4E2AD72CDA1282"
             "Folder" = "8:_2C6A21F7DF6144899E40874FFF948E1A"
             "WorkingFolder" = "8:_BBE22AD81CD446C090CEC834CFD511FE"
             "Icon" = "8:_6455FCE706FA47B79C43E22A06F5E0AE"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A5FD923473E3416AB5FDA6DAC540CBE4"
-            {
-            "Name" = "8:About Information Security ACE"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_45BB4F50E2C54847AD874F0DE5BEC07B"
-            "Folder" = "8:_2C6A21F7DF6144899E40874FFF948E1A"
-            "WorkingFolder" = "8:_975315BED9A54E46AF192A1783DCF56B"
-            "Icon" = "8:_389786929AE04F6CB570D42B8C0F2C3C"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B039559B37034810BE63725FDBC9FD8C"

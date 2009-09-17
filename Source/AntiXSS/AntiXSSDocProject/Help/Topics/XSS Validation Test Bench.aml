@@ -10,7 +10,7 @@
       <title>XSS Validation Test Bench</title>
       <content>
         <para>
-          AntiXSSTestBench.exe is a test harness windows console application. It uses .NET's HttpUtility.HtmlEncode
+          AntiXSSTestBench.exe is a test harness windows console application. It uses .NET's HttpUtility.HtmlEncode()
           method for all the exploits which can be modified and tested against another
           encoding library. It also provides a framework for automating the validation
           of attack vectors, and can easily be extended to be used according to your specific requirements.

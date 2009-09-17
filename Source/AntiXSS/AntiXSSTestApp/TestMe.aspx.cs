@@ -22,7 +22,7 @@ namespace AntiXSSTestApp
                  string strInputText = txtBox1.Text;
                  //Response.Write(AntiXss.HtmlEncode(strInputText)); //plain html encoding
                  //Response.Write(AntiXss.UrlEncode(strInputText));
-                 Response.Write(AntiXss.HtmlAttributeEncode(strInputText,65001)); //plain html encoding
+                 //Response.Write(AntiXss.HtmlAttributeEncode(strInputText,65001)); //plain html encoding
                  //Response.Write(AntiXss.HtmlAttributeEncode(strInputText, 932));
                  //Response.Write(AntiXss.UrlEncode(strInputText, 932));
              }

@@ -3,14 +3,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A71007C8-B101-4398-9C1C-4759CFD9D6F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AntiXSSLibrary</RootNamespace>
-    <AssemblyName>AntiXSSLibrary</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <RootNamespace>Microsoft.Security.Application</RootNamespace>
+    <AssemblyName>AntiXssLibrary</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -29,10 +29,11 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRules>-Microsoft.Globalization#CA1301;-Microsoft.Globalization#CA1302;-Microsoft.Globalization#CA1308;-Microsoft.Globalization#CA1306;-Microsoft.Globalization#CA1304;-Microsoft.Globalization#CA1305;-Microsoft.Globalization#CA2101;-Microsoft.Globalization#CA1300;-Microsoft.Globalization#CA1307;-Microsoft.Globalization#CA1309;-Microsoft.Interoperability#CA1403;-Microsoft.Interoperability#CA1406;-Microsoft.Interoperability#CA1413;-Microsoft.Interoperability#CA1402;-Microsoft.Interoperability#CA1407;-Microsoft.Interoperability#CA1404;-Microsoft.Interoperability#CA1410;-Microsoft.Interoperability#CA1411;-Microsoft.Interoperability#CA1405;-Microsoft.Interoperability#CA1409;-Microsoft.Interoperability#CA1415;-Microsoft.Interoperability#CA1408;-Microsoft.Interoperability#CA1414;-Microsoft.Interoperability#CA1412;-Microsoft.Interoperability#CA1400;-Microsoft.Interoperability#CA1401;-Microsoft.Mobility#CA1600;-Microsoft.Mobility#CA1601;-Microsoft.Portability#CA1901;-Microsoft.Portability#CA1900;-Microsoft.Reliability#CA2001;-Microsoft.Reliability#CA2002;-Microsoft.Reliability#CA2003;-Microsoft.Reliability#CA2004;-Microsoft.Reliability#CA2006</CodeAnalysisRules>
+    <CodeAnalysisRules>-Microsoft.Design#CA2210;-Microsoft.Design#CA1005;-Microsoft.Design#CA1020;-Microsoft.Design#CA1021;-Microsoft.Design#CA1010;-Microsoft.Design#CA1031;-Microsoft.Design#CA1047;-Microsoft.Design#CA1000;-Microsoft.Design#CA1048;-Microsoft.Design#CA1002;-Microsoft.Design#CA1061;-Microsoft.Design#CA1006;-Microsoft.Design#CA1065;-Microsoft.Design#CA1064;-Microsoft.Design#CA1004;-Microsoft.Design#CA1035;-Microsoft.Design#CA1063;-Microsoft.Design#CA1033;-Microsoft.Design#CA1016;-Microsoft.Design#CA1060;-Microsoft.Design#CA1001;-Microsoft.Design#CA1049;-Microsoft.Design#CA1003;-Microsoft.Design#CA1007;-Microsoft.Design#CA1024;-Microsoft.Globalization#CA1302;-Microsoft.Globalization#CA1308;-Microsoft.Interoperability#CA1407;-Microsoft.Interoperability#CA1410;-Microsoft.Interoperability#CA1411;-Microsoft.Interoperability#CA1409;-Microsoft.Interoperability#CA1415;-Microsoft.Interoperability#CA1414;-Microsoft.Interoperability#CA1412;-Microsoft.Interoperability#CA1400;-Microsoft.Mobility#CA1600;-Microsoft.Mobility#CA1601;-Microsoft.Naming#CA1717;-Microsoft.Naming#CA1725;-Microsoft.Naming#CA1726;-Microsoft.Performance#CA1809;-Microsoft.Performance#CA1823;-Microsoft.Performance#CA1800;-Microsoft.Performance#CA1805;-Microsoft.Performance#CA1810;-Microsoft.Performance#CA1824;-Microsoft.Performance#CA1822;-Microsoft.Performance#CA1814;-Microsoft.Performance#CA1821;-Microsoft.Performance#CA1804;-Microsoft.Performance#CA1820;-Microsoft.Performance#CA1802;-Microsoft.Reliability#CA2003;-Microsoft.Usage#CA2243;-Microsoft.Usage#CA1816;-Microsoft.Usage#CA2212;-Microsoft.Usage#CA2219;-Microsoft.Usage#CA2201;-Microsoft.Usage#CA2238;-Microsoft.Usage#CA2232;-Microsoft.Usage#CA2223;-Microsoft.Usage#CA2226;-Microsoft.Usage#CA2231;-Microsoft.Usage#CA2239;-Microsoft.Usage#CA2200;-Microsoft.Usage#CA1801;-Microsoft.Usage#CA2242;-Microsoft.Usage#CA2205</CodeAnalysisRules>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>bin\Debug\AntiXSSLibrary.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\AntiXssLibrary.xml</DocumentationFile>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,6 +42,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -104,6 +106,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -111,7 +117,94 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiXSS.cs" />
+    <Compile Include="Globalization\CodepageDetect.cs" />
+    <Compile Include="Globalization\CodepageDetectData.cs" />
+    <Compile Include="Globalization\CodepageMap.cs" />
+    <Compile Include="Globalization\CodepageMapData.cs" />
+    <Compile Include="Globalization\CultureDB.cs" />
+    <Compile Include="Globalization\GlobalizationExceptions.cs" />
+    <Compile Include="Globalization\Microsoft.Exchange.CtsResources.GlobalizationStrings.cs" />
+    <Compile Include="Globalization\OutboundCodepageDetector.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\ApplicationServices.cs" />
+    <Compile Include="Shared\AutoPositionStream.cs" />
+    <Compile Include="Shared\ByteString.cs" />
+    <Compile Include="Shared\Configuration.cs" />
+    <Compile Include="Shared\DataException.cs" />
+    <Compile Include="Shared\ICloneableStream.cs" />
+    <Compile Include="Shared\InternalDebug.cs" />
+    <Compile Include="Shared\Microsoft.Exchange.CtsResources.SharedStrings.cs" />
+    <Compile Include="Shared\NativeMethods.cs" />
+    <Compile Include="Shared\ScratchPad.cs" />
+    <Compile Include="Shared\SuppressCloseStream.cs" />
+    <Compile Include="Shared\TempFileStream.cs" />
+    <Compile Include="Shared\VirtualStream.cs" />
+    <Compile Include="TextConverters\COMMON\ByteCache.cs" />
+    <Compile Include="TextConverters\COMMON\CommonTypes.cs" />
+    <Compile Include="TextConverters\COMMON\ConverterBufferInput.cs" />
+    <Compile Include="TextConverters\COMMON\ConverterDecodingInput.cs" />
+    <Compile Include="TextConverters\COMMON\ConverterEncodingOutput.cs" />
+    <Compile Include="TextConverters\COMMON\ConverterInput.cs" />
+    <Compile Include="TextConverters\COMMON\ConverterOutput.cs" />
+    <Compile Include="TextConverters\COMMON\ConverterUnicodeInput.cs" />
+    <Compile Include="TextConverters\COMMON\ConverterUnicodeOutput.cs" />
+    <Compile Include="TextConverters\COMMON\HashCode.cs" />
+    <Compile Include="TextConverters\COMMON\HtmlInjection.cs" />
+    <Compile Include="TextConverters\COMMON\Injection.cs" />
+    <Compile Include="TextConverters\COMMON\ParseSupport.cs" />
+    <Compile Include="TextConverters\COMMON\ScratchBuffer.cs" />
+    <Compile Include="TextConverters\COMMON\StringBuildSink.cs" />
+    <Compile Include="TextConverters\COMMON\TextCache.cs" />
+    <Compile Include="TextConverters\COMMON\TextWriterSink.cs" />
+    <Compile Include="TextConverters\COMMON\Token.cs" />
+    <Compile Include="TextConverters\COMMON\TokenBuilder.cs" />
+    <Compile Include="TextConverters\COMMON\UrlCompareSink.cs" />
+    <Compile Include="TextConverters\ConverterCommon.cs" />
+    <Compile Include="TextConverters\ConverterReader.cs" />
+    <Compile Include="TextConverters\ConverterStream.cs" />
+    <Compile Include="TextConverters\ConverterWriter.cs" />
+    <Compile Include="TextConverters\CSS\CssData.cs" />
+    <Compile Include="TextConverters\CSS\CssParser.cs" />
+    <Compile Include="TextConverters\CSS\CssToken.cs" />
+    <Compile Include="TextConverters\CSS\CssTokenBuilder.cs" />
+    <Compile Include="TextConverters\FORMAT\FormatConverter.cs" />
+    <Compile Include="TextConverters\FORMAT\FormatOutput.cs" />
+    <Compile Include="TextConverters\FORMAT\FormatProperty.cs" />
+    <Compile Include="TextConverters\FORMAT\FormatStore.cs" />
+    <Compile Include="TextConverters\FORMAT\FormatStoreData.cs" />
+    <Compile Include="TextConverters\FORMAT\FormatTypes.cs" />
+    <Compile Include="TextConverters\HtmlToHtml.cs" />
+    <Compile Include="TextConverters\HTML\HtmlCallback.cs" />
+    <Compile Include="TextConverters\HTML\HtmlConverterData.cs" />
+    <Compile Include="TextConverters\HTML\HtmlData.cs" />
+    <Compile Include="TextConverters\HTML\HtmlFilterData.cs" />
+    <Compile Include="TextConverters\HTML\HtmlFormatConverter.cs" />
+    <Compile Include="TextConverters\HTML\HtmlFormatOutput.cs" />
+    <Compile Include="TextConverters\HTML\HtmlNameData.cs" />
+    <Compile Include="TextConverters\HTML\HtmlNames.cs" />
+    <Compile Include="TextConverters\HTML\HtmlNormalizingParser.cs" />
+    <Compile Include="TextConverters\HTML\HtmlParser.cs" />
+    <Compile Include="TextConverters\HTML\HtmlReader.cs" />
+    <Compile Include="TextConverters\HTML\HtmlSupport.cs" />
+    <Compile Include="TextConverters\HTML\HtmlTextExtractionConverter.cs" />
+    <Compile Include="TextConverters\HTML\HtmlToHtmlConverter.cs" />
+    <Compile Include="TextConverters\HTML\HtmlToken.cs" />
+    <Compile Include="TextConverters\HTML\HtmlTokenBuilder.cs" />
+    <Compile Include="TextConverters\HTML\HtmlToTextConverter.cs" />
+    <Compile Include="TextConverters\HTML\HtmlWriter.cs" />
+    <Compile Include="TextConverters\Microsoft.Exchange.CtsResources.TextConvertersStrings.cs" />
+    <Compile Include="TextConverters\TEST\TestHtmlTrace.cs" />
+    <Compile Include="TextConverters\TEST\TestTextOutputTrace.cs" />
+    <Compile Include="TextConverters\TextConverter.cs" />
+    <Compile Include="TextConverters\TextConvertersDefaults.cs" />
+    <Compile Include="TextConverters\TEXT\TextCodepageConverter.cs" />
+    <Compile Include="TextConverters\TEXT\TextFormatConverter.cs" />
+    <Compile Include="TextConverters\TEXT\TextOutput.cs" />
+    <Compile Include="TextConverters\TEXT\TextParser.cs" />
+    <Compile Include="TextConverters\TEXT\TextToken.cs" />
+    <Compile Include="TextConverters\TEXT\TextTokenBuilder.cs" />
+    <Compile Include="TextConverters\TEXT\TextToTextConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Documents\AntiXssLibrary.cd" />
@@ -126,6 +219,17 @@
     </None>
     <None Include="app.config" />
     <None Include="Documents\Anti-XSS Encoding Process.vsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Globalization\Microsoft.Exchange.CtsResources.GlobalizationStrings.resx">
+      <DependentUpon>Microsoft.Exchange.CtsResources.GlobalizationStrings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Microsoft.Exchange.CtsResources.SharedStrings.resx">
+      <DependentUpon>Microsoft.Exchange.CtsResources.SharedStrings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextConverters\Microsoft.Exchange.CtsResources.TextConvertersStrings.resx">
+      <DependentUpon>Microsoft.Exchange.CtsResources.TextConvertersStrings.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

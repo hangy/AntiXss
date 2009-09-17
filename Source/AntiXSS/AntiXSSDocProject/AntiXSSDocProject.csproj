@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7232EAF0-3108-471D-A299-8CF2EB6BC068}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -47,10 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AntiXSSLibrary, Version=3.0.3259.31320, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\AntiXSSLibrary\bin\Release\AntiXSSLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="DaveSexton.DocProject, Version=1.11.0.0, Culture=neutral, PublicKeyToken=af1a4bab65cc4ece, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\DaveSexton.DocProject.dll</HintPath>
@@ -68,10 +64,11 @@
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ExternalSources="..\AntiXSSLibrary\bin\Release\AntiXSSLibrary.dll|..\AntiXSSLibrary\bin\Release\AntiXSSLibrary.xml||..\AXSSModule\bin\Release\AntiXssModule.dll|..\AXSSModule\bin\Release\AntiXssModule.xml" Sandcastle_ProduceHelp1x="True" Sandcastle_UseFriendlyHtmlFileNames="True" Sandcastle_DocumentationSetName="Anti-XSS Library Help" Sandcastle_GenerateRootApiTopic="False" Sandcastle_MergeXmlDocumentation="KeepSource" DoNotAskIncludeOutputInProject="True" DefaultIncludeOutputInProject="True" DefaultApplyToAll="True" DocumentationScope="PublicOnly" Sandcastle_PresentationName="Visual Studio 2005" Sandcastle_Version="2.4.10520.1" BuildEngineProviderName="Sandcastle" DocProjectVersion="1.11.0.0" IsDocProject="true" ProcessComponentTypeName="AntiXSSDocProject.BuildProcess" Sandcastle_ProduceHelp2x="True" />
+      <UserProperties Sandcastle_ProduceHelp2x="True" ProcessComponentTypeName="AntiXSSDocProject.BuildProcess" IsDocProject="true" DocProjectVersion="1.11.0.0" BuildEngineProviderName="Sandcastle" Sandcastle_Version="2.4.10520.1" Sandcastle_PresentationName="Visual Studio 2005" DocumentationScope="PublicOnly" DefaultApplyToAll="True" DefaultIncludeOutputInProject="True" DoNotAskIncludeOutputInProject="True" Sandcastle_MergeXmlDocumentation="KeepSource" Sandcastle_GenerateRootApiTopic="False" Sandcastle_DocumentationSetName="Anti-XSS Library Help" Sandcastle_UseFriendlyHtmlFileNames="True" Sandcastle_ProduceHelp1x="True" ExternalSources="..\AntiXSSLibrary\bin\Debug\AntiXSSLibrary.dll|..\AntiXSSLibrary\bin\Debug\AntiXSSLibrary.xml||..\AXSSModule\bin\Debug\AntiXssModule.dll|..\AXSSModule\bin\Debug\AntiXssModule.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
+    <Content Include="bin\Debug\Anti_XSSLibraryHelp.HxS" />
     <Content Include="Help\Art\Perf.jpg" />
     <Content Include="Help\Art\SREConfig1.jpg" />
     <Content Include="Help\Art\SREConfig2.jpg" />
@@ -80,6 +77,118 @@
     <Content Include="Help\Art\TestHarness3.jpg" />
     <Content Include="Help\Comments\AntiXSSLibrary.xml" />
     <Content Include="Help\Comments\project.xml" />
+    <Content Include="Help\Html2\039e984c-748f-4241-930c-1d59a2bcc4b8.htm" />
+    <Content Include="Help\Html2\18e42276-8f31-4d57-9571-6fa9c1f69372.htm" />
+    <Content Include="Help\Html2\3e0cb435-94b3-41ba-b99a-aff0bf3ef4f2.htm" />
+    <Content Include="Help\Html2\570338d8-8326-4aa5-9240-aec8d8b0a5bc.htm" />
+    <Content Include="Help\Html2\5b080580-36ad-4715-9c61-952509070730.htm" />
+    <Content Include="Help\Html2\7a006e82-8045-408f-b80c-628743f2c0ea.htm" />
+    <Content Include="Help\Html2\97c3adfa-6b22-49a9-b4e8-1d4253bb5df0.htm" />
+    <Content Include="Help\Html2\9e14bafd-de75-498d-aeda-1cf3b9816bc6.htm" />
+    <Content Include="Help\Html2\a476c055-1d9c-44d6-bc66-cf3ae002917f.htm" />
+    <Content Include="Help\Html2\a5caa272-b25d-4f02-8df5-8e42b01df4d9.htm" />
+    <Content Include="Help\Html2\ab2d273c-0d34-48cd-86ea-26749db4ff4f.htm" />
+    <Content Include="Help\Html2\AllMembers_T_Microsoft_Security_Application_AntiXss.htm" />
+    <Content Include="Help\Html2\AllMembers_T_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule.htm" />
+    <Content Include="Help\Html2\AllMembers_T_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute.htm" />
+    <Content Include="Help\Html2\c97fadbd-9dd2-433f-b577-dbc499ce9e4b.htm" />
+    <Content Include="Help\Html2\C_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule_ctor.htm" />
+    <Content Include="Help\Html2\C_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute_ctor.htm" />
+    <Content Include="Help\Html2\da9ed57c-53d1-45f1-812e-397f2d691bb7.htm" />
+    <Content Include="Help\Html2\f0bf6d6d-b437-4c9f-811f-6f23aad7654f.htm" />
+    <Content Include="Help\Html2\f4427194-6d84-407f-ab34-5f7d5d9f318f.htm" />
+    <Content Include="Help\Html2\f4ea6c72-740b-4efd-bbbf-195a41aa775f.htm" />
+    <Content Include="Help\Html2\f9184958-3ac3-4d1a-8fee-9450b7cbed7b.htm" />
+    <Content Include="Help\Html2\Methods_T_Microsoft_Security_Application_AntiXss.htm" />
+    <Content Include="Help\Html2\Methods_T_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule.htm" />
+    <Content Include="Help\Html2\Methods_T_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_GetSafeHtmlFragment_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_GetSafeHtmlFragment_2_21551e44.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_GetSafeHtmlFragment_2_54b27375.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_GetSafeHtml_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_GetSafeHtml_2_21551e44.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_GetSafeHtml_2_54b27375.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_HtmlAttributeEncode_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_HtmlEncode_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_HtmlEncode_2_a83b7196.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_JavaScriptEncode_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_JavaScriptEncode_2_00bbdc3f.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_UrlEncode_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_UrlEncode_2_01b939db.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_VisualBasicScriptEncode_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_XmlAttributeEncode_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_AntiXss_XmlEncode_1_72eac341.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule_Dispose.htm" />
+    <Content Include="Help\Html2\M_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule_Init_1_5e137013.htm" />
+    <Content Include="Help\Html2\N_Microsoft_Security_Application.htm" />
+    <Content Include="Help\Html2\N_Microsoft_Security_Application_SecurityRuntimeEngine.htm" />
+    <Content Include="Help\Html2\N_Microsoft_Security_Application_SecurityRuntimeEngine_Configuration.htm" />
+    <Content Include="Help\Html2\O_T_Microsoft_Security_Application_AntiXss_GetSafeHtml.htm" />
+    <Content Include="Help\Html2\O_T_Microsoft_Security_Application_AntiXss_GetSafeHtmlFragment.htm" />
+    <Content Include="Help\Html2\O_T_Microsoft_Security_Application_AntiXss_HtmlEncode.htm" />
+    <Content Include="Help\Html2\O_T_Microsoft_Security_Application_AntiXss_JavaScriptEncode.htm" />
+    <Content Include="Help\Html2\O_T_Microsoft_Security_Application_AntiXss_UrlEncode.htm" />
+    <Content Include="Help\Html2\Properties_T_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute.htm" />
+    <Content Include="Help\Html2\T_Microsoft_Security_Application_AntiXss.htm" />
+    <Content Include="Help\Html2\T_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule.htm" />
+    <Content Include="Help\Html2\T_Microsoft_Security_Application_SecurityRuntimeEngine_Configuration_EncodingContexts.htm" />
+    <Content Include="Help\Html2\T_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute.htm" />
+    <Content Include="Help\Html\039e984c-748f-4241-930c-1d59a2bcc4b8.htm" />
+    <Content Include="Help\Html\18e42276-8f31-4d57-9571-6fa9c1f69372.htm" />
+    <Content Include="Help\Html\3e0cb435-94b3-41ba-b99a-aff0bf3ef4f2.htm" />
+    <Content Include="Help\Html\570338d8-8326-4aa5-9240-aec8d8b0a5bc.htm" />
+    <Content Include="Help\Html\5b080580-36ad-4715-9c61-952509070730.htm" />
+    <Content Include="Help\Html\7a006e82-8045-408f-b80c-628743f2c0ea.htm" />
+    <Content Include="Help\Html\97c3adfa-6b22-49a9-b4e8-1d4253bb5df0.htm" />
+    <Content Include="Help\Html\9e14bafd-de75-498d-aeda-1cf3b9816bc6.htm" />
+    <Content Include="Help\Html\a476c055-1d9c-44d6-bc66-cf3ae002917f.htm" />
+    <Content Include="Help\Html\a5caa272-b25d-4f02-8df5-8e42b01df4d9.htm" />
+    <Content Include="Help\Html\ab2d273c-0d34-48cd-86ea-26749db4ff4f.htm" />
+    <Content Include="Help\Html\AllMembers_T_Microsoft_Security_Application_AntiXss.htm" />
+    <Content Include="Help\Html\AllMembers_T_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule.htm" />
+    <Content Include="Help\Html\AllMembers_T_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute.htm" />
+    <Content Include="Help\Html\c97fadbd-9dd2-433f-b577-dbc499ce9e4b.htm" />
+    <Content Include="Help\Html\C_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule_ctor.htm" />
+    <Content Include="Help\Html\C_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute_ctor.htm" />
+    <Content Include="Help\Html\da9ed57c-53d1-45f1-812e-397f2d691bb7.htm" />
+    <Content Include="Help\Html\f0bf6d6d-b437-4c9f-811f-6f23aad7654f.htm" />
+    <Content Include="Help\Html\f4427194-6d84-407f-ab34-5f7d5d9f318f.htm" />
+    <Content Include="Help\Html\f4ea6c72-740b-4efd-bbbf-195a41aa775f.htm" />
+    <Content Include="Help\Html\f9184958-3ac3-4d1a-8fee-9450b7cbed7b.htm" />
+    <Content Include="Help\Html\Methods_T_Microsoft_Security_Application_AntiXss.htm" />
+    <Content Include="Help\Html\Methods_T_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule.htm" />
+    <Content Include="Help\Html\Methods_T_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_GetSafeHtmlFragment_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_GetSafeHtmlFragment_2_21551e44.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_GetSafeHtmlFragment_2_54b27375.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_GetSafeHtml_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_GetSafeHtml_2_21551e44.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_GetSafeHtml_2_54b27375.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_HtmlAttributeEncode_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_HtmlEncode_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_HtmlEncode_2_a83b7196.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_JavaScriptEncode_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_JavaScriptEncode_2_00bbdc3f.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_UrlEncode_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_UrlEncode_2_01b939db.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_VisualBasicScriptEncode_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_XmlAttributeEncode_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_AntiXss_XmlEncode_1_72eac341.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule_Dispose.htm" />
+    <Content Include="Help\Html\M_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule_Init_1_5e137013.htm" />
+    <Content Include="Help\Html\N_Microsoft_Security_Application.htm" />
+    <Content Include="Help\Html\N_Microsoft_Security_Application_SecurityRuntimeEngine.htm" />
+    <Content Include="Help\Html\N_Microsoft_Security_Application_SecurityRuntimeEngine_Configuration.htm" />
+    <Content Include="Help\Html\O_T_Microsoft_Security_Application_AntiXss_GetSafeHtml.htm" />
+    <Content Include="Help\Html\O_T_Microsoft_Security_Application_AntiXss_GetSafeHtmlFragment.htm" />
+    <Content Include="Help\Html\O_T_Microsoft_Security_Application_AntiXss_HtmlEncode.htm" />
+    <Content Include="Help\Html\O_T_Microsoft_Security_Application_AntiXss_JavaScriptEncode.htm" />
+    <Content Include="Help\Html\O_T_Microsoft_Security_Application_AntiXss_UrlEncode.htm" />
+    <Content Include="Help\Html\Properties_T_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute.htm" />
+    <Content Include="Help\Html\T_Microsoft_Security_Application_AntiXss.htm" />
+    <Content Include="Help\Html\T_Microsoft_Security_Application_SecurityRuntimeEngine_AntiXssModule.htm" />
+    <Content Include="Help\Html\T_Microsoft_Security_Application_SecurityRuntimeEngine_Configuration_EncodingContexts.htm" />
+    <Content Include="Help\Html\T_Microsoft_Security_Application_SecurityRuntimeEngine_SupressAntiXssEncodingAttribute.htm" />
     <Content Include="Help\Icons\adm.gif" />
     <Content Include="Help\Icons\adm_arch.gif" />
     <Content Include="Help\Icons\adm_dev.gif" />
@@ -224,9 +333,19 @@
     <Content Include="Help\Styles\Whidbey\presentation.css" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\Anti_XSS Library Help.chm" />
     <None Include="Help\Anti_XSS Library Help.hhc" />
     <None Include="Help\Anti_XSS Library Help.hhk" />
     <None Include="Help\Anti_XSS Library Help.hhp" />
+    <None Include="Help\Anti_XSS Library Help.HxC" />
+    <None Include="Help\Anti_XSS Library Help.HxT" />
+    <None Include="Help\files.HxF" />
+    <None Include="Help\index_a.HxK" />
+    <None Include="Help\index_b.HxK" />
+    <None Include="Help\index_f.HxK" />
+    <None Include="Help\index_k.HxK" />
+    <None Include="Help\index_n.HxK" />
+    <None Include="Help\index_s.HxK" />
     <None Include="Help\Presentation\Shared\configuration\xamlSyntax.config" />
     <None Include="Help\Presentation\Shared\copyHavana.bat" />
     <None Include="Help\Presentation\Shared\HxsTemplate\template.HxF" />

@@ -15,8 +15,8 @@ namespace Microsoft.Security.Application.SecurityRuntimeEngine
 {
 
     /// <summary>
-    /// This class is responsible for intercepting page requests
-    /// and protecting the page from specific attacks. It also reads 
+    /// This class is responsible for intercepting page requests 
+    /// and protects the page from specific attacks. It also reads 
     /// the configuration file in the Init method and stores it in 
     /// the Application variable for reuse, configuration file is 
     /// only loaded once. Implements IHttpModule interface and hooks 
@@ -59,8 +59,7 @@ namespace Microsoft.Security.Application.SecurityRuntimeEngine
 
         /// <summary>
         /// This event is fired when a handler is loaded by ASP.Net, 
-        /// as Page class is a handler in itself. Strong typed page object
-        /// for the request can be identified here. It is then checked 
+        /// a Page class is a handler in itself which is then checked 
         /// for suppressions and exclusions. It also adds an event 
         /// handler for PreRender event.
         /// </summary>
@@ -98,7 +97,7 @@ namespace Microsoft.Security.Application.SecurityRuntimeEngine
 
         
         /// <summary>
-        /// Loads the configuration file if one does not exist in the application variable.
+        /// Loads the configuration file it one does not exist in the application variable.
         /// </summary>
         /// <param name="context">Context of the page.</param>
         /// <param name="configFile">Location of the file where configuration is stored.</param>
@@ -108,16 +107,19 @@ namespace Microsoft.Security.Application.SecurityRuntimeEngine
             {
                 if (context != null)
                 {
-                    if (context.Application != null && (context.Application.Count <= 0 && context.Application["AntiXssModuleConfig"] == null))
-                        objConfig = ModuleConfiguration.LoadConfiguration(configFile);
-
-                    if (objConfig != null && context.Application != null)
+                    if (context.Application != null && context.Application.Count > 0 && context.Application["AntiXssModuleConfig"] != null)
                     {
-                        context.Application["AntiXssModuleConfig"] = objConfig;
+                        try
+                        {
+                            objConfig = (ModuleConfiguration)context.Application["AntiXssModuleConfig"];
+                        }
+                        catch { }
                     }
-                    else
+
+                    if (objConfig == null)
                     {
-                        objConfig = (ModuleConfiguration)context.Application["AntiXssModuleConfig"];
+                        objConfig = ModuleConfiguration.LoadConfiguration(configFile);
+                        context.Application["AntiXssModuleConfig"] = objConfig;
                     }
                 }
             }

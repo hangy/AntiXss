@@ -38,29 +38,29 @@
         </mediaLink>
         <para>&#160;</para>
         <para>
-          Enable Double Encoding Protection defends against double (re-)encoding
+          <em>Enable Double Encoding Protection</em> defends against double (re-)encoding
           of your output, and so possibly skewing your results.
         </para>
         <para>
-          EncodeDerivedControls defines whether to encode controls which are derived from the classes
+          <em>EncodeDerivedControls</em> defines whether to encode controls which are derived from the classes
           found in the ControlEncodingContext nodes of the antixssmodule.config configuration file.
         </para>
         <para>
           <ui>MarkAntiXSSOutput</ui> is a switch that controls whether source encoded through Anti-XSS is highlighted when displayed. (<link xlink:href="da9ed57c-53d1-45f1-812e-397f2d691bb7">How to Use MarkAntiXSSOutput Feature</link>). The color dropdown list contains comprehensive list of colors that can be used for color coding the output.
         </para>
         <alert class="note">
-          Do not use the MarkAntiXssOutput switch for production.
+          Do not use the MarkAntiXssOutput switch for applications which are in production.
         </alert>
         <para>
-          2. Click the Browse button and navigate to an assembly of
+          2. Click the <em>Browse</em> button and navigate to an assembly of
           your application. &#160;When you select it, it appears in the ASP.NET Assembly text box.
         </para>
         <para>
-          3. Click the Analyze button and the utility processes the assembly. &#160;You
+          3. Click the <em>Analyze</em> button and the utility processes the assembly. &#160;You
           see the results of its analysis in the Analysis window.
         </para>
         <para>
-          4. Click the Generate button to create your configuration file. &#160;The utility
+          4. Click the <em>Generate</em> button to create your configuration file. &#160;The utility
           displays a Browse For Folder dialog box which you can use to define a location for your configuration file.
         </para>
         <para>&#160;</para>

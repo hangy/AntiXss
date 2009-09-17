@@ -11,10 +11,15 @@
       <title>Introduction</title>
       <content>
         <para>
-          Cross-site scripting (XSS) attacks exploit vulnerabilities in Web-based applications that fail to properly validate and/or encode input that is embedded in response data.  Malicious users can then inject client-side script into response data causing the unsuspecting user's browser to execute the script code.  The script code will appear to have originated from a trusted site and may be able to bypass browser protection mechanisms such as security zones.
+          Cross-site scripting (XSS) attacks exploit vulnerabilities in Web-based applications that 
+          fail to properly validate and/or encode input that is embedded in response data.  Malicious 
+          users can then inject client-side script into response data causing the unsuspecting user's browser 
+          to execute the script code.  The script code will appear to have originated from a trusted site and 
+          may be able to bypass browser protection mechanisms such as security zones.
         </para>
         <para>
-          These attacks are platform-and-browser independent, and can allow malicious users to perform malicious actions such as gaining unauthorized access to client data like cookies or hijacking sessions entirely.
+          These attacks are platform-and-browser independent, and can allow malicious users to perform malicious 
+          actions such as gaining unauthorized access to client data like cookies or hijacking sessions entirely.
         </para>
       </content>
     </section>

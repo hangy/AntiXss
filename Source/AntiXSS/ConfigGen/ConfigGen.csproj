@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3BADA1E8-A4F9-4727-BD49-1C5059C0FE7D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -12,9 +12,9 @@
     <AssemblyName>ConfigGen</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>%24/AntiXSS/V3.0/Source/AntiXSS/ConfigGen</SccProjectName>
+    <SccProjectName>%24/ISIS_CISG_AntiXss/v3.1/Source/AntiXSS/ConfigGen</SccProjectName>
     <SccLocalPath>.</SccLocalPath>
-    <SccAuxPath>https://tfs02.codeplex.com</SccAuxPath>
+    <SccAuxPath>http://tkbgitvstsat02:8080</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
     <ApplicationIcon>utility.ico</ApplicationIcon>
     <SignAssembly>true</SignAssembly>

@@ -99,8 +99,9 @@
         </para>
         <para>
           A. Yes, please visit <externalLink>
-            <linkText>http://forums.asp.net/1107.aspx</linkText>
-            <linkUri>http://forums.asp.net/1107.aspx</linkUri>
+            <linkText>http://antixss.codeplex.com/Thread/List.aspx</linkText>
+            <linkUri>http://antixss.codeplex.com/Thread/List.aspx</linkUri>
+            <linkTarget>_blank</linkTarget>
           </externalLink>.
         </para>
         <para>&#160;</para>

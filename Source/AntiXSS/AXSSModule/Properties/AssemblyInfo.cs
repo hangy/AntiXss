@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("AntiXssLibrary Security Runtime Engine Http Module")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft Corporation")]
-[assembly: AssemblyProduct("AntiXss Library v3.0")]
+[assembly: AssemblyProduct("AntiXss Library v3.1")]
 [assembly: AssemblyCopyright("Copyright © Microsoft Corporation 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
