@@ -1,0 +1,375 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TextFormatConverter.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+//
+// </copyright>
+// <summary>
+//    
+// </summary>
+
+namespace Microsoft.Exchange.Data.TextConverters.Internal.Text
+{
+    using System;
+    using System.IO;
+    using System.Text;
+    using Microsoft.Exchange.Data.Globalization;
+    using Microsoft.Exchange.Data.Internal;
+    using Microsoft.Exchange.Data.TextConverters.Internal.Format;
+    using Microsoft.Exchange.Data.TextConverters.Internal.Html;
+    using Microsoft.Exchange.Data.TextConverters.Internal.Test;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    internal class TextFormatConverter : FormatConverter, IProducerConsumer, IDisposable
+    {
+        #region Private Variables
+        /// <summary>
+        /// 
+        /// </summary>
+        private TextParser parser;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private FormatOutput output;
+
+#if DEBUG
+        /// <summary>
+        /// 
+        /// </summary>
+        private TestHtmlTrace trace;
+#endif
+        // Orphaned Code.
+        // private int lineLength;
+        // private int newLines;
+        // private int spaces;
+        // private int nbsps;
+        // private bool paragraphStarted;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Injection injection;
+
+        #endregion
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextFormatConverter"/> class.
+        /// </summary>
+        /// <param name="parser">The parser.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="injection">The injection.</param>
+        /// <param name="traceStream">The trace stream.</param>
+        /// <param name="traceShowTokenNum">TODO needs defining1.</param>
+        /// <param name="traceStopOnTokenNum">TODO needs defining2.</param>
+        /// <param name="formatConverterTraceStream">The format converter trace stream.</param>
+        public TextFormatConverter(
+                    TextParser parser, 
+                    FormatOutput output,
+                    Injection injection,
+                    Stream traceStream, 
+                    bool traceShowTokenNum, 
+                    int traceStopOnTokenNum,
+                    Stream formatConverterTraceStream) :
+            base(formatConverterTraceStream)
+        {
+#if DEBUG
+            if (traceStream != null)
+            {
+                this.trace = new TestHtmlTrace(traceStream, traceShowTokenNum, traceStopOnTokenNum);
+            }
+#endif
+            this.parser = parser;
+
+            this.output = output;
+
+            if (this.output != null)
+            {
+                this.output.Initialize(
+                        this.Store,
+                        SourceFormat.Text,
+                        "converted from text");
+            }
+
+            this.injection = injection;
+
+            // open the document container
+            this.InitializeDocument();
+
+            if (this.injection != null && this.injection.HaveHead)
+            {
+                InternalDebug.Assert(this.output != null);
+            }
+
+            this.OpenContainer(FormatContainerType.Block, false);
+
+            this.Last.SetProperty(PropertyPrecedence.NonStyle, PropertyId.FontSize, new PropertyValue(LengthUnits.Points, 10));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextFormatConverter"/> class.
+        /// </summary>
+        /// <param name="parser">The parser.</param>
+        /// <param name="store">The store.</param>
+        /// <param name="injection">The injection.</param>
+        /// <param name="traceStream">The trace stream.</param>
+        /// <param name="traceShowTokenNum">TODO needs defining1.</param>
+        /// <param name="traceStopOnTokenNum">TODO needs defining2.</param>
+        /// <param name="formatConverterTraceStream">The format converter trace stream.</param>
+        public TextFormatConverter(
+                    TextParser parser, 
+                    FormatStore store,
+                    Injection injection,
+                    Stream traceStream, 
+                    bool traceShowTokenNum, 
+                    int traceStopOnTokenNum,
+                    Stream formatConverterTraceStream) :
+            base(store, formatConverterTraceStream)
+        {
+#if DEBUG
+            if (traceStream != null)
+            {
+                this.trace = new TestHtmlTrace(traceStream, traceShowTokenNum, traceStopOnTokenNum);
+            }
+#endif
+            this.parser = parser;
+
+            this.injection = injection;
+
+            // open the document container
+            this.InitializeDocument();
+
+            // open the first paragraph container
+            this.OpenContainer(FormatContainerType.Block, false);
+
+            this.Last.SetProperty(PropertyPrecedence.NonStyle, PropertyId.FontSize, new PropertyValue(LengthUnits.Points, 10));
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance can flush.
+        /// </summary>
+        /// <value><c>true</c> if this instance can flush; otherwise, <c>false</c>.</value>
+        private bool CanFlush
+        {
+            get
+            {
+                // output can accept more data
+                return this.output.CanAcceptMoreOutput;
+            }
+        }
+
+        /// <summary>
+        /// Initializes the specified fragment.
+        /// </summary>
+        /// <param name="fragment">The fragment.</param>
+        // Orphaned Code.
+        // public void Initialize(string fragment)
+        // {
+        //    this.parser.Initialize(fragment);
+
+        //    this.lineLength = 0;
+        //    this.newLines = 0;
+        //    this.spaces = 0;
+        //    this.nbsps = 0;
+        //    this.paragraphStarted = false;
+        // }
+
+        /// <summary>
+        /// Runs this instance.
+        /// </summary>
+        public override void Run()
+        {
+            if (this.output != null && this.MustFlush)
+            {
+                if (this.CanFlush)
+                {
+                    this.FlushOutput();
+                }
+            }
+            else if (!this.EndOfFile)
+            {
+                TextTokenId tokenId = this.parser.Parse();
+
+                if (TextTokenId.None != tokenId)
+                {
+                    this.Process(tokenId);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Flushes this instance.
+        /// </summary>
+        /// <returns>
+        /// TODO needs defining.
+        /// </returns>
+        public bool Flush()
+        {
+            this.Run();
+            return this.EndOfFile && !this.MustFlush;
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        void IDisposable.Dispose()
+        {
+            if (this.parser != null /*&& this.parser is IDisposable*/)
+            {
+                ((IDisposable)this.parser).Dispose();
+            }
+#if DEBUG
+            if (this.trace != null /*&& this.trace is IDisposable*/)
+            {
+                ((IDisposable)this.trace).Dispose();
+            }
+#endif
+            this.parser = null;
+#if DEBUG
+            this.trace = null;
+#endif
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Processes the specified token id.
+        /// </summary>
+        /// <param name="tokenId">The token id.</param>
+        protected void Process(TextTokenId tokenId)
+        {
+#if DEBUG
+            if (this.trace != null)
+            {
+                this.trace.TraceToken(this.parser.Token, 0);
+
+                if (tokenId == TextTokenId.EndOfFile)
+                {
+                    this.trace.Flush();
+                }
+            }
+#endif
+            switch (tokenId)
+            {
+                case TextTokenId.Text:
+
+                    this.OutputFragmentSimple(this.parser.Token);
+                    break;
+
+                case TextTokenId.EncodingChange:
+
+                    if (this.output != null && this.output.OutputCodePageSameAsInput)
+                    {
+                        int codePage = this.parser.Token.Argument;
+
+#if DEBUG
+                        Encoding newOutputEncoding;
+
+                        InternalDebug.Assert(Charset.TryGetEncoding(codePage, out newOutputEncoding));
+#endif
+
+                        this.output.OutputEncoding = Charset.GetEncoding(codePage);
+                    }
+
+                    break;
+
+                case TextTokenId.EndOfFile:
+
+                    if (this.injection != null && this.injection.HaveTail)
+                    {
+                        this.AddLineBreak(1);
+                        InternalDebug.Assert(this.output != null);
+                    }
+
+                    // close the paragraph container
+                    this.CloseContainer();
+
+                    // close the document container
+                    this.CloseAllContainersAndSetEOF();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Flushes the output.
+        /// </summary>
+        /// <returns>
+        /// TODO needs defining.
+        /// </returns>
+        private bool FlushOutput()
+        {
+            InternalDebug.Assert(this.MustFlush);
+
+            if (this.output.Flush())
+            {
+                this.MustFlush = false;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Outputs the fragment simple.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        private void OutputFragmentSimple(TextToken token)
+        {
+            foreach (TokenRun run in token.Runs)
+            {
+                if (run.IsTextRun)
+                {
+                    switch (run.TextType)
+                    {
+                        case RunTextType.NewLine:
+
+                                this.AddLineBreak(1);
+                                break;
+
+                        case RunTextType.Space:
+                        case RunTextType.UnusualWhitespace:
+
+                                this.AddSpace(run.Length);
+                                break;
+
+                        case RunTextType.Tabulation:
+
+                                this.AddTabulation(run.Length);
+                                break;
+
+                        case RunTextType.Nbsp:
+
+                                this.AddNbsp(run.Length);
+                                break;
+
+                        case RunTextType.NonSpace:
+                        case RunTextType.Unknown:
+
+                                // InternalDebug.Assert(run.IsNormal);
+                                this.AddNonSpaceText(run.RawBuffer, run.RawOffset, run.RawLength/*, TextMapping.Unicode*/);
+                                break;
+
+                        default:
+
+                                InternalDebug.Assert(false, "unexpected run text type");
+                                break;
+                    }
+                }
+                else if (run.IsSpecial && run.Kind == (uint)TextRunKind.QuotingLevel)
+                {
+                    // consider: set QuotingLevelDelta property
+                }
+            }
+        }
+    }
+}
+

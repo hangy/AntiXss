@@ -1,0 +1,389 @@
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Web.Mvc;
+
+//namespace Microsoft.Security.Application
+//{
+//    ///---------------------------------------------------------------------
+//    /// <summary>
+//    ///     Represents support for creating input and output HTML controls 
+//    ///     with attributes and text encoded using Anti-XSS library 
+//    ///     encoding methods.
+//    /// </summary>
+//    /// <remarks>
+//    ///     This class provides a set of helper methods whose purpose is to 
+//    ///     help you create HTML controls programmatically. These methods 
+//    ///     generate HTML controls using the Principle of Inclusions, 
+//    ///     sometimes referred to as "safe listing" to provide protection 
+//    ///     against injection attacks.  With safe listing protection, 
+//    ///     algorithms look for valid inputs and automatically treat 
+//    ///     everything outside that set as a potential attack.  This library
+//    ///     can be used as a defense in depth approach with other mitigation 
+//    ///     techniques. It is suitable for applications with high security 
+//    ///     requirements.
+//    /// </remarks>
+//    ///---------------------------------------------------------------------
+//    ///
+//    public static class MvcExtensions
+//    {
+
+//        /// <summary>
+//        /// Returns a string of HTML with span element.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the span element</param>
+//        /// <returns>HTML of span element</returns>
+//        /// <remarks>
+//        /// This method creates a span element with encoded text that is safe to
+//        /// display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeLabel(this HtmlHelper helper, String name)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with span element.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the span element</param>
+//        /// <param name="value">Inner text using Object.ToString</param>
+//        /// <returns>HTML of span element</returns>
+//        /// <remarks>
+//        /// This method creates a span element with encoded text that is safe to
+//        /// display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeLabel(this HtmlHelper helper, String name, Object value)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with span element.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the span element</param>
+//        /// <param name="value">Inner text using Object.ToString</param>
+//        /// <param name="htmlAttributes">Additional attributes of the element</param>
+//        /// <returns>HTML of span element</returns>
+//        /// <remarks>
+//        /// This method creates a span element with encoded text that is safe to
+//        /// display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeLabel(this HtmlHelper helper, String name, Object value, IDictionary<String, Object> htmlAttributes)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of text type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type text with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeTextbox(this HtmlHelper helper, String name)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of text type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type text with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeTextbox(this HtmlHelper helper, String name, Object value)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of text type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <param name="htmlAttributes">Additional attributes of the element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type text with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeTextbox(this HtmlHelper helper, String name, Object value, IDictionary<String, Object> htmlAttributes)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of check type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type check with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeCheckbox(this HtmlHelper helper, String name)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of check type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type check with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeCheckbox(this HtmlHelper helper, String name, Object value)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of check type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <param name="htmlAttributes">Additional attributes of the element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type check with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeCheckbox(this HtmlHelper helper, String name, Object value, IDictionary<String, Object> htmlAttributes)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of radio type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type radio with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeRadioButton(this HtmlHelper helper, String name)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of radio type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type radio with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeRadioButton(this HtmlHelper helper, String name, Object value)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of radio type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <param name="htmlAttributes">Additional attributes of the element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type radio with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeRadioButton(this HtmlHelper helper, String name, Object value, IDictionary<String, Object> htmlAttributes)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of button type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type button with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeButton(this HtmlHelper helper, String name)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of button type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type button with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeButton(this HtmlHelper helper, String name, Object value)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of button type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <param name="htmlAttributes">Additional attributes of the element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type button with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeButton(this HtmlHelper helper, String name, Object value, IDictionary<String, Object> htmlAttributes)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of password type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type password with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafePassword(this HtmlHelper helper, String name)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of password type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type password with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafePassword(this HtmlHelper helper, String name, Object value)
+//        {
+//            return "";
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of password type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <param name="htmlAttributes">Additional attributes of the element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type password with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafePassword(this HtmlHelper helper, String name, Object value, IDictionary<String, Object> htmlAttributes)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of hidden type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type hidden with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeHidden(this HtmlHelper helper, String name)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of hidden type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type hidden with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeHidden(this HtmlHelper helper, String name, Object value)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        /// <summary>
+//        /// Returns a string of HTML with input element of hidden type.
+//        /// </summary>
+//        /// <param name="helper">HtmlHelper class</param>
+//        /// <param name="name">ID of the input element</param>
+//        /// <param name="value">Element text using Object.ToString</param>
+//        /// <param name="htmlAttributes">Additional attributes of the element</param>
+//        /// <returns>HTML of input element</returns>
+//        /// <remarks>
+//        /// This method creates a Input element of type hidden with encoded text that 
+//        /// is safe to display. Text and attributes are encoded using Anti-XSS Library's
+//        /// HtmlEncode and HtmlAttributeEncode method respectively.
+//        /// </remarks>
+//        public static string SafeHidden(this HtmlHelper helper, String name, Object value, IDictionary<String, Object> htmlAttributes)
+//        {
+//            throw new NotImplementedException();
+//        }
+//    }
+//}

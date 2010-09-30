@@ -1,0 +1,149 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UnknownCultureException.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+// </copyright>
+// <summary>
+//   The exception thrown when an unknown culture is used.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Microsoft.Exchange.Data.Globalization
+{
+    using System;
+    using System.Runtime.Serialization;
+    using GlobalizationStrings = CtsResources.GlobalizationStrings;
+    
+    /// <summary>
+    /// The exception thrown when an unknown culture is used.
+    /// </summary>
+    [Serializable]
+    internal class UnknownCultureException : ExchangeDataException
+    {
+        /// <summary>
+        /// The local identifier for the unknown culture.
+        /// </summary>
+        private readonly int localeId;
+
+        /// <summary>
+        /// The name for the unknown culture.
+        /// </summary>
+        private readonly string cultureName;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnknownCultureException"/> class.
+        /// </summary>
+        /// <param name="localeId">The locale id.</param>
+        public UnknownCultureException(int localeId) :
+            base(GlobalizationStrings.InvalidLocaleId(localeId))
+        {
+            this.localeId = localeId;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnknownCultureException"/> class.
+        /// </summary>
+        /// <param name="cultureName">Name of the culture.</param>
+        public UnknownCultureException(string cultureName) :
+            base(GlobalizationStrings.InvalidCultureName(cultureName ?? "<null>"))
+        {
+            this.cultureName = cultureName;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnknownCultureException"/> class.
+        /// </summary>
+        /// <param name="localeId">The locale id.</param>
+        /// <param name="message">The exception message.</param>
+        public UnknownCultureException(int localeId, string message) :
+            base(message)
+        {
+            this.localeId = localeId;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnknownCultureException"/> class.
+        /// </summary>
+        /// <param name="cultureName">The name of the culture.</param>
+        /// <param name="message">The exception message.</param>
+        public UnknownCultureException(string cultureName, string message) :
+            base(message)
+        {
+            this.cultureName = cultureName;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnknownCultureException"/> class.
+        /// </summary>
+        /// <param name="localeId">The locale identifier.</param>
+        /// <param name="message">The exception message.</param>
+        /// <param name="innerException">The inner exception.</param>
+        public UnknownCultureException(int localeId, string message, Exception innerException) :
+            base(message, innerException)
+        {
+            this.localeId = localeId;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnknownCultureException"/> class.
+        /// </summary>
+        /// <param name="cultureName">The name of the culture.</param>
+        /// <param name="message">The exception message.</param>
+        /// <param name="innerException">The inner exception.</param>
+        public UnknownCultureException(string cultureName, string message, Exception innerException) :
+            base(message, innerException)
+        {
+            this.cultureName = cultureName;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnknownCultureException"/> class.
+        /// </summary>
+        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// The <paramref name="info"/> parameter is null.
+        /// </exception>
+        /// <exception cref="T:System.Runtime.Serialization.SerializationException">
+        /// The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0).
+        /// </exception>
+        protected UnknownCultureException(SerializationInfo info, StreamingContext context) :
+            base(info, context)
+        {
+            this.localeId = info.GetInt32("localeId");
+            this.cultureName = info.GetString("cultureName");
+        }
+
+        /// <summary>
+        /// Gets the locale id.
+        /// </summary>
+        /// <value>The locale id.</value>
+        public int LocaleId
+        {
+            get
+            {
+                return this.localeId;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the culture.
+        /// </summary>
+        /// <value>The name of the culture.</value>
+        public string CultureName
+        {
+            get
+            {
+                return this.cultureName;
+            }
+        }
+    }
+}

@@ -1,0 +1,88 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="HtmlToken.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+//
+// </copyright>
+// <summary>
+//    
+// </summary>
+
+namespace Microsoft.Exchange.Data.TextConverters
+{
+#if PRIVATEBUILD
+
+    using System;
+    using System.IO;
+    using System.Text;
+    using Strings = Microsoft.Exchange.CtsResources.TextConvertersStrings;
+
+    
+
+    internal class TextWriterSink : ITextSink
+    {
+        protected int maxSize;
+        protected int currentSize;
+        protected TextWriter writer;
+
+        public TextWriterSink(TextWriter sink, int maxSize)
+        {
+            this.writer = sink;
+            this.maxSize = maxSize;
+        }
+
+        
+        
+
+        public bool IsEnough { get { return this.currentSize >= this.maxSize; } }
+
+        public void Write(char[] buffer, int offset, int count)
+        {
+            this.writer.Write(buffer, offset, count);
+            this.currentSize += count;
+        }
+
+        public void Write(int ucs32Char)
+        {
+            this.writer.Write(Token.LiteralFirstChar(ucs32Char));
+            this.currentSize ++;
+
+            if (Token.LiteralLength(ucs32Char) > 1)
+            {
+                this.writer.Write(Token.LiteralLastChar(ucs32Char));
+                this.currentSize ++;
+            }
+        }
+
+        public void Write(string value)
+        {
+            
+        }
+
+        public void WriteNewLine()
+        {
+            
+        }
+
+        public void Flush()
+        {
+            this.writer.Flush();
+        }
+
+        public void BreakLine()
+        {
+            this.writer.Write("\n");
+        }
+
+    }
+
+#endif
+}

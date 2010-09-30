@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B911405E-6A46-4BE6-B997-91D85388CA9A}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis.ruleset = CodeAnalysis.ruleset
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+		FxCopDictionary.xml = FxCopDictionary.xml
+		License.txt = License.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder", "Microsoft.Security.Application.Encoder\Microsoft.Security.Application.Encoder.csproj", "{E7B6B7D1-53F8-4492-9B98-23244070E3E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.HtmlSanitization", "Microsoft.Security.Application.HtmlSanitization\Microsoft.Security.Application.HtmlSanitization.csproj", "{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder.UnitTests", "Microsoft.Security.Application.Encoder.UnitTests\Microsoft.Security.Application.Encoder.UnitTests.csproj", "{53A4B395-7A8D-4BE5-9925-5795EC95846C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{57C3E762-30FA-402E-8738-76EA3A56A1AF}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\AntiXSS v4.0.docx = Documentation\AntiXSS v4.0.docx
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|x86.ActiveCfg = Release|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Release|x86.ActiveCfg = Release|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{57C3E762-30FA-402E-8738-76EA3A56A1AF} = {B911405E-6A46-4BE6-B997-91D85388CA9A}
+	EndGlobalSection
+EndGlobal

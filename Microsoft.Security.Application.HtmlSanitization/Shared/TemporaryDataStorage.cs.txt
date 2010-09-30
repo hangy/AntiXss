@@ -1,0 +1,1000 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TemporaryDataStorage.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+// </copyright>
+// <summary>
+//   A class for stream based temporary storage.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Microsoft.Exchange.Data.Internal
+{
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Security.AccessControl;
+    using System.Security.Permissions;
+    using System.Security.Principal;
+
+    /// <summary>
+    /// A class for temporary data storage.
+    /// </summary>
+    internal class TemporaryDataStorage : ReadableWritableDataStorage
+    {
+        // Orphaned WPL code.
+#if false
+        /// <summary>
+        /// Object for locking to make configuration thread safe.
+        /// </summary>
+        private static readonly object ConfigurationLockObject = new object();
+
+        /// <summary>
+        /// Rules for directory access.
+        /// </summary>
+        private static readonly FileSystemAccessRule[] DirectoryAccessRules = new[]
+                                                                                  {
+                                                                                      new FileSystemAccessRule(
+                                                                                          new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null),
+                                                                                          FileSystemRights.FullControl,
+                                                                                          InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                                                                                          PropagationFlags.None,
+                                                                                          AccessControlType.Allow),
+                                                                                      new FileSystemAccessRule(
+                                                                                          new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null),
+                                                                                          FileSystemRights.FullControl,
+                                                                                          InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                                                                                          PropagationFlags.None,
+                                                                                          AccessControlType.Allow),
+                                                                                      new FileSystemAccessRule(
+                                                                                          new SecurityIdentifier(WellKnownSidType.NetworkServiceSid, null),
+                                                                                          FileSystemRights.FullControl & ~(FileSystemRights.ChangePermissions | FileSystemRights.TakeOwnership),
+                                                                                          InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                                                                                          PropagationFlags.None,
+                                                                                          AccessControlType.Allow)
+                                                                                  };
+
+        /// <summary>
+        /// The default block size for the buffer.
+        /// </summary>
+        private static int defaultBufferBlockSize = 8 * 1024;
+
+        /// <summary>
+        /// The maxmimum size for the buffer.
+        /// </summary>
+        private static int defaultBufferMaximumSize = defaultBufferBlockSize * 16;
+
+        /// <summary>
+        /// The default path for the buffer.
+        /// </summary>
+        private static string defaultPath;
+
+        /// <summary>
+        /// The default data acquisition function.
+        /// </summary>
+        private static Func<int, byte[]> defaultAcquireBuffer;
+
+        /// <summary>
+        /// The default action to call on buffer release.Matching
+        /// </summary>
+        private static Action<byte[]> defaultReleaseBuffer;
+
+       /// <summary>
+        /// Value indicating whether the class has been configured.
+        /// </summary>
+        private static volatile bool configured;  
+#endif
+
+        /// <summary>
+        /// The total length of the buffer.
+        /// </summary>
+        private long totalLength;
+
+        /// <summary>
+        /// The current position within the file.
+        /// </summary>
+        private long filePosition;
+
+        /// <summary>
+        /// The source file stream.
+        /// </summary>
+        private Stream fileStream;
+
+        /// <summary>
+        /// The virtual buffer projected over the file.
+        /// </summary>
+        private VirtualBuffer virtualBuffer;
+
+        // Orphaned WPL code.
+#if false
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TemporaryDataStorage"/> class.
+        /// </summary>
+        public TemporaryDataStorage() : this(defaultAcquireBuffer, defaultReleaseBuffer)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TemporaryDataStorage"/> class.
+        /// </summary>
+        /// <param name="acquireBuffer">The function used to acquire data from the buffer.</param>
+        /// <param name="releaseBuffer">The action to be ran when the buffer is released.</param>
+        public TemporaryDataStorage(Func<int, byte[]> acquireBuffer, Action<byte[]> releaseBuffer)
+        {
+            if (!configured)
+            {
+                Configure();
+            }
+
+            this.virtualBuffer = new VirtualBuffer(
+                defaultBufferBlockSize,
+                defaultBufferMaximumSize,
+                acquireBuffer,
+                releaseBuffer);
+        }
+
+        /// <summary>
+        /// Gets or sets the default data acquisition function.
+        /// </summary>
+        public static Func<int, byte[]> DefaultAcquireBuffer
+        {
+            get
+            {
+                return defaultAcquireBuffer;
+            }
+
+            set
+            {
+                defaultAcquireBuffer = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the default action to call on buffer release.Matching
+        /// </summary>
+        public static Action<byte[]> DefaultReleaseBuffer
+        {
+            get
+            {
+                return defaultReleaseBuffer;
+            }
+
+            set
+            {
+                defaultReleaseBuffer = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the default block size for the buffer.
+        /// </summary>
+        public static int DefaultBufferBlockSize
+        {
+            get
+            {
+                return defaultBufferBlockSize;
+            }
+
+            set
+            {
+                defaultBufferBlockSize = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the maxmimum size for the buffer.
+        /// </summary>
+        public static int DefaultBufferMaximumSize
+        {
+            get
+            {
+                return defaultBufferMaximumSize;
+            }
+
+            set
+            {
+                defaultBufferMaximumSize = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the default path for the buffer.
+        /// </summary>
+        public static string DefaultPath
+        {
+            get
+            {
+                return defaultPath;
+            }
+
+            set
+            {
+                defaultPath = value;
+            }
+        }
+#endif
+
+        /// <summary>
+        /// Gets the length of the storage buffer.
+        /// </summary>
+        /// <value>The length.</value>
+        public override long Length
+        {
+            get
+            {
+                return this.totalLength;
+            }
+        }
+
+        // Orphaned WPL code.
+#if false
+        /// <summary>
+        /// Configures the data storage.
+        /// </summary>
+        /// <param name="defaultMaximumSize">The default maximum buffer size.</param>
+        /// <param name="defaultBlockSize">The default block size.</param>
+        /// <param name="newDefaultPath">The default path.</param>
+        /// <param name="newDefaultAcquireBuffer">The default acquire function.</param>
+        /// <param name="newDefaultReleaseBuffer">The default release function.</param>
+        public static void Configure(
+            int defaultMaximumSize,
+            int defaultBlockSize,
+            string newDefaultPath,
+            Func<int, byte[]> newDefaultAcquireBuffer,
+            Action<byte[]> newDefaultReleaseBuffer)
+        {
+            defaultBufferMaximumSize = defaultMaximumSize;
+            defaultBufferBlockSize = defaultBlockSize;
+            defaultPath = newDefaultPath;
+            defaultAcquireBuffer = newDefaultAcquireBuffer;
+            defaultReleaseBuffer = newDefaultReleaseBuffer;
+
+            configured = false;
+            Configure();
+        }
+#endif
+
+        /// <summary>
+        /// Reads from the storage at the specified position.
+        /// </summary>
+        /// <param name="position">The position to start reading at.</param>
+        /// <param name="buffer">The buffer to read into.</param>
+        /// <param name="offset">The offset to read into.</param>
+        /// <param name="count">The number of bytes to read .</param>
+        /// <returns>The actual number of bytes read.</returns>
+        public override int Read(long position, byte[] buffer, int offset, int count)
+        {
+            int readTotal = 0;
+
+            if (position < this.virtualBuffer.MaxBytes)
+            {                
+                readTotal = this.virtualBuffer.Read(position, buffer, offset, count);
+
+                offset += readTotal;
+                count -= readTotal;
+
+                position += readTotal;
+            }
+
+            if (count != 0 && position >= this.virtualBuffer.MaxBytes && this.fileStream != null)
+            {
+                if (this.IsReadOnly)
+                {
+                    lock (this.ReadOnlyLock)
+                    {
+                        readTotal += this.InternalRead(position, buffer, offset, count);
+                    }
+                }
+                else
+                {
+                    readTotal += this.InternalRead(position, buffer, offset, count);
+                }
+            }
+
+            return readTotal;
+        }
+
+        /// <summary>
+        /// writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
+        /// </summary>
+        /// <param name="position">The position in the internal buffer to write from.</param>
+        /// <param name="buffer">An array of bytes. This method copies count bytes from buffer to the current stream.</param>
+        /// <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current stream.</param>
+        /// <param name="count">The number of bytes to be written to the current stream. </param>
+        public override void Write(long position, byte[] buffer, int offset, int count)
+        {
+            if (this.IsReadOnly)
+            {
+                throw new InvalidOperationException("Write to read-only DataStorage");
+            }
+
+            if (position < this.virtualBuffer.MaxBytes)
+            {
+                int written = this.virtualBuffer.Write(position, buffer, offset, count);
+
+                offset += written;
+                count -= written;
+
+                position += written;
+
+                if (position > this.totalLength)
+                {
+                    this.totalLength = position;
+                }
+            }
+
+            if (count != 0)
+            {
+                InternalDebug.Assert(position >= this.virtualBuffer.MaxBytes);
+
+                if (this.fileStream == null)
+                {
+                    this.fileStream = TempFileStream.CreateInstance();
+                    this.filePosition = 0;
+                }
+
+                if (this.filePosition != position - this.virtualBuffer.MaxBytes)
+                {
+                    this.fileStream.Position = position - this.virtualBuffer.MaxBytes;
+                }
+
+                this.fileStream.Write(buffer, offset, count);
+
+                position += count;
+
+                this.filePosition = position - this.virtualBuffer.MaxBytes;
+
+                if (position > this.totalLength)
+                {
+                    this.totalLength = position;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the length of the stream.
+        /// </summary>
+        /// <param name="length">The length of the stream.</param>
+        public override void SetLength(long length)
+        {
+            if (this.IsReadOnly)
+            {
+                throw new InvalidOperationException("Write to read-only DataStorage");
+            }
+
+            this.totalLength = length;
+
+            if (length <= this.virtualBuffer.MaxBytes)
+            {
+                this.virtualBuffer.SetLength(length);
+
+                if (this.fileStream != null)
+                {
+                    this.fileStream.SetLength(0);
+                }
+            }
+            else
+            {
+                this.virtualBuffer.SetLength(this.virtualBuffer.MaxBytes);
+
+                if (this.fileStream == null)
+                {
+                    this.fileStream = TempFileStream.CreateInstance();
+                    this.filePosition = 0;
+                }
+
+                this.fileStream.SetLength(length - this.virtualBuffer.MaxBytes);
+            }
+        }
+
+        // Orphaned WPL code.
+#if false
+        /// <summary>
+        /// Refreshes the configuration.
+        /// </summary>
+        internal static void RefreshConfiguration()
+        {
+            configured = false;
+        }
+
+        /// <summary>
+        /// Gets the temp path for the stream.
+        /// </summary>
+        /// <returns>The temporary path for the stream.</returns>
+        internal static string GetTempPath()
+        {
+            if (!configured)
+            {
+                Configure();
+            }
+
+            return TempFileStream.Path;
+        }
+#endif
+
+        /// <summary>
+        /// Destroys this instance.
+        /// </summary>
+        protected override void Destroy()
+        {
+            InternalDebug.Assert(this.RefCount == 0);
+
+            if (this.fileStream != null)
+            {
+                this.fileStream.Close();
+                this.fileStream = null;
+            }
+
+            this.virtualBuffer.Dispose();
+
+            base.Destroy();
+        }
+
+        // Orphaned WPL code.
+#if false
+        /// <summary>
+        /// Configures the class defaults.
+        /// </summary>
+        private static void Configure()
+        {
+            lock (ConfigurationLockObject)
+            {
+                if (!configured)
+                {
+                    int maximumSize = defaultBufferMaximumSize;
+                    int blockSize = defaultBufferBlockSize;
+                    string path = TemporaryDataStorage.defaultPath;
+
+                    IList<CtsConfigurationSetting> settings = ApplicationServices.Provider.GetConfiguration(null);
+
+                    foreach (CtsConfigurationSetting setting in settings)
+                    {
+                        if (setting.Name.Equals("TemporaryStorage", StringComparison.OrdinalIgnoreCase))
+                        {
+                            foreach (CtsConfigurationArgument arg in setting.Arguments)
+                            {
+                                if (arg.Name.Equals("Path", StringComparison.OrdinalIgnoreCase))
+                                {                                    
+                                    path = arg.Value.Trim();
+                                }
+                                else if (arg.Name.Equals("MaximumBufferSize", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    if (!int.TryParse(arg.Value.Trim(), out maximumSize))
+                                    {
+                                        ApplicationServices.Provider.LogConfigurationErrorEvent();
+
+                                        maximumSize = defaultBufferMaximumSize;
+                                        continue;
+                                    }
+                                    
+                                    if (maximumSize < 16 || maximumSize > 10 * 1024)
+                                    {                                        
+                                        ApplicationServices.Provider.LogConfigurationErrorEvent();
+
+                                        maximumSize = defaultBufferMaximumSize;
+                                        continue;
+                                    }
+                                    
+                                    maximumSize *= 1024;
+                                }
+                                else if (arg.Name.Equals("BufferIncrement", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    if (!int.TryParse(arg.Value.Trim(), out blockSize))
+                                    {                                        
+                                        ApplicationServices.Provider.LogConfigurationErrorEvent();
+
+                                        blockSize = defaultBufferBlockSize;
+                                        continue;
+                                    }
+                                    
+                                    if (blockSize < 4 || blockSize > 64)
+                                    {                                        
+                                        ApplicationServices.Provider.LogConfigurationErrorEvent();
+
+                                        blockSize = defaultBufferBlockSize;
+                                        continue;
+                                    }
+                                    
+                                    blockSize *= 1024;
+                                }
+                                else
+                                {                                    
+                                    ApplicationServices.Provider.LogConfigurationErrorEvent();
+                                }
+                            }
+                        }
+                    }
+
+                    if (maximumSize < blockSize || maximumSize % blockSize != 0)
+                    {                        
+                        ApplicationServices.Provider.LogConfigurationErrorEvent();
+                        
+                        maximumSize = defaultBufferMaximumSize;
+                        blockSize = defaultBufferBlockSize;
+                    }
+
+                    defaultBufferMaximumSize = maximumSize;
+                    defaultBufferBlockSize = blockSize;
+
+                    string defaultPath = Path.GetTempPath();
+
+                    if (path != null)
+                    {                        
+                        path = ValidatePath(path);
+                    }
+
+                    if (path == null)
+                    {
+                        path = defaultPath;
+                    }
+
+                    TempFileStream.SetTemporaryPath(path);
+
+                    configured = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the directory permissions.
+        /// </summary>
+        /// <returns>The directory permissions.</returns>
+        private static DirectorySecurity GetDirectorySecurity()
+        {
+            DirectorySecurity security = new DirectorySecurity();
+            
+            security.SetAccessRuleProtection(true, false);
+
+            security.SetOwner(WindowsIdentity.GetCurrent().User);
+            
+            foreach (FileSystemAccessRule fileSystemAccessRule in DirectoryAccessRules)
+            {
+                security.AddAccessRule(fileSystemAccessRule);
+            }
+
+            if (!WindowsIdentity.GetCurrent().User.IsWellKnown(WellKnownSidType.LocalSystemSid) &&
+                !WindowsIdentity.GetCurrent().User.IsWellKnown(WellKnownSidType.NetworkServiceSid))
+            {
+                security.AddAccessRule(new FileSystemAccessRule(
+                                           WindowsIdentity.GetCurrent().User,
+                                           FileSystemRights.FullControl,
+                                           InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                                           PropagationFlags.None,
+                                           AccessControlType.Allow));
+            }
+
+            return security;
+        }
+
+        /// <summary>
+        /// Validates access to the provided path.
+        /// </summary>
+        /// <param name="path">The path to validate.</param>
+        /// <returns>The validated path.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2103:ReviewImperativeSecurity", Justification = "Paths are acquired from applications config file only.")]
+        private static string ValidatePath(string path)
+        {
+            try
+            {
+                if (Path.IsPathRooted(path))
+                {
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path, GetDirectorySecurity());
+                    }
+                    
+                    new FileIOPermission(FileIOPermissionAccess.Write, path).Demand();
+                }
+                else
+                {                    
+                    path = null;
+                }
+            }
+            catch (PathTooLongException /*exception*/)
+            {                
+                path = null;
+            }
+            catch (DirectoryNotFoundException /*exception*/)
+            {                
+                path = null;
+            }
+            catch (IOException /*exception*/)
+            {                
+                path = null;
+            }
+            catch (UnauthorizedAccessException /*exception*/)
+            {                
+                path = null;
+            }
+            catch (ArgumentException /*exception*/)
+            {                
+                path = null;
+            }
+            catch (NotSupportedException /*exception*/)
+            {                
+                path = null;
+            }
+
+            return path;
+        }
+#endif
+
+        /// <summary>
+        /// Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+        /// </summary>
+        /// <param name="position">The position to read from.</param>
+        /// <param name="buffer">An array of bytes. When this method returns, the buffer contains the specified byte array with the values between offset and ( offset + count - 1) replaced by the bytes read from the current source.</param>
+        /// <param name="offset">The zero-based byte offset in buffer at which to begin storing the data read from the current stream.</param>
+        /// <param name="count">The maximum number of bytes to be read from the current stream. </param>
+        /// <returns>The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the stream has been reached.</returns>
+        private int InternalRead(long position, byte[] buffer, int offset, int count)
+        {
+            if (this.filePosition != position - this.virtualBuffer.MaxBytes)
+            {
+                this.fileStream.Position = position - this.virtualBuffer.MaxBytes;
+            }
+
+            int readFromFile = this.fileStream.Read(buffer, offset, count);
+
+            this.filePosition = position - this.virtualBuffer.MaxBytes + readFromFile;
+
+            return readFromFile;
+        }
+
+        /// <summary>
+        /// Implements a virtual buffer.
+        /// </summary>
+        private struct VirtualBuffer : IDisposable
+        {
+            /// <summary>
+            /// The maximum buffer size.
+            /// </summary>
+            private readonly int maximumSize;
+
+            /// <summary>
+            /// The maximum block size.
+            /// </summary>
+            private readonly int blockSize;
+
+            /// <summary>
+            /// The function to run to acquire data from the buffer.
+            /// </summary>
+            private readonly Func<int, byte[]> acquireBuffer;
+
+            /// <summary>
+            /// The length of the bufer.
+            /// </summary>
+            private long bufferLength;
+            
+            /// <summary>
+            /// The first block in the buffer.
+            /// </summary>
+            private byte[] firstBlock;
+
+            /// <summary>
+            /// Subsequent blocks in the buffer.
+            /// </summary>
+            private byte[][] followingBlocks;
+
+            /// <summary>
+            /// The method to call on buffer release.
+            /// </summary>
+            private Action<byte[]> releaseBuffer;
+
+            // public VirtualBuffer(int blockSize, int maximumSize) : this(blockSize, maximumSize, null, null)
+            // {
+            // }
+
+            // Orphaned WPL code.
+#if false
+           /// <summary>
+            /// Initializes a new instance of the <see cref="VirtualBuffer"/> struct.
+            /// </summary>
+            /// <param name="blockSize">The block size for the buffer.</param>
+            /// <param name="maximumSize">The maximum buffer size.</param>
+            /// <param name="acquireBuffer">The function to acquire data from the buffer.</param>
+            /// <param name="releaseBuffer">The method to call when releasing the buffer.</param>
+            public VirtualBuffer(
+                int blockSize,
+                int maximumSize,
+                Func<int, byte[]> acquireBuffer, 
+                Action<byte[]> releaseBuffer)
+            {
+                if ((acquireBuffer != null && releaseBuffer == null) ||
+                    (acquireBuffer == null && releaseBuffer != null))
+                {
+                    throw new ArgumentException("acquireBuffer and releaseBuffer should be both null or non-null");
+                }
+
+                this.blockSize = blockSize;
+                this.maximumSize = maximumSize;
+                this.bufferLength = 0;
+                this.firstBlock = null;
+                this.followingBlocks = null;
+
+                this.acquireBuffer = acquireBuffer;
+                this.releaseBuffer = releaseBuffer;
+
+                InternalDebug.Assert(this.blockSize > 0 && this.maximumSize >= this.blockSize && this.maximumSize % this.blockSize == 0);
+            }
+#endif
+            /// <summary>
+            /// Gets the maximum number of bytes the buffer can contain.
+            /// </summary>
+            /// <value>The maximum number of bytes the buffer can contain.</value>
+            public int MaxBytes
+            {
+                get
+                {
+                    return this.maximumSize;
+                }
+            }
+
+            /// <summary>
+            /// Gets the buffer's block size.
+            /// </summary>
+            private int BlockSize
+            {
+                get
+                {
+                    return this.blockSize;
+                }
+            }
+            
+            /// <summary>
+            /// Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+            /// </summary>
+            /// <param name="position">The buffer position to read from.</param>
+            /// <param name="buffer">An array of bytes. When this method returns, the buffer contains the specified byte array with the values between offset and (offset + count - 1) replaced by the bytes read from the current source.</param>
+            /// <param name="offset">The zero-based byte offset in buffer at which to begin storing the data read from the current stream.</param>
+            /// <param name="count">The maximum number of bytes to be read from the current stream.</param>
+            /// <returns>The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the stream has been reached.</returns>
+            public int Read(long position, byte[] buffer, int offset, int count)
+            {
+                if (position >= this.bufferLength)
+                {
+                    return 0;
+                }
+
+                InternalDebug.Assert(this.firstBlock != null);
+
+                int readTotal = 0;
+
+                if (position < this.BlockSize)
+                {
+                    int countRead = (int) Math.Min(this.BlockSize - position, this.bufferLength - position);
+
+                    if (countRead > count)
+                    {
+                        countRead = count;
+                    }
+
+                    Buffer.BlockCopy(this.firstBlock, (int) position, buffer, offset, countRead);
+
+                    offset += countRead;
+                    count -= countRead;
+
+                    position += countRead;
+
+                    readTotal += countRead;
+                }
+
+                while (count != 0)
+                {
+                    if (position >= this.bufferLength)
+                    {
+                        break;
+                    }
+
+                    int blockIndex = (int)((position - this.BlockSize) / this.BlockSize);
+                    int blockOffset = (int)((position - this.BlockSize) % this.BlockSize);
+
+                    int countRead = (int) Math.Min(this.BlockSize - blockOffset, this.bufferLength - position);
+
+                    if (countRead > count)
+                    {
+                        countRead = count;
+                    }
+
+                    Buffer.BlockCopy(this.followingBlocks[blockIndex], blockOffset, buffer, offset, countRead);
+
+                    offset += countRead;
+                    count -= countRead;
+
+                    position += countRead;
+
+                    readTotal += countRead;
+                }
+
+                return readTotal;
+            }
+            
+            /// <summary>
+            /// Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
+            /// </summary>
+            /// <param name="position">The buffer position to read from.</param>
+            /// <param name="buffer">An array of bytes. When this method returns, the buffer contains the specified byte array with the values between offset and (offset + count - 1) replaced by the bytes read from the current source.</param>
+            /// <param name="offset">The zero-based byte offset in buffer at which to begin storing the data read from the current stream.</param>
+            /// <param name="count">The maximum number of bytes to be read from the current stream.</param>
+            /// <returns>The total number of bytes written into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the stream has been reached.</returns>
+            public int Write(long position, byte[] buffer, int offset, int count)
+            {
+                if (position > this.bufferLength)
+                {
+                    this.SetLength(position);
+                }
+
+                if (position >= this.MaxBytes)
+                {
+                    return 0;
+                }
+
+                int writtenTotal = 0;
+
+                if (position < this.BlockSize)
+                {
+                    if (this.firstBlock == null)
+                    {
+                        this.firstBlock = this.GetBlock();
+                    }
+
+                    int countToWrite = (int) Math.Min(this.BlockSize - position, count);
+
+                    Buffer.BlockCopy(buffer, offset, this.firstBlock, (int) position, countToWrite);
+
+                    offset += countToWrite;
+                    count -= countToWrite;
+
+                    position += countToWrite;
+
+                    writtenTotal += countToWrite;
+                }
+
+                while (count != 0)
+                {
+                    if (position >= this.MaxBytes)
+                    {
+                        break;
+                    }
+
+                    if (this.followingBlocks == null)
+                    {
+                        this.followingBlocks = new byte[(this.MaxBytes - this.BlockSize) / this.BlockSize][];
+                    }
+
+                    int blockIndex = (int)((position - this.BlockSize) / this.BlockSize);
+                    int blockOffset = (int)((position - this.BlockSize) % this.BlockSize);
+
+                    if (this.followingBlocks[blockIndex] == null)
+                    {
+                        this.followingBlocks[blockIndex] = this.GetBlock();
+                    }
+
+                    int countToWrite = Math.Min(this.BlockSize - blockOffset, count);
+
+                    Buffer.BlockCopy(buffer, offset, this.followingBlocks[blockIndex], blockOffset, countToWrite);
+
+                    offset += countToWrite;
+                    count -= countToWrite;
+
+                    position += countToWrite;
+
+                    writtenTotal += countToWrite;
+                }
+
+                if (position > this.bufferLength)
+                {
+                    this.bufferLength = position;
+                }
+
+                return writtenTotal;
+            }
+
+            /// <summary>
+            /// Sets the length of the buffer.
+            /// </summary>
+            /// <param name="length">The new length.</param>
+            public void SetLength(long length)
+            {
+                if (this.bufferLength < length)
+                {
+                    if (this.bufferLength < this.BlockSize)
+                    {
+                        int addSize = (int) Math.Min(this.BlockSize - this.bufferLength, length - this.bufferLength);
+
+                        if (this.firstBlock == null)
+                        {
+                            this.firstBlock = this.GetBlock();
+                        }
+                        else
+                        {
+                            Array.Clear(this.firstBlock, (int) this.bufferLength, addSize);
+                        }
+
+                        this.bufferLength += addSize;
+                    }
+
+                    while (this.bufferLength < length)
+                    {
+                        if (this.bufferLength >= this.MaxBytes)
+                        {
+                            break;
+                        }
+
+                        if (this.followingBlocks == null)
+                        {
+                            this.followingBlocks = new byte[(this.MaxBytes - this.BlockSize) / this.BlockSize][];
+                        }
+
+                        int blockIndex = (int)((this.bufferLength - this.BlockSize) / this.BlockSize);
+                        int blockOffset = (int)((this.bufferLength - this.BlockSize) % this.BlockSize);
+
+                        int addSize = (int) Math.Min(this.BlockSize - blockOffset, length - this.bufferLength);
+
+                        if (this.followingBlocks[blockIndex] == null)
+                        {
+                            this.followingBlocks[blockIndex] = this.GetBlock();
+                        }
+                        else
+                        {
+                            Array.Clear(this.followingBlocks[blockIndex], (int) blockOffset, addSize);
+                        }
+
+                        this.bufferLength += addSize;
+                    }
+                }
+                else
+                {
+                    this.bufferLength = length;
+                }
+            }
+
+            /// <summary>
+            /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            /// </summary>
+            public void Dispose()
+            {                
+                if (this.releaseBuffer != null)
+                {
+                    if (this.firstBlock != null)
+                    {
+                        this.releaseBuffer(this.firstBlock);
+                        this.firstBlock = null;
+                    }
+
+                    if (this.followingBlocks != null)
+                    {
+                        foreach (byte[] block in this.followingBlocks)
+                        {
+                            if (block != null)
+                            {
+                                this.releaseBuffer(block);
+                            }
+                        }
+
+                        this.followingBlocks = null;
+                    }
+
+                    this.releaseBuffer = null;
+                }
+            }
+
+            /// <summary>
+            /// Gets the buffer block.
+            /// </summary>
+            /// <returns>The buffer block.</returns>
+            private byte[] GetBlock()
+            {
+                return this.acquireBuffer != null ? this.acquireBuffer(this.BlockSize) : new byte[this.BlockSize];
+            }
+        }
+    }
+}

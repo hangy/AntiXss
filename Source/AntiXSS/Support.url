@@ -1,9 +1,0 @@
-[DEFAULT]
-BASEURL=http://antixss.codeplex.com/Thread/List.aspx
-[InternetShortcut]
-URL=http://antixss.codeplex.com/Thread/List.aspx
-IDList=
-IconFile=rss.ico
-IconIndex=1
-[{000214A0-0000-0000-C000-000000000046}]
-Prop3=19,2

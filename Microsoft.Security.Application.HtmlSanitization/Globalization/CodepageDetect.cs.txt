@@ -1,0 +1,570 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CodepageDetect.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+// </copyright>
+// <summary>
+//   Detects the codepages from a list of valid and safe listed codepages.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Microsoft.Exchange.Data.Globalization
+{
+    using System;
+    using System.IO;
+
+    using Internal;
+
+    /// <summary>
+    /// Detects the codepages from a list of valid and safe listed codepages.
+    /// </summary>
+    internal struct CodePageDetect
+    {
+        /// <summary>
+        /// A Mask for valid code pages.
+        /// </summary>
+        internal static uint ValidCodePagesMask = InitializeValidCodePagesMask();
+
+        /// <summary>
+        /// A list of code pages.
+        /// </summary>
+        private int[] codePageList;
+
+        /// <summary>
+        /// A list of code page masks.
+        /// </summary>
+        private int[] maskMap;
+
+        // Orphaned WPL code.
+#if false
+        /// <summary>
+        /// Determines whether specified code page identifier is detectable
+        /// </summary>
+        /// <param name="cpid">The code page identifier.</param>
+        /// <param name="validOnly">If set to <c>true</c> then only valid codepages are checked.</param>
+        /// <returns>
+        /// <c>true</c> if is the specified code page identifier results in a detectable code page; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsCodePageDetectable(int cpid, bool validOnly)
+        {
+            byte codepageIndex = CodePageDetectData.CodePageIndex[cpid % CodePageDetectData.CodePageIndex.Length];
+            
+            if ((CodePageDetectData.CodePages[codepageIndex].Id == cpid) ||
+                (CodePageDetectData.CodePages[codepageIndex].Id == 38598 && cpid == 28598) ||
+                (CodePageDetectData.CodePages[codepageIndex].Id == 936 && cpid == 54936))
+            {
+                return validOnly
+                           ? 0 != (ValidCodePagesMask & CodePageDetectData.CodePages[codepageIndex].Mask)
+                           : true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Gets a list of common exception characters.
+        /// </summary>
+        /// <returns>A list of common exception characters.</returns>
+        public static char[] GetCommonExceptionCharacters()
+        {
+            return CodePageDetectData.CommonExceptions.Clone() as char[];
+        }
+
+        /// <summary>
+        /// Gets the default codepage priority list.
+        /// </summary>
+        /// <returns>
+        /// The default codepage priority list.
+        /// </returns>
+        public static int[] GetDefaultPriorityList()
+        {
+            var list = new int[CodePageDetectData.CodePages.Length];
+            for (int i = 0; i < CodePageDetectData.CodePages.Length; i++)
+            {
+                list[i] = CodePageDetectData.CodePages[i].Id;
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Initializes the maskMap array to the maximum size based on the number of codepage masks available.
+        /// </summary>
+        public void Initialize()
+        {
+            this.maskMap = new int[CodePageDetectData.CodePageMask.Length];
+        }
+
+        /// <summary>
+        /// Rests the Mask map.
+        /// </summary>
+        public void Reset()
+        {
+            for (int i = 0; i < this.maskMap.Length; i++)
+            {
+                this.maskMap[i] = 0;
+            }
+        }
+
+        /// <summary>
+        /// Adds a character to the Mask map.
+        /// </summary>
+        /// <param name="ch">The character to add to the Mask map.</param>
+        public void AddData(char ch)
+        {
+#if !DETECTION_DOUBLE_INDEXING
+            this.maskMap[CodePageDetectData.Index[ch]]++;
+#else
+            ushort index0 = CodePageDetectData.index0[ch >> 4];
+            this.maskMap[(index0 & 0x8000) != 0 ? (index0 & 0x00FF) : CodePageDetectData.index1[index0 + (ch & 0x000F)]] ++;
+#endif
+        }
+
+        /// <summary>
+        /// Adds the specified length of characters from the offset in the passed buffer to the the maskmap.
+        /// </summary>
+        /// <param name="buffer">The buffer to source characters from</param>
+        /// <param name="offset">The offset at which to start.</param>
+        /// <param name="count">The number of characters to add.</param>
+        public void AddData(char[] buffer, int offset, int count)
+        {
+            count++;
+            while (--count != 0)
+            {
+#if !DETECTION_DOUBLE_INDEXING
+                this.maskMap[CodePageDetectData.Index[buffer[offset]]]++;
+#else
+                char ch = buffer[offset];
+                ushort index0 = CodePageDetectData.index0[ch >> 4];
+                this.maskMap[(index0 & 0x8000) != 0 ? (index0 & 0x00FF) : CodePageDetectData.index1[index0 + (ch & 0x000F)]] ++;
+#endif
+                offset++;
+            }
+        }
+
+        /// <summary>
+        /// Adds the specified length of characters from the offset in the passed buffer to the the maskmap.
+        /// </summary>
+        /// <param name="buffer">The buffer to source characters from</param>
+        /// <param name="offset">The offset at which to start.</param>
+        /// <param name="count">The number of characters to add.</param>
+        public void AddData(string buffer, int offset, int count)
+        {
+            count++;
+            while (--count != 0)
+            {
+#if !DETECTION_DOUBLE_INDEXING
+                this.maskMap[CodePageDetectData.Index[buffer[offset]]]++;
+#else
+                char ch = buffer[offset];
+                ushort index0 = CodePageDetectData.index0[ch >> 4];
+                this.maskMap[(index0 & 0x8000) != 0 ? (index0 & 0x00FF) : CodePageDetectData.index1[index0 + (ch & 0x000F)]] ++;
+#endif
+                offset++;
+            }
+        }
+
+        /// <summary>
+        /// Adds up to the specified number of characters from the supplied TextReader to the maskmap.
+        /// </summary>
+        /// <param name="reader">The <see cref="TextReader" /> to source the characters from</param>
+        /// <param name="maxCharacters">The maximum number of characters to add.</param>
+        public void AddData(TextReader reader, int maxCharacters)
+        {
+            var charBuffer = new char[1024];
+
+            while (maxCharacters != 0)
+            {
+                int countToRead = Math.Min(charBuffer.Length, maxCharacters);
+
+                InternalDebug.Assert(countToRead != 0);
+
+                int count = reader.Read(charBuffer, 0, countToRead);
+                if (0 == count)
+                {
+                    break;
+                }
+
+                int offset = 0;
+
+                maxCharacters -= count;
+
+                count++;
+                while (--count != 0)
+                {
+#if !DETECTION_DOUBLE_INDEXING
+                    this.maskMap[CodePageDetectData.Index[charBuffer[offset]]]++;
+#else
+                    char ch = charBuffer[offset];
+                    ushort index0 = CodePageDetectData.index0[ch >> 4];
+                    this.maskMap[(index0 & 0x8000) != 0 ? (index0 & 0x00FF) : CodePageDetectData.index1[index0 + (ch & 0x000F)]] ++;
+#endif
+                    offset++;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the code page based on the priority list and the specified options.
+        /// </summary>
+        /// <param name="codePagePriorityList">The code page priority list.</param>
+        /// <param name="allowCommonFallbackExceptions">Common exceptions to the fallback process are allowed if true.</param>
+        /// <param name="allowAnyFallbackExceptions">All exceptions to the fallback process are allowed if true.</param>
+        /// <param name="onlyValidCodePages">Only valid codepages are returned if true.</param>
+        /// <returns>The code page number.</returns>
+        public int GetCodePage(
+            int[] codePagePriorityList, 
+            bool allowCommonFallbackExceptions, 
+            bool allowAnyFallbackExceptions, 
+            bool onlyValidCodePages)
+        {
+            uint cumulativeMask = 0xFFFFFFFF;
+
+            for (int i = 0; i < this.maskMap.Length; i++)
+            {
+                if (this.maskMap[i] == 0)
+                {
+                    continue;
+                }
+
+                uint mask = CodePageDetectData.CodePageMask[i];
+
+                if (allowAnyFallbackExceptions ||
+                    (allowCommonFallbackExceptions &&
+                     (CodePageDetectData.FallbackMask[i] & CodePageDetectData.CommonFallbackMask) != 0))
+                {
+                    mask |= CodePageDetectData.FallbackMask[i] & ~CodePageDetectData.CommonFallbackMask;
+                }
+
+                cumulativeMask &= mask;
+
+                if (cumulativeMask == 0)
+                {
+                    break;
+                }
+            }
+
+            if (onlyValidCodePages)
+            {
+                cumulativeMask &= ValidCodePagesMask;
+            }
+
+            return GetCodePage(ref cumulativeMask, codePagePriorityList);
+        }
+
+        /// <summary>
+        /// Gets a list of code page based on the priority list and the specified options.
+        /// </summary>
+        /// <param name="codePagePriorityList">The code page priority list.</param>
+        /// <param name="allowCommonFallbackExceptions">Common exceptions to the fallback process are allowed if true.</param>
+        /// <param name="allowAnyFallbackExceptions">All exceptions to the fallback process are allowed if true.</param>
+        /// <param name="onlyValidCodePages">Only valid codepages are returned if true.</param>
+        /// <returns>An array of integers representing the code pages..</returns>
+        public int[] GetCodePages(
+            int[] codePagePriorityList, 
+            bool allowCommonFallbackExceptions, 
+            bool allowAnyFallbackExceptions, 
+            bool onlyValidCodePages)
+        {
+            uint cumulativeMask = 0xFFFFFFFF;
+
+            for (int i = 0; i < this.maskMap.Length; i++)
+            {
+                if (this.maskMap[i] == 0)
+                {
+                    continue;
+                }
+
+                uint mask = CodePageDetectData.CodePageMask[i];
+
+                if (allowAnyFallbackExceptions ||
+                    (allowCommonFallbackExceptions &&
+                     (CodePageDetectData.FallbackMask[i] & CodePageDetectData.CommonFallbackMask) != 0))
+                {
+                    mask |= CodePageDetectData.FallbackMask[i] & ~CodePageDetectData.CommonFallbackMask;
+                }
+
+                cumulativeMask &= mask;
+
+                if (cumulativeMask == 0)
+                {
+                    break;
+                }
+            }
+
+            if (onlyValidCodePages)
+            {
+                cumulativeMask &= ValidCodePagesMask;
+            }
+
+            int numCodePages = GetCodePageCount(cumulativeMask);
+
+            InternalDebug.Assert(numCodePages > 0);
+
+            var result = new int[numCodePages];
+            int index = 0;
+
+            while (cumulativeMask != 0)
+            {
+                result[index++] = GetCodePage(ref cumulativeMask, codePagePriorityList);
+            }
+
+            result[index] = 65001;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a score for the code page coverage.
+        /// </summary>
+        /// <param name="codePage">The code page to calculate coverage fore.</param>
+        /// <returns>The coverage score</returns>
+        public int GetCodePageCoverage(int codePage)
+        {
+            uint codePageMask = 0;
+            int codePageCount = 0;
+            int totalCount = 0;
+
+            byte codepageIndex = CodePageDetectData.CodePageIndex[codePage % CodePageDetectData.CodePageIndex.Length];
+
+            if (codepageIndex != 255)
+            {
+                if ((CodePageDetectData.CodePages[codepageIndex].Id == codePage) ||
+                    (CodePageDetectData.CodePages[codepageIndex].Id == 38598 && codePage == 28598) ||
+                    (CodePageDetectData.CodePages[codepageIndex].Id == 936 && codePage == 54936))
+                {
+                    codePageMask = CodePageDetectData.CodePages[codepageIndex].Mask;
+                }
+            }
+
+            if (codePageMask != 0)
+            {
+                for (int i = 0; i < this.maskMap.Length; i++)
+                {
+                    if (codePageMask == (CodePageDetectData.CodePageMask[i] & codePageMask))
+                    {
+                        codePageCount += this.maskMap[i];
+                    }
+
+                    totalCount += this.maskMap[i];
+                }
+            }
+
+            return totalCount == 0 ? 0 : (int)((long)codePageCount * 100 / totalCount);
+        }
+
+        /// <summary>
+        /// Gets the best Windows codepage based on the specified options.
+        /// </summary>
+        /// <param name="allowCommonFallbackExceptions">Common exceptions to the fallback process are allowed if true.</param>
+        /// <param name="allowAnyFallbackExceptions">All exceptions to the fallback process are allowed if true.</param>
+        /// <returns>The best detected codepage</returns>
+        public int GetBestWindowsCodePage(bool allowCommonFallbackExceptions, bool allowAnyFallbackExceptions)
+        {
+            return this.GetBestWindowsCodePage(allowCommonFallbackExceptions, allowAnyFallbackExceptions, 0);
+        }
+
+        /// <summary>
+        /// Gets the best Windows codepage based on the specified options.
+        /// </summary>
+        /// <param name="allowCommonFallbackExceptions">Common exceptions to the fallback process are allowed if true.</param>
+        /// <param name="allowAnyFallbackExceptions">All exceptions to the fallback process are allowed if true.</param>
+        /// <param name="preferredCodePage">The preferred codepage, if available.</param>
+        /// <returns>The best detected codepage</returns>
+        public int GetBestWindowsCodePage(
+            bool allowCommonFallbackExceptions, 
+            bool allowAnyFallbackExceptions, 
+            int preferredCodePage)
+        {
+            uint mask;
+            if (this.codePageList == null)
+            {
+                this.codePageList = new int[CodePageDetectData.CodePages.Length + 1];
+            }
+            else
+            {
+                for (int j = 0; j < this.codePageList.Length; j++)
+                {
+                    this.codePageList[j] = 0;
+                }
+            }
+
+            for (int i = 0; i < this.maskMap.Length; i++)
+            {
+                if (this.maskMap[i] == 0)
+                {
+                    continue;
+                }
+
+                mask = CodePageDetectData.CodePageMask[i];
+
+                if (allowAnyFallbackExceptions ||
+                    (allowCommonFallbackExceptions &&
+                     (CodePageDetectData.FallbackMask[i] & CodePageDetectData.CommonFallbackMask) != 0))
+                {
+                    mask |= CodePageDetectData.FallbackMask[i] & ~CodePageDetectData.CommonFallbackMask;
+                }
+
+                mask &= CodePageDetectData.WindowsCodePagesMask;
+                if (0 == mask)
+                {
+                    continue;
+                }
+
+                for (int j = 0; mask != 0; j++, mask >>= 1)
+                {
+                    if (0 != (mask & 1u))
+                    {
+                        this.codePageList[j] += this.maskMap[i];
+                    }
+                }
+            }
+
+            int maximumCount = 0;
+            int maximumCodePageIndex = 0;
+
+            mask = CodePageDetectData.WindowsCodePagesMask;
+
+            for (int j = 0; mask != 0; j++)
+            {
+                if (CodePageDetectData.CodePages[j].IsWindowsCodePage &&
+                    this.codePageList[j] > maximumCount)
+                {
+                    maximumCount = this.codePageList[j];
+                    maximumCodePageIndex = j;
+                }
+                else if (this.codePageList[j] == maximumCount &&
+                         ((CodePageDetectData.CodePages[j].Id == 1252) ||
+                          (CodePageDetectData.CodePages[j].Id == preferredCodePage)))
+                {
+                    maximumCodePageIndex = j;
+                }
+
+                mask &= ~CodePageDetectData.CodePages[j].Mask;
+            }
+
+            InternalDebug.Assert(maximumCodePageIndex > 0 && maximumCodePageIndex < CodePageDetectData.CodePages.Length);
+
+            return CodePageDetectData.CodePages[maximumCodePageIndex].Id;
+        }
+
+        /// <summary>
+        /// Gets the code page and Mask based on the specified priortiy list.
+        /// </summary>
+        /// <param name="cumulativeMask">
+        /// The cumulative Mask.
+        /// </param>
+        /// <param name="codePagePriorityList">
+        /// The code page priority list.
+        /// </param>
+        /// <returns>
+        /// The code page and Mask based on the specified priortiy list.
+        /// </returns>
+        internal static int GetCodePage(ref uint cumulativeMask, int[] codePagePriorityList)
+        {
+            if (cumulativeMask != 0)
+            {
+                if (codePagePriorityList != null)
+                {
+                    foreach (int t in codePagePriorityList)
+                    {
+                        byte codepageIndex =
+                            CodePageDetectData.CodePageIndex[t % CodePageDetectData.CodePageIndex.Length];
+
+                        if (codepageIndex == 255)
+                        {
+                            continue;
+                        }
+
+                        if ((cumulativeMask & CodePageDetectData.CodePages[codepageIndex].Mask) != 0 &&
+                            ((CodePageDetectData.CodePages[codepageIndex].Id == t) ||
+                             (CodePageDetectData.CodePages[codepageIndex].Id == 38598 &&
+                              t == 28598) ||
+                             (CodePageDetectData.CodePages[codepageIndex].Id == 936 &&
+                              t == 54936)))
+                        {
+                            cumulativeMask &= ~CodePageDetectData.CodePages[codepageIndex].Mask;
+                            return t;
+                        }
+                    }
+                }
+
+                for (int j = 0; j < CodePageDetectData.CodePages.Length; j++)
+                {
+                    if ((cumulativeMask & CodePageDetectData.CodePages[j].Mask) == 0)
+                    {
+                        continue;
+                    }
+
+                    cumulativeMask &= ~CodePageDetectData.CodePages[j].Mask;
+                    return CodePageDetectData.CodePages[j].Id;
+                }
+
+                InternalDebug.Assert(false, "not supposed to come here");
+            }
+
+            return 65001;
+        }
+
+        /// <summary>
+        /// Gets the count of code pages in the Mask.
+        /// </summary>
+        /// <param name="cumulativeMask">
+        /// The Mask to count.
+        /// </param>
+        /// <returns>
+        /// The number of code pages in the Mask.
+        /// </returns>
+        internal static int GetCodePageCount(uint cumulativeMask)
+        {
+            int count = 1;
+
+            while (cumulativeMask != 0)
+            {
+                if (0 != (cumulativeMask & 1))
+                {
+                    count++;
+                }
+
+                cumulativeMask >>= 1;
+            }
+
+            return count;
+        }
+#endif
+
+        /// <summary>
+        /// Initalizes the list of valid code pages masks.
+        /// </summary>
+        /// <returns>
+        /// A list of valid code page masks.
+        /// </returns>
+        private static uint InitializeValidCodePagesMask()
+        {
+            uint mask = 0;
+
+            for (int i = 0; i < CodePageDetectData.CodePages.Length; i++)
+            {
+                Charset charset;
+
+                if (Charset.TryGetCharset(CodePageDetectData.CodePages[i].Id, out charset))
+                {
+                    if (charset.IsAvailable)
+                    {
+                        mask |= CodePageDetectData.CodePages[i].Mask;
+                    }
+                }
+            }
+
+            return mask;
+        }
+    }
+}
