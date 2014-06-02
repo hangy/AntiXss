@@ -1,0 +1,240 @@
+<stylecopresultscache>
+  <version>10</version>
+  <project key="213258980">
+    <configuration>TRACE;SYSTEM_WEB</configuration>
+  </project>
+  <sourcecode name="AntiXssAssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:44</timestamp>
+    <milliseconds>329</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="CodeChartHelper.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>181</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AntiXSS.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:44</timestamp>
+    <milliseconds>964</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="CssEncoder.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:44</timestamp>
+    <milliseconds>960</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="EncoderUtil.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:44</timestamp>
+    <milliseconds>967</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="GlobalSuppressions.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:44</timestamp>
+    <milliseconds>991</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="UpperMiddle.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>485</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Middle.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>485</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Upper.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>478</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="HtmlParameterEncoder.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/12/2014 10:50:21</timestamp>
+    <milliseconds>816</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Lower.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>193</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="LowerMiddle.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>480</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="UriUtil.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>162</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>500</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name=".NETFramework,Version=v4.0.AssemblyAttributes.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>01/22/2014 08:52:47</timestamp>
+    <milliseconds>994</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="LdapEncoder.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>22</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AntiXssEncoder.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>495</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Encoder.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>42</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Utf16StringReader.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>166</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="CodeCharts.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/12/2014 10:45:23</timestamp>
+    <milliseconds>613</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="UnicodeCharacterEncoder.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/12/2014 10:52:30</timestamp>
+    <milliseconds>790</milliseconds>
+    <violations>
+      <violation namespace="Microsoft.StyleCop.CSharp.OrderingRules" rule="ConstantsMustAppearBeforeFields" ruleCheckId="SA1203">
+        <context>All constant and readonly private fields must be placed before all non-constant, non-readonly private fields.</context>
+        <line>122</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.OrderingRules" rule="ElementsMustAppearInTheCorrectOrder" ruleCheckId="SA1201">
+        <context>All methods must be placed after all delegates.</context>
+        <line>163</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all public methods.</context>
+        <line>174</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all internal methods.</context>
+        <line>225</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all internal methods.</context>
+        <line>237</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all internal methods.</context>
+        <line>249</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all internal methods.</context>
+        <line>262</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+  <sourcecode name="SafeList.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>152</milliseconds>
+    <violations />
+  </sourcecode>
+</stylecopresultscache>

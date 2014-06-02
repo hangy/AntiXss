@@ -17,9 +17,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.Application.Security
+namespace Microsoft.Security.Application.Tests
 {
-    using VisualStudio.TestTools.UnitTesting;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Tests handling of Unicode Surrogates
@@ -33,12 +33,12 @@ namespace Microsoft.Application.Security
         [TestMethod]
         public void TestHtmlLowerBoundarySurrogateEncoding()
         {
-            const string Target = "\uD800\uDC00";
-            const string Expected = "&#65536;";
+            string target = "\uD800\uDC00";
+            string expected = "&#65536;";
 
-            string result = Microsoft.Security.Application.Encoder.HtmlEncode(Target);
+            string result = Encoder.HtmlEncode(target);
 
-            Assert.AreEqual(Expected, result);
+            Assert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -47,34 +47,42 @@ namespace Microsoft.Application.Security
         [TestMethod]
         public void TestHtmlUpperBoundarySurrogateEncoding()
         {
-            const string Target = "\uDBFF\uDFFF";
-            const string Expected = "&#1114111;";
+            string target = "\uDBFF\uDFFF";
+            string expected = "&#1114111;";
 
-            string result = Microsoft.Security.Application.Encoder.HtmlEncode(Target);
+            string result = Encoder.HtmlEncode(target);
 
-            Assert.AreEqual(Expected, result);
+            Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test that a high surrogate character which is not followed by a low surrogate character throws
-        /// an InvalidSurrogatePair exception when markup encoding.
+        /// Test that a high surrogate character which is not followed by a low surrogate character 
+        /// returns the substitution character.
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(Microsoft.Security.Application.InvalidSurrogatePairException))]
         public void TestHtmlHighSurrogateWithoutLowSurrogate()
         {
-            Microsoft.Security.Application.Encoder.HtmlEncode("\uD800");
+            string target = "\uD800";
+            string expected = "&#65533;"; // Substitution character.
+
+            string result = Encoder.HtmlEncode(target);
+
+            Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test that a low surrogate character which was not preceded by a high surrogate character throws
-        /// an InvalidSurrogatePair exception when markup encoding.
+        /// Test that a low surrogate character which was not preceded by a high surrogate character
+        /// returns the substitution character.
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(Microsoft.Security.Application.InvalidSurrogatePairException))]
         public void TestHtmlLowSurrogateWithoutHighSurrogate()
         {
-            Microsoft.Security.Application.Encoder.HtmlEncode("\uDC00");
+            string target = "\uDC00";
+            string expected = "&#65533;"; // Substitution character.
+
+            string result = Encoder.HtmlEncode(target);
+
+            Assert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -83,12 +91,12 @@ namespace Microsoft.Application.Security
         [TestMethod]
         public void TestCssLowerBoundarySurrogateEncoding()
         {
-            const string Target = "\uD800\uDC00";
-            const string Expected = @"\010000";
+            string target = "\uD800\uDC00";
+            string expected = @"\010000";
 
-            string result = Microsoft.Security.Application.Encoder.CssEncode(Target);
+            string result = Encoder.CssEncode(target);
 
-            Assert.AreEqual(Expected, result);
+            Assert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -97,34 +105,12 @@ namespace Microsoft.Application.Security
         [TestMethod]
         public void TestCssUpperBoundarySurrogateEncoding()
         {
-            const string Target = "\uDBFF\uDFFF";
-            const string Expected = @"\10FFFF";
+            string target = "\uDBFF\uDFFF";
+            string expected = @"\10FFFF";
 
-            string result = Microsoft.Security.Application.Encoder.CssEncode(Target);
+            string result = Encoder.CssEncode(target);
 
-            Assert.AreEqual(Expected, result);
+            Assert.AreEqual(expected, result);
         }
-
-        /// <summary>
-        /// Test that a high surrogate character which is not followed by a low surrogate character throws
-        /// an InvalidSurrogatePair exception when CSS encoding.
-        /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(Microsoft.Security.Application.InvalidSurrogatePairException))]
-        public void TestCssHighSurrogateWithoutLowSurrogate()
-        {
-            Microsoft.Security.Application.Encoder.CssEncode("\uD800");
-        }
-
-        /// <summary>
-        /// Test that a low surrogate character which was not preceded by a high surrogate character throws
-        /// an InvalidSurrogatePair exception when CSS encoding.
-        /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(Microsoft.Security.Application.InvalidSurrogatePairException))]
-        public void TestCssLowSurrogateWithoutHighSurrogate()
-        {
-            Microsoft.Security.Application.Encoder.HtmlEncode("\uDC00");
-        }    
     }
 }

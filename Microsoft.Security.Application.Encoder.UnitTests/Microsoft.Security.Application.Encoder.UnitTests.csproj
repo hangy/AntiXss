@@ -8,24 +8,18 @@
     <ProjectGuid>{53A4B395-7A8D-4BE5-9925-5795EC95846C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.Application.Security</RootNamespace>
+    <RootNamespace>Microsoft.Security.Application.Tests</RootNamespace>
     <AssemblyName>AntiXSSUnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
     <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>../antixss.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -38,7 +32,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -50,7 +43,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +53,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -74,23 +70,25 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AntiXssAssemblyInfo.cs">
+      <Link>Properties\AntiXssAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="CodeChartHelperTests.cs" />
+    <Compile Include="EncoderUtilTest.cs" />
+    <Compile Include="NullInputTest.cs" />
+    <Compile Include="EmptyStringTests.cs" />
     <Compile Include="LdapTests.cs" />
     <Compile Include="UpperUnicode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="SurrogateTests.cs" />
     <Compile Include="Unicode.cs" />
+    <Compile Include="UrlEncoderTests.cs" />
+    <Compile Include="Utf16StringReaderTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Security.Application.Encoder\Microsoft.Security.Application.Encoder.csproj">
-      <Project>{E7B6B7D1-53F8-4492-9B98-23244070E3E6}</Project>
-      <Name>Microsoft.Security.Application.Encoder</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.Security.Application.HtmlSanitization\Microsoft.Security.Application.HtmlSanitization.csproj">
-      <Project>{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}</Project>
-      <Name>Microsoft.Security.Application.HtmlSanitization</Name>
+    <ProjectReference Include="..\Microsoft.Security.Application.Encoder.Net4\Microsoft.Security.Application.Encoder.Net4.csproj">
+      <Project>{2D75A46C-96FE-40D2-B2D8-4665461E663E}</Project>
+      <Name>Microsoft.Security.Application.Encoder.Net4</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -121,11 +119,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Shadow Include="Test References\AntiXssLibrary.accessor" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="namedentities.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

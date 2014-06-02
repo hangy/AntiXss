@@ -137,7 +137,7 @@ namespace Microsoft.Security.Application
         /// </remarks>
         internal static char[] HashThenHexValueGenerator(int value)
         {
-            return StringToCharArrayWithHashPrefix(value.ToString("x2", CultureInfo.InvariantCulture));
+            return StringToCharArrayWithHashPrefix(value.ToString("X2", CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -189,45 +189,9 @@ namespace Microsoft.Security.Application
         /// <item><term>100</term><description>\000064</description></item>
         /// </list>
         /// </remarks>
-        internal static char[] SlashThenSixDigitHexValueGenerator(long value)
-        {
-            return StringToCharArrayWithSlashPrefix(value.ToString("X6", CultureInfo.InvariantCulture));
-        }
-
-        /// <summary>
-        /// Generates a slash prefixed character array representing the specified value in hexadecimal.
-        /// </summary>
-        /// <param name="value">The source value.</param>
-        /// <returns>A character array representing the specified value.</returns>
-        /// <remarks>
-        /// Example inputs and encoded outputs:
-        /// <list type="table">
-        /// <item><term>1</term><description>\000001</description></item>
-        /// <item><term>10</term><description>\000000A</description></item>
-        /// <item><term>100</term><description>\000064</description></item>
-        /// </list>
-        /// </remarks>
         internal static char[] SlashThenSixDigitHexValueGenerator(int value)
         {
             return StringToCharArrayWithSlashPrefix(value.ToString("X6", CultureInfo.InvariantCulture));
-        }
-
-        /// <summary>
-        /// Generates a hash prefixed character array representing the specified value.
-        /// </summary>
-        /// <param name="value">The source value.</param>
-        /// <returns>A character array representing the specified value.</returns>
-        /// <remarks>
-        /// Example inputs and encoded outputs:
-        /// <list type="table">
-        /// <item><term>1</term><description>#1</description></item>
-        /// <item><term>10</term><description>#10</description></item>
-        /// <item><term>100</term><description>#100</description></item>
-        /// </list>
-        /// </remarks>
-        internal static char[] HashThenValueGenerator(long value)
-        {
-            return StringToCharArrayWithHashPrefix(value.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -499,11 +463,11 @@ namespace Microsoft.Security.Application
         /// Punches holes as necessary.
         /// </summary>
         /// <param name="safeList">The safe list to punch through.</param>
-        /// <param name="isNeeded">Value indicating whether the holes should be punched.</param>
+        /// <param name="needed">Value indicating whether the holes should be punched.</param>
         /// <param name="whiteListedCharacters">The list of character positions to punch.</param>
-        private static void PunchHolesIfNeeded(ref char[][] safeList, bool isNeeded, IEnumerable whiteListedCharacters)
+        private static void PunchHolesIfNeeded(ref char[][] safeList, bool needed, IEnumerable whiteListedCharacters)
         {
-            if (!isNeeded)
+            if (!needed)
             {
                 return;
             }

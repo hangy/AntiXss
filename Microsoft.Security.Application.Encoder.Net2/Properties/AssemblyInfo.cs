@@ -20,10 +20,10 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
 
-[assembly: AssemblyTitle("AntiXss Library for .NET 3.5")]
+[assembly: AssemblyTitle("AntiXss Library for .NET 2.0")]
 [assembly: AssemblyDescription("Encoding classes for safe-listing encoding of HTML, XML and other output types.")]
 
-[assembly: Guid("48a9debc-67cb-4775-8545-d7ae9e259976")]
+[assembly: Guid("7CE889B7-2B05-4BD4-A1DC-70491A78B67B")]
 
 [assembly: AllowPartiallyTrustedCallers]
 [assembly: SecurityTransparent]

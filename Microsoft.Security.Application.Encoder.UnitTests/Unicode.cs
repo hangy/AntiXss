@@ -17,12 +17,14 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.Application.Security
+namespace Microsoft.Security.Application.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Text;
+    using System.Globalization;
+    using System.IO;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -33,9 +35,8 @@ namespace Microsoft.Application.Security
     [TestClass]
     public class Unicode
     {
-        #region TestMethods
         /// <summary>
-        /// All Unicode characters from Aegean Numbers 0x10100-0x1013F
+        /// Tries combining Arabic character sets.
         /// </summary>
         [TestMethod]
         public void UnicodeCombineMarkSafe()
@@ -45,7 +46,7 @@ namespace Microsoft.Application.Security
             long codePageEnd = 0x06FF;
             string codePageTitle = "Arabic 0x0600-0x06FF";
 
-            Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Arabic, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
+            UnicodeCharacterEncoder.MarkAsSafe(LowerCodeCharts.Arabic, LowerMidCodeCharts.None, MidCodeCharts.None, UpperMidCodeCharts.None, UpperCodeCharts.None);
 
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Arabic http://www.Unicode.org/charts/PDF/U0600.pdf
             List<long> unicodeGaps = new List<long>()
@@ -56,7 +57,7 @@ namespace Microsoft.Application.Security
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
 
             // 2nd: Set ArabicSupplement as safe and run unit tests for both Arabic and ArabicSupplement code pages
-            Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.ArabicSupplement, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
+            UnicodeCharacterEncoder.MarkAsSafe(LowerCodeCharts.Arabic | LowerCodeCharts.ArabicSupplement, LowerMidCodeCharts.None, MidCodeCharts.None, UpperMidCodeCharts.None, UpperCodeCharts.None);
 
             long codePageStart2 = 0x0750;
             long codePageEnd2 = 0x077F;
@@ -64,11 +65,6 @@ namespace Microsoft.Application.Security
 
             this.CallUnitTests(codePageStart2, codePageEnd2, codePageTitle2, unicodeGaps);
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle + " - round2", unicodeGaps);
-
-            // 3rd: try to clear out the safe list and rerun same tests
-            Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.None, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
-            this.CallUnitTests(codePageStart2, codePageEnd2, codePageTitle2 + " - round3", unicodeGaps);
-            this.CallUnitTests(codePageStart, codePageEnd, codePageTitle + " - round3", unicodeGaps);
         }
 
         /// <summary>
@@ -3587,7 +3583,7 @@ namespace Microsoft.Application.Security
         }
 
         /// <summary>
-        /// All Unicode characters from Yijing Hexagram Symbols 0x4DC0-0x4DFF
+        /// All Unicode named entities.
         /// </summary>
         [TestMethod]
         public void UnicodeNamedEntities()
@@ -3599,32 +3595,67 @@ namespace Microsoft.Application.Security
             // compiled list of characters that translate to named entities http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
             DataSet ds = NamedEntitiesSet();
 
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            foreach (DataRow dr in ds.Tables["NamedEntity"].Rows)
             {
                 int value = Convert.ToInt32(dr["Code"].ToString(), 16);
-                actual = Microsoft.Security.Application.Encoder.HtmlEncode(Convert.ToString((char)value), true);
+                actual = Encoder.HtmlEncode(Convert.ToString((char)value), true);
                 expected = "&" + dr["Name"].ToString() + ";";
                 Assert.AreEqual(expected, actual, "HtmlEncoder.HtmlEncode - use namedentities " + dr["Code"].ToString() + codePageTitle);
             }
         }
 
-        ////[TestMethod]
-        ////public void UnicodeAll()
-        ////{
-        //// long codePageStart = 0x0000;
-        //// long codePageEnd = 0x10FFFF;
-        //// string codePageTitle = "Vedic Extensions 0x1CD0-0x1CFF";
+        /// <summary>
+        /// Tests that MarkAsSafe with none works as expected.
+        /// </summary>
+        [TestMethod]
+        public void WhenNothingIsMarkedAsSafeEverythingShouldBeEncoded()
+        {
+            UnicodeCharacterEncoder.MarkAsSafe(
+                LowerCodeCharts.None,
+                LowerMidCodeCharts.None,
+                MidCodeCharts.None,
+                UpperMidCodeCharts.None,
+                UpperCodeCharts.None);            
 
-        //// // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Vedic Extensions http://www.Unicode.org/charts/PDF/Unicode-5.2/U52-1CD0.pdf
-        //// List<long> unicodeGaps = new List<long>()
-        //// {
-        //// // todo: need to transcribe this
-        //// };
+            for (int i = 0; i < 0xFFFF; i++)
+            {
+                char character = (char)i;
 
-        //// this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
-        ////}
+                if (char.IsSurrogate(character))
+                {
+                    continue;
+                }
 
-        #endregion
+                string actual = Encoder.HtmlEncode(new string(character, 1));
+                string expected;
+
+                switch (i)
+                {
+                    case '<':
+                        expected = "&lt;";
+                        break;
+
+                    case '>':
+                        expected = "&gt;";
+                        break;
+
+                    case '&':
+                        expected = "&amp;";
+                        break;
+
+                    case '"':
+                        expected = "&quot;";
+                        break;
+
+                    default:
+                        expected = string.Format(CultureInfo.InvariantCulture, "&#{0};", i);
+                        break;
+                }
+
+                Assert.AreEqual(expected, actual, string.Format(CultureInfo.InvariantCulture, "All unsafe failed on 0x{0:X}", i));
+            }
+        }
+
         /// <summary>
         /// Method that is called by all the codepage unit tests and executes the each encoding test
         /// for that codepage.
@@ -3641,336 +3672,10 @@ namespace Microsoft.Application.Security
             XmlEncodeUnicodeTest(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
             XmlAttributeEncodeUnicodeTest(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
             HtmlAttributeEncodeUnicodeTest(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
-            ////this.JavaScriptEncode_Unicode_Test(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
             LdapEncodeDistinguishedNameUnicodeTest(codePageStart, codePageEnd, codePageTitle);
             LdapEncodeFilterUnicodeTest(codePageStart, codePageEnd, codePageTitle);
-            ////this.VisualBasicScriptEncode_Unicode_Test(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
-            CssEnocdeUnitTest(codePageStart, codePageEnd, codePageTitle);
+            TestCssEncoderForSpecifiedCodePage(codePageStart, codePageEnd, codePageTitle);
         }
-
-#region Old Code Commented 
-        /////// <summary>
-        /////// Safelist that matches what WPL uses
-        /////// </summary>
-        /////// <returns>List of safelist characters</returns>
-        ////private List<long> Safelist()
-        ////{
-        ////    List<long> addChars = new List<long>();
-
-        ////    //char[][] localSafeList = 
-        ////    //addChars.Add(long.Parse("32")); 
-        ////    //addChars.Add(long.Parse("46")); 
-        ////    //addChars.Add(long.Parse("44")); 
-        ////    //addChars.Add(long.Parse("45")); 
-        ////    //for (long i = 48; i <= 57; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 65; i <= 90; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //addChars.Add(long.Parse("95")); 
-        ////    //for (long i = 97; i <= 122; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 256; i <= 591; i++)  
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 880; i <= 2047; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 2304; i <= 6319; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 6400; i <= 6687; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 6912; i <= 7039; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 7680; i <= 8191; i++)  
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 11264; i <= 11743; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 12352; i <= 12591; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 12688; i <= 12735; i++)
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 12784; i <= 12799; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 19968; i <= 40899; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 40960; i <= 42191; i++)  
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 42784; i <= 43055; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 43072; i <= 43135; i++)  
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    //for (long i = 44032; i <= 55215; i++) 
-        ////    //{
-        ////    //    addChars.Add((char)i);
-        ////    //}
-
-        ////    return addChars;
-        ////}
-
-        /////// <summary>
-        /////// A test for CssEncode
-        /////// </summary>
-        /////// <param name="codePageStart">String of the start of the codepage</param>
-        /////// <param name="codePageEnd">String of the end of the codepage</param>
-        /////// <param name="codePageTitle">String of the title of the codepage</param>
-        /////// <param name="unicodeGaps">List of the codepage Unicode gaps</param>
-        ////private void CssEncode_Unicode_Test(long codePageStart, long codePageEnd, string codePageTitle, List<long> unicodeGaps)
-        ////{
-        ////    string expected;
-        ////    string actual;
-        ////    string testmessage;
-        ////    for (long i = codePageStart; i < codePageEnd; i++)
-        ////    {
-        ////        testmessage = "0x";
-        ////        if (!unicodeGaps.Contains(i))
-        ////        {
-        ////            List<long> safelistChars = this.Safelist("CssEncode");
-        ////            string code = i.ToString("x");
-        ////            switch (code.Length)
-        ////            {
-        ////                case 0:
-        ////                    code = "0000" + code;
-        ////                    break;
-        ////                case 1:
-        ////                    code = "000" + code;
-        ////                    break;
-        ////                case 2:
-        ////                    code = "00" + code;
-        ////                    break;
-        ////                case 3:
-        ////                    code = "0" + code;
-        ////                    break;
-        ////                default:
-        ////                    break;
-        ////            }
-
-        ////            if (!safelistChars.Contains(i))
-        ////            {
-        ////                expected = "\\" + code;
-        ////                actual = Microsoft.Security.Application.Encoder.CssEncode(Convert.ToString((char)i));
-        ////                testmessage = "0x" + code + " (not included in safe list) ";
-        ////            }
-        ////            else
-        ////            {
-        ////                expected = Convert.ToString((char)i);
-        ////                actual = Microsoft.Security.Application.Encoder.CssEncode(Convert.ToString((char)i));
-        ////                testmessage = "0x" + code + " (included in safe list) ";
-        ////            }
-
-        ////            Assert.AreEqual(expected, actual, "CssEncode " + testmessage + codePageTitle);
-        ////        }
-        ////    }
-        ////}
-
-        /////// <summary>
-        /////// A test for JavaScriptEncode
-        /////// </summary>
-        /////// <param name="codePageStart">String of the start of the codepage</param>
-        /////// <param name="codePageEnd">String of the end of the codepage</param>
-        /////// <param name="codePageTitle">String of the title of the codepage</param>
-        /////// <param name="unicodeGaps">List of the codepage Unicode gaps</param>
-        ////private void JavaScriptEncode_Unicode_Test(long codePageStart, long codePageEnd, string codePageTitle, List<long> unicodeGaps)
-        ////{
-        ////    string expected;
-        ////    string actual;
-        ////    string testmessage = string.Empty;
-
-        ////    for (long i = codePageStart; i < codePageEnd; i++)
-        ////    {
-        ////        testmessage = "0x";
-        ////        if (!unicodeGaps.Contains(i))
-        ////        {
-        ////            string code = i.ToString("x").PadLeft(4, '0');
-
-        ////            List<long> safelistChars = this.Safelist();
-        ////            if (!safelistChars.Contains(i))
-        ////            {
-        ////                if (i > 127)
-        ////                {
-        ////                    expected = "'\\u" + code + "'";
-        ////                }
-        ////                else
-        ////                {
-        ////                    expected = "'\\x" + code + "'";
-        ////                }
-
-        ////                actual = Microsoft.Security.Application.Encoder.JavaScriptEncode(Convert.ToString((char)i));
-        ////                testmessage = "0x" + code + " (not included in safe list) ";
-        ////            }
-        ////            else
-        ////            {
-        ////                expected = "'" + Convert.ToString((char)i) + "'";
-        ////                actual = Microsoft.Security.Application.Encoder.JavaScriptEncode(Convert.ToString((char)i), true);
-        ////                testmessage = "0x" + code + " (included in safe list) ";
-        ////            }
-
-        ////            Assert.AreEqual(expected, actual, "JavaScriptEncode w/ flagforQuote=true " + testmessage + codePageTitle);
-        ////        }
-        ////    }
-
-        ////    for (long i = codePageStart; i < codePageEnd; i++)
-        ////    {
-        ////        testmessage = "0x";
-
-        ////        if (!unicodeGaps.Contains(i))
-        ////        {
-        ////            string code = i.ToString("x").PadLeft(4, '0');
-        ////            List<long> safelistChars = this.Safelist();
-        ////            if (!safelistChars.Contains(i))
-        ////            {
-        ////                if (i > 127)
-        ////                {
-        ////                    expected = "\\u" + code;
-        ////                }
-        ////                else
-        ////                {
-        ////                    expected = "\\x" + code;
-        ////                }
-
-        ////                actual = Microsoft.Security.Application.Encoder.JavaScriptEncode(Convert.ToString((char)i), false);
-        ////                testmessage = "0x" + code + " (not included in safe list) ";
-        ////            }
-        ////            else
-        ////            {
-        ////                expected = Convert.ToString((char)i);
-        ////                actual = Microsoft.Security.Application.Encoder.JavaScriptEncode(Convert.ToString((char)i), false);
-        ////                testmessage = "0x" + code + " (included in safe list) ";
-        ////            }
-
-        ////            Assert.AreEqual(expected, actual, "JavaScriptEncode w/ flagforQuote=false " + testmessage + codePageTitle);
-        ////        }
-        ////    }
-        ////}
-
-        /////// <summary>
-        /////// A test for VisualBasicScriptEncode
-        /////// </summary>
-        /////// <param name="codePageStart">String of the start of the codepage</param>
-        /////// <param name="codePageEnd">String of the end of the codepage</param>
-        /////// <param name="codePageTitle">String of the title of the codepage</param>
-        /////// <param name="unicodeGaps">List of the codepage Unicode gaps</param>
-        ////private void VisualBasicScriptEncode_Unicode_Test(long codePageStart, long codePageEnd, string codePageTitle, List<long> unicodeGaps)
-        ////{
-        ////    string expected;
-        ////    string actual;
-        ////    string testmessage;
-
-        ////    for (long i = codePageStart; i < codePageEnd; i++)
-        ////    {
-        ////        testmessage = "0x";
-
-        ////        if (!unicodeGaps.Contains(i))
-        ////        {
-        ////            List<long> safelistChars = this.Safelist();
-        ////            if (!safelistChars.Contains(i))
-        ////            {
-        ////                expected = "chrw(" + int.Parse(Convert.ToString(i, 16), System.Globalization.NumberStyles.HexNumber) + ")";
-        ////                actual = Microsoft.Security.Application.Encoder.VisualBasicScriptEncode(Convert.ToString((char)i));
-        ////                testmessage = "0x" + i.ToString("x") + " (not included in safelist) ";
-        ////            }
-        ////            else
-        ////            {
-        ////                expected = "\"" + Convert.ToString((char)i) + "\"";
-        ////                actual = Microsoft.Security.Application.Encoder.VisualBasicScriptEncode(Convert.ToString((char)i));
-        ////                testmessage = "0x" + i.ToString("x") + " (included in safelist) ";
-        ////            }
-
-        ////            Assert.AreEqual(expected, actual, "VisualBasicScriptEncode " + testmessage + codePageTitle);
-        ////        }
-        ////    }
-        ////}
-        //// <summary>
-        //// A test for HtmlEncoder
-        //// </summary>
-        //// <param name="codePageStart">String of the start of the codepage</param>
-        //// <param name="codePageEnd">String of the end of the codepage</param>
-        //// <param name="codePageTitle">String of the title of the codepage</param>
-        //// <param name="unicodeGaps">List of the codepage Unicode gaps</param>
-        ////private static void HtmlEncoderNamed_Unicode_Test(long codePageStart, long codePageEnd, string codePageTitle, List<long> unicodeGaps)
-        ////{
-        ////    string expected;
-        ////    string actual;
-        ////    string testmessage;
-
-        ////    for (long i = codePageStart; i < codePageEnd; i++)
-        ////    {
-        ////        if (!unicodeGaps.Contains(i))
-        ////        {
-        ////            expected = Convert.ToString((char)i);
-        ////            actual = Microsoft.Security.Application.Encoder.HtmlEncode(Convert.ToString((char)i), true);
-        ////            testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (non-gap value) ";
-        ////        }
-        ////        else
-        ////        {
-        ////            expected = "&#" + int.Parse(Convert.ToString(i, 16), System.Globalization.NumberStyles.HexNumber) + ";";
-        ////            actual = Microsoft.Security.Application.Encoder.HtmlEncode(Convert.ToString((char)i), true);
-        ////            testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (gap value) ";
-        ////        }
-
-        ////        DataSet ds = NamedEntitiesSet();
-
-        ////        foreach (DataRow dr in ds.Tables[0].Rows)
-        ////        {
-        ////            string value = Convert.ToString(i, 16).PadLeft(4, '0');
-        ////            if ("0x" + value == dr["Code"].ToString().ToLower())
-        ////            {
-        ////                expected = "&" + dr["Name"].ToString() + ";";
-        ////            }
-        ////        }
-
-        ////        Assert.AreEqual(expected, actual, "HtmlEncoder.HtmlEncode - use namedentities " + testmessage + codePageTitle);
-        ////    }
-        ////}
-#endregion
 
          /// <summary>
          /// Named Entities
@@ -3979,16 +3684,14 @@ namespace Microsoft.Application.Security
         private static DataSet NamedEntitiesSet()
         {
             DataSet ds = new DataSet();
-            DataTable dt = new DataTable("NamedEntities");
-            ds.Tables.Add(dt);
-
+            
             const string XmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <Root> <NamedEntity><Name>quot</Name><Code>0x0022</Code></NamedEntity><NamedEntity><Name>amp</Name><Code>0x0026</Code></NamedEntity><NamedEntity><Name>lt</Name><Code>0x003C</Code></NamedEntity><NamedEntity><Name>gt</Name><Code>0x003E</Code></NamedEntity><NamedEntity><Name>nbsp</Name><Code>0x00A0</Code></NamedEntity><NamedEntity><Name>iexcl</Name><Code>0x00A1</Code></NamedEntity><NamedEntity><Name>cent</Name><Code>0x00A2</Code></NamedEntity><NamedEntity><Name>pound</Name><Code>0x00A3</Code></NamedEntity><NamedEntity><Name>curren</Name><Code>0x00A4</Code></NamedEntity><NamedEntity><Name>yen</Name><Code>0x00A5</Code></NamedEntity><NamedEntity><Name>brvbar</Name><Code>0x00A6</Code></NamedEntity><NamedEntity><Name>sect</Name><Code>0x00A7</Code></NamedEntity><NamedEntity><Name>uml</Name><Code>0x00A8</Code></NamedEntity><NamedEntity><Name>copy</Name><Code>0x00A9</Code></NamedEntity><NamedEntity><Name>ordf</Name><Code>0x00AA</Code></NamedEntity><NamedEntity><Name>laquo</Name><Code>0x00AB</Code></NamedEntity><NamedEntity><Name>not</Name><Code>0x00AC</Code></NamedEntity><NamedEntity><Name>shy</Name><Code>0x00AD</Code></NamedEntity><NamedEntity><Name>reg</Name><Code>0x00AE</Code></NamedEntity><NamedEntity><Name>macr</Name><Code>0x00AF</Code></NamedEntity><NamedEntity><Name>deg</Name><Code>0x00B0</Code></NamedEntity><NamedEntity><Name>plusmn</Name><Code>0x00B1</Code></NamedEntity><NamedEntity><Name>sup2</Name><Code>0x00B2</Code></NamedEntity><NamedEntity><Name>sup3</Name><Code>0x00B3</Code></NamedEntity><NamedEntity><Name>acute</Name><Code>0x00B4</Code></NamedEntity><NamedEntity><Name>micro</Name><Code>0x00B5</Code></NamedEntity><NamedEntity><Name>para</Name><Code>0x00B6</Code></NamedEntity><NamedEntity><Name>middot</Name><Code>0x00B7</Code></NamedEntity><NamedEntity><Name>cedil</Name><Code>0x00B8</Code></NamedEntity><NamedEntity><Name>sup1</Name><Code>0x00B9</Code></NamedEntity><NamedEntity><Name>ordm</Name><Code>0x00BA</Code></NamedEntity><NamedEntity><Name>raquo</Name><Code>0x00BB</Code></NamedEntity><NamedEntity><Name>frac14</Name><Code>0x00BC</Code></NamedEntity><NamedEntity><Name>frac12</Name><Code>0x00BD</Code></NamedEntity><NamedEntity><Name>frac34</Name><Code>0x00BE</Code></NamedEntity><NamedEntity><Name>iquest</Name><Code>0x00BF</Code></NamedEntity><NamedEntity><Name>Agrave</Name><Code>0x00C0</Code></NamedEntity><NamedEntity><Name>Aacute</Name><Code>0x00C1</Code></NamedEntity><NamedEntity><Name>Acirc</Name><Code>0x00C2</Code></NamedEntity><NamedEntity><Name>Atilde</Name><Code>0x00C3</Code></NamedEntity><NamedEntity><Name>Auml</Name><Code>0x00C4</Code></NamedEntity><NamedEntity><Name>Aring</Name><Code>0x00C5</Code></NamedEntity><NamedEntity><Name>AElig</Name><Code>0x00C6</Code></NamedEntity><NamedEntity><Name>Ccedil</Name><Code>0x00C7</Code></NamedEntity><NamedEntity><Name>Egrave</Name><Code>0x00C8</Code></NamedEntity><NamedEntity><Name>Eacute</Name><Code>0x00C9</Code></NamedEntity><NamedEntity><Name>Ecirc</Name><Code>0x00CA</Code></NamedEntity><NamedEntity><Name>Euml</Name><Code>0x00CB</Code></NamedEntity><NamedEntity><Name>Igrave</Name><Code>0x00CC</Code></NamedEntity><NamedEntity><Name>Iacute</Name><Code>0x00CD</Code></NamedEntity><NamedEntity><Name>Icirc</Name><Code>0x00CE</Code></NamedEntity><NamedEntity><Name>Iuml</Name><Code>0x00CF</Code></NamedEntity><NamedEntity><Name>ETH</Name><Code>0x00D0</Code></NamedEntity><NamedEntity><Name>Ntilde</Name><Code>0x00D1</Code></NamedEntity><NamedEntity><Name>Ograve</Name><Code>0x00D2</Code></NamedEntity><NamedEntity><Name>Oacute</Name><Code>0x00D3</Code></NamedEntity><NamedEntity><Name>Ocirc</Name><Code>0x00D4</Code></NamedEntity><NamedEntity><Name>Otilde</Name><Code>0x00D5</Code></NamedEntity><NamedEntity><Name>Ouml</Name><Code>0x00D6</Code></NamedEntity><NamedEntity><Name>times</Name><Code>0x00D7</Code></NamedEntity><NamedEntity><Name>Oslash</Name><Code>0x00D8</Code></NamedEntity><NamedEntity><Name>Ugrave</Name><Code>0x00D9</Code></NamedEntity><NamedEntity><Name>Uacute</Name><Code>0x00DA</Code></NamedEntity><NamedEntity><Name>Ucirc</Name><Code>0x00DB</Code></NamedEntity><NamedEntity><Name>Uuml</Name><Code>0x00DC</Code></NamedEntity><NamedEntity><Name>Yacute</Name><Code>0x00DD</Code></NamedEntity><NamedEntity><Name>THORN</Name><Code>0x00DE</Code></NamedEntity><NamedEntity><Name>szlig</Name><Code>0x00DF</Code></NamedEntity><NamedEntity><Name>agrave</Name><Code>0x00E0</Code></NamedEntity><NamedEntity><Name>aacute</Name><Code>0x00E1</Code></NamedEntity><NamedEntity><Name>acirc</Name><Code>0x00E2</Code></NamedEntity><NamedEntity><Name>atilde</Name><Code>0x00E3</Code></NamedEntity><NamedEntity><Name>auml</Name><Code>0x00E4</Code></NamedEntity><NamedEntity><Name>aring</Name><Code>0x00E5</Code></NamedEntity><NamedEntity><Name>aelig</Name><Code>0x00E6</Code></NamedEntity><NamedEntity><Name>ccedil</Name><Code>0x00E7</Code></NamedEntity><NamedEntity><Name>egrave</Name><Code>0x00E8</Code></NamedEntity><NamedEntity><Name>eacute</Name><Code>0x00E9</Code></NamedEntity><NamedEntity><Name>ecirc</Name><Code>0x00EA</Code></NamedEntity><NamedEntity><Name>euml</Name><Code>0x00EB</Code></NamedEntity><NamedEntity><Name>igrave</Name><Code>0x00EC</Code></NamedEntity><NamedEntity><Name>iacute</Name><Code>0x00ED</Code></NamedEntity><NamedEntity><Name>icirc</Name><Code>0x00EE</Code></NamedEntity><NamedEntity><Name>iuml</Name><Code>0x00EF</Code></NamedEntity><NamedEntity><Name>eth</Name><Code>0x00F0</Code></NamedEntity><NamedEntity><Name>ntilde</Name><Code>0x00F1</Code></NamedEntity><NamedEntity><Name>ograve</Name><Code>0x00F2</Code></NamedEntity><NamedEntity><Name>oacute</Name><Code>0x00F3</Code></NamedEntity><NamedEntity><Name>ocirc</Name><Code>0x00F4</Code></NamedEntity><NamedEntity><Name>otilde</Name><Code>0x00F5</Code></NamedEntity><NamedEntity><Name>ouml</Name><Code>0x00F6</Code></NamedEntity><NamedEntity><Name>divide</Name><Code>0x00F7</Code></NamedEntity><NamedEntity><Name>oslash</Name><Code>0x00F8</Code></NamedEntity><NamedEntity><Name>ugrave</Name><Code>0x00F9</Code></NamedEntity><NamedEntity><Name>uacute</Name><Code>0x00FA</Code></NamedEntity><NamedEntity><Name>ucirc</Name><Code>0x00FB</Code></NamedEntity><NamedEntity><Name>uuml</Name><Code>0x00FC</Code></NamedEntity><NamedEntity><Name>yacute</Name><Code>0x00FD</Code></NamedEntity><NamedEntity><Name>thorn</Name><Code>0x00FE</Code></NamedEntity><NamedEntity><Name>yuml</Name><Code>0x00FF</Code></NamedEntity><NamedEntity><Name>OElig</Name><Code>0x0152</Code></NamedEntity><NamedEntity><Name>oelig</Name><Code>0x0153</Code></NamedEntity><NamedEntity><Name>Scaron</Name><Code>0x0160</Code></NamedEntity><NamedEntity><Name>scaron</Name><Code>0x0161</Code></NamedEntity><NamedEntity><Name>Yuml</Name><Code>0x0178</Code></NamedEntity><NamedEntity><Name>fnof</Name><Code>0x0192</Code></NamedEntity><NamedEntity><Name>circ</Name><Code>0x02C6</Code></NamedEntity><NamedEntity><Name>tilde</Name><Code>0x02DC</Code></NamedEntity><NamedEntity><Name>Alpha</Name><Code>0x0391</Code></NamedEntity><NamedEntity><Name>Beta</Name><Code>0x0392</Code></NamedEntity><NamedEntity><Name>Gamma</Name><Code>0x0393</Code></NamedEntity><NamedEntity><Name>Delta</Name><Code>0x0394</Code></NamedEntity><NamedEntity><Name>Epsilon</Name><Code>0x0395</Code></NamedEntity><NamedEntity><Name>Zeta</Name><Code>0x0396</Code></NamedEntity><NamedEntity><Name>Eta</Name><Code>0x0397</Code></NamedEntity><NamedEntity><Name>Theta</Name><Code>0x0398</Code></NamedEntity><NamedEntity><Name>Iota</Name><Code>0x0399</Code></NamedEntity><NamedEntity><Name>Kappa</Name><Code>0x039A</Code></NamedEntity><NamedEntity><Name>Lambda</Name><Code>0x039B</Code></NamedEntity><NamedEntity><Name>Mu</Name><Code>0x039C</Code></NamedEntity><NamedEntity><Name>Nu</Name><Code>0x039D</Code></NamedEntity><NamedEntity><Name>Xi</Name><Code>0x039E</Code></NamedEntity><NamedEntity><Name>Omicron</Name><Code>0x039F</Code></NamedEntity><NamedEntity><Name>Pi</Name><Code>0x03A0</Code></NamedEntity><NamedEntity><Name>Rho</Name><Code>0x03A1</Code></NamedEntity><NamedEntity><Name>Sigma</Name><Code>0x03A3</Code></NamedEntity><NamedEntity><Name>Tau</Name><Code>0x03A4</Code></NamedEntity><NamedEntity><Name>Upsilon</Name><Code>0x03A5</Code></NamedEntity><NamedEntity><Name>Phi</Name><Code>0x03A6</Code></NamedEntity><NamedEntity><Name>Chi</Name><Code>0x03A7</Code></NamedEntity><NamedEntity><Name>Psi</Name><Code>0x03A8</Code></NamedEntity><NamedEntity><Name>Omega</Name><Code>0x03A9</Code></NamedEntity><NamedEntity><Name>alpha</Name><Code>0x03B1</Code></NamedEntity><NamedEntity><Name>beta</Name><Code>0x03B2</Code></NamedEntity><NamedEntity><Name>gamma</Name><Code>0x03B3</Code></NamedEntity><NamedEntity><Name>delta</Name><Code>0x03B4</Code></NamedEntity><NamedEntity><Name>epsilon</Name><Code>0x03B5</Code></NamedEntity><NamedEntity><Name>zeta</Name><Code>0x03B6</Code></NamedEntity><NamedEntity><Name>eta</Name><Code>0x03B7</Code></NamedEntity><NamedEntity><Name>theta</Name><Code>0x03B8</Code></NamedEntity><NamedEntity><Name>iota</Name><Code>0x03B9</Code></NamedEntity><NamedEntity><Name>kappa</Name><Code>0x03BA</Code></NamedEntity><NamedEntity><Name>lambda</Name><Code>0x03BB</Code></NamedEntity><NamedEntity><Name>mu</Name><Code>0x03BC</Code></NamedEntity><NamedEntity><Name>nu</Name><Code>0x03BD</Code></NamedEntity><NamedEntity><Name>xi</Name><Code>0x03BE</Code></NamedEntity><NamedEntity><Name>omicron</Name><Code>0x03BF</Code></NamedEntity><NamedEntity><Name>pi</Name><Code>0x03C0</Code></NamedEntity><NamedEntity><Name>rho</Name><Code>0x03C1</Code></NamedEntity><NamedEntity><Name>sigmaf</Name><Code>0x03C2</Code></NamedEntity><NamedEntity><Name>sigma</Name><Code>0x03C3</Code></NamedEntity><NamedEntity><Name>tau</Name><Code>0x03C4</Code></NamedEntity><NamedEntity><Name>upsilon</Name><Code>0x03C5</Code></NamedEntity><NamedEntity><Name>phi</Name><Code>0x03C6</Code></NamedEntity><NamedEntity><Name>chi</Name><Code>0x03C7</Code></NamedEntity><NamedEntity><Name>psi</Name><Code>0x03C8</Code></NamedEntity><NamedEntity><Name>omega</Name><Code>0x03C9</Code></NamedEntity><NamedEntity><Name>thetasym</Name><Code>0x03D1</Code></NamedEntity><NamedEntity><Name>upsih</Name><Code>0x03D2</Code></NamedEntity><NamedEntity><Name>piv</Name><Code>0x03D6</Code></NamedEntity><NamedEntity><Name>ensp</Name><Code>0x2002</Code></NamedEntity><NamedEntity><Name>emsp</Name><Code>0x2003</Code></NamedEntity><NamedEntity><Name>thinsp</Name><Code>0x2009</Code></NamedEntity><NamedEntity><Name>zwnj</Name><Code>0x200C</Code></NamedEntity><NamedEntity><Name>zwj</Name><Code>0x200D</Code></NamedEntity><NamedEntity><Name>lrm</Name><Code>0x200E</Code></NamedEntity><NamedEntity><Name>rlm</Name><Code>0x200F</Code></NamedEntity><NamedEntity><Name>ndash</Name><Code>0x2013</Code></NamedEntity><NamedEntity><Name>mdash</Name><Code>0x2014</Code></NamedEntity><NamedEntity><Name>lsquo</Name><Code>0x2018</Code></NamedEntity><NamedEntity><Name>rsquo</Name><Code>0x2019</Code></NamedEntity><NamedEntity><Name>sbquo</Name><Code>0x201A</Code></NamedEntity><NamedEntity><Name>ldquo</Name><Code>0x201C</Code></NamedEntity><NamedEntity><Name>rdquo</Name><Code>0x201D</Code></NamedEntity><NamedEntity><Name>bdquo</Name><Code>0x201E</Code></NamedEntity><NamedEntity><Name>dagger</Name><Code>0x2020</Code></NamedEntity><NamedEntity><Name>Dagger</Name><Code>0x2021</Code></NamedEntity><NamedEntity><Name>bull</Name><Code>0x2022</Code></NamedEntity><NamedEntity><Name>hellip</Name><Code>0x2026</Code></NamedEntity><NamedEntity><Name>permil</Name><Code>0x2030</Code></NamedEntity><NamedEntity><Name>prime</Name><Code>0x2032</Code></NamedEntity><NamedEntity><Name>Prime</Name><Code>0x2033</Code></NamedEntity><NamedEntity><Name>lsaquo</Name><Code>0x2039</Code></NamedEntity><NamedEntity><Name>rsaquo</Name><Code>0x203A</Code></NamedEntity><NamedEntity><Name>oline</Name><Code>0x203E</Code></NamedEntity><NamedEntity><Name>frasl</Name><Code>0x2044</Code></NamedEntity><NamedEntity><Name>euro</Name><Code>0x20AC</Code></NamedEntity><NamedEntity><Name>image</Name><Code>0x2111</Code></NamedEntity><NamedEntity><Name>weierp</Name><Code>0x2118</Code></NamedEntity><NamedEntity><Name>real</Name><Code>0x211C</Code></NamedEntity><NamedEntity><Name>trade</Name><Code>0x2122</Code></NamedEntity><NamedEntity><Name>alefsym</Name><Code>0x2135</Code></NamedEntity><NamedEntity><Name>larr</Name><Code>0x2190</Code></NamedEntity><NamedEntity><Name>uarr</Name><Code>0x2191</Code></NamedEntity><NamedEntity><Name>rarr</Name><Code>0x2192</Code></NamedEntity><NamedEntity><Name>darr</Name><Code>0x2193</Code></NamedEntity><NamedEntity><Name>harr</Name><Code>0x2194</Code></NamedEntity><NamedEntity><Name>crarr</Name><Code>0x21B5</Code></NamedEntity><NamedEntity><Name>lArr</Name><Code>0x21D0</Code></NamedEntity><NamedEntity><Name>uArr</Name><Code>0x21D1</Code></NamedEntity><NamedEntity><Name>rArr</Name><Code>0x21D2</Code></NamedEntity><NamedEntity><Name>dArr</Name><Code>0x21D3</Code></NamedEntity><NamedEntity><Name>hArr</Name><Code>0x21D4</Code></NamedEntity><NamedEntity><Name>forall</Name><Code>0x2200</Code></NamedEntity><NamedEntity><Name>part</Name><Code>0x2202</Code></NamedEntity><NamedEntity><Name>exist</Name><Code>0x2203</Code></NamedEntity><NamedEntity><Name>empty</Name><Code>0x2205</Code></NamedEntity><NamedEntity><Name>nabla</Name><Code>0x2207</Code></NamedEntity><NamedEntity><Name>isin</Name><Code>0x2208</Code></NamedEntity><NamedEntity><Name>notin</Name><Code>0x2209</Code></NamedEntity><NamedEntity><Name>ni</Name><Code>0x220B</Code></NamedEntity><NamedEntity><Name>prod</Name><Code>0x220F</Code></NamedEntity><NamedEntity><Name>sum</Name><Code>0x2211</Code></NamedEntity><NamedEntity><Name>minus</Name><Code>0x2212</Code></NamedEntity><NamedEntity><Name>lowast</Name><Code>0x2217</Code></NamedEntity><NamedEntity><Name>radic</Name><Code>0x221A</Code></NamedEntity><NamedEntity><Name>prop</Name><Code>0x221D</Code></NamedEntity><NamedEntity><Name>infin</Name><Code>0x221E</Code></NamedEntity><NamedEntity><Name>ang</Name><Code>0x2220</Code></NamedEntity><NamedEntity><Name>and</Name><Code>0x2227</Code></NamedEntity><NamedEntity><Name>or</Name><Code>0x2228</Code></NamedEntity><NamedEntity><Name>cap</Name><Code>0x2229</Code></NamedEntity><NamedEntity><Name>cup</Name><Code>0x222A</Code></NamedEntity><NamedEntity><Name>int</Name><Code>0x222B</Code></NamedEntity><NamedEntity><Name>there4</Name><Code>0x2234</Code></NamedEntity><NamedEntity><Name>sim</Name><Code>0x223C</Code></NamedEntity><NamedEntity><Name>cong</Name><Code>0x2245</Code></NamedEntity><NamedEntity><Name>asymp</Name><Code>0x2248</Code></NamedEntity><NamedEntity><Name>ne</Name><Code>0x2260</Code></NamedEntity><NamedEntity><Name>equiv</Name><Code>0x2261</Code></NamedEntity><NamedEntity><Name>le</Name><Code>0x2264</Code></NamedEntity><NamedEntity><Name>ge</Name><Code>0x2265</Code></NamedEntity><NamedEntity><Name>sub</Name><Code>0x2282</Code></NamedEntity><NamedEntity><Name>sup</Name><Code>0x2283</Code></NamedEntity><NamedEntity><Name>nsub</Name><Code>0x2284</Code></NamedEntity><NamedEntity><Name>sube</Name><Code>0x2286</Code></NamedEntity><NamedEntity><Name>supe</Name><Code>0x2287</Code></NamedEntity><NamedEntity><Name>oplus</Name><Code>0x2295</Code></NamedEntity><NamedEntity><Name>otimes</Name><Code>0x2297</Code></NamedEntity><NamedEntity><Name>perp</Name><Code>0x22A5</Code></NamedEntity><NamedEntity><Name>sdot</Name><Code>0x22C5</Code></NamedEntity><NamedEntity><Name>lceil</Name><Code>0x2308</Code></NamedEntity><NamedEntity><Name>rceil</Name><Code>0x2309</Code></NamedEntity><NamedEntity><Name>lfloor</Name><Code>0x230A</Code></NamedEntity><NamedEntity><Name>rfloor</Name><Code>0x230B</Code></NamedEntity><NamedEntity><Name>lang</Name><Code>0x2329</Code></NamedEntity><NamedEntity><Name>rang</Name><Code>0x232A</Code></NamedEntity><NamedEntity><Name>loz</Name><Code>0x25CA</Code></NamedEntity><NamedEntity><Name>spades</Name><Code>0x2660</Code></NamedEntity><NamedEntity><Name>clubs</Name><Code>0x2663</Code></NamedEntity><NamedEntity><Name>hearts</Name><Code>0x2665</Code></NamedEntity><NamedEntity><Name>diams</Name><Code>0x2666</Code></NamedEntity></Root>";
 
-            System.IO.StringReader stringReader = new System.IO.StringReader(XmlData);
+            using (StringReader stringReader = new StringReader(XmlData))
+            {
+                ds.ReadXml(stringReader, XmlReadMode.InferSchema);
+            }
 
-            ds.ReadXml(stringReader, XmlReadMode.IgnoreSchema);
-
-            stringReader.Dispose();
             return ds;
         }     
 
@@ -4010,15 +3713,15 @@ namespace Microsoft.Application.Security
                 if (!unicodeGaps.Contains(i))
                 {
                     expected = Convert.ToString((char)i);
-                    actual = Microsoft.Security.Application.Encoder.HtmlAttributeEncode(Convert.ToString((char)i));
-                    testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (non-gap value) ";
+                    actual = Encoder.HtmlAttributeEncode(Convert.ToString((char)i));
+                    testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (non-gap value) ";
                 }
                 else
                 {
                     expected = "&#" + int.Parse(Convert.ToString(i, 16), System.Globalization.NumberStyles.HexNumber) + ";";
-                    actual = Microsoft.Security.Application.Encoder.HtmlAttributeEncode(Convert.ToString((char)i));
+                    actual = Encoder.HtmlAttributeEncode(Convert.ToString((char)i));
 
-                    testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (gap value) ";
+                    testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (gap value) ";
                 }
 
                 if (i.Equals(0x0020))
@@ -4065,7 +3768,7 @@ namespace Microsoft.Application.Security
         {
             for (long i = codePageStart; i < codePageEnd; i++)
             {
-                Encoding encoders = Encoding.UTF8;
+                System.Text.Encoding encoders = System.Text.Encoding.UTF8;
                 string expected = string.Empty;
 
                 byte[] bytes = encoders.GetBytes(Convert.ToString((char)i));
@@ -4110,21 +3813,21 @@ namespace Microsoft.Application.Security
                 ////Exception for the Digits
                 if (i > 0x002F && i < 0x003a)
                 {
-                    expected = Encoding.ASCII.GetString(bytes);
+                    expected = System.Text.Encoding.ASCII.GetString(bytes);
                 }
                 ////Exception for the Uppercase Alphas
                 if (i > 0x0040 && i < 0x005B)
                 {
-                    expected = Encoding.ASCII.GetString(bytes);
+                    expected = System.Text.Encoding.ASCII.GetString(bytes);
                 }
                 ////Exception for the Lowercase Alphas
                 if (i > 0x0060 && i < 0x007B)
                 {
-                    expected = Encoding.ASCII.GetString(bytes);
+                    expected = System.Text.Encoding.ASCII.GetString(bytes);
                 }
               
-                string actual = Microsoft.Security.Application.Encoder.HtmlFormUrlEncode(Convert.ToString((char)i));
-                string testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (gap value) ";
+                string actual = Encoder.HtmlFormUrlEncode(Convert.ToString((char)i));
+                string testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (gap value) ";
                 Assert.AreEqual(expected, actual, "HtmlFormUrlEncode.HtmlFormUrlEncode " + testmessage + codePageTitle);
             }
         }
@@ -4138,7 +3841,7 @@ namespace Microsoft.Application.Security
         private static void UrlEncodeUnicodeTest(long codePageStart, long codePageEnd, string codePageTitle)
         {
             string expected;
-            Encoding encoders = Encoding.UTF8;
+            System.Text.Encoding encoders = System.Text.Encoding.UTF8;
             for (long i = codePageStart; i < codePageEnd; i++)
             {
                 expected = string.Empty;
@@ -4179,21 +3882,21 @@ namespace Microsoft.Application.Security
                 ////Exception for the Digits
                 if (i > 0x002F && i < 0x003a)
                 {
-                    expected = Encoding.ASCII.GetString(bytes);
+                    expected = System.Text.Encoding.ASCII.GetString(bytes);
                 }
                 ////Exception for the Uppercase Alphas
                 if (i > 0x0040 && i < 0x005B)
                 {
-                    expected = Encoding.ASCII.GetString(bytes);
+                    expected = System.Text.Encoding.ASCII.GetString(bytes);
                 }
                 ////Exception for the Lowercase Alphas
                 if (i > 0x0060 && i < 0x007B)
                 {
-                    expected = Encoding.ASCII.GetString(bytes);
+                    expected = System.Text.Encoding.ASCII.GetString(bytes);
                 }
 
-                string actual = Microsoft.Security.Application.Encoder.UrlEncode(Convert.ToString((char)i));
-                string testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (gap value) ";
+                string actual = Encoder.UrlEncode(Convert.ToString((char)i));
+                string testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (gap value) ";
                 Assert.AreEqual(expected, actual, "UrlEncode.UrlEncode " + testmessage + codePageTitle);
             }
         }
@@ -4215,15 +3918,15 @@ namespace Microsoft.Application.Security
                 if (!unicodeGaps.Contains(i))
                 {
                     expected = Convert.ToString((char)i);
-                    actual = Microsoft.Security.Application.Encoder.HtmlEncode(Convert.ToString((char)i));
-                    testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (non-gap value) ";
+                    actual = Encoder.HtmlEncode(Convert.ToString((char)i));
+                    testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (non-gap value) ";
                 }
                 else
                 {
                     expected = "&#" + int.Parse(Convert.ToString(i, 16), System.Globalization.NumberStyles.HexNumber) + ";";
-                    actual = Microsoft.Security.Application.Encoder.HtmlEncode(Convert.ToString((char)i));
+                    actual = Encoder.HtmlEncode(Convert.ToString((char)i));
 
-                    testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (gap value) ";
+                    testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (gap value) ";
                 }
 
                 if (i.Equals(0x0022))
@@ -4244,6 +3947,16 @@ namespace Microsoft.Application.Security
                 if (i.Equals(0x003e))
                 {
                     expected = "&gt;";
+                }
+
+                if (i.Equals(0x003e))
+                {
+                    expected = "&gt;";
+                }
+
+                if (i.Equals(0x0027))
+                {
+                    expected = "&#39;";
                 }
 
                 Assert.AreEqual(expected, actual, "HtmlEncoder.HtmlEncode " + testmessage + codePageTitle);
@@ -4267,15 +3980,15 @@ namespace Microsoft.Application.Security
                 if (!unicodeGaps.Contains(i))
                 {
                     expected = Convert.ToString((char)i);
-                    actual = Microsoft.Security.Application.Encoder.XmlAttributeEncode(Convert.ToString((char)i));
-                    testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (non-gap value) ";
+                    actual = Encoder.XmlAttributeEncode(Convert.ToString((char)i));
+                    testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (non-gap value) ";
                 }
                 else
                 {
                     expected = "&#" + int.Parse(Convert.ToString(i, 16), System.Globalization.NumberStyles.HexNumber) + ";";
-                    actual = Microsoft.Security.Application.Encoder.XmlAttributeEncode(Convert.ToString((char)i));
+                    actual = Encoder.XmlAttributeEncode(Convert.ToString((char)i));
 
-                    testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (gap value) ";
+                    testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (gap value) ";
                 }
 
                 if (i.Equals(0x0020))
@@ -4330,15 +4043,15 @@ namespace Microsoft.Application.Security
                 if (!unicodeGaps.Contains(i))
                 {
                     expected = Convert.ToString((char)i);
-                    actual = Microsoft.Security.Application.Encoder.XmlEncode(Convert.ToString((char)i));
-                    testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (non-gap value) ";
+                    actual = Encoder.XmlEncode(Convert.ToString((char)i));
+                    testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (non-gap value) ";
                 }
                 else
                 {
                     expected = "&#" + int.Parse(Convert.ToString(i, 16), System.Globalization.NumberStyles.HexNumber) + ";";
-                    actual = Microsoft.Security.Application.Encoder.XmlEncode(Convert.ToString((char)i));
+                    actual = Encoder.XmlEncode(Convert.ToString((char)i));
 
-                    testmessage = "0x" + i.ToString("x").PadLeft(4, '0') + " (gap value) ";
+                    testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (gap value) ";
                 }
 
                 if (i.Equals(0x0022))
@@ -4376,16 +4089,14 @@ namespace Microsoft.Application.Security
         /// <param name="codePageStart">String of the start of the codepage</param>
         /// <param name="codePageEnd">String of the end of the codepage</param>
         /// <param name="codePageTitle">String of the title of the codepage</param>
-        private static void CssEnocdeUnitTest(long codePageStart, long codePageEnd, string codePageTitle)
+        private static void TestCssEncoderForSpecifiedCodePage(long codePageStart, long codePageEnd, string codePageTitle)
         {
-            Encoding encoders = Encoding.UTF8;
-            string expected;
-            string actual;
+            System.Text.Encoding encoders = System.Text.Encoding.UTF8;
             for (long i = codePageStart; i < codePageEnd; i++)
             {
-                expected = string.Empty;
+                string expected;
                 byte[] bytes = encoders.GetBytes(Convert.ToString((char)i));
-                if ((i > 0x002F && i < 0x003A) || (i > 0x0040 && i < 0x005B) || (i > 0x0060 && i < 0x007B) || (i > 0x007E && i < 0x0091) || (i > 0x0092 && i < 0x009B) || (i > 0x009F && i < 0x00A6))
+                if ((i > 0x002F && i < 0x003A) || (i > 0x0040 && i < 0x005B) || (i > 0x0060 && i < 0x007B))
                 {
                     expected = Convert.ToString((char)i);
                 }
@@ -4400,7 +4111,7 @@ namespace Microsoft.Application.Security
                     expected = expected.ToUpper();
                 }
 
-                actual = Microsoft.Security.Application.Encoder.CssEncode(Convert.ToString((char)i));
+                string actual = Encoder.CssEncode(Convert.ToString((char)i));
                 Assert.AreEqual(expected, actual, "CssEncode.CssEncode " + codePageTitle + " In Unicode: " + i);
             }
         }
@@ -4414,7 +4125,7 @@ namespace Microsoft.Application.Security
         private static void LdapEncodeDistinguishedNameUnicodeTest(long codePageStart, long codePageEnd, string codePageTitle)
         {
             string expected;
-            Encoding encoders = Encoding.UTF8;
+            System.Text.Encoding encoders = System.Text.Encoding.UTF8;
             for (long i = codePageStart; i < codePageEnd; i++)
             {
                 expected = string.Empty;
@@ -4426,12 +4137,10 @@ namespace Microsoft.Application.Security
                         if (bytes[x] < 16)
                         {
                             expected = expected + "#" + "0" + bytes[x].ToString("X");
-                            expected = expected.ToLower();
                         }
                         else
                         {
                             expected = expected + "#" + bytes[x].ToString("X");
-                            expected = expected.ToLower();
                         }
                     }
                 }
@@ -4502,21 +4211,21 @@ namespace Microsoft.Application.Security
 
                 if (i.Equals(0x002d))
                 {
-                    expected = "#2d";
+                    expected = "#2D";
                 }
 
                 if (i.Equals(0x003d))
                 {
-                    expected = "#3d";
+                    expected = "#3D";
                 }
 
                 if (i.Equals(0x007c))
                 {
-                    expected = "#7c";
+                    expected = "#7C";
                 }
 
-                string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Convert.ToString((char)i));
-                Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - DN - " + "-" + codePageTitle + " Code - " + i.ToString("x"));
+                string actual = Encoder.LdapDistinguishedNameEncode(Convert.ToString((char)i));
+                Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - DN - " + "-" + codePageTitle + " Code - " + i.ToString("X"));
            }
         }
 
@@ -4528,61 +4237,59 @@ namespace Microsoft.Application.Security
         /// <param name="codePageTitle">String of the title of the codepage</param>
         private static void LdapEncodeFilterUnicodeTest(long codePageStart, long codePageEnd, string codePageTitle)
         {
-            string expected;
-
-            Encoding encoders = Encoding.UTF8;
+            System.Text.Encoding encoders = System.Text.Encoding.UTF8;
             for (long i = codePageStart; i < codePageEnd; i++)
             {
-                    expected = string.Empty;
-                    byte[] bytes = encoders.GetBytes(Convert.ToString((char)i));
-                    if (i > 0x007F || i < 0x0020)
+                string expected = string.Empty;
+                byte[] bytes = encoders.GetBytes(Convert.ToString((char)i));
+                if (i > 0x007F || i < 0x0020)
+                {
+                    for (int x = 0; x < bytes.Length; x++)
                     {
-                        for (int x = 0; x < bytes.Length; x++)
+                        if (bytes[x] < 16)
                         {
-                            if (bytes[x] < 16)
-                            {
-                                expected = expected + "\\" + "0" + bytes[x].ToString("X");
-                                expected = expected.ToLower();
-                            }
-                            else
-                            {
-                                expected = expected + "\\" + bytes[x].ToString("X");
-                                expected = expected.ToLower();
-                            }
+                            expected = expected + "\\" + "0" + bytes[x].ToString("X");
+                            expected = expected.ToLower();
+                        }
+                        else
+                        {
+                            expected = expected + "\\" + bytes[x].ToString("X");
+                            expected = expected.ToLower();
                         }
                     }
-                    else
-                    {
-                        expected = Convert.ToString((char)i);
-                    }
+                }
+                else
+                {
+                    expected = Convert.ToString((char)i);
+                }
          
-                    if (i.Equals(0x0028))
-                    {
-                        expected = "\\28";
-                    }
+                if (i.Equals(0x0028))
+                {
+                    expected = "\\28";
+                }
 
-                    if (i.Equals(0x0029))
-                    {
-                        expected = "\\29";
-                    }
+                if (i.Equals(0x0029))
+                {
+                    expected = "\\29";
+                }
 
-                    if (i.Equals(0x005C))
-                    {
-                        expected = "\\5c";
-                    }
+                if (i.Equals(0x005C))
+                {
+                    expected = "\\5c";
+                }
 
-                    if (i.Equals(0x002A))
-                    {
-                        expected = "\\2a";
-                    }
+                if (i.Equals(0x002A))
+                {
+                    expected = "\\2a";
+                }
 
-                    if (i.Equals(0x002F))
-                    {
-                        expected = "\\2f";
-                    }
+                if (i.Equals(0x002F))
+                {
+                    expected = "\\2f";
+                }
                 
-                    string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(Convert.ToString((char)i));
-                    Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - Filter -  " + "-" + codePageTitle + " Code - " + i.ToString("x"));
+                string actual = Encoder.LdapFilterEncode(Convert.ToString((char)i));
+                Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - Filter -  " + "-" + codePageTitle + " Code - " + i.ToString("X"));
             }
         }
     }

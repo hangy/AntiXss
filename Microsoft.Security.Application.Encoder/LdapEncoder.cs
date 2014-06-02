@@ -19,9 +19,9 @@
 
 namespace Microsoft.Security.Application
 {
+    using System;
     using System.Collections;
     using System.Text;
-    using System.Threading;
 
     /// <summary>
     /// Provides LDAP Encoding methods.
@@ -29,24 +29,14 @@ namespace Microsoft.Security.Application
     internal static class LdapEncoder
     {
         /// <summary>
-        /// A lock object to use when performing filter safe listing initialization.
-        /// </summary>
-        private static readonly ReaderWriterLockSlim FilterSafeListSyncLock = new ReaderWriterLockSlim();
-
-        /// <summary>
-        /// A lock object to use when performing DN safe listing initialization.
-        /// </summary>
-        private static readonly ReaderWriterLockSlim DistinguishedNameSafeListSyncLock = new ReaderWriterLockSlim();
-
-        /// <summary>
         /// The values to output for each character when filter encoding.
         /// </summary>
-        private static char[][] filterCharacterValues;
+        private static Lazy<char[][]> filterCharacterValuesLazy = new Lazy<char[][]>(InitialiseFilterSafeList);
 
         /// <summary>
         /// The values to output for each character when DN encoding.
         /// </summary>
-        private static char[][] distinguishedNameCharacterValues;
+        private static Lazy<char[][]> distinguishedNameCharacterValuesLazy = new Lazy<char[][]>(InitialiseDistinguishedNameSafeList);
 
         /// <summary>
         /// Encodes the input string for use in LDAP filters.
@@ -60,10 +50,7 @@ namespace Microsoft.Security.Application
                 return input;
             }
 
-            if (filterCharacterValues == null)
-            {
-                InitialiseFilterSafeList();
-            }
+            char[][] filterCharacterValues = filterCharacterValuesLazy.Value;
 
             // RFC 4515 states strings must be converted to their UTF8 value before search filter encoding.
             // See http://tools.ietf.org/html/rfc4515
@@ -72,33 +59,25 @@ namespace Microsoft.Security.Application
             char[] encodedInput = new char[utf8Bytes.Length * 3]; // Each byte can potentially be encoded as %xx
             int outputLength = 0;
 
-            FilterSafeListSyncLock.EnterReadLock();
-            try
+            for (int characterPosition = 0; characterPosition < utf8Bytes.Length; characterPosition++)
             {
-                for (int characterPosition = 0; characterPosition < utf8Bytes.Length; characterPosition++)
+                byte currentCharacter = utf8Bytes[characterPosition];
+
+                if (filterCharacterValues[currentCharacter] != null)
                 {
-                    byte currentCharacter = utf8Bytes[characterPosition];
+                    // Character needs encoding.
+                    char[] encodedCharacter = filterCharacterValues[currentCharacter];
 
-                    if (filterCharacterValues[currentCharacter] != null)
+                    for (int j = 0; j < encodedCharacter.Length; j++)
                     {
-                        // Character needs encoding.
-                        char[] encodedCharacter = filterCharacterValues[currentCharacter];
-
-                        for (int j = 0; j < encodedCharacter.Length; j++)
-                        {
-                            encodedInput[outputLength++] = encodedCharacter[j];
-                        }
-                    }
-                    else
-                    {
-                        // Character does not need encoding.
-                        encodedInput[outputLength++] = (char)currentCharacter;
+                        encodedInput[outputLength++] = encodedCharacter[j];
                     }
                 }
-            }
-            finally
-            {
-                FilterSafeListSyncLock.ExitReadLock();
+                else
+                {
+                    // Character does not need encoding.
+                    encodedInput[outputLength++] = (char)currentCharacter;
+                }
             }
 
             return new string(encodedInput, 0, outputLength);
@@ -118,84 +97,64 @@ namespace Microsoft.Security.Application
                 return input;
             }
 
-            if (distinguishedNameCharacterValues == null)
-            {
-                InitialiseDistinguishedNameSafeList();
-            }
+            char[][] distinguishedNameCharacterValues = distinguishedNameCharacterValuesLazy.Value;
 
             byte[] utf8Bytes = Encoding.UTF8.GetBytes(input.ToCharArray());
             char[] encodedInput = new char[utf8Bytes.Length * 3]; // Each byte can potentially be encoded as #xx
             int outputLength = 0;
 
-            DistinguishedNameSafeListSyncLock.EnterReadLock();
-            try
+            for (int characterPosition = 0; characterPosition < utf8Bytes.Length; characterPosition++)
             {
-                for (int characterPosition = 0; characterPosition < utf8Bytes.Length; characterPosition++)
+                byte currentCharacter = utf8Bytes[characterPosition];
+
+                if (characterPosition == 0 && currentCharacter == ' ' && useInitialCharacterRules)
                 {
-                    byte currentCharacter = utf8Bytes[characterPosition];
+                    // rfc2253 states spaces at the start of a string must be escaped
+                    encodedInput[outputLength++] = '\\';
+                    encodedInput[outputLength++] = ' ';
+                }
+                else if (characterPosition == 0 && currentCharacter == '#' && useInitialCharacterRules)
+                {
+                    // rfc2253 states hashes at the start of a string must be escaped
+                    encodedInput[outputLength++] = '\\';
+                    encodedInput[outputLength++] = '#';
+                }
+                else if (characterPosition == (utf8Bytes.Length - 1) && currentCharacter == ' ' &&
+                            useFinalCharacterRule)
+                {
+                    // rfc2253 states spaces at the end of a string must be escaped
+                    encodedInput[outputLength++] = '\\';
+                    encodedInput[outputLength++] = ' ';
+                }
+                else if (distinguishedNameCharacterValues[currentCharacter] != null)
+                {
+                    // Character needs encoding.
+                    char[] encodedCharacter = distinguishedNameCharacterValues[currentCharacter];
 
-                    if (characterPosition == 0 && currentCharacter == ' ' && useInitialCharacterRules)
+                    for (int j = 0; j < encodedCharacter.Length; j++)
                     {
-                        // rfc2253 states spaces at the start of a string must be escaped
-                        encodedInput[outputLength++] = '\\';
-                        encodedInput[outputLength++] = ' ';
-                    }
-                    else if (characterPosition == 0 && currentCharacter == '#' && useInitialCharacterRules)
-                    {
-                        // rfc2253 states hashes at the start of a string must be escaped
-                        encodedInput[outputLength++] = '\\';
-                        encodedInput[outputLength++] = '#';
-                    }
-                    else if (characterPosition == (utf8Bytes.Length - 1) && currentCharacter == ' ' &&
-                             useFinalCharacterRule)
-                    {
-                        // rfc2253 states spaces at the end of a string must be escaped
-                        encodedInput[outputLength++] = '\\';
-                        encodedInput[outputLength++] = ' ';
-                    }
-                    else if (distinguishedNameCharacterValues[currentCharacter] != null)
-                    {
-                        // Character needs encoding.
-                        char[] encodedCharacter = distinguishedNameCharacterValues[currentCharacter];
-
-                        for (int j = 0; j < encodedCharacter.Length; j++)
-                        {
-                            encodedInput[outputLength++] = encodedCharacter[j];
-                        }
-                    }
-                    else
-                    {
-                        // Character does not need encoding.
-                        encodedInput[outputLength++] = (char)currentCharacter;
+                        encodedInput[outputLength++] = encodedCharacter[j];
                     }
                 }
-            }
-            finally
-            {
-                DistinguishedNameSafeListSyncLock.ExitReadLock();
+                else
+                {
+                    // Character does not need encoding.
+                    encodedInput[outputLength++] = (char)currentCharacter;
+                }
             }
 
             return new string(encodedInput, 0, outputLength);
         }
 
         /// <summary>
-        /// Initializes the LDAP filter safe lists.
+        /// Initializes the LDAP filter safe list.
         /// </summary>
-        private static void InitialiseFilterSafeList()
+        /// <returns>The LDAP filter safe list.</returns>
+        private static char[][] InitialiseFilterSafeList()
         {
-            FilterSafeListSyncLock.EnterWriteLock();
-            try
-            {
-                if (filterCharacterValues == null)
-                {
-                    filterCharacterValues = SafeList.Generate(255, SafeList.SlashThenHexValueGenerator);
-                    SafeList.PunchSafeList(ref filterCharacterValues, FilterEncodingSafeList());
-                }
-            }
-            finally
-            {
-                FilterSafeListSyncLock.ExitWriteLock();
-            }
+            char[][] result = SafeList.Generate(255, SafeList.SlashThenHexValueGenerator);
+            SafeList.PunchSafeList(ref result, FilterEncodingSafeList());
+            return result;
         }
 
         /// <summary>
@@ -225,30 +184,22 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// Initializes the LDAP DN safe lists.
         /// </summary>
-        private static void InitialiseDistinguishedNameSafeList()
+        /// <returns>The DN safe list.</returns>
+        private static char[][] InitialiseDistinguishedNameSafeList()
         {
-            DistinguishedNameSafeListSyncLock.EnterWriteLock();
-            try
-            {
-                if (distinguishedNameCharacterValues == null)
-                {
-                    distinguishedNameCharacterValues = SafeList.Generate(255, SafeList.HashThenHexValueGenerator);
-                    SafeList.PunchSafeList(ref distinguishedNameCharacterValues, DistinguishedNameSafeList());
+            char[][] result = SafeList.Generate(255, SafeList.HashThenHexValueGenerator);
+            SafeList.PunchSafeList(ref result, DistinguishedNameSafeList());
 
-                    // Now mark up the specially listed characters from http://www.ietf.org/rfc/rfc2253.txt
-                    EscapeDistinguisedNameCharacter(',');
-                    EscapeDistinguisedNameCharacter('+');
-                    EscapeDistinguisedNameCharacter('"');
-                    EscapeDistinguisedNameCharacter('\\');
-                    EscapeDistinguisedNameCharacter('<');
-                    EscapeDistinguisedNameCharacter('>');
-                    EscapeDistinguisedNameCharacter(';');
-                }
-            }
-            finally
-            {
-                DistinguishedNameSafeListSyncLock.ExitWriteLock();
-            }
+            // Now mark up the specially listed characters from http://www.ietf.org/rfc/rfc2253.txt
+            EscapeDistinguisedNameCharacter(ref result, ',');
+            EscapeDistinguisedNameCharacter(ref result, '+');
+            EscapeDistinguisedNameCharacter(ref result, '"');
+            EscapeDistinguisedNameCharacter(ref result, '\\');
+            EscapeDistinguisedNameCharacter(ref result, '<');
+            EscapeDistinguisedNameCharacter(ref result, '>');
+            EscapeDistinguisedNameCharacter(ref result, ';');
+
+            return result;
         }
 
         /// <summary>
@@ -291,10 +242,11 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// Escapes a special DN character.
         /// </summary>
+        /// <param name="safeList">The safe list to escape the character within.</param>
         /// <param name="c">The character to escape.</param>
-        private static void EscapeDistinguisedNameCharacter(char c)
+        private static void EscapeDistinguisedNameCharacter(ref char[][] safeList, char c)
         {
-            distinguishedNameCharacterValues[c] = new[] { '\\', c };
+            safeList[c] = new[] { '\\', c };
         }
     }
 }

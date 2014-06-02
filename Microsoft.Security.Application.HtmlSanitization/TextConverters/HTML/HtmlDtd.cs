@@ -2759,7 +2759,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     HtmlNameIndex.Style,    
                     Literal.Tags | Literal.Entities,  
                     false,                  
-                    TagFill.PUT_NUL_PUT_NUL,    
+                    TagFill.NUL_NUL_NUL_NUL, //TagFill.PUT_NUL_PUT_NUL,    
                     TagFmt.AUT_AUT_AUT_AUT,    
                     TagScope.NESTED,       
                     TagTextType.NEVER,     

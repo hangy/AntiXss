@@ -20,7 +20,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Html Sanitization Library")]
-[assembly: AssemblyDescription("Library for sanitizing inputs to protect from injection attacks like Cross Site Scripting and LDAP Injection attacks.")]
+[assembly: AssemblyDescription("Library for sanitizing inputs to protect from HTML cross site scripting.")]
 
 [assembly: Guid("8ca90344-c7eb-4f87-bcf8-69c5cdc72340")]
-

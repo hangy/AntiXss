@@ -60,6 +60,7 @@ namespace Microsoft.Security.Application
         /// The IPA Extensions code table.
         /// </summary>
         /// <remarks>http://www.unicode.org/charts/PDF/U0250.pdf</remarks>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Ipa", Justification = "Unicode Standard")]
         IpaExtensions                               = 1 << 0x04,
         
         /// <summary>
@@ -419,7 +420,7 @@ namespace Microsoft.Security.Application
         /// The Latin Extended Additional code table.
         /// </summary>
         /// <remarks>http://www.unicode.org/charts/PDF/U1E00.pdf</remarks>
-        LatinExtendedAdditional                     = 1 << 0x0E
+        LatinExtendedAdditional                     = 1 << 0x1E
     }
 
     /// <summary>

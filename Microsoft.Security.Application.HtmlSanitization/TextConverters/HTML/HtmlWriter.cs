@@ -1665,7 +1665,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     this.longestLineLength = this.lineLength;
                 }
 
-                this.output.Write("\r\n");
                 this.lineLength = 0;
 
                 if (ParseSupport.FarEastNonHanguelChar(nextChar))

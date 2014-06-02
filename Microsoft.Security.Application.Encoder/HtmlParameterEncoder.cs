@@ -22,7 +22,6 @@ namespace Microsoft.Security.Application
     using System;
     using System.Collections;
     using System.Text;
-    using System.Threading;
 
     /// <summary>
     /// The type of space encoding to use.
@@ -37,7 +36,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// Encode spaces for use in form data
         /// </summary>
-        HtmlForm = 2
+        HtmlForm = 2,
     }
 
     /// <summary>
@@ -45,11 +44,6 @@ namespace Microsoft.Security.Application
     /// </summary>
     internal static class HtmlParameterEncoder
     {
-        /// <summary>
-        /// A lock object to use when performing safe listing.
-        /// </summary>
-        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
-
         /// <summary>
         /// The value to use when encoding a space for query strings.
         /// </summary>
@@ -61,9 +55,14 @@ namespace Microsoft.Security.Application
         private static readonly char[] FormStringSpace = "+".ToCharArray();
 
         /// <summary>
-        /// The values to output for each character.
+        /// The values to output for each character during parameter encoding.
         /// </summary>
-        private static char[][] characterValues;
+        private static Lazy<char[][]> characterValuesLazy = new Lazy<char[][]>(InitialiseSafeList);
+
+        /// <summary>
+        /// The path character safe list.
+        /// </summary>
+        private static Lazy<char[][]> pathCharacterValuesLazy = new Lazy<char[][]>(InitialisePathSafeList);
 
         /// <summary>
         /// Encodes a string for query string encoding and returns the encoded string.
@@ -98,6 +97,17 @@ namespace Microsoft.Security.Application
         }
 
         /// <summary>
+        /// Encodes a string as a URL
+        /// </summary>
+        /// <param name="s">The string to encode.</param>
+        /// <param name="encoding">The encoding context to use.</param>
+        /// <returns>The encoded string.</returns>
+        internal static string UrlPathEncode(string s, Encoding encoding)
+        {
+            return FormQueryEncode(s, encoding, EncodingType.QueryString, pathCharacterValuesLazy);
+        }
+
+        /// <summary>
         /// Encodes a string for Query String or Form Data encoding.
         /// </summary>
         /// <param name="s">The text to URL-encode.</param>
@@ -105,6 +115,19 @@ namespace Microsoft.Security.Application
         /// <param name="encodingType">The encoding type to use.</param>
         /// <returns>The encoded text.</returns>
         private static string FormQueryEncode(string s, Encoding encoding, EncodingType encodingType)
+        {
+            return FormQueryEncode(s, encoding, encodingType, characterValuesLazy);
+        }
+
+        /// <summary>
+        /// Encodes a string for Query String or Form Data encoding.
+        /// </summary>
+        /// <param name="s">The text to URL-encode.</param>
+        /// <param name="encoding">The encoding for the text parameter.</param>
+        /// <param name="encodingType">The encoding type to use.</param>
+        /// <param name="characterValues">A lazy loaded safelist to use.</param>
+        /// <returns>The encoded text.</returns>
+        private static string FormQueryEncode(string s, Encoding encoding, EncodingType encodingType, Lazy<char[][]> characterValues)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -116,11 +139,6 @@ namespace Microsoft.Security.Application
                 throw new ArgumentNullException("encoding");
             }
 
-            if (characterValues == null)
-            {
-                InitialiseSafeList();
-            }
-
             // RFC 3986 states strings must be converted to their UTF8 value before URL encoding.
             // See http://tools.ietf.org/html/rfc3986
             // Conversion to char[] keeps null characters inline.
@@ -128,15 +146,18 @@ namespace Microsoft.Security.Application
             char[] encodedInput = new char[utf8Bytes.Length * 3]; // Each byte can potentially be encoded as %xx
             int outputLength = 0;
 
+            char[][] safeList = characterValues.Value;
+
             for (int characterPosition = 0; characterPosition < utf8Bytes.Length; characterPosition++)
             {
                 byte currentCharacter = utf8Bytes[characterPosition];
 
-                if (currentCharacter == 0x00 || currentCharacter == 0x20 || currentCharacter > characterValues.Length || characterValues[currentCharacter] != null)
-                {                
+                if (currentCharacter == 0x00 || currentCharacter == 0x20 ||
+                    currentCharacter > safeList.Length || safeList[currentCharacter] != null)
+                {
                     // character needs to be encoded
                     char[] encodedCharacter;
-                    
+
                     if (currentCharacter == 0x20)
                     {
                         switch (encodingType)
@@ -144,19 +165,19 @@ namespace Microsoft.Security.Application
                             case EncodingType.QueryString:
                                 encodedCharacter = QueryStringSpace;
                                 break;
-                            
+
                             // Special case for Html Form data, from http://www.w3.org/TR/html401/appendix/notes.html#non-ascii-chars
                             case EncodingType.HtmlForm:
                                 encodedCharacter = FormStringSpace;
                                 break;
-                            
+
                             default:
                                 throw new ArgumentOutOfRangeException("encodingType");
                         }
                     }
                     else
                     {
-                        encodedCharacter = characterValues[currentCharacter];
+                        encodedCharacter = safeList[currentCharacter];
                     }
 
                     for (int j = 0; j < encodedCharacter.Length; j++)
@@ -177,18 +198,12 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// Initializes the HTML safe list.
         /// </summary>
-        private static void InitialiseSafeList()
+        /// <returns>Creates the safelist</returns>
+        private static char[][] InitialiseSafeList()
         {
-            SyncLock.EnterWriteLock();
-            try
-            {
-                characterValues = SafeList.Generate(255, SafeList.PercentThenHexValueGenerator);
-                SafeList.PunchSafeList(ref characterValues, UrlParameterSafeList());
-            }
-            finally
-            {
-                SyncLock.ExitWriteLock();
-            }
+            char[][] result = SafeList.Generate(255, SafeList.PercentThenHexValueGenerator);
+            SafeList.PunchSafeList(ref result, UrlParameterSafeList());
+            return result;
         }
 
         /// <summary>
@@ -226,6 +241,47 @@ namespace Microsoft.Security.Application
      
             // Tilde
             yield return 0x7E;
+        }
+
+        /// <summary>
+        /// Initializes the Url Path safe list.
+        /// </summary>
+        /// <returns>A list of characters and their encoded values for URL encoding.</returns>
+        private static char[][] InitialisePathSafeList()
+        {
+            char[][] result = SafeList.Generate(255, SafeList.PercentThenHexValueGenerator);
+            SafeList.PunchSafeList(ref result, UrlPathSafeList());
+            return result;
+        }
+
+        /// <summary>
+        /// Provides the safe characters for URL path encoding.
+        /// </summary>
+        /// <returns>The safe characters for URL path encoding.</returns>
+        private static IEnumerable UrlPathSafeList()
+        {
+            foreach (var c in UrlParameterSafeList())
+            {
+                yield return c;
+            }
+
+            // Hash
+            yield return 0x23;
+
+            // Percent
+            yield return 0x25;
+
+            // Forward slash
+            yield return 0x2F;
+
+            // Backwards slash
+            yield return 0x5C;
+
+            // Left parenthesis
+            yield return 0x28;
+
+            // Right parenthesis
+            yield return 0x29;
         }
     }
 }

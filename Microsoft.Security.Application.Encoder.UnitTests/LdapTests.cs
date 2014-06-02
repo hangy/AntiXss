@@ -17,9 +17,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.Application.Security
+namespace Microsoft.Security.Application.Tests
 {
-    using VisualStudio.TestTools.UnitTesting;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Tests LDAP encoding.
@@ -36,7 +36,7 @@ namespace Microsoft.Application.Security
             const string Target = null;
             const string Expected = null;
 
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(Target);
+            string actual = Encoder.LdapFilterEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -50,7 +50,7 @@ namespace Microsoft.Application.Security
             string target = string.Empty;
             string expected = string.Empty;
 
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(target);
+            string actual = Encoder.LdapFilterEncode(target);
 
             Assert.AreEqual(expected, actual);
         }
@@ -64,7 +64,7 @@ namespace Microsoft.Application.Security
             const string Target = @"Parens R Us (for all your parenthetical needs)";
             const string Expected = @"Parens R Us \28for all your parenthetical needs\29";
             
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(Target);
+            string actual = Encoder.LdapFilterEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -78,7 +78,7 @@ namespace Microsoft.Application.Security
             const string Target = @"*";
             const string Expected = @"\2a";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(Target);
+            string actual = Encoder.LdapFilterEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -92,7 +92,7 @@ namespace Microsoft.Application.Security
             const string Target = @"C:\MyFile";
             const string Expected = @"C:\5cMyFile";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(Target);
+            string actual = Encoder.LdapFilterEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -107,7 +107,7 @@ namespace Microsoft.Application.Security
             string target = new string(binaryData);
             const string Expected = @"\00\00\00\04";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(target);
+            string actual = Encoder.LdapFilterEncode(target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -121,7 +121,7 @@ namespace Microsoft.Application.Security
             const string Target = @"Lučić";
             const string Expected = @"Lu\c4\8di\c4\87";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(Target);
+            string actual = Encoder.LdapFilterEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -135,7 +135,7 @@ namespace Microsoft.Application.Security
             const string Target = "\u0000";
             const string Expected = @"\00";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(Target);
+            string actual = Encoder.LdapFilterEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -149,7 +149,7 @@ namespace Microsoft.Application.Security
             const string Target = "\u007f";
             const string Expected = @"\7f";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(Target);
+            string actual = Encoder.LdapFilterEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -165,7 +165,7 @@ namespace Microsoft.Application.Security
             foreach (string target in targetArray)
             {
                 string notExpected = target;
-                string actual = Microsoft.Security.Application.Encoder.LdapFilterEncode(target);
+                string actual = Encoder.LdapFilterEncode(target);
                 Assert.AreNotEqual(notExpected, actual);
             }
         }
@@ -179,7 +179,7 @@ namespace Microsoft.Application.Security
             const string Target = null;
             const string Expected = null;
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -193,7 +193,7 @@ namespace Microsoft.Application.Security
             string target = string.Empty;
             string expected = string.Empty;
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(target);
+            string actual = Encoder.LdapDistinguishedNameEncode(target);
 
             Assert.AreEqual(expected, actual);
         }
@@ -207,7 +207,7 @@ namespace Microsoft.Application.Security
             const string Target = ",+\"\\<>;";
             const string Expected = "\\,\\+\\\"\\\\\\<\\>\\;";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -223,7 +223,7 @@ namespace Microsoft.Application.Security
             foreach (string target in targetArray)
             {
                 string notExpected = target;
-                string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(target);
+                string actual = Encoder.LdapDistinguishedNameEncode(target);
                 Assert.AreNotEqual(notExpected, actual);
             }
         }
@@ -237,7 +237,7 @@ namespace Microsoft.Application.Security
             const string Target = "  abcdef";
             const string Expected = "\\  abcdef";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -251,7 +251,7 @@ namespace Microsoft.Application.Security
             const string Target = "abcdef  ";
             const string Expected = "abcdef \\ ";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -265,7 +265,7 @@ namespace Microsoft.Application.Security
             const string Target = " ";
             const string Expected = "\\ ";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target);
 
             Assert.AreEqual(Expected, actual);            
         }
@@ -279,7 +279,7 @@ namespace Microsoft.Application.Security
             const string Target = "##abcdef";
             const string Expected = "\\##abcdef";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -294,7 +294,7 @@ namespace Microsoft.Application.Security
             const string Target = "##abcdef";
             const string Expected = "##abcdef";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target, false, true);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target, false, true);
 
             Assert.AreEqual(Expected, actual);            
         }
@@ -308,7 +308,7 @@ namespace Microsoft.Application.Security
             const string Target = "  abcdef";
             const string Expected = "  abcdef";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target, false, true);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target, false, true);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -322,7 +322,7 @@ namespace Microsoft.Application.Security
             const string Target = "abcdef# ";
             const string Expected = "abcdef# ";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target, true, false);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target, true, false);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -336,7 +336,7 @@ namespace Microsoft.Application.Security
             const string Target = "\u0000";
             const string Expected = "#00";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target, true, false);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target, true, false);
 
             Assert.AreEqual(Expected, actual);
         }
@@ -348,9 +348,9 @@ namespace Microsoft.Application.Security
         public void DistinguishedNameDelCharactersShouldBeHashThenHexEncoded()
         {
             const string Target = "\u007f";
-            const string Expected = "#7f";
+            const string Expected = "#7F";
 
-            string actual = Microsoft.Security.Application.Encoder.LdapDistinguishedNameEncode(Target, true, false);
+            string actual = Encoder.LdapDistinguishedNameEncode(Target, true, false);
 
             Assert.AreEqual(Expected, actual);
         }

@@ -1,0 +1,123 @@
+<stylecopresultscache>
+  <version>10</version>
+  <sourcecode name="AntiXssAssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:44</timestamp>
+    <milliseconds>329</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="CodeChartHelperTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>505</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:46</timestamp>
+    <milliseconds>675</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="EncoderUtilTest.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>510</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="EmptyStringTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>505</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name=".NETFramework,Version=v4.0.AssemblyAttributes.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>01/22/2014 08:52:47</timestamp>
+    <milliseconds>994</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="NullInputTest.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>520</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="UpperUnicode.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:46</timestamp>
+    <milliseconds>670</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Utf16StringReaderTest.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:46</timestamp>
+    <milliseconds>680</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="SurrogateTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:46</timestamp>
+    <milliseconds>655</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="LdapTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:45</timestamp>
+    <milliseconds>515</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Unicode.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/10/2014 10:23:46</timestamp>
+    <milliseconds>685</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="670153151">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="UrlEncoderTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/10/2014 10:23:44</timestamp>
+      <milliseconds>818</milliseconds>
+    </settings>
+    <timestamp>02/12/2014 14:21:31</timestamp>
+    <milliseconds>430</milliseconds>
+    <violations />
+  </sourcecode>
+</stylecopresultscache>

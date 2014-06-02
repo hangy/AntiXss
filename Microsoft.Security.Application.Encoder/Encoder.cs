@@ -62,7 +62,8 @@ namespace Microsoft.Security.Application
         /// </summary>
         /// <param name="input">String to be encoded.</param>
         /// <returns>Encoded string for use as a value in LDAP filter queries.</returns>
-        /// <remarks>This method encodes all but known safe characters defined in the safe list.
+        /// <remarks>
+        /// This method encodes all but known safe characters defined in the safe list.
         /// <newpara/>
         /// RFC 4515 defines the format in which special characters need to be 
         /// escaped to be used inside a search filter. Special characters need to be 
@@ -179,24 +180,26 @@ namespace Microsoft.Security.Application
         }
 
         /// <summary>
-        /// Encodes input strings used in Cascading Style Sheet (CSS) elements values.
+        /// Encodes the specified string for use in Cascading Style Sheet (CSS) attributes. The return value from this function is expected to be
+        /// used in building an attribute string. CSS string attributes should be quoted values.
         /// </summary>
         /// <param name="input">String to be encoded.</param>
         /// <returns>Encoded string for use in CSS element values.</returns>
-        /// <remarks>This method encodes all but known safe characters defined in the safe list.
+        /// <remarks>This method encodes all characters except those that are in the safe list.
         /// <newpara/>
-        /// The CSS character escape sequence consists of a backslash character (\) followed by 
-        /// between one and six hexadecimal digits that represent a character code from the 
-        /// ISO 10646 standard (which is equivalent to Unicode, for all intents and purposes). Any 
-        /// character other than a hexadecimal digit will terminate the escape sequence. If a 
-        /// character following the escape sequence is also a valid hexadecimal digit then it must 
-        /// either include six digits in the escape, or use a whitespace character to terminate the 
-        /// escape. This encoder enforces the six digit rule.
-        /// For example \000020 denotes a space.
+        /// The following table lists the default safe characters.
+        /// <list type="table">
+        /// <listheader><term>Unicode Code Chart</term><term>Characters(s)</term><description>Description</description></listheader>
+        /// <item><term>C0 Controls and Basic Latin</term><term>A-Z</term><description>Uppercase alphabetic letters</description>></item>
+        /// <item><term>C0 Controls and Basic Latin</term><term>a-z</term><description>Lowercase alphabetic letters</description>></item>
+        /// <item><term>C0 Controls and Basic Latin</term><term>0-9</term><description>Numbers</description>></item>
+        /// </list>
+        /// <newpara />
+        /// The CSS character escape sequence consists of a backslash character (\) followed by up to six hexadecimal digits that represent a character code from the ISO 10646 standard. 
+        /// (The ISO 10646 standard is effectively equivalent to Unicode.) Any character other than a hexadecimal digit terminates the escape sequence. If a character that follows the 
+        /// escape sequence is also a valid hexadecimal digit, it must either include six digits in the escape sequence or use a whitespace character to terminate the escape sequence. 
+        /// For example, \000020 denotes a space.
         /// </remarks>
-        /// <exception cref="InvalidUnicodeValueException">Thrown if a character with an invalid Unicode value is encountered within the input string.</exception>
-        /// <exception cref="InvalidSurrogatePairException">Thrown if a high surrogate code point is encoded without a following low surrogate code point, or a 
-        /// low surrogate code point is encounter without having been preceded by a high surrogate code point.</exception>
         public static string CssEncode(string input)
         {
             return CssEncoder.Encode(input);
@@ -233,9 +236,6 @@ namespace Microsoft.Security.Application
         /// <item><term>"Anti-Cross Site Scripting Library"</term><description>&amp;quote;Anti-Cross Site Scripting Library&amp;quote;</description></item>
         /// </list>
         /// </remarks>
-        /// <exception cref="InvalidUnicodeValueException">Thrown if a character with an invalid Unicode value is encountered within the input string.</exception>
-        /// <exception cref="InvalidSurrogatePairException">Thrown if a high surrogate code point is encoded without a following low surrogate code point, or a 
-        /// low surrogate code point is encounter without having been preceded by a high surrogate code point.</exception>
         public static string HtmlEncode(string input)
         {
             return HtmlEncode(input, false);
@@ -274,9 +274,6 @@ namespace Microsoft.Security.Application
         /// <item><term>"Anti-Cross Site Scripting Library"</term><description>&amp;quote;Anti-Cross Site Scripting Library&amp;quote;</description></item>
         /// </list>
         /// </remarks>
-        /// <exception cref="InvalidUnicodeValueException">Thrown if a character with an invalid Unicode value is encountered within the input string.</exception>
-        /// <exception cref="InvalidSurrogatePairException">Thrown if a high surrogate code point is encoded without a following low surrogate code point, or a 
-        /// low surrogate code point is encounter without having been preceded by a high surrogate code point.</exception>
         public static string HtmlEncode(string input, bool useNamedEntities)
         {
             return UnicodeCharacterEncoder.HtmlEncode(input, useNamedEntities);
@@ -309,9 +306,6 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>Anti-Cross&amp;#32;Site&amp;#32;Scripting&amp;#32;Library</description></item>
         /// </list>
         /// </remarks>
-        /// <exception cref="InvalidUnicodeValueException">Thrown if a character with an invalid Unicode value is encountered within the input string.</exception>
-        /// <exception cref="InvalidSurrogatePairException">Thrown if a high surrogate code point is encoded without a following low surrogate code point, or a 
-        /// low surrogate code point is encounter without having been preceded by a high surrogate code point.</exception>
         public static string HtmlAttributeEncode(string input)
         {
             return UnicodeCharacterEncoder.HtmlAttributeEncode(input);
@@ -564,6 +558,38 @@ namespace Microsoft.Security.Application
         }
 
         /// <summary>
+        /// URL-encodes the path section of a URL string and returns the encoded string.
+        /// </summary>
+        /// <param name="input">The text to URL path encode</param>
+        /// <returns>The URL path encoded text.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1055:UriReturnValuesShouldNotBeStrings",
+            Justification = "This does not return a full URL so the return type can be a string.")]
+        public static string UrlPathEncode(string input)
+        {
+            if (string.IsNullOrEmpty(input)) 
+            { 
+                return input; 
+            } 
+
+            // DevDiv #211105: We should make the UrlPathEncode method encode only the path portion of URLs. 
+            string schemeAndAuthority; 
+            string path; 
+            string queryAndFragment; 
+            bool validUrl = UriUtil.TrySplitUriForPathEncode(input, out schemeAndAuthority, out path, out queryAndFragment);
+
+            if (!validUrl) 
+            { 
+                // treat as a relative URL, so we might still need to chop off the query / fragment components 
+                schemeAndAuthority = null; 
+                UriUtil.ExtractQueryAndFragment(input, out path, out queryAndFragment); 
+            } 
+
+            return schemeAndAuthority + HtmlParameterEncoder.UrlPathEncode(path, Encoding.UTF8) + queryAndFragment; 
+       }
+
+        /// <summary>
         /// Encodes input strings for use in XML.
         /// </summary>
         /// <param name="input">String to be encoded.</param>
@@ -593,9 +619,6 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>Anti-Cross Site Scripting Library</description></item>
         /// </list>
         /// </remarks>
-        /// <exception cref="InvalidUnicodeValueException">Thrown if a character with an invalid Unicode value is encountered within the input string.</exception>
-        /// <exception cref="InvalidSurrogatePairException">Thrown if a high surrogate code point is encoded without a following low surrogate code point, or a 
-        /// low surrogate code point is encounter without having been preceded by a high surrogate code point.</exception>
         public static string XmlEncode(string input)
         {
             return UnicodeCharacterEncoder.XmlEncode(input);
@@ -630,9 +653,6 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>Anti-Cross&amp;#32;Site&amp;#32;Scripting&amp;#32;Library</description></item>
         /// </list>
         /// </remarks>
-        /// <exception cref="InvalidUnicodeValueException">Thrown if a character with an invalid Unicode value is encountered within the input string.</exception>
-        /// <exception cref="InvalidSurrogatePairException">Thrown if a high surrogate code point is encoded without a following low surrogate code point, or a 
-        /// low surrogate code point is encounter without having been preceded by a high surrogate code point.</exception>
         public static string XmlAttributeEncode(string input)
         {
             // HtmlEncodeAttribute will handle input
@@ -809,7 +829,7 @@ namespace Microsoft.Security.Application
             char[] encodedInput = new char[inputLength * 12]; // worst case length scenario
 
             // flag to surround double quotes around safe characters
-            bool isInQuotes = false;
+            bool quoted = false;
 
             for (int i = 0; i < inputLength; i++)
             {
@@ -820,11 +840,11 @@ namespace Microsoft.Security.Application
                     // character needs to be encoded
 
                     // surround in quotes
-                    if (isInQuotes)
+                    if (quoted)
                     {
                         // get out of quotes
                         encodedInput[outputLength++] = '"';
-                        isInQuotes = false;
+                        quoted = false;
                     }
 
                     // adding "encoded" characters
@@ -838,12 +858,12 @@ namespace Microsoft.Security.Application
                 {
                     // character does not need encoding
                     // surround in quotes
-                    if (!isInQuotes)
+                    if (!quoted)
                     {
                         // add quotes to start
                         encodedInput[outputLength++] = '&';
                         encodedInput[outputLength++] = '"';
-                        isInQuotes = true;
+                        quoted = true;
                     }
 
                     encodedInput[outputLength++] = input[i];
@@ -851,7 +871,7 @@ namespace Microsoft.Security.Application
             }
 
             // if we're inside of quotes, close them
-            if (isInQuotes)
+            if (quoted)
             {
                 encodedInput[outputLength++] = '"';
             }

@@ -19,6 +19,8 @@
 
 namespace Microsoft.Security.Application
 {
+    using System;
+    using System.Text;
     using System.Threading;
 
     /// <summary>
@@ -26,11 +28,6 @@ namespace Microsoft.Security.Application
     /// </summary>
     public static class UnicodeCharacterEncoder
     {
-        /// <summary>
-        /// A lock object to use when performing safe listing.
-        /// </summary>
-        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
-
         /// <summary>
         /// The HTML escaped value for a space, used in attribute encoding.
         /// </summary>
@@ -45,11 +42,11 @@ namespace Microsoft.Security.Application
         /// The XML named entity for an apostrophe, used in XML encoding.
         /// </summary>
         private static readonly char[] XmlApostrophe = "&apos;".ToCharArray();
-        
+
         /// <summary>
         /// The current lower code chart settings.
         /// </summary>
-        private static LowerCodeCharts currentLowerCodeChartSettings = LowerCodeCharts.None;
+        private static LowerCodeCharts currentLowerCodeChartSettings = LowerCodeCharts.Default;
 
         /// <summary>
         /// The current lower middle code chart settings.
@@ -79,7 +76,83 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for HTML named entities.
         /// </summary>
-        private static char[][] namedEntities;
+        private static Lazy<char[][]> namedEntitiesLazy = new Lazy<char[][]>(InitialiseNamedEntityList);
+
+#if NET20
+        /// <summary>
+        /// Lock object
+        /// </summary>
+        private static readonly ReaderWriterLock SyncLock = new ReaderWriterLock();
+  
+        /// <summary>
+        /// Acquires a read lock.
+        /// </summary>
+        private static void AcquireReadLock() 
+        {
+            SyncLock.AcquireReaderLock(-1);
+        }
+        
+        /// <summary>
+        /// Releases a read lock.
+        /// </summary>
+        private static void ReleaseReadLock()
+        {
+            SyncLock.ReleaseReaderLock();
+        }
+
+        /// <summary>
+        /// Acquires a write lock.
+        /// </summary>
+        private static void AcquireWriteLock()
+        {
+            SyncLock.AcquireWriterLock(-1);
+        }
+
+        /// <summary>
+        /// Releases a write lock.
+        /// </summary>        
+        private static void ReleaseWriteLock()
+        {
+            SyncLock.ReleaseWriterLock();
+        }
+#else
+        /// <summary>
+        /// Lock object
+        /// </summary>
+        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
+  
+        /// <summary>
+        /// Acquires a read lock.
+        /// </summary>
+        private static void AcquireReadLock() 
+        {
+            SyncLock.EnterReadLock();
+        }
+
+        /// <summary>
+        /// Releases a read lock.
+        /// </summary>
+        private static void ReleaseReadLock()
+        {
+            SyncLock.ExitReadLock();
+        }
+
+        /// <summary>
+        /// Acquires a write lock.
+        /// </summary>
+        private static void AcquireWriteLock()
+        {
+            SyncLock.EnterWriteLock();
+        }
+
+        /// <summary>
+        /// Releases a write lock.
+        /// </summary>
+        private static void ReleaseWriteLock()
+        {
+            SyncLock.ExitWriteLock();
+        }
+#endif
 
         /// <summary>
         /// Provides method specific encoding of characters.
@@ -105,22 +178,20 @@ namespace Microsoft.Security.Application
             UpperMidCodeCharts upperMidCodeCharts,
             UpperCodeCharts upperCodeCharts)
         {
-            if (lowerCodeCharts == currentLowerCodeChartSettings &&
-                lowerMidCodeCharts == currentLowerMidCodeChartSettings &&
-                midCodeCharts == currentMidCodeChartSettings &&
-                upperMidCodeCharts == currentUpperMidCodeChartSettings &&
-                upperCodeCharts == currentUpperCodeChartSettings)
+            if (lowerCodeCharts == currentLowerCodeChartSettings
+                && lowerMidCodeCharts == currentLowerMidCodeChartSettings
+                && midCodeCharts == currentMidCodeChartSettings
+                && upperMidCodeCharts == currentUpperMidCodeChartSettings
+                && upperCodeCharts == currentUpperCodeChartSettings)
             {
                 return;
             }
 
-            SyncLock.EnterWriteLock();
+            AcquireWriteLock();
             try
             {
-                if (characterValues == null)
-                {
-                    characterValues = SafeList.Generate(65536, SafeList.HashThenValueGenerator);
-                }
+                // Reset back to everything hashed.
+                characterValues = SafeList.Generate(65536, SafeList.HashThenValueGenerator);
 
                 SafeList.PunchUnicodeThrough(
                     ref characterValues,
@@ -140,7 +211,7 @@ namespace Microsoft.Security.Application
             }
             finally
             {
-                SyncLock.ExitWriteLock();
+                ReleaseWriteLock();
             }
         }
 
@@ -191,6 +262,25 @@ namespace Microsoft.Security.Application
         internal static string HtmlEncode(string input, bool useNamedEntities)
         {
             return HtmlEncode(input, useNamedEntities, null);
+        }
+
+        /// <summary>
+        /// Applies Html specific values to the internal value list.
+        /// </summary>
+        /// <remarks>
+        /// ASP.NET 4 and Razor introduced a new syntax &lt;%: %&gt; and @ which are used to HTML-encode values.
+        /// For example, &lt;%: foo %&gt; is shorthand for &lt;%= HttpUtility.HtmlEncode(foo) %&gt;. Since these could
+        /// occur inside an attribute, e.g. &lt;a href="@Foo"&gt;, ASP.NET mandates that HtmlEncode also encode
+        /// characters that are meaningful inside HTML attributes, like the single quote. Encoding spaces
+        /// isn't mandatory since it's expected that users will surround such variables with quotes.
+        /// </remarks>
+        private static void ApplyHtmlSpecificValues()
+        {
+            characterValues['<'] = "lt".ToCharArray();
+            characterValues['>'] = "gt".ToCharArray();
+            characterValues['&'] = "amp".ToCharArray();
+            characterValues['"'] = "quot".ToCharArray();
+            characterValues['\''] = "#39".ToCharArray();
         }
 
         /// <summary>
@@ -268,9 +358,6 @@ namespace Microsoft.Security.Application
         /// <returns>
         /// Encoded string for use in HTML.
         /// </returns>
-        /// <exception cref="InvalidUnicodeValueException">Thrown if a character with an invalid Unicode value is encountered within the input string.</exception>
-        /// <exception cref="InvalidSurrogatePairException">Thrown if a high surrogate code point is encoded without a following low surrogate code point, or a 
-        /// low surrogate code point is encounter without having been preceded by a high surrogate code point.</exception>
         private static string HtmlEncode(string input, bool useNamedEntities, MethodSpecificEncoder encoderTweak)
         {
             if (string.IsNullOrEmpty(input))
@@ -283,112 +370,78 @@ namespace Microsoft.Security.Application
                 InitialiseSafeList();
             }
 
-            if (useNamedEntities && namedEntities == null)
+            char[][] namedEntities = null;
+            if (useNamedEntities)
             {
-                InitialiseNamedEntityList();
+                namedEntities = namedEntitiesLazy.Value;
             }
 
-            // Setup a new character array for output.
-            char[] inputAsArray = input.ToCharArray();
-            int outputLength = 0;
-            int inputLength = inputAsArray.Length;
-            char[] encodedInput = new char[inputLength * 10]; // Worse case scenario - the longest entity name, thetasym is 10 characters, including the & and ;.
-
-            SyncLock.EnterReadLock();
+            // Setup a new StringBuilder for output.
+            // Worse case scenario - the longest entity name, thetasym is 10 characters, including the & and ;.
+            StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input.Length, 10);
+            
+            AcquireReadLock();
             try
             {
-                for (int i = 0; i < inputLength; i++)
+                Utf16StringReader stringReader = new Utf16StringReader(input);
+                while (true)
                 {
-                    char currentCharacter = inputAsArray[i];
-                    int currentCodePoint = inputAsArray[i];
-                    char[] tweekedValue;
-
-                    // Check for invalid values
-                    if (currentCodePoint == 0xFFFE ||
-                        currentCodePoint == 0xFFFF)
+                    int currentCodePoint = stringReader.ReadNextScalarValue();
+                    if (currentCodePoint < 0)
                     {
-                        throw new InvalidUnicodeValueException(currentCodePoint);
+                        break; // EOF
                     }
-                    else if (char.IsHighSurrogate(currentCharacter)) 
+
+                    if (currentCodePoint > char.MaxValue)
                     {
-                        if (i + 1 == inputLength)
-                        {
-                            throw new InvalidSurrogatePairException(currentCharacter, '\0');                            
-                        }
-
-                        // Now peak ahead and check if the following character is a low surrogate.
-                        char nextCharacter = inputAsArray[i + 1];
-                        char nextCodePoint = inputAsArray[i + 1];
-                        if (!char.IsLowSurrogate(nextCharacter))
-                        {
-                            throw new InvalidSurrogatePairException(currentCharacter, nextCharacter);
-                        }
-
-                        // Look-ahead was good, so skip.
-                        i++;
-
-                        // Calculate the combined code point
-                        long combinedCodePoint =
-                            0x10000 + ((currentCodePoint - 0xD800) * 0x400) + (nextCodePoint - 0xDC00);
-                        char[] encodedCharacter = SafeList.HashThenValueGenerator(combinedCodePoint);
-                        encodedInput[outputLength++] = '&';
-
-                        for (int j = 0; j < encodedCharacter.Length; j++)
-                        {
-                            encodedInput[outputLength++] = encodedCharacter[j];
-                        }
-
-                        encodedInput[outputLength++] = ';';
-                    }
-                    else if (char.IsLowSurrogate(currentCharacter))
-                    {
-                        throw new InvalidSurrogatePairException('\0', currentCharacter);    
-                    }
-                    else if (encoderTweak != null && encoderTweak(currentCharacter, out tweekedValue))
-                    {
-                        for (int j = 0; j < tweekedValue.Length; j++)
-                        {
-                            encodedInput[outputLength++] = tweekedValue[j];
-                        }
-                    }
-                    else if (useNamedEntities && namedEntities[currentCodePoint] != null)
-                    {
-                        char[] encodedCharacter = namedEntities[currentCodePoint];
-                        encodedInput[outputLength++] = '&';
-
-                        for (int j = 0; j < encodedCharacter.Length; j++)
-                        {
-                            encodedInput[outputLength++] = encodedCharacter[j];
-                        }
-
-                        encodedInput[outputLength++] = ';';
-                    }
-                    else if (characterValues[currentCodePoint] != null)
-                    {
-                        // character needs to be encoded
-                        char[] encodedCharacter = characterValues[currentCodePoint];
-                        encodedInput[outputLength++] = '&';
-
-                        for (int j = 0; j < encodedCharacter.Length; j++)
-                        {
-                            encodedInput[outputLength++] = encodedCharacter[j];
-                        }
-
-                        encodedInput[outputLength++] = ';';
+                        // We don't have a pre-generated mapping of characters beyond the Basic Multilingual
+                        // Plane (BMP), so we need to generate these encodings on-the-fly. We should encode
+                        // the code point rather than the surrogate code units that make up this code point.
+                        // See: http://www.w3.org/International/questions/qa-escapes#bytheway
+                        char[] encodedCharacter = SafeList.HashThenValueGenerator(currentCodePoint);
+                        builder.Append('&');
+                        builder.Append(encodedCharacter);
+                        builder.Append(';');
                     }
                     else
                     {
-                        // character does not need encoding
-                        encodedInput[outputLength++] = currentCharacter;
+                        // If we reached this point, the code point is within the BMP.
+                        char currentCharacter = (char)currentCodePoint;
+                        char[] tweekedValue;
+
+                        if (encoderTweak != null && encoderTweak(currentCharacter, out tweekedValue))
+                        {
+                            builder.Append(tweekedValue);
+                        }
+                        else if (useNamedEntities && namedEntities[currentCodePoint] != null)
+                        {
+                            char[] encodedCharacter = namedEntities[currentCodePoint];
+                            builder.Append('&');
+                            builder.Append(encodedCharacter);
+                            builder.Append(';');
+                        }
+                        else if (characterValues[currentCodePoint] != null)
+                        {
+                            // character needs to be encoded
+                            char[] encodedCharacter = characterValues[currentCodePoint];
+                            builder.Append('&');
+                            builder.Append(encodedCharacter);
+                            builder.Append(';');
+                        }
+                        else
+                        {
+                            // character does not need encoding
+                            builder.Append(currentCharacter);
+                        }
                     }
                 }
             }
             finally
             {
-                SyncLock.ExitReadLock();
+                ReleaseReadLock();
             }
 
-            return new string(encodedInput, 0, outputLength);
+            return builder.ToString();
         }
 
         /// <summary>
@@ -396,49 +449,40 @@ namespace Microsoft.Security.Application
         /// </summary>
         private static void InitialiseSafeList()
         {
-            SyncLock.EnterWriteLock();
+            AcquireWriteLock();
             try
             {
                 if (characterValues == null)
                 {
+                    // We use decimal encoding to support some older Japanese mobile browsers which don't support hex encoding.
                     characterValues = SafeList.Generate(0xFFFF, SafeList.HashThenValueGenerator);
                     SafeList.PunchUnicodeThrough(
                         ref characterValues,
-                        LowerCodeCharts.Default,
-                        LowerMidCodeCharts.None,
-                        MidCodeCharts.None,
-                        UpperMidCodeCharts.None,
-                        UpperCodeCharts.None);
+                        currentLowerCodeChartSettings,
+                        currentLowerMidCodeChartSettings,
+                        currentMidCodeChartSettings,
+                        currentUpperMidCodeChartSettings,
+                        currentUpperCodeChartSettings);
                     ApplyHtmlSpecificValues();
                 }
             }
             finally
             {
-                SyncLock.ExitWriteLock();
+                ReleaseWriteLock();
             }
         }
 
         /// <summary>
-        /// Applies Html specific values to the internal value list.
+        /// Initializes the HTML named entities list.
         /// </summary>
-        private static void ApplyHtmlSpecificValues()
-        {
-            characterValues['<'] = "lt".ToCharArray();
-            characterValues['>'] = "gt".ToCharArray();
-            characterValues['&'] = "amp".ToCharArray();
-            characterValues['"'] = "quot".ToCharArray();
-        }
-
-        /// <summary>
-        /// Initialises the HTML named entities list.
-        /// </summary>
+        /// <returns>The HTML named entities list.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Microsoft.Maintainability", 
-            "CA1505:AvoidUnmaintainableCode", 
+            "Microsoft.Maintainability",
+            "CA1505:AvoidUnmaintainableCode",
             Justification = "Splitting or initialising via lookups has too large a performance increase.")]
-        private static void InitialiseNamedEntityList()
+        private static char[][] InitialiseNamedEntityList()
         {
-            namedEntities = new char[65536][];
+            char[][] namedEntities = new char[65536][];
             namedEntities[160] = "nbsp".ToCharArray();
             namedEntities[161] = "iexcl".ToCharArray();
             namedEntities[162] = "cent".ToCharArray();
@@ -535,7 +579,7 @@ namespace Microsoft.Security.Application
             namedEntities[253] = "yacute".ToCharArray();
             namedEntities[254] = "thorn".ToCharArray();
             namedEntities[255] = "yuml".ToCharArray();
-                    
+
             namedEntities[338] = "OElig".ToCharArray();
             namedEntities[339] = "oelig".ToCharArray();
             namedEntities[352] = "Scaron".ToCharArray();
@@ -597,7 +641,7 @@ namespace Microsoft.Security.Application
             namedEntities[977] = "thetasym".ToCharArray();
             namedEntities[978] = "upsih".ToCharArray();
             namedEntities[982] = "piv".ToCharArray();
-            
+
             namedEntities[0x2002] = "ensp".ToCharArray();
             namedEntities[0x2003] = "emsp".ToCharArray();
             namedEntities[0x2009] = "thinsp".ToCharArray();
@@ -690,6 +734,8 @@ namespace Microsoft.Security.Application
             namedEntities[0x2663] = "clubs".ToCharArray();
             namedEntities[0x2665] = "hearts".ToCharArray();
             namedEntities[0x2666] = "diams".ToCharArray();
+
+            return namedEntities;
         }
     }
 }

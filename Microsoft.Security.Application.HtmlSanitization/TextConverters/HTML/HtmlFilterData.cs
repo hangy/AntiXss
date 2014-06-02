@@ -115,7 +115,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             new FilterActionEntry(FilterAction.Drop | FilterAction.IgnoreAttrCallbacks, FilterAction.Drop | FilterAction.IgnoreAttrCallbacks, FilterAction.Drop, FilterAction.Drop),    
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.Keep, FilterAction.Keep),    
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.Keep | FilterAction.HasExceptions, FilterAction.Keep | FilterAction.HasExceptions),    
-            new FilterActionEntry(FilterAction.Keep | FilterAction.IgnoreAttrCallbacks, FilterAction.Keep | FilterAction.IgnoreAttrCallbacks, FilterAction.FilterStyleAttribute, FilterAction.FilterStyleAttribute),    
+            new FilterActionEntry(FilterAction.Drop | FilterAction.IgnoreAttrCallbacks, FilterAction.Drop | FilterAction.IgnoreAttrCallbacks, FilterAction.Drop, FilterAction.Drop),
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.Keep, FilterAction.Keep),    
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.Keep, FilterAction.Keep),    
             new FilterActionEntry(FilterAction.Keep, FilterAction.Keep, FilterAction.Drop, FilterAction.Drop),    

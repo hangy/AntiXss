@@ -20,6 +20,7 @@
 namespace Microsoft.Security.Application.CodeCharts
 {
     using System.Collections;
+    using System.Linq;
 
     /// <summary>
     /// Provides safe character positions for the upper middle section of the UTF code tables.
@@ -43,10 +44,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CyrillicExtendedA()
         {
-            for (int i = 0x2DE0; i <= 0x2DFF; i++)
-            {
-                yield return i;
-            }            
+            return CodeChartHelper.GetRange(0x2DE0, 0x2DFF);
         }
 
         /// <summary>
@@ -55,10 +53,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable SupplementalPunctuation()
         {
-            for (int i = 0x2E00; i <= 0x2E31; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x2E00, 0x2E31);
         }
 
         /// <summary>
@@ -67,15 +62,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CjkRadicalsSupplement()
         {
-            for (int i = 0x2E80; i <= 0x2EF3; i++)
-            {
-                if (i == 0x2E9A)
-                {
-                    continue;
-                }
-
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x2E80, 0x2EF3, i => (i == 0x2E9A));
         }
 
         /// <summary>
@@ -84,10 +71,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable KangxiRadicals()
         {
-            for (int i = 0x2F00; i <= 0x2FD5; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x2F00, 0x2FD5);
         }
 
         /// <summary>
@@ -96,10 +80,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable IdeographicDescriptionCharacters()
         {
-            for (int i = 0x2FF0; i <= 0x2FFB; i++)
-            {
-                yield return i;
-            }            
+            return CodeChartHelper.GetRange(0x2FF0, 0x2FFB);
         }
 
         /// <summary>
@@ -108,10 +89,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CjkSymbolsAndPunctuation()
         {
-            for (int i = 0x3000; i <= 0x303F; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x3000, 0x303F);
         }
 
         /// <summary>
@@ -120,16 +98,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Hiragana()
         {
-            for (int i = 0x3041; i <= 0x309F; i++)
-            {
-                if (i == 0x3097 ||
-                    i == 0x3098)
-                {
-                    continue;
-                }
-
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x3041, 0x309F, i => (i == 0x3097 || i == 0x3098));
         }
 
         /// <summary>
@@ -138,10 +107,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Katakana()
         {
-            for (int i = 0x30A0; i <= 0x30FF; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x30A0, 0x30FF);
         }
 
         /// <summary>
@@ -150,10 +116,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Bopomofo()
         {
-            for (int i = 0x3105; i <= 0x312D; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x3105, 0x312D);
         }
 
         /// <summary>
@@ -162,10 +125,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable HangulCompatibilityJamo()
         {
-            for (int i = 0x3131; i <= 0x318E; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x3131, 0x318E);
         }
 
         /// <summary>
@@ -174,10 +134,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Kanbun()
         {
-            for (int i = 0x3190; i <= 0x319F; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x3190, 0x319F);
         }
 
         /// <summary>
@@ -186,10 +143,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable BopomofoExtended()
         {
-            for (int i = 0x31A0; i <= 0x31B7; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x31A0, 0x31B7);
         }
 
         /// <summary>
@@ -198,10 +152,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CjkStrokes()
         {
-            for (int i = 0x31C0; i <= 0x31E3; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x31C0, 0x31E3);
         }
 
         /// <summary>
@@ -210,10 +161,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable KatakanaPhoneticExtensions()
         {
-            for (int i = 0x31F0; i <= 0x31FF; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x31F0, 0x31FF);
         }
 
         /// <summary>
@@ -222,15 +170,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable EnclosedCjkLettersAndMonths()
         {
-            for (int i = 0x3200; i <= 0x32FE; i++)
-            {
-                if (i == 0x321F)
-                {
-                    continue;
-                }
-
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x3200, 0x32FE, i => (i == 0x321F));
         }
 
         /// <summary>
@@ -239,10 +179,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CjkCompatibility()
         {
-            for (int i = 0x3300; i <= 0x33FF; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x3300, 0x33FF);
         }
 
         /// <summary>
@@ -251,10 +188,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CjkUnifiedIdeographsExtensionA()
         {
-            for (int i = 0x3400; i <= 0x4DB5; i++)
-            {
-                yield return i;
-            }            
+            return CodeChartHelper.GetRange(0x3400, 0x4DB5);
         }
 
         /// <summary>
@@ -263,10 +197,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable YijingHexagramSymbols()
         {
-            for (int i = 0x4DC0; i <= 0x4DFF; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x4DC0, 0x4DFF);
         }
 
         /// <summary>
@@ -275,10 +206,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CjkUnifiedIdeographs()
         {
-            for (int i = 0x4E00; i <= 0x9FCB; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0x4E00, 0x9FCB);
         }
 
         /// <summary>
@@ -287,10 +215,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable YiSyllables()
         {
-            for (int i = 0xA000; i <= 0xA48C; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA000, 0xA48C);
         }
 
         /// <summary>
@@ -299,10 +224,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable YiRadicals()
         {
-            for (int i = 0xA490; i <= 0xA4C6; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA490, 0xA4C6);
         }
 
         /// <summary>
@@ -311,10 +233,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Lisu()
         {
-            for (int i = 0xA4D0; i <= 0xA4FF; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA4D0, 0xA4FF);
         }
 
         /// <summary>
@@ -323,10 +242,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Vai()
         {
-            for (int i = 0xA500; i <= 0xA62B; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA500, 0xA62B);
         }
 
         /// <summary>
@@ -335,17 +251,10 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CyrillicExtendedB()
         {
-            for (int i = 0xA640; i <= 0xA697; i++)
-            {
-                if (i == 0xA660 ||
-                    i == 0xA661 ||
-                    (i >= 0xA674 && i <= 0xA67b))
-                {
-                    continue;
-                }
-
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(
+                0xA640, 
+                0xA697,
+                i => (i == 0xA660 || i == 0xA661 || (i >= 0xA674 && i <= 0xA67b)));
         }
 
         /// <summary>
@@ -354,10 +263,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Bamum()
         {
-            for (int i = 0xA6A0; i <= 0xA6F7; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA6A0, 0xA6F7);
         }
 
         /// <summary>
@@ -366,10 +272,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable ModifierToneLetters()
         {
-            for (int i = 0xA700; i <= 0xA71F; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA700, 0xA71F);
         }
 
         /// <summary>
@@ -378,15 +281,8 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable LatinExtendedD()
         {
-            for (int i = 0xA720; i <= 0xA78C; i++)
-            {
-                yield return i;
-            }
-
-            for (int i = 0xA7FB; i <= 0xA7FF; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA720, 0xA78C).Concat(
+                   CodeChartHelper.GetRange(0xA7FB, 0xA7FF));
         }
 
         /// <summary>
@@ -395,10 +291,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable SylotiNagri()
         {
-            for (int i = 0xA800; i <= 0xA82B; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA800, 0xA82B);
         }
 
         /// <summary>
@@ -407,10 +300,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CommonIndicNumberForms()
         {
-            for (int i = 0xA830; i <= 0xA839; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA830, 0xA839);
         }
 
         /// <summary>
@@ -419,10 +309,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Phagspa()
         {
-            for (int i = 0xA840; i <= 0xA877; i++)
-            {
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA840, 0xA877);
         }
 
         /// <summary>
@@ -431,15 +318,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Saurashtra()
         {
-            for (int i = 0xA880; i <= 0xA8D9; i++)
-            {
-                if (i >= 0xA8C5 && i <= 0xA8CD)
-                {
-                    continue;
-                }
-
-                yield return i;
-            }
+            return CodeChartHelper.GetRange(0xA880, 0xA8D9, i => (i >= 0xA8C5 && i <= 0xA8CD));
         }
     }
 }

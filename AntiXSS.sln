@@ -1,24 +1,33 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B911405E-6A46-4BE6-B997-91D85388CA9A}"
 	ProjectSection(SolutionItems) = preProject
+		AntiXssAssemblyInfo.cs = AntiXssAssemblyInfo.cs
 		CodeAnalysis.ruleset = CodeAnalysis.ruleset
-		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		FxCopDictionary.xml = FxCopDictionary.xml
 		License.txt = License.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{57C3E762-30FA-402E-8738-76EA3A56A1AF}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\AntiXSS v4.3.docx = Documentation\AntiXSS v4.3.docx
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder", "Microsoft.Security.Application.Encoder\Microsoft.Security.Application.Encoder.csproj", "{E7B6B7D1-53F8-4492-9B98-23244070E3E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder.Net4", "Microsoft.Security.Application.Encoder.Net4\Microsoft.Security.Application.Encoder.Net4.csproj", "{2D75A46C-96FE-40D2-B2D8-4665461E663E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E7B6B7D1-53F8-4492-9B98-23244070E3E6} = {E7B6B7D1-53F8-4492-9B98-23244070E3E6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.HtmlSanitization", "Microsoft.Security.Application.HtmlSanitization\Microsoft.Security.Application.HtmlSanitization.csproj", "{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder.UnitTests", "Microsoft.Security.Application.Encoder.UnitTests\Microsoft.Security.Application.Encoder.UnitTests.csproj", "{53A4B395-7A8D-4BE5-9925-5795EC95846C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{57C3E762-30FA-402E-8738-76EA3A56A1AF}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\AntiXSS v4.0.docx = Documentation\AntiXSS v4.0.docx
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder.Net2", "Microsoft.Security.Application.Encoder.Net2\Microsoft.Security.Application.Encoder.Net2.csproj", "{ABF5ADA7-ED30-47C6-9C19-537142B6B852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.HtmlSanitization.Tests", "Microsoft.Security.Application.HtmlSanitization.Tests\Microsoft.Security.Application.HtmlSanitization.Tests.csproj", "{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +49,16 @@ Global
 		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|x86.ActiveCfg = Release|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|x86.ActiveCfg = Release|Any CPU
 		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -60,6 +79,26 @@ Global
 		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|x86.ActiveCfg = Release|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

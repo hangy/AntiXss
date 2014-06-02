@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="Microsoft Corporation">
+// <copyright file="AntiXssAssemblyInfo.cs" company="Microsoft Corporation">
 //   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
 //
 //   This source is subject to the Microsoft Permissive License.
@@ -10,20 +10,30 @@
 //   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
 //   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
 //   PARTICULAR PURPOSE.
-//
 // </copyright>
 // <summary>
-//   Assembly settings.
+//   AntiXSS solution wide assembly settings.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
-using System.Security;
 
-[assembly: AssemblyTitle("AntiXss Library for .NET 3.5")]
-[assembly: AssemblyDescription("Encoding classes for safe-listing encoding of HTML, XML and other output types.")]
+[assembly: AssemblyCompany("Microsoft Corporation")]
+[assembly: AssemblyCopyright("Copyright © Microsoft Corporation 2009, 2010, 2011")]
+[assembly: AssemblyProduct("Microsoft Anti-XSS Library v4.3")]
+#if DEBUG
+[assembly: AssemblyConfiguration("DEBUG")]
+#else
+[assembly: AssemblyConfiguration("")]
+#endif
 
-[assembly: Guid("48a9debc-67cb-4775-8545-d7ae9e259976")]
+[assembly: AssemblyInformationalVersion("4.3")]
 
-[assembly: AllowPartiallyTrustedCallers]
-[assembly: SecurityTransparent]
+[assembly: ComVisible(false)]
+
+[assembly: AssemblyVersion("4.3.0.0")]
+[assembly: CLSCompliant(true)]
+[assembly: NeutralResourcesLanguageAttribute("en")]

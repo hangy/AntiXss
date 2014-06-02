@@ -18,8 +18,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Microsoft.Security.Application
 {
+    using System;
     using System.Collections;
-    using System.Threading;
+    using System.Text;
 
     /// <summary>
     /// Provides CSS Encoding methods.
@@ -27,23 +28,15 @@ namespace Microsoft.Security.Application
     internal static class CssEncoder
     {
         /// <summary>
-        /// A lock object to use when performing safe listing.
-        /// </summary>
-        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
-
-        /// <summary>
         /// The values to output for each character.
         /// </summary>
-        private static char[][] characterValues;
+        private static Lazy<char[][]> characterValuesLazy = new Lazy<char[][]>(InitialiseSafeList);
 
         /// <summary>
         /// Encodes according to the CSS encoding rules.
         /// </summary>
         /// <param name="input">The string to encode.</param>
         /// <returns>The encoded string.</returns>
-        /// <exception cref="InvalidUnicodeValueException">Thrown if a character with an invalid Unicode value is encountered within the input string.</exception>
-        /// <exception cref="InvalidSurrogatePairException">Thrown if a high surrogate code point is encoded without a following low surrogate code point, or a 
-        /// low surrogate code point is encounter without having been preceded by a high surrogate code point.</exception>
         internal static string Encode(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -51,114 +44,57 @@ namespace Microsoft.Security.Application
                 return input;
             }
 
-            if (characterValues == null)
-            {
-                InitialiseSafeList();
-            }
+            char[][] characterValues = characterValuesLazy.Value;
 
-            // Setup a new character array for output.
-            char[] inputAsArray = input.ToCharArray();
-            int outputLength = 0;
-            int inputLength = inputAsArray.Length;
-            char[] encodedInput = new char[inputLength * 7]; // Worse case scenario - CSS encoding wants \XXXXXX for encoded characters.
+            // Setup a new StringBuilder for output.
+            // Worse case scenario - CSS encoding wants \XXXXXX for encoded characters.
+            StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input.Length, 7);
 
-            SyncLock.EnterReadLock();
-            try
+            Utf16StringReader stringReader = new Utf16StringReader(input);
+            while (true) 
             {
-                for (int i = 0; i < inputLength; i++)
+                int currentCodePoint = stringReader.ReadNextScalarValue();
+                if (currentCodePoint < 0) 
                 {
-                    char currentCharacter = inputAsArray[i];
-                    int currentCodePoint = inputAsArray[i];
+                    break; // EOF
+                }
 
-                    // Check for invalid values
-                    if (currentCodePoint == 0xFFFE ||
-                        currentCodePoint == 0xFFFF)
-                    {
-                        throw new InvalidUnicodeValueException(currentCodePoint);
-                    }
-                    else if (char.IsHighSurrogate(currentCharacter))
-                    {
-                        if (i + 1 == inputLength)
-                        {
-                            throw new InvalidSurrogatePairException(currentCharacter, '\0');
-                        }
-
-                        // Now peak ahead and check if the following character is a low surrogate.
-                        char nextCharacter = inputAsArray[i + 1];
-                        char nextCodePoint = inputAsArray[i + 1];
-                        if (!char.IsLowSurrogate(nextCharacter))
-                        {
-                            throw new InvalidSurrogatePairException(currentCharacter, nextCharacter);
-                        }
-
-                        // Look-ahead was good, so skip.
-                        i++;
-
-                        // Calculate the combined code point
-                        long combinedCodePoint =
-                            0x10000 + ((currentCodePoint - 0xD800) * 0x400) + (nextCodePoint - 0xDC00);
-                        char[] encodedCharacter = SafeList.SlashThenSixDigitHexValueGenerator(combinedCodePoint);
-
-                        for (int j = 0; j < encodedCharacter.Length; j++)
-                        {
-                            encodedInput[outputLength++] = encodedCharacter[j];
-                        }
-                    }
-                    else if (char.IsLowSurrogate(currentCharacter))
-                    {
-                        throw new InvalidSurrogatePairException('\0', currentCharacter);
-                    }
-                    else if (currentCodePoint > characterValues.Length - 1)
-                    {
-                        char[] encodedCharacter = SafeList.SlashThenSixDigitHexValueGenerator(currentCodePoint);
-
-                        for (int j = 0; j < encodedCharacter.Length; j++)
-                        {
-                            encodedInput[outputLength++] = encodedCharacter[j];
-                        }                        
-                    }
-                    else if (characterValues[currentCodePoint] != null)
-                    {
-                        // character needs to be encoded
-                        char[] encodedCharacter = characterValues[currentCodePoint];
-                        for (int j = 0; j < encodedCharacter.Length; j++)
-                        {
-                            encodedInput[outputLength++] = encodedCharacter[j];
-                        }
-                    }
-                    else
-                    {
-                        // character does not need encoding
-                        encodedInput[outputLength++] = currentCharacter;
-                    }
+                if (currentCodePoint >= characterValues.Length) 
+                {
+                    // We don't have a pre-generated mapping of characters beyond the U+00FF, so we need
+                    // to generate these encodings on-the-fly. We should encode the code point rather
+                    // than the surrogate code units that make up this code point.
+                    // See: http://www.w3.org/International/questions/qa-escapes#cssescapes
+                    char[] encodedCharacter = SafeList.SlashThenSixDigitHexValueGenerator(currentCodePoint);
+                    builder.Append(encodedCharacter);
+                }
+                else if (characterValues[currentCodePoint] != null) 
+                {
+                    // character needs to be encoded
+                    char[] encodedCharacter = characterValues[currentCodePoint];
+                    builder.Append(encodedCharacter);
+                }
+                else 
+                {
+                    // character does not need encoding
+                    builder.Append((char)currentCodePoint);
                 }
             }
-            finally
-            {
-                SyncLock.ExitReadLock();
-            }
 
-            return new string(encodedInput, 0, outputLength);
+            return builder.ToString();
         }
 
         /// <summary>
-        /// Initializes the HTML safe list.
+        /// Initializes the CSS safe list.
         /// </summary>
-        private static void InitialiseSafeList()
+        /// <returns>
+        /// The CSS safe list.
+        /// </returns>
+        private static char[][] InitialiseSafeList()
         {
-            SyncLock.EnterWriteLock();
-            try
-            {
-                if (characterValues == null)
-                {
-                    characterValues = SafeList.Generate(0xFF, SafeList.SlashThenSixDigitHexValueGenerator);
-                    SafeList.PunchSafeList(ref characterValues, CssSafeList());
-                }
-            }
-            finally
-            {
-                SyncLock.ExitWriteLock();
-            }
+            char[][] result = SafeList.Generate(0xFF, SafeList.SlashThenSixDigitHexValueGenerator);
+            SafeList.PunchSafeList(ref result, CssSafeList());
+            return result;
         }
 
         /// <summary>
@@ -179,24 +115,6 @@ namespace Microsoft.Security.Application
             }
 
             for (int i = 'a'; i <= 'z'; i++)
-            {
-                yield return i;
-            }
-
-            // Extended higher ASCII, Ç to É
-            for (int i = 0x80; i <= 0x90; i++)
-            {
-                yield return i;
-            }
-
-            // Extended higher ASCII, ô to Ü
-            for (int i = 0x93; i <= 0x9A; i++)
-            {
-                yield return i;
-            }
-
-            // Extended higher ASCII, á to Ñ
-            for (int i = 0xA0; i <= 0xA5; i++)
             {
                 yield return i;
             }

@@ -1246,13 +1246,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             
 
-            if (this.outputFragment && !this.insideBody)
-            {
-                
-                this.writer.WriteStartTag(HtmlNameIndex.Div);
-                this.writer.WriteEndTag(HtmlNameIndex.Div);
-                this.writer.WriteAutoNewLine(true);
-            }
+            //if (this.outputFragment && !this.insideBody)
+            //{
+            //    this.writer.WriteStartTag(HtmlNameIndex.Div);
+            //    this.writer.WriteEndTag(HtmlNameIndex.Div);
+            //    this.writer.WriteAutoNewLine(true);
+            //}
 
             if (!this.convertFragment)
             {
