@@ -25,8 +25,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder.UnitTests", "Microsoft.Security.Application.Encoder.UnitTests\Microsoft.Security.Application.Encoder.UnitTests.csproj", "{53A4B395-7A8D-4BE5-9925-5795EC95846C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder.Net2", "Microsoft.Security.Application.Encoder.Net2\Microsoft.Security.Application.Encoder.Net2.csproj", "{ABF5ADA7-ED30-47C6-9C19-537142B6B852}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.HtmlSanitization.Tests", "Microsoft.Security.Application.HtmlSanitization.Tests\Microsoft.Security.Application.HtmlSanitization.Tests.csproj", "{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}"
 EndProject
 Global
@@ -79,16 +77,6 @@ Global
 		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{53A4B395-7A8D-4BE5-9925-5795EC95846C}.Release|x86.ActiveCfg = Release|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{ABF5ADA7-ED30-47C6-9C19-537142B6B852}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A605CD7-3C75-41A4-BD3A-ECD4FC45CE1B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
