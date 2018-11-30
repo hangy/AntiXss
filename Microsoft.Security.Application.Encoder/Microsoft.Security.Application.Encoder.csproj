@@ -3,10 +3,24 @@
     <TargetFramework>netstandard20</TargetFramework>
     <RootNamespace>Microsoft.Security.Application</RootNamespace>
     <AssemblyName>AntiXssLibrary</AssemblyName>
-    <AssemblyGuid>9C2BF6C0-0B3B-4401-8B50-12A16CFD4730</AssemblyGuid>
-    <AssemblyTitle>AntiXss Library for .NET 4.0</AssemblyTitle>
+    <AssemblyTitle>AntiXss Library for .NET Standard 2.0</AssemblyTitle>
     <AssemblyDescription>Encoding classes for safe-listing encoding of HTML, XML and other output types.</AssemblyDescription>
+    
+    <Authors>Microsoft; AntiXSS Contributors</Authors>
+    <Owners>AntiXSS Contributors</Owners>
+    <PackageId>AntiXSS.NetStandard</PackageId>
+    <PackageDescription>AntiXSS is an encoding library which uses a safe list approach to encoding. It provides Html, XML, Url, Form, LDAP, CSS, JScript and VBScript encoding methods to allow you to avoid Cross Site Scripting attacks. This library is part of the Microsoft SDL tools.</PackageDescription>
+    <PackageSummary>AntiXSS is an encoding library for .NET.</PackageSummary>
+    <Copyright>(c) 2009, 2010, 2011 Microsoft Corporation</Copyright>
+    <Language>en-US</Language>
+    <Tags>AntiXSS, ASP.NET</Tags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Security.Application.HtmlSanitization\Microsoft.Security.Application.HtmlSanitization.csproj">
+      <PrivateAssets>all</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

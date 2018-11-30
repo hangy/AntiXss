@@ -2,9 +2,9 @@
   <PropertyGroup>
     <AssemblyCompany>Microsoft Corporation</AssemblyCompany>
     <AssemblyCopyright>Copyright © Microsoft Corporation 2009, 2010</AssemblyCopyright>
-    <AssemblyProduct>Microsoft Anti-XSS Library v4.3</AssemblyProduct>
-    <AssemblyVersion>4.3.0.0</AssemblyVersion>
-    <AssemblyInformationalVersion>4.3</AssemblyInformationalVersion>
+    <AssemblyProduct>Microsoft Anti-XSS Library for .NET Standard; v1.0</AssemblyProduct>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyInformationalVersion>1.0</AssemblyInformationalVersion>
   </PropertyGroup>
 
   <PropertyGroup>
