@@ -21,19 +21,5 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyCompany("Microsoft Corporation")]
-[assembly: AssemblyCopyright("Copyright © Microsoft Corporation 2009, 2010, 2011")]
-[assembly: AssemblyProduct("Microsoft Anti-XSS Library v4.3")]
-#if DEBUG
-[assembly: AssemblyConfiguration("DEBUG")]
-#else
-[assembly: AssemblyConfiguration("")]
-#endif
-
-[assembly: AssemblyInformationalVersion("4.3")]
-
-[assembly: ComVisible(false)]
-
-[assembly: AssemblyVersion("4.3.0.0")]
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguageAttribute("en")]

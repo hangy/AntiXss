@@ -21,19 +21,5 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyCompany("Microsoft Corporation")]
-[assembly: AssemblyCopyright("Copyright © Microsoft Corporation 2009, 2010")]
-[assembly: AssemblyProduct("Microsoft Web Protection Library v4.0")]
-#if DEBUG
-[assembly: AssemblyConfiguration("DEBUG")]
-#else
-[assembly: AssemblyConfiguration("")]
-#endif
-
-[assembly: AssemblyInformationalVersion("4.0 August-2010-CTP")]
-
-[assembly: ComVisible(false)]
-
-[assembly: AssemblyVersion("4.0.0.0")]
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguageAttribute("en")]
