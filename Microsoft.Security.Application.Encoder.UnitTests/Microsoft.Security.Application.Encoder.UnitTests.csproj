@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard20</TargetFramework>
+    <TargetFramework>netcoreapp21</TargetFramework>
     <RootNamespace>Microsoft.Security.Application.Tests</RootNamespace>
     <AssemblyTitle>AntiXSS Unit Tests</AssemblyTitle>
     <AssemblyDescription>Unit Tests for the AntiXSS Library</AssemblyDescription>
