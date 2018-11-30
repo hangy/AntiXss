@@ -1,5 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard10</TargetFramework>
+    <TargetFramework>netstandard20</TargetFramework>
+    <RootNamespace>Microsoft.Security.Application</RootNamespace>
+    <AssemblyName>AntiXssLibrary</AssemblyName>
+    <AssemblyGuid>9C2BF6C0-0B3B-4401-8B50-12A16CFD4730</AssemblyGuid>
+    <AssemblyTitle>AntiXss Library for .NET 4.0</AssemblyTitle>
+    <AssemblyDescription>Encoding classes for safe-listing encoding of HTML, XML and other output types.</AssemblyDescription>
   </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(MSBuildProjectName).Test</_Parameter1>
+    </AssemblyAttribute>
+</ItemGroup>
 </Project>

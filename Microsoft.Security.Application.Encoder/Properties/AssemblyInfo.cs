@@ -16,23 +16,8 @@
 //   Assembly settings.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Security;
-
-[assembly: AssemblyTitle("AntiXss Library for .NET 4.0")]
-[assembly: AssemblyDescription("Encoding classes for safe-listing encoding of HTML, XML and other output types.")]
-
-[assembly: Guid("9C2BF6C0-0B3B-4401-8B50-12A16CFD4730")]
 
 [assembly: AllowPartiallyTrustedCallers]
 [assembly: SecurityTransparent]
-
-[assembly: InternalsVisibleTo("AntiXSSUnitTests")]
-
-#if DEBUG
-// Needed for code coverage
-[assembly: SecurityRules(SecurityRuleSet.Level1, SkipVerificationInFullTrust = true)]
-#endif
 
