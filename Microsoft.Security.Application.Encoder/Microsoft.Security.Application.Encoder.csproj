@@ -11,6 +11,8 @@
     <PackageId>AntiXSS.NetStandard</PackageId>
     <PackageDescription>AntiXSS is an encoding library which uses a safe list approach to encoding. It provides Html, XML, Url, Form, LDAP, CSS, JScript and VBScript encoding methods to allow you to avoid Cross Site Scripting attacks. This library is part of the Microsoft SDL tools.</PackageDescription>
     <PackageSummary>AntiXSS is an encoding library for .NET.</PackageSummary>
+    <PackageLicenseUrl>https://github.com/hangy/AntiXss/blob/master/License.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/hangy/AntiXss</PackageProjectUrl>
     <Copyright>(c) 2009, 2010, 2011 Microsoft Corporation</Copyright>
     <Language>en-US</Language>
     <Tags>AntiXSS, ASP.NET</Tags>
