@@ -136,7 +136,7 @@ namespace Microsoft.Security.Application
 
             if (encoding == null)
             {
-                throw new ArgumentNullException("encoding");
+                throw new ArgumentNullException(nameof(encoding));
             }
 
             // RFC 3986 states strings must be converted to their UTF8 value before URL encoding.
@@ -172,7 +172,7 @@ namespace Microsoft.Security.Application
                                 break;
 
                             default:
-                                throw new ArgumentOutOfRangeException("encodingType");
+                                throw new ArgumentOutOfRangeException(nameof(encodingType));
                         }
                     }
                     else

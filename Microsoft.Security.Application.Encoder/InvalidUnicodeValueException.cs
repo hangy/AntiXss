@@ -30,6 +30,9 @@ namespace Microsoft.Security.Application
     [Serializable]
     public class InvalidUnicodeValueException : Exception
     {
+        [NonSerialized]
+        private int value;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidUnicodeValueException"/> class.
         /// </summary>
@@ -87,7 +90,11 @@ namespace Microsoft.Security.Application
         /// Gets or sets the the invalid value.
         /// </summary>
         /// <value>The invalid value.</value>
-        public int Value { get; protected set; }
+        public int Value
+        {
+            get => this.value;
+            protected set => this.value = value;
+        }
 
         /// <summary>
         /// Gets a message that describes the current exception.
@@ -102,7 +109,7 @@ namespace Microsoft.Security.Application
                     return base.Message;
                 }
 
-                return string.Format(CultureInfo.CurrentUICulture, "Value : {0:x4}", this.Value) + Environment.NewLine + "Message: " + base.Message;
+                return string.Format(CultureInfo.CurrentCulture, "Value : {0:x4}", this.Value) + Environment.NewLine + "Message: " + base.Message;
             }
         }
 

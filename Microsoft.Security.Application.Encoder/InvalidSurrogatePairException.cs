@@ -30,6 +30,12 @@ namespace Microsoft.Security.Application
     [Serializable]
     public class InvalidSurrogatePairException : Exception
     {
+        [NonSerialized]
+        private char highSurrogate;
+
+        [NonSerialized]
+        private char lowSurrogate;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidSurrogatePairException"/> class.
         /// </summary>
@@ -93,13 +99,21 @@ namespace Microsoft.Security.Application
         /// Gets or sets the high surrogate value.
         /// </summary>
         /// <value>The high surrogate.</value>
-        public char HighSurrogate { get; protected set; }
+        public char HighSurrogate
+        {
+            get => this.highSurrogate;
+            protected set => this.highSurrogate = value;
+        }
 
         /// <summary>
         /// Gets or sets the low surrogate value.
         /// </summary>
         /// <value>The low surrogate.</value>
-        public char LowSurrogate { get; protected set; }
+        public char LowSurrogate
+         {
+            get => this.lowSurrogate;
+            protected set => this.lowSurrogate = value;
+        }
 
         /// <summary>
         /// Gets a message that describes the current exception.
@@ -115,7 +129,7 @@ namespace Microsoft.Security.Application
                 }
 
                 string surrogatePair = string.Format(
-                    CultureInfo.CurrentUICulture,
+                    CultureInfo.CurrentCulture,
                     "Surrogate Pair = 	{0:x4}:{1:x4}",
                     Convert.ToInt32(this.HighSurrogate),
                     Convert.ToInt32(this.LowSurrogate));

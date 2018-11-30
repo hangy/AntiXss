@@ -140,6 +140,7 @@ namespace Microsoft.Security.Application
         /// </list>
         /// </remarks>
         [Obsolete("This method has been deprecated. Please use Encoder.UrlEncode() instead.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         public static string UrlEncode(string input)
         {
             return Encoder.UrlEncode(input);
@@ -176,6 +177,7 @@ namespace Microsoft.Security.Application
         /// </list>
         /// </remarks>
         [Obsolete("This method has been deprecated. Please use Encoder.UrlEncode() instead.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         public static string UrlEncode(string input, int codepage)
         {
             return Encoder.UrlEncode(input, codepage);
