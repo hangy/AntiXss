@@ -16,11 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder", "Microsoft.Security.Application.Encoder\Microsoft.Security.Application.Encoder.csproj", "{E7B6B7D1-53F8-4492-9B98-23244070E3E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder.Net4", "Microsoft.Security.Application.Encoder.Net4\Microsoft.Security.Application.Encoder.Net4.csproj", "{2D75A46C-96FE-40D2-B2D8-4665461E663E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E7B6B7D1-53F8-4492-9B98-23244070E3E6} = {E7B6B7D1-53F8-4492-9B98-23244070E3E6}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.HtmlSanitization", "Microsoft.Security.Application.HtmlSanitization\Microsoft.Security.Application.HtmlSanitization.csproj", "{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Security.Application.Encoder.UnitTests", "Microsoft.Security.Application.Encoder.UnitTests\Microsoft.Security.Application.Encoder.UnitTests.csproj", "{53A4B395-7A8D-4BE5-9925-5795EC95846C}"
@@ -47,16 +42,6 @@ Global
 		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E7B6B7D1-53F8-4492-9B98-23244070E3E6}.Release|x86.ActiveCfg = Release|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2D75A46C-96FE-40D2-B2D8-4665461E663E}.Release|x86.ActiveCfg = Release|Any CPU
 		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7318FE57-3EFC-4A13-8B62-2E3BC31A4F84}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
