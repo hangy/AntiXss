@@ -22,32 +22,19 @@ namespace Microsoft.Security.Application
     using System;
     using System.Globalization;
     using System.Runtime.Serialization;
+    using System.Security.Permissions;
 
     /// <summary>
     /// Thrown when a bad surrogate pair is encountered.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2237:MarkISerializableTypesWithSerializable",
-        Justification = "The exception does not leave the application domain and serialization breaks medium trust.")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Design",
-        "CA1032:ImplementStandardExceptionConstructors",
-        Justification = "The exception does not leave the application domain and serialization breaks medium trust.")]
-    public partial class InvalidSurrogatePairException : Exception
+    [Serializable]
+    public class InvalidSurrogatePairException : Exception
     {
-        /// <summary>
-        /// The exception state
-        /// </summary>
-        [NonSerialized]
-        private ExceptionState exceptionState;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidSurrogatePairException"/> class.
         /// </summary>
         public InvalidSurrogatePairException()
         {
-            this.HookSerializationEvents();
         }
 
         /// <summary>
@@ -57,7 +44,6 @@ namespace Microsoft.Security.Application
         public InvalidSurrogatePairException(string message)
             : base(message)
         {
-            this.HookSerializationEvents();
         }
 
         /// <summary>
@@ -68,7 +54,6 @@ namespace Microsoft.Security.Application
         public InvalidSurrogatePairException(string message, Exception inner)
             : base(message, inner)
         {
-            this.HookSerializationEvents();
         }
 
         /// <summary>
@@ -80,8 +65,6 @@ namespace Microsoft.Security.Application
         {
             this.HighSurrogate = highSurrogate;
             this.LowSurrogate = lowSurrogate;
-
-            this.HookSerializationEvents();
         }
 
         /// <summary>
@@ -95,43 +78,28 @@ namespace Microsoft.Security.Application
         {
             this.HighSurrogate = highSurrogate;
             this.LowSurrogate = lowSurrogate;
+        }
 
-            this.HookSerializationEvents();
+
+        /// <inheritdoc />
+        protected InvalidSurrogatePairException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            this.HighSurrogate = info.GetChar(nameof(this.HighSurrogate));
+            this.LowSurrogate = info.GetChar(nameof(this.LowSurrogate));
         }
 
         /// <summary>
         /// Gets or sets the high surrogate value.
         /// </summary>
         /// <value>The high surrogate.</value>
-        public char HighSurrogate
-        {
-            get
-            {
-                return this.exceptionState.HighSurrogate;
-            }
-
-            protected set
-            {
-                this.exceptionState.HighSurrogate = value;
-            }
-        }
+        public char HighSurrogate { get; protected set; }
 
         /// <summary>
         /// Gets or sets the low surrogate value.
         /// </summary>
         /// <value>The low surrogate.</value>
-        public char LowSurrogate
-        {
-            get
-            {
-                return this.exceptionState.LowSurrogate;
-            }
-
-            protected set
-            {
-                this.exceptionState.LowSurrogate = value;
-            }
-        }
+        public char LowSurrogate { get; protected set; }
 
         /// <summary>
         /// Gets a message that describes the current exception.
@@ -156,64 +124,18 @@ namespace Microsoft.Security.Application
             }
         }
 
-        /// <summary>
-        /// Hooks the necessary events to support serialization in v4.0
-        /// </summary>
-        partial void HookSerializationEvents();
-
-        /// <summary>
-        /// This type holds state information that allows the exception type to be serialized but remain transparent.
-        /// </summary>
-        private partial struct ExceptionState
+        /// <inheritdoc />
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            /// <summary>
-            /// The high surrogate character.
-            /// </summary>
-            public char HighSurrogate;
-
-            /// <summary>
-            /// The low surrogate character.
-            /// </summary>
-            public char LowSurrogate;
-        }
-    }
-
-#if SAFESERIALIZATIONMANAGER
-    /// <summary>
-    /// .NET 4.0 version of the exception thrown when a bad surrogate pair is encountered.
-    /// </summary>
-    [Serializable]
-    public partial class InvalidSurrogatePairException 
-    {
-        /// <summary>
-        /// Hooks the necessary events to support serialization in v4.0
-        /// </summary>        
-        partial void HookSerializationEvents() 
-        {
-            this.SerializeObjectState += (sender, e) => 
-            {
-                e.AddSerializedState(this.exceptionState);
-            };
-        }
-
-        /// <summary>
-        /// This type holds state information that allows the exception type to be serialized but remain transparent.
-        /// </summary>
-        [Serializable]
-        private partial struct ExceptionState : ISafeSerializationData 
-        {
-            /// <summary>
-            /// This method is called to complete hydration of the serialized exception object.
-            /// </summary>
-            /// <param name="deserialized">
-            /// The deserialized object to rehydrate from.
-            /// </param>
-            void ISafeSerializationData.CompleteDeserialization(object deserialized)
-            {
-                InvalidSurrogatePairException exception = (InvalidSurrogatePairException)deserialized;
-                exception.exceptionState = this;
+            if (info == null)
+            {           
+                throw new ArgumentNullException(nameof(info));
             }
+
+            info.AddValue(nameof(this.HighSurrogate), this.HighSurrogate);
+            info.AddValue(nameof(this.LowSurrogate), this.LowSurrogate);
+            base.GetObjectData(info, context);
         }
     }
-#endif
 }

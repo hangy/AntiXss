@@ -22,32 +22,19 @@ namespace Microsoft.Security.Application
     using System;
     using System.Globalization;
     using System.Runtime.Serialization;
+    using System.Security.Permissions;
 
     /// <summary>
     /// Thrown when a invalid Unicode valid is encountered.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2237:MarkISerializableTypesWithSerializable",
-        Justification = "The exception does not leave the application domain and serialization breaks medium trust.")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Design",
-        "CA1032:ImplementStandardExceptionConstructors",
-        Justification = "The exception does not leave the application domain and serialization breaks medium trust.")]
-    public partial class InvalidUnicodeValueException : Exception
+    [Serializable]
+    public class InvalidUnicodeValueException : Exception
     {
-        /// <summary>
-        /// The exception state
-        /// </summary>
-        [NonSerialized]
-        private ExceptionState exceptionState;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidUnicodeValueException"/> class.
         /// </summary>
         public InvalidUnicodeValueException()
         {
-            this.HookSerializationEvents();
         }
 
         /// <summary>
@@ -57,7 +44,6 @@ namespace Microsoft.Security.Application
         public InvalidUnicodeValueException(string message)
             : base(message)
         {
-            this.HookSerializationEvents();
         }
 
         /// <summary>
@@ -68,7 +54,6 @@ namespace Microsoft.Security.Application
         public InvalidUnicodeValueException(string message, Exception inner)
             : base(message, inner)
         {
-            this.HookSerializationEvents();
         }
 
         /// <summary>
@@ -78,8 +63,6 @@ namespace Microsoft.Security.Application
         public InvalidUnicodeValueException(int value)
         {
             this.Value = value;
-
-            this.HookSerializationEvents();
         }
 
         /// <summary>
@@ -91,26 +74,20 @@ namespace Microsoft.Security.Application
             : base(message)
         {
             this.Value = value;
+        }
 
-            this.HookSerializationEvents();
+        /// <inheritdoc />
+        protected InvalidUnicodeValueException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            this.Value = info.GetChar(nameof(this.Value));
         }
 
         /// <summary>
         /// Gets or sets the the invalid value.
         /// </summary>
         /// <value>The invalid value.</value>
-        public int Value
-        {
-            get
-            {
-                return this.exceptionState.Value;
-            }
-            
-            protected set
-            {
-                this.exceptionState.Value = value;
-            }
-        }
+        public int Value { get; protected set; }
 
         /// <summary>
         /// Gets a message that describes the current exception.
@@ -129,59 +106,17 @@ namespace Microsoft.Security.Application
             }
         }
 
-        /// <summary>
-        /// Hooks the necessary events to support serialization in v4.0
-        /// </summary>
-        partial void HookSerializationEvents();
-
-        /// <summary>
-        /// This type holds state information that allows the exception type to be serialized but remain transparent.
-        /// </summary>
-        private partial struct ExceptionState
+        /// <inheritdoc />
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            /// <summary>
-            /// The invalid Unicode value.
-            /// </summary>
-            public int Value;
-        }
-    }
-
-#if SAFESERIALIZATIONMANAGER
-    /// <summary>
-    /// .NET 4.0 version of the exception thrown when a invalid Unicode valid is encountered.
-    /// </summary>
-    [Serializable]    
-    public partial class InvalidUnicodeValueException
-    {
-        /// <summary>
-        /// Hooks the necessary events to support serialization in v4.0
-        /// </summary>        
-        partial void HookSerializationEvents() 
-        {
-            this.SerializeObjectState += (sender, e) => 
-            {
-                e.AddSerializedState(this.exceptionState);
-            };
-        }
-
-        /// <summary>
-        /// This type holds state information that allows the exception type to be serialized but remain transparent.
-        /// </summary>
-        [Serializable]
-        private partial struct ExceptionState : ISafeSerializationData 
-        {
-            /// <summary>
-            /// This method is called to complete hydration of the serialized exception object.
-            /// </summary>
-            /// <param name="deserialized">
-            /// The deserialized object to rehydrate from.
-            /// </param>
-            void ISafeSerializationData.CompleteDeserialization(object deserialized)
-            {
-                InvalidUnicodeValueException exception = (InvalidUnicodeValueException)deserialized;
-                exception.exceptionState = this;
+            if (info == null)
+            {           
+                throw new ArgumentNullException(nameof(info));
             }
+
+            info.AddValue(nameof(this.Value), this.Value);
+            base.GetObjectData(info, context);
         }
     }
-#endif
 }

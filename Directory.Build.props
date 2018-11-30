@@ -6,4 +6,8 @@
     <AssemblyVersion>4.3.0.0</AssemblyVersion>
     <AssemblyInformationalVersion>4.3</AssemblyInformationalVersion>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
 </Project>
