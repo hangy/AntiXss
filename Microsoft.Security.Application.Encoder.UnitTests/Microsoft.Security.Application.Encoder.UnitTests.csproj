@@ -4,6 +4,7 @@
     <RootNamespace>Microsoft.Security.Application.Tests</RootNamespace>
     <AssemblyTitle>AntiXSS Unit Tests</AssemblyTitle>
     <AssemblyDescription>Unit Tests for the AntiXSS Library</AssemblyDescription>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
