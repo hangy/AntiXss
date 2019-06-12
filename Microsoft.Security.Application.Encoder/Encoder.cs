@@ -582,9 +582,11 @@ namespace Microsoft.Security.Application
             if (!validUrl) 
             { 
                 // treat as a relative URL, so we might still need to chop off the query / fragment components 
-                schemeAndAuthority = null; 
-                UriUtil.ExtractQueryAndFragment(input, out path, out queryAndFragment); 
-            } 
+                schemeAndAuthority = null;
+#pragma warning disable CA1062 // Validate arguments of public methods - Is validated above
+                UriUtil.ExtractQueryAndFragment(input, out path, out queryAndFragment);
+#pragma warning restore CA1062 // Validate arguments of public methods - Is validated above
+            }
 
             return schemeAndAuthority + HtmlParameterEncoder.UrlPathEncode(path, Encoding.UTF8) + queryAndFragment; 
        }
