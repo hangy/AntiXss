@@ -30,7 +30,7 @@
   <!-- Code Analysis -->
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" PrivateAssets="All" />
-    <PackageReference Include="Roslynator.Analyzers" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.Analyzers" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
