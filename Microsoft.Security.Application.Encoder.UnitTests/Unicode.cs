@@ -3627,31 +3627,15 @@ namespace Microsoft.Security.Application.Tests
                 }
 
                 string actual = Encoder.HtmlEncode(new string(character, 1));
-                string expected;
 
-                switch (i)
+                var expected = i switch
                 {
-                    case '<':
-                        expected = "&lt;";
-                        break;
-
-                    case '>':
-                        expected = "&gt;";
-                        break;
-
-                    case '&':
-                        expected = "&amp;";
-                        break;
-
-                    case '"':
-                        expected = "&quot;";
-                        break;
-
-                    default:
-                        expected = string.Format(CultureInfo.InvariantCulture, "&#{0};", i);
-                        break;
-                }
-
+                    '<' => "&lt;",
+                    '>' => "&gt;",
+                    '&' => "&amp;",
+                    '"' => "&quot;",
+                    _ => string.Format(CultureInfo.InvariantCulture, "&#{0};", i),
+                };
                 Assert.AreEqual(expected, actual, string.Format(CultureInfo.InvariantCulture, "All unsafe failed on 0x{0:X}", i));
             }
         }
