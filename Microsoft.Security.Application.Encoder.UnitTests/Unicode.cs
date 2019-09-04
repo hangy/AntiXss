@@ -42,9 +42,9 @@ namespace Microsoft.Security.Application.Tests
         public void UnicodeCombineMarkSafe()
         {
             // 1st: set Arabic code page as safe and run unit tests
-            long codePageStart = 0x0600;
-            long codePageEnd = 0x06FF;
-            string codePageTitle = "Arabic 0x0600-0x06FF";
+            const long codePageStart = 0x0600;
+            const long codePageEnd = 0x06FF;
+            const string codePageTitle = "Arabic 0x0600-0x06FF";
 
             UnicodeCharacterEncoder.MarkAsSafe(LowerCodeCharts.Arabic, LowerMidCodeCharts.None, MidCodeCharts.None, UpperMidCodeCharts.None, UpperCodeCharts.None);
 
@@ -59,9 +59,9 @@ namespace Microsoft.Security.Application.Tests
             // 2nd: Set ArabicSupplement as safe and run unit tests for both Arabic and ArabicSupplement code pages
             UnicodeCharacterEncoder.MarkAsSafe(LowerCodeCharts.Arabic | LowerCodeCharts.ArabicSupplement, LowerMidCodeCharts.None, MidCodeCharts.None, UpperMidCodeCharts.None, UpperCodeCharts.None);
 
-            long codePageStart2 = 0x0750;
-            long codePageEnd2 = 0x077F;
-            string codePageTitle2 = "Arabic 0x0600-0x06FF and Arabic Supplement 0x0750-0x077F";
+            const long codePageStart2 = 0x0750;
+            const long codePageEnd2 = 0x077F;
+            const string codePageTitle2 = "Arabic 0x0600-0x06FF and Arabic Supplement 0x0750-0x077F";
 
             this.CallUnitTests(codePageStart2, codePageEnd2, codePageTitle2, unicodeGaps);
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle + " - round2", unicodeGaps);
@@ -73,9 +73,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeArabic()
         {
-            long codePageStart = 0x0600;
-            long codePageEnd = 0x06FF;
-            string codePageTitle = "Arabic 0x0600-0x06FF";
+            const long codePageStart = 0x0600;
+            const long codePageEnd = 0x06FF;
+            const string codePageTitle = "Arabic 0x0600-0x06FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Arabic, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -94,9 +94,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeArabicSupplement()
         {
-            long codePageStart = 0x0750;
-            long codePageEnd = 0x077F;
-            string codePageTitle = "Arabic Supplement 0x0750-0x077F";
+            const long codePageStart = 0x0750;
+            const long codePageEnd = 0x077F;
+            const string codePageTitle = "Arabic Supplement 0x0750-0x077F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.ArabicSupplement, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -115,9 +115,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeArabicPresentationFormsA()
         {
-            long codePageStart = 0xFB50;
-            long codePageEnd = 0xFDFF;
-            string codePageTitle = "Arabic Presentation Forms-A 0xFB50-0xFDFF";
+            const long codePageStart = 0xFB50;
+            const long codePageEnd = 0xFDFF;
+            const string codePageTitle = "Arabic Presentation Forms-A 0xFB50-0xFDFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.ArabicPresentationFormsA);
 
@@ -144,9 +144,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeArabicPresentationFormsB()
         {
-            long codePageStart = 0xFE70;
-            long codePageEnd = 0xFEFF;
-            string codePageTitle = "Arabic Presentation Forms-B 0xFB50-0xFDFF";
+            const long codePageStart = 0xFE70;
+            const long codePageEnd = 0xFEFF;
+            const string codePageTitle = "Arabic Presentation Forms-B 0xFB50-0xFDFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.ArabicPresentationFormsB);
 
@@ -165,9 +165,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeArrows()
         {
-            long codePageStart = 0x2190;
-            long codePageEnd = 0x21FF;
-            string codePageTitle = "Arrows 0x2190-0x21FF";
+            const long codePageStart = 0x2190;
+            const long codePageEnd = 0x21FF;
+            const string codePageTitle = "Arrows 0x2190-0x21FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.Arrows, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -186,9 +186,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeArmenian()
         {
-            long codePageStart = 0x0530;
-            long codePageEnd = 0x058F;
-            string codePageTitle = "Armenian 0x0530-0x058F";
+            const long codePageStart = 0x0530;
+            const long codePageEnd = 0x058F;
+            const string codePageTitle = "Armenian 0x0530-0x058F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Armenian, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -207,9 +207,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeArmenianLigatures_AlphabeticPresentationForms()
         {
-            long codePageStart = 0xFB00;
-            long codePageEnd = 0xFB4F;
-            string codePageTitle = "Armenian Ligatures/Alphabetic Presentation Forms 0xFB00-0xFB4F";
+            const long codePageStart = 0xFB00;
+            const long codePageEnd = 0xFB4F;
+            const string codePageTitle = "Armenian Ligatures/Alphabetic Presentation Forms 0xFB00-0xFB4F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Armenian, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.AlphabeticPresentationForms);
 
@@ -228,9 +228,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBalinese()
         {
-            long codePageStart = 0x1B00;
-            long codePageEnd = 0x1B7F;
-            string codePageTitle = "Balinese 0x1B00-0x1B7F";
+            const long codePageStart = 0x1B00;
+            const long codePageEnd = 0x1B7F;
+            const string codePageTitle = "Balinese 0x1B00-0x1B7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.Balinese, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -249,9 +249,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBamum()
         {
-            long codePageStart = 0xA6A0;
-            long codePageEnd = 0xA6FF;
-            string codePageTitle = "Bamum 0xA6A0-0xA6FF";
+            const long codePageStart = 0xA6A0;
+            const long codePageEnd = 0xA6FF;
+            const string codePageTitle = "Bamum 0xA6A0-0xA6FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.Bamum, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -270,10 +270,10 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBasicLatin()
         {
-            long codePageStart = 0x0000;
-            long codePageEnd = 0x007F;
+            const long codePageStart = 0x0000;
+            const long codePageEnd = 0x007F;
 
-            string codePageTitle = "C0 Controls and Basic Latin 0x0000-0x007A";
+            const string codePageTitle = "C0 Controls and Basic Latin 0x0000-0x007A";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.BasicLatin, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -293,9 +293,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBengali()
         {
-            long codePageStart = 0x0980;
-            long codePageEnd = 0x09FF;
-            string codePageTitle = "Bengali 0x0980-0x09FF";
+            const long codePageStart = 0x0980;
+            const long codePageEnd = 0x09FF;
+            const string codePageTitle = "Bengali 0x0980-0x09FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Bengali, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -315,9 +315,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBlockElements()
         {
-            long codePageStart = 0x2580;
-            long codePageEnd = 0x259F;
-            string codePageTitle = "Block Elements 0x2580-0x259F";
+            const long codePageStart = 0x2580;
+            const long codePageEnd = 0x259F;
+            const string codePageTitle = "Block Elements 0x2580-0x259F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.BlockElements, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -336,9 +336,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBopomofo()
         {
-            long codePageStart = 0x3100;
-            long codePageEnd = 0x312F;
-            string codePageTitle = "Bopomofo 0x3100-0x312F";
+            const long codePageStart = 0x3100;
+            const long codePageEnd = 0x312F;
+            const string codePageTitle = "Bopomofo 0x3100-0x312F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.Bopomofo, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -357,9 +357,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBopomofoExtended()
         {
-            long codePageStart = 0x31A0;
-            long codePageEnd = 0x31BF;
-            string codePageTitle = "Bopomofo Extended 0x31A0-0x31BF";
+            const long codePageStart = 0x31A0;
+            const long codePageEnd = 0x31BF;
+            const string codePageTitle = "Bopomofo Extended 0x31A0-0x31BF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.BopomofoExtended, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -378,9 +378,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBoxDrawing()
         {
-            long codePageStart = 0x2500;
-            long codePageEnd = 0x257F;
-            string codePageTitle = "Box Drawing 0x2500-0x257F";
+            const long codePageStart = 0x2500;
+            const long codePageEnd = 0x257F;
+            const string codePageTitle = "Box Drawing 0x2500-0x257F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.BoxDrawing, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -399,9 +399,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBraillePatterns()
         {
-            long codePageStart = 0x2800;
-            long codePageEnd = 0x28FF;
-            string codePageTitle = "Braille Patterns 0x2800-0x28FF";
+            const long codePageStart = 0x2800;
+            const long codePageEnd = 0x28FF;
+            const string codePageTitle = "Braille Patterns 0x2800-0x28FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.BraillePatterns, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -420,9 +420,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBuginese()
         {
-            long codePageStart = 0x1A00;
-            long codePageEnd = 0x1A1F;
-            string codePageTitle = "Buginese 0x1A00-0x1A1F";
+            const long codePageStart = 0x1A00;
+            const long codePageEnd = 0x1A1F;
+            const string codePageTitle = "Buginese 0x1A00-0x1A1F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.Buginese, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -441,9 +441,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeBuhid()
         {
-            long codePageStart = 0x1740;
-            long codePageEnd = 0x175F;
-            string codePageTitle = "Buhid 0x1740-0x175F";
+            const long codePageStart = 0x1740;
+            const long codePageEnd = 0x175F;
+            const string codePageTitle = "Buhid 0x1740-0x175F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.Buhid, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -462,9 +462,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCham()
         {
-            long codePageStart = 0xAA00;
-            long codePageEnd = 0xAA5F;
-            string codePageTitle = "Cham 0xAA00-0xAA5F";
+            const long codePageStart = 0xAA00;
+            const long codePageEnd = 0xAA5F;
+            const string codePageTitle = "Cham 0xAA00-0xAA5F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.Cham);
 
@@ -483,9 +483,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCherokee()
         {
-            long codePageStart = 0x13A0;
-            long codePageEnd = 0x13FF;
-            string codePageTitle = "Cherokee 0x13A0-0x13FF";
+            const long codePageStart = 0x13A0;
+            const long codePageEnd = 0x13FF;
+            const string codePageTitle = "Cherokee 0x13A0-0x13FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.Cherokee, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -504,9 +504,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCjkCompatibility()
         {
-            long codePageStart = 0x3300;
-            long codePageEnd = 0x33FF;
-            string codePageTitle = "CJK Compatibility 0x3300-0x33FF";
+            const long codePageStart = 0x3300;
+            const long codePageEnd = 0x33FF;
+            const string codePageTitle = "CJK Compatibility 0x3300-0x33FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CjkCompatibility, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -525,9 +525,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCjkCompatibilityForms()
         {
-            long codePageStart = 0xFE30;
-            long codePageEnd = 0xFE4F;
-            string codePageTitle = "CJK Compatibility Forms 0xFE30-0xFE4F";
+            const long codePageStart = 0xFE30;
+            const long codePageEnd = 0xFE4F;
+            const string codePageTitle = "CJK Compatibility Forms 0xFE30-0xFE4F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.CjkCompatibilityForms);
 
@@ -546,9 +546,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCJKCompatibilityIdeographs()
         {
-            long codePageStart = 0xF900;
-            long codePageEnd = 0xFAFF;
-            string codePageTitle = "CJK Compatibility Ideographs 0xF900-0xFAFF";
+            const long codePageStart = 0xF900;
+            const long codePageEnd = 0xFAFF;
+            const string codePageTitle = "CJK Compatibility Ideographs 0xF900-0xFAFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.CjkCompatibilityIdeographs);
 
@@ -569,9 +569,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCJKRadicalsSupplement()
         {
-            long codePageStart = 0x2E80;
-            long codePageEnd = 0x2EFF;
-            string codePageTitle = "CJK Radicals Supplement 0x2E80-0x2EFF";
+            const long codePageStart = 0x2E80;
+            const long codePageEnd = 0x2EFF;
+            const string codePageTitle = "CJK Radicals Supplement 0x2E80-0x2EFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CjkRadicalsSupplement, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -590,9 +590,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCJKStrokes()
         {
-            long codePageStart = 0x31C0;
-            long codePageEnd = 0x31EF;
-            string codePageTitle = "CJK Strokes 0x31C0-0x31EF";
+            const long codePageStart = 0x31C0;
+            const long codePageEnd = 0x31EF;
+            const string codePageTitle = "CJK Strokes 0x31C0-0x31EF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CjkStrokes, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -611,9 +611,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCJKSymbolsandPunctuation()
         {
-            long codePageStart = 0x3000;
-            long codePageEnd = 0x303F;
-            string codePageTitle = "CJK Symbols and Punctuation 0x3000-0x303F";
+            const long codePageStart = 0x3000;
+            const long codePageEnd = 0x303F;
+            const string codePageTitle = "CJK Symbols and Punctuation 0x3000-0x303F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CjkSymbolsAndPunctuation, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -632,9 +632,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCJKUnifiedIdeographs()
         {
-            long codePageStart = 0x4E00;
-            long codePageEnd = 0x9FCF;
-            string codePageTitle = "CJK Unified Ideographs 0x4E00-0x9FCF";
+            const long codePageStart = 0x4E00;
+            const long codePageEnd = 0x9FCF;
+            const string codePageTitle = "CJK Unified Ideographs 0x4E00-0x9FCF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CjkUnifiedIdeographs, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -653,9 +653,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCJKUnifiedIdeographsExtensionA()
         {
-            long codePageStart = 0x3400;
-            long codePageEnd = 0x4DBF;
-            string codePageTitle = "CJK Unified Ideographs Extension A 0x3400-0x4DBF";
+            const long codePageStart = 0x3400;
+            const long codePageEnd = 0x4DBF;
+            const string codePageTitle = "CJK Unified Ideographs Extension A 0x3400-0x4DBF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CjkUnifiedIdeographsExtensionA, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -674,9 +674,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCombiningDiacriticalMarks()
         {
-            long codePageStart = 0x0300;
-            long codePageEnd = 0x036F;
-            string codePageTitle = "Combining Diacritical Marks 0x0300-0x036F";
+            const long codePageStart = 0x0300;
+            const long codePageEnd = 0x036F;
+            const string codePageTitle = "Combining Diacritical Marks 0x0300-0x036F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.CombiningDiacriticalMarks, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -695,9 +695,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCombiningDiacriticalMarksforSymbols()
         {
-            long codePageStart = 0x20D0;
-            long codePageEnd = 0x20FF;
-            string codePageTitle = "Combining Diacritical Marks for Symbols 0x20D0-0x20FF";
+            const long codePageStart = 0x20D0;
+            const long codePageEnd = 0x20FF;
+            const string codePageTitle = "Combining Diacritical Marks for Symbols 0x20D0-0x20FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.CombiningDiacriticalMarksForSymbols, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -716,9 +716,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCombiningDiacriticalMarksSupplement()
         {
-            long codePageStart = 0x1DC0;
-            long codePageEnd = 0x1DFF;
-            string codePageTitle = "Combining Diacritical Marks Supplement 0x1DC0-0x1DFF";
+            const long codePageStart = 0x1DC0;
+            const long codePageEnd = 0x1DFF;
+            const string codePageTitle = "Combining Diacritical Marks Supplement 0x1DC0-0x1DFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.CombiningDiacriticalMarksSupplement, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -737,9 +737,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCombiningHalfMarks()
         {
-            long codePageStart = 0xFE20;
-            long codePageEnd = 0xFE2F;
-            string codePageTitle = "Combining Half Marks 0xFE20-0xFE2F";
+            const long codePageStart = 0xFE20;
+            const long codePageEnd = 0xFE2F;
+            const string codePageTitle = "Combining Half Marks 0xFE20-0xFE2F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.CombiningHalfMarks);
 
@@ -758,9 +758,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCommonIndicNumberForms()
         {
-            long codePageStart = 0xA830;
-            long codePageEnd = 0xA83F;
-            string codePageTitle = "Common Indic Number Forms 0xA830-0xA83F";
+            const long codePageStart = 0xA830;
+            const long codePageEnd = 0xA83F;
+            const string codePageTitle = "Common Indic Number Forms 0xA830-0xA83F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CommonIndicNumberForms, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -779,9 +779,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeControlPictures()
         {
-            long codePageStart = 0x2400;
-            long codePageEnd = 0x243F;
-            string codePageTitle = "Control Pictures 0x2400-0x243F";
+            const long codePageStart = 0x2400;
+            const long codePageEnd = 0x243F;
+            const string codePageTitle = "Control Pictures 0x2400-0x243F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.ControlPictures, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -800,9 +800,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCoptic()
         {
-            long codePageStart = 0x2C80;
-            long codePageEnd = 0x2CFF;
-            string codePageTitle = "Coptic 0x2C80-0x2CFF";
+            const long codePageStart = 0x2C80;
+            const long codePageEnd = 0x2CFF;
+            const string codePageTitle = "Coptic 0x2C80-0x2CFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.Coptic, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -821,9 +821,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCopticinGreekblock()
         {
-            long codePageStart = 0x0370;
-            long codePageEnd = 0x03FF;
-            string codePageTitle = "Coptic in Greek block 0x0370-0x03FF";
+            const long codePageStart = 0x0370;
+            const long codePageEnd = 0x03FF;
+            const string codePageTitle = "Coptic in Greek block 0x0370-0x03FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.GreekAndCoptic, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -842,9 +842,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCurrencySymbols()
         {
-            long codePageStart = 0x20A0;
-            long codePageEnd = 0x20CF;
-            string codePageTitle = "Currency Symbols 0x20A0-0x20CF";
+            const long codePageStart = 0x20A0;
+            const long codePageEnd = 0x20CF;
+            const string codePageTitle = "Currency Symbols 0x20A0-0x20CF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.CurrencySymbols, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -863,9 +863,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCyrillic()
         {
-            long codePageStart = 0x0400;
-            long codePageEnd = 0x04FF;
-            string codePageTitle = "Cyrillic 0x0400-0x04FF";
+            const long codePageStart = 0x0400;
+            const long codePageEnd = 0x04FF;
+            const string codePageTitle = "Cyrillic 0x0400-0x04FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Cyrillic, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -884,9 +884,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCyrillicExtendedA()
         {
-            long codePageStart = 0x2DE0;
-            long codePageEnd = 0x2DFF;
-            string codePageTitle = "Cyrillic Extended-A 0x2DE0-0x2DFF";
+            const long codePageStart = 0x2DE0;
+            const long codePageEnd = 0x2DFF;
+            const string codePageTitle = "Cyrillic Extended-A 0x2DE0-0x2DFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CyrillicExtendedA, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -905,9 +905,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCyrillicExtendedB()
         {
-            long codePageStart = 0xA640;
-            long codePageEnd = 0xA69F;
-            string codePageTitle = "Cyrillic Extended-B 0xA640-0xA69F";
+            const long codePageStart = 0xA640;
+            const long codePageEnd = 0xA69F;
+            const string codePageTitle = "Cyrillic Extended-B 0xA640-0xA69F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CyrillicExtendedB, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -926,9 +926,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeCyrillicSupplement()
         {
-            long codePageStart = 0x0500;
-            long codePageEnd = 0x052F;
-            string codePageTitle = "Cyrillic Supplement 0x0500-0x052F";
+            const long codePageStart = 0x0500;
+            const long codePageEnd = 0x052F;
+            const string codePageTitle = "Cyrillic Supplement 0x0500-0x052F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.CyrillicSupplement, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -947,9 +947,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeDevanagari()
         {
-            long codePageStart = 0x0900;
-            long codePageEnd = 0x097F;
-            string codePageTitle = "Devanagari 0x0900-0x097F";
+            const long codePageStart = 0x0900;
+            const long codePageEnd = 0x097F;
+            const string codePageTitle = "Devanagari 0x0900-0x097F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Devanagari, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -968,9 +968,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeDevanagariExtended()
         {
-            long codePageStart = 0xA8E0;
-            long codePageEnd = 0xA8FF;
-            string codePageTitle = "Devanagari Extended 0xA8E0-0xA8FF";
+            const long codePageStart = 0xA8E0;
+            const long codePageEnd = 0xA8FF;
+            const string codePageTitle = "Devanagari Extended 0xA8E0-0xA8FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.DevanagariExtended);
 
@@ -989,9 +989,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeDingbats()
         {
-            long codePageStart = 0x2700;
-            long codePageEnd = 0x27BF;
-            string codePageTitle = "Dingbats – A 0x2700-0x27BF";
+            const long codePageStart = 0x2700;
+            const long codePageEnd = 0x27BF;
+            const string codePageTitle = "Dingbats – A 0x2700-0x27BF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.Dingbats, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1010,9 +1010,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeEnclosedAlphanumerics()
         {
-            long codePageStart = 0x2460;
-            long codePageEnd = 0x24FF;
-            string codePageTitle = "Enclosed Alphanumerics 0x2460-0x24FF";
+            const long codePageStart = 0x2460;
+            const long codePageEnd = 0x24FF;
+            const string codePageTitle = "Enclosed Alphanumerics 0x2460-0x24FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.EnclosedAlphanumerics, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1031,9 +1031,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeEnclosedCJKLettersMonths()
         {
-            long codePageStart = 0x3200;
-            long codePageEnd = 0x32FF;
-            string codePageTitle = "Enclosed CJK Letters and Months 0x3200-0x32FF";
+            const long codePageStart = 0x3200;
+            const long codePageEnd = 0x32FF;
+            const string codePageTitle = "Enclosed CJK Letters and Months 0x3200-0x32FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.EnclosedCjkLettersAndMonths, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1052,9 +1052,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeEthiopic()
         {
-            long codePageStart = 0x1200;
-            long codePageEnd = 0x137F;
-            string codePageTitle = "Ethiopic 0x1200-0x137F";
+            const long codePageStart = 0x1200;
+            const long codePageEnd = 0x137F;
+            const string codePageTitle = "Ethiopic 0x1200-0x137F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.Ethiopic, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1074,9 +1074,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeEthiopicExtended()
         {
-            long codePageStart = 0x2D80;
-            long codePageEnd = 0x2DDF;
-            string codePageTitle = "Ethiopic Extended 0x2D80-0x2DDF";
+            const long codePageStart = 0x2D80;
+            const long codePageEnd = 0x2DDF;
+            const string codePageTitle = "Ethiopic Extended 0x2D80-0x2DDF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.EthiopicExtended, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1095,9 +1095,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeEthiopicSupplement()
         {
-            long codePageStart = 0x1380;
-            long codePageEnd = 0x139F;
-            string codePageTitle = "Ethiopic Supplement 0x1380-0x139F";
+            const long codePageStart = 0x1380;
+            const long codePageEnd = 0x139F;
+            const string codePageTitle = "Ethiopic Supplement 0x1380-0x139F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.EthiopicSupplement, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1116,9 +1116,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeGeneralPunctuation()
         {
-            long codePageStart = 0x2000;
-            long codePageEnd = 0x206F;
-            string codePageTitle = "General Punctuation 0x2000-0x206F";
+            const long codePageStart = 0x2000;
+            const long codePageEnd = 0x206F;
+            const string codePageTitle = "General Punctuation 0x2000-0x206F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.GeneralPunctuation, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1137,9 +1137,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeGeometricShapes()
         {
-            long codePageStart = 0x25A0;
-            long codePageEnd = 0x25FF;
-            string codePageTitle = "Geometric Shapes 0x25A0-0x25FF";
+            const long codePageStart = 0x25A0;
+            const long codePageEnd = 0x25FF;
+            const string codePageTitle = "Geometric Shapes 0x25A0-0x25FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.GeometricShapes, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1158,9 +1158,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeGeorgian()
         {
-            long codePageStart = 0x10A0;
-            long codePageEnd = 0x10FF;
-            string codePageTitle = "Georgian 0x10A0-0x10FF";
+            const long codePageStart = 0x10A0;
+            const long codePageEnd = 0x10FF;
+            const string codePageTitle = "Georgian 0x10A0-0x10FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.Georgian, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1179,9 +1179,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeGeorgianSupplement()
         {
-            long codePageStart = 0x2D00;
-            long codePageEnd = 0x2D2F;
-            string codePageTitle = "Georgian Supplement 0x2D00-0x2D2F";
+            const long codePageStart = 0x2D00;
+            const long codePageEnd = 0x2D2F;
+            const string codePageTitle = "Georgian Supplement 0x2D00-0x2D2F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.GeorgianSupplement, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1200,9 +1200,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeGlagolitic()
         {
-            long codePageStart = 0x2C00;
-            long codePageEnd = 0x2C5F;
-            string codePageTitle = "Glagolitic 0x2C00-0x2C5F";
+            const long codePageStart = 0x2C00;
+            const long codePageEnd = 0x2C5F;
+            const string codePageTitle = "Glagolitic 0x2C00-0x2C5F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.Glagolitic, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1221,9 +1221,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeGreekExtended()
         {
-            long codePageStart = 0x1F00;
-            long codePageEnd = 0x1FFF;
-            string codePageTitle = "Greek Extended 0x1F00-0x1FFF";
+            const long codePageStart = 0x1F00;
+            const long codePageEnd = 0x1FFF;
+            const string codePageTitle = "Greek Extended 0x1F00-0x1FFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.GreekExtended, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1243,9 +1243,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeGujarati()
         {
-            long codePageStart = 0x0A80;
-            long codePageEnd = 0x0AFF;
-            string codePageTitle = "Gujarati 0x0A80-0x0AFF";
+            const long codePageStart = 0x0A80;
+            const long codePageEnd = 0x0AFF;
+            const string codePageTitle = "Gujarati 0x0A80-0x0AFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Gujarati, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1269,9 +1269,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeGurmukhi()
         {
-            long codePageStart = 0x0A00;
-            long codePageEnd = 0x0A7F;
-            string codePageTitle = "Gurmukhi 0x0A00-0x0A7F";
+            const long codePageStart = 0x0A00;
+            const long codePageEnd = 0x0A7F;
+            const string codePageTitle = "Gurmukhi 0x0A00-0x0A7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Gurmukhi, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1295,9 +1295,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHalfwidthandFullwidthForms()
         {
-            long codePageStart = 0xFF00;
-            long codePageEnd = 0xFFEF;
-            string codePageTitle = "Halfwidth and Fullwidth Forms 0xFF00-0xFFEF";
+            const long codePageStart = 0xFF00;
+            const long codePageEnd = 0xFFEF;
+            const string codePageTitle = "Halfwidth and Fullwidth Forms 0xFF00-0xFFEF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.HalfWidthAndFullWidthForms);
 
@@ -1316,9 +1316,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHangulCompatibilityJamo()
         {
-            long codePageStart = 0x3130;
-            long codePageEnd = 0x318F;
-            string codePageTitle = "Hangul Compatibility Jamo 0x3130-0x318F";
+            const long codePageStart = 0x3130;
+            const long codePageEnd = 0x318F;
+            const string codePageTitle = "Hangul Compatibility Jamo 0x3130-0x318F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.HangulCompatibilityJamo, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1337,9 +1337,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHangulJamo()
         {
-            long codePageStart = 0x1100;
-            long codePageEnd = 0x11FF;
-            string codePageTitle = "Hangul Jamo 0x1100-0x11FF";
+            const long codePageStart = 0x1100;
+            const long codePageEnd = 0x11FF;
+            const string codePageTitle = "Hangul Jamo 0x1100-0x11FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.HangulJamo, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1358,9 +1358,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHangulJamoExtendedA()
         {
-            long codePageStart = 0xA960;
-            long codePageEnd = 0xA97F;
-            string codePageTitle = "Hangul Jamo Extended – A 0xA960-0xA97F";
+            const long codePageStart = 0xA960;
+            const long codePageEnd = 0xA97F;
+            const string codePageTitle = "Hangul Jamo Extended – A 0xA960-0xA97F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.HangulJamoExtendedA);
 
@@ -1379,9 +1379,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHangulJamoExtendedB()
         {
-            long codePageStart = 0xD7B0;
-            long codePageEnd = 0xD7FF;
-            string codePageTitle = "Hangul Jamo Extended – B 0xD7B0-0xD7FF";
+            const long codePageStart = 0xD7B0;
+            const long codePageEnd = 0xD7FF;
+            const string codePageTitle = "Hangul Jamo Extended – B 0xD7B0-0xD7FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.HangulJamoExtendedB);
 
@@ -1400,9 +1400,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHangulSyllables()
         {
-            long codePageStart = 0xAC00;
-            long codePageEnd = 0xD7AF;
-            string codePageTitle = "Hangul Syllables 0xAC00-0xD7AF";
+            const long codePageStart = 0xAC00;
+            const long codePageEnd = 0xD7AF;
+            const string codePageTitle = "Hangul Syllables 0xAC00-0xD7AF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.HangulSyllables);
 
@@ -1421,9 +1421,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHanunoo()
         {
-            long codePageStart = 0x1720;
-            long codePageEnd = 0x173F;
-            string codePageTitle = "Hanunoo 0x1720-0x173F";
+            const long codePageStart = 0x1720;
+            const long codePageEnd = 0x173F;
+            const string codePageTitle = "Hanunoo 0x1720-0x173F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.Hanunoo, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1442,9 +1442,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHebrew()
         {
-            long codePageStart = 0x0590;
-            long codePageEnd = 0x05FF;
-            string codePageTitle = "Hebrew 0x0590-0x05FF";
+            const long codePageStart = 0x0590;
+            const long codePageEnd = 0x05FF;
+            const string codePageTitle = "Hebrew 0x0590-0x05FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Hebrew, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1463,9 +1463,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeHiragana()
         {
-            long codePageStart = 0x3040;
-            long codePageEnd = 0x309F;
-            string codePageTitle = "Hiragana 0x3040-0x309F";
+            const long codePageStart = 0x3040;
+            const long codePageEnd = 0x309F;
+            const string codePageTitle = "Hiragana 0x3040-0x309F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.Hiragana, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1484,9 +1484,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeIdeographicDescriptionCharacters()
         {
-            long codePageStart = 0x2FF0;
-            long codePageEnd = 0x2FFF;
-            string codePageTitle = "Ideographic Description Characters 0x2FF0-0x2FFF";
+            const long codePageStart = 0x2FF0;
+            const long codePageEnd = 0x2FFF;
+            const string codePageTitle = "Ideographic Description Characters 0x2FF0-0x2FFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.IdeographicDescriptionCharacters, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1505,9 +1505,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeIpaExtensions()
         {
-            long codePageStart = 0x0250;
-            long codePageEnd = 0x02AF;
-            string codePageTitle = "IPA Extensions 0x0250-0x02AF";
+            const long codePageStart = 0x0250;
+            const long codePageEnd = 0x02AF;
+            const string codePageTitle = "IPA Extensions 0x0250-0x02AF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.IpaExtensions, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1526,9 +1526,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeJavanese()
         {
-            long codePageStart = 0xA980;
-            long codePageEnd = 0xA9DF;
-            string codePageTitle = "Javanese 0xA980-0xA9DF";
+            const long codePageStart = 0xA980;
+            const long codePageEnd = 0xA9DF;
+            const string codePageTitle = "Javanese 0xA980-0xA9DF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.Javanese);
 
@@ -1547,9 +1547,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeKanbun()
         {
-            long codePageStart = 0x3190;
-            long codePageEnd = 0x319F;
-            string codePageTitle = "Kanbun 0x3190-0x319F";
+            const long codePageStart = 0x3190;
+            const long codePageEnd = 0x319F;
+            const string codePageTitle = "Kanbun 0x3190-0x319F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.Kanbun, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1568,9 +1568,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeKangxiRadicals()
         {
-            long codePageStart = 0x2F00;
-            long codePageEnd = 0x2FDF;
-            string codePageTitle = "Kangxi Radicals 0x2F00-0x2FDF";
+            const long codePageStart = 0x2F00;
+            const long codePageEnd = 0x2FDF;
+            const string codePageTitle = "Kangxi Radicals 0x2F00-0x2FDF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.KangxiRadicals, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1589,9 +1589,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeKannada()
         {
-            long codePageStart = 0x0C80;
-            long codePageEnd = 0x0CFF;
-            string codePageTitle = "Kannada 0x0C80-0x0CFF";
+            const long codePageStart = 0x0C80;
+            const long codePageEnd = 0x0CFF;
+            const string codePageTitle = "Kannada 0x0C80-0x0CFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Kannada, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1612,9 +1612,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeKatakana()
         {
-            long codePageStart = 0x30A0;
-            long codePageEnd = 0x30FF;
-            string codePageTitle = "Katakana 0x30A0-0x30FF";
+            const long codePageStart = 0x30A0;
+            const long codePageEnd = 0x30FF;
+            const string codePageTitle = "Katakana 0x30A0-0x30FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.Katakana, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1632,9 +1632,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeKatakanaPhoneticExtensions()
         {
-            long codePageStart = 0x31F0;
-            long codePageEnd = 0x31FF;
-            string codePageTitle = "Katakana Phonetic Extensions 0x31F0-0x31FF";
+            const long codePageStart = 0x31F0;
+            const long codePageEnd = 0x31FF;
+            const string codePageTitle = "Katakana Phonetic Extensions 0x31F0-0x31FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.KatakanaPhoneticExtensions, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1652,9 +1652,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeKayahLi()
         {
-            long codePageStart = 0xA900;
-            long codePageEnd = 0xA92F;
-            string codePageTitle = "Kayah Li 0xA900-0xA92F";
+            const long codePageStart = 0xA900;
+            const long codePageEnd = 0xA92F;
+            const string codePageTitle = "Kayah Li 0xA900-0xA92F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
                 Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -1677,9 +1677,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeKhmer()
         {
-            long codePageStart = 0x1780;
-            long codePageEnd = 0x17FF;
-            string codePageTitle = "Khmer 0x1780-0x17FF";
+            const long codePageStart = 0x1780;
+            const long codePageEnd = 0x17FF;
+            const string codePageTitle = "Khmer 0x1780-0x17FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -1702,9 +1702,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeKhmerSymbols()
         {
-            long codePageStart = 0x19E0;
-            long codePageEnd = 0x19FF;
-            string codePageTitle = "Khmer Symbols 0x19E0-0x19FF";
+            const long codePageStart = 0x19E0;
+            const long codePageEnd = 0x19FF;
+            const string codePageTitle = "Khmer Symbols 0x19E0-0x19FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -1727,9 +1727,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLao()
         {
-            long codePageStart = 0x0E80;
-            long codePageEnd = 0x0EFF;
-            string codePageTitle = "Lao 0x0E80-0x0EFF";
+            const long codePageStart = 0x0E80;
+            const long codePageEnd = 0x0EFF;
+            const string codePageTitle = "Lao 0x0E80-0x0EFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Lao,
@@ -1758,9 +1758,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLatin1Supplement()
         {
-            long codePageStart = 0x0080;
-            long codePageEnd = 0x00FF;
-            string codePageTitle = "Latin-1 Supplement 0x0080-0x00FF";
+            const long codePageStart = 0x0080;
+            const long codePageEnd = 0x00FF;
+            const string codePageTitle = "Latin-1 Supplement 0x0080-0x00FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.C1ControlsAndLatin1Supplement, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1781,9 +1781,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLatinExtendedA()
         {
-            long codePageStart = 0x0100;
-            long codePageEnd = 0x017F;
-            string codePageTitle = "Latin Extended-A 0x0100-0x017F";
+            const long codePageStart = 0x0100;
+            const long codePageEnd = 0x017F;
+            const string codePageTitle = "Latin Extended-A 0x0100-0x017F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.LatinExtendedA, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1801,9 +1801,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLatinExtendedB()
         {
-            long codePageStart = 0x0180;
-            long codePageEnd = 0x024F;
-            string codePageTitle = "Latin Extended-A 0x0180-0x024F";
+            const long codePageStart = 0x0180;
+            const long codePageEnd = 0x024F;
+            const string codePageTitle = "Latin Extended-A 0x0180-0x024F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.LatinExtendedB, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1821,9 +1821,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLatinExtendedC()
         {
-            long codePageStart = 0x2C60;
-            long codePageEnd = 0x2C7F;
-            string codePageTitle = "Latin Extended-C 0x2C60-0x2C7F";
+            const long codePageStart = 0x2C60;
+            const long codePageEnd = 0x2C7F;
+            const string codePageTitle = "Latin Extended-C 0x2C60-0x2C7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.LatinExtendedC, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1841,9 +1841,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLatinExtendedD()
         {
-            long codePageStart = 0xA720;
-            long codePageEnd = 0xA7FF;
-            string codePageTitle = "Latin Extended-D 0xA720-0xA7FF";
+            const long codePageStart = 0xA720;
+            const long codePageEnd = 0xA7FF;
+            const string codePageTitle = "Latin Extended-D 0xA720-0xA7FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.LatinExtendedD, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1867,9 +1867,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLatinExtendedAdditional()
         {
-            long codePageStart = 0x1E00;
-            long codePageEnd = 0x1EFF;
-            string codePageTitle = "Latin Extended Additional 0x1E00-0x1EFF";
+            const long codePageStart = 0x1E00;
+            const long codePageEnd = 0x1EFF;
+            const string codePageTitle = "Latin Extended Additional 0x1E00-0x1EFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.LatinExtendedAdditional, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -1887,9 +1887,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLepcha()
         {
-            long codePageStart = 0x1C00;
-            long codePageEnd = 0x1C4F;
-            string codePageTitle = "Lepcha 0x1C00-0x1C4F";
+            const long codePageStart = 0x1C00;
+            const long codePageEnd = 0x1C4F;
+            const string codePageTitle = "Lepcha 0x1C00-0x1C4F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -1913,9 +1913,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLetterlikeSymbols()
         {
-            long codePageStart = 0x2100;
-            long codePageEnd = 0x214F;
-            string codePageTitle = "Letterlike Symbols 0x2100-0x214F";
+            const long codePageStart = 0x2100;
+            const long codePageEnd = 0x214F;
+            const string codePageTitle = "Letterlike Symbols 0x2100-0x214F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -1939,9 +1939,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLimbu()
         {
-            long codePageStart = 0x1900;
-            long codePageEnd = 0x194F;
-            string codePageTitle = "Limbu 0x1900-0x194F";
+            const long codePageStart = 0x1900;
+            const long codePageEnd = 0x194F;
+            const string codePageTitle = "Limbu 0x1900-0x194F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -1965,9 +1965,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeLisu()
         {
-            long codePageStart = 0xA4D0;
-            long codePageEnd = 0xA4FF;
-            string codePageTitle = "Lisu 0xA4D0-0xA4FF";
+            const long codePageStart = 0xA4D0;
+            const long codePageEnd = 0xA4FF;
+            const string codePageTitle = "Lisu 0xA4D0-0xA4FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2018,9 +2018,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMalayalam()
         {
-            long codePageStart = 0x0D00;
-            long codePageEnd = 0x0D7F;
-            string codePageTitle = "Malayalam 0x0D00-0x0D7F";
+            const long codePageStart = 0x0D00;
+            const long codePageEnd = 0x0D7F;
+            const string codePageTitle = "Malayalam 0x0D00-0x0D7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Malayalam,
@@ -2047,9 +2047,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMathematicalOperators()
         {
-            long codePageStart = 0x2200;
-            long codePageEnd = 0x22FF;
-            string codePageTitle = "Mathematical Operators 0x2200-0x22FF";
+            const long codePageStart = 0x2200;
+            const long codePageEnd = 0x22FF;
+            const string codePageTitle = "Mathematical Operators 0x2200-0x22FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2073,9 +2073,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMeeteriMayek()
         {
-            long codePageStart = 0xABC0;
-            long codePageEnd = 0xABFF;
-            string codePageTitle = "Meeteri Mayek 0xABC0-0xABFF";
+            const long codePageStart = 0xABC0;
+            const long codePageEnd = 0xABFF;
+            const string codePageTitle = "Meeteri Mayek 0xABC0-0xABFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2099,9 +2099,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMiscellaneousMathematicalSymbolsA()
         {
-            long codePageStart = 0x27C0;
-            long codePageEnd = 0x27EF;
-            string codePageTitle = "Miscellaneous Mathematical Symbols-A 0x27C0-0x27EF";
+            const long codePageStart = 0x27C0;
+            const long codePageEnd = 0x27EF;
+            const string codePageTitle = "Miscellaneous Mathematical Symbols-A 0x27C0-0x27EF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2125,9 +2125,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMiscellaneousMathematicalSymbolsB()
         {
-            long codePageStart = 0x2980;
-            long codePageEnd = 0x29FF;
-            string codePageTitle = "Miscellaneous Mathematical Symbols-B 0x2980-0x29FF";
+            const long codePageStart = 0x2980;
+            const long codePageEnd = 0x29FF;
+            const string codePageTitle = "Miscellaneous Mathematical Symbols-B 0x2980-0x29FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2151,9 +2151,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMiscellaneousSymbols()
         {
-            long codePageStart = 0x2600;
-            long codePageEnd = 0x26FF;
-            string codePageTitle = "Miscellaneous Symbols 0x2600-0x26FF";
+            const long codePageStart = 0x2600;
+            const long codePageEnd = 0x26FF;
+            const string codePageTitle = "Miscellaneous Symbols 0x2600-0x26FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.MiscellaneousSymbols, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -2172,9 +2172,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMiscellaneousSymbolsArrows()
         {
-            long codePageStart = 0x2B00;
-            long codePageEnd = 0x2BFF;
-            string codePageTitle = "Miscellaneous Symbols and Arrows 0x2B00-0x2BFF";
+            const long codePageStart = 0x2B00;
+            const long codePageEnd = 0x2BFF;
+            const string codePageTitle = "Miscellaneous Symbols and Arrows 0x2B00-0x2BFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.MiscellaneousSymbolsAndArrows, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -2204,9 +2204,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMiscellaneousTechnical()
         {
-            long codePageStart = 0x2300;
-            long codePageEnd = 0x23FF;
-            string codePageTitle = "Miscellaneous Technical 0x2300-0x23FF";
+            const long codePageStart = 0x2300;
+            const long codePageEnd = 0x23FF;
+            const string codePageTitle = "Miscellaneous Technical 0x2300-0x23FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.MiscellaneousTechnical, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -2226,9 +2226,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeModifierToneLetters()
         {
-            long codePageStart = 0xA700;
-            long codePageEnd = 0xA71F;
-            string codePageTitle = "Modifier Tone Letters 0xA700-0xA71F";
+            const long codePageStart = 0xA700;
+            const long codePageEnd = 0xA71F;
+            const string codePageTitle = "Modifier Tone Letters 0xA700-0xA71F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2252,9 +2252,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMongolian()
         {
-            long codePageStart = 0x1800;
-            long codePageEnd = 0x18AF;
-            string codePageTitle = "Mongolian 0x1800-0x18AF";
+            const long codePageStart = 0x1800;
+            const long codePageEnd = 0x18AF;
+            const string codePageTitle = "Mongolian 0x1800-0x18AF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2278,9 +2278,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMyanmar()
         {
-            long codePageStart = 0x1000;
-            long codePageEnd = 0x109F;
-            string codePageTitle = "Myanmar 0x1000-0x109F";
+            const long codePageStart = 0x1000;
+            const long codePageEnd = 0x109F;
+            const string codePageTitle = "Myanmar 0x1000-0x109F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2304,9 +2304,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeMyanmarExtendedA()
         {
-            long codePageStart = 0xAA60;
-            long codePageEnd = 0xAA7F;
-            string codePageTitle = "Myanmar Extended – A 0xAA60-0xAA7F";
+            const long codePageStart = 0xAA60;
+            const long codePageEnd = 0xAA7F;
+            const string codePageTitle = "Myanmar Extended – A 0xAA60-0xAA7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2330,9 +2330,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeNewTaiLue()
         {
-            long codePageStart = 0x1980;
-            long codePageEnd = 0x19DF;
-            string codePageTitle = "New Tai Lue 0x1980-0x19DF";
+            const long codePageStart = 0x1980;
+            const long codePageEnd = 0x19DF;
+            const string codePageTitle = "New Tai Lue 0x1980-0x19DF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2356,9 +2356,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeNKo()
         {
-            long codePageStart = 0x07C0;
-            long codePageEnd = 0x07FF;
-            string codePageTitle = "NKo 0x07C0-0x07FF";
+            const long codePageStart = 0x07C0;
+            const long codePageEnd = 0x07FF;
+            const string codePageTitle = "NKo 0x07C0-0x07FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Nko,
@@ -2382,9 +2382,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeNumberForms()
         {
-            long codePageStart = 0x2150;
-            long codePageEnd = 0x218F;
-            string codePageTitle = "Number Forms – A 0x2150-0x218F";
+            const long codePageStart = 0x2150;
+            const long codePageEnd = 0x218F;
+            const string codePageTitle = "Number Forms – A 0x2150-0x218F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2408,9 +2408,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeOgham()
         {
-            long codePageStart = 0x1680;
-            long codePageEnd = 0x169F;
-            string codePageTitle = "Ogham 0x1680-0x169F";
+            const long codePageStart = 0x1680;
+            const long codePageEnd = 0x169F;
+            const string codePageTitle = "Ogham 0x1680-0x169F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2434,9 +2434,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeOlChiki()
         {
-            long codePageStart = 0x1C50;
-            long codePageEnd = 0x1C7F;
-            string codePageTitle = "Ol Chiki 0x1C50-0x1C7F";
+            const long codePageStart = 0x1C50;
+            const long codePageEnd = 0x1C7F;
+            const string codePageTitle = "Ol Chiki 0x1C50-0x1C7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2460,9 +2460,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeOpticalCharacterRecognition()
         {
-            long codePageStart = 0x2440;
-            long codePageEnd = 0x245F;
-            string codePageTitle = "Optical Character Recognition 0x2440-0x245F";
+            const long codePageStart = 0x2440;
+            const long codePageEnd = 0x245F;
+            const string codePageTitle = "Optical Character Recognition 0x2440-0x245F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2486,9 +2486,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeOriya()
         {
-            long codePageStart = 0x0B00;
-            long codePageEnd = 0x0B7F;
-            string codePageTitle = "Oriya 0x0B00-0x0B7F";
+            const long codePageStart = 0x0B00;
+            const long codePageEnd = 0x0B7F;
+            const string codePageTitle = "Oriya 0x0B00-0x0B7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Oriya,
@@ -2514,9 +2514,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodePhagspa()
         {
-            long codePageStart = 0xA840;
-            long codePageEnd = 0xA87F;
-            string codePageTitle = "Phags-pa 0xA840-0xA87F";
+            const long codePageStart = 0xA840;
+            const long codePageEnd = 0xA87F;
+            const string codePageTitle = "Phags-pa 0xA840-0xA87F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2560,9 +2560,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodePhoneticExtensions()
         {
-            long codePageStart = 0x1D00;
-            long codePageEnd = 0x1D7F;
-            string codePageTitle = "Phonetic Extensions 0x1D00-0x1D7F";
+            const long codePageStart = 0x1D00;
+            const long codePageEnd = 0x1D7F;
+            const string codePageTitle = "Phonetic Extensions 0x1D00-0x1D7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2586,9 +2586,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodePhoneticExtensionsSupplement()
         {
-            long codePageStart = 0x1D80;
-            long codePageEnd = 0x1DBF;
-            string codePageTitle = "Phonetic Extensions Supplement 0x1D80-0x1DBF";
+            const long codePageStart = 0x1D80;
+            const long codePageEnd = 0x1DBF;
+            const string codePageTitle = "Phonetic Extensions Supplement 0x1D80-0x1DBF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2612,9 +2612,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodePrivateUseArea()
         {
-            long codePageStart = 0xE000;
-            long codePageEnd = 0xF8FF;
-            string codePageTitle = "Private Use Area 0xE000-0xF8FF";
+            const long codePageStart = 0xE000;
+            const long codePageEnd = 0xF8FF;
+            const string codePageTitle = "Private Use Area 0xE000-0xF8FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2639,9 +2639,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeRejang()
         {
-            long codePageStart = 0xA930;
-            long codePageEnd = 0xA95F;
-            string codePageTitle = "Rejang 0xA930-0xA95F";
+            const long codePageStart = 0xA930;
+            const long codePageEnd = 0xA95F;
+            const string codePageTitle = "Rejang 0xA930-0xA95F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2665,9 +2665,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeRunic()
         {
-            long codePageStart = 0x16A0;
-            long codePageEnd = 0x16FF;
-            string codePageTitle = "Runic 0x16A0-0x16FF";
+            const long codePageStart = 0x16A0;
+            const long codePageEnd = 0x16FF;
+            const string codePageTitle = "Runic 0x16A0-0x16FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2691,9 +2691,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSamaritan()
         {
-            long codePageStart = 0x0800;
-            long codePageEnd = 0x083F;
-            string codePageTitle = "Samaritan 0x0800-0x083F";
+            const long codePageStart = 0x0800;
+            const long codePageEnd = 0x083F;
+            const string codePageTitle = "Samaritan 0x0800-0x083F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Samaritan,
@@ -2717,9 +2717,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSaurashtra()
         {
-            long codePageStart = 0xA880;
-            long codePageEnd = 0xA8DF;
-            string codePageTitle = "Saurashtra 0xA880-0xA8DF";
+            const long codePageStart = 0xA880;
+            const long codePageEnd = 0xA8DF;
+            const string codePageTitle = "Saurashtra 0xA880-0xA8DF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2743,9 +2743,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSinhala()
         {
-            long codePageStart = 0x0D80;
-            long codePageEnd = 0x0DFF;
-            string codePageTitle = "Sinhala 0x0D80-0x0DFF";
+            const long codePageStart = 0x0D80;
+            const long codePageEnd = 0x0DFF;
+            const string codePageTitle = "Sinhala 0x0D80-0x0DFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Sinhala,
@@ -2772,9 +2772,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSmallFormVariants()
         {
-            long codePageStart = 0xFE50;
-            long codePageEnd = 0xFE6F;
-            string codePageTitle = "Small Form Variants 0xFE50-0xFE6F";
+            const long codePageStart = 0xFE50;
+            const long codePageEnd = 0xFE6F;
+            const string codePageTitle = "Small Form Variants 0xFE50-0xFE6F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2798,9 +2798,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSpacingModifierLetters()
         {
-            long codePageStart = 0x02B0;
-            long codePageEnd = 0x02FF;
-            string codePageTitle = "Spacing Modifier Letters 0x02B0-0x02FF";
+            const long codePageStart = 0x02B0;
+            const long codePageEnd = 0x02FF;
+            const string codePageTitle = "Spacing Modifier Letters 0x02B0-0x02FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.SpacingModifierLetters,
@@ -2824,9 +2824,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSpecials()
         {
-            long codePageStart = 0xFFF0;
-            long codePageEnd = 0xFFFD;
-            string codePageTitle = "Specials 0xFFF0-0xFFFF";
+            const long codePageStart = 0xFFF0;
+            const long codePageEnd = 0xFFFD;
+            const string codePageTitle = "Specials 0xFFF0-0xFFFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2850,9 +2850,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSundanese()
         {
-            long codePageStart = 0x1B80;
-            long codePageEnd = 0x1BBF;
-            string codePageTitle = "Sundanese 0x1B80-0x1BBF";
+            const long codePageStart = 0x1B80;
+            const long codePageEnd = 0x1BBF;
+            const string codePageTitle = "Sundanese 0x1B80-0x1BBF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2876,9 +2876,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSuperscriptsandSubscripts()
         {
-            long codePageStart = 0x2070;
-            long codePageEnd = 0x209F;
-            string codePageTitle = "Superscripts and Subscripts 0x2070-0x209F";
+            const long codePageStart = 0x2070;
+            const long codePageEnd = 0x209F;
+            const string codePageTitle = "Superscripts and Subscripts 0x2070-0x209F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2905,9 +2905,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSupplementalArrowsA()
         {
-            long codePageStart = 0x27F0;
-            long codePageEnd = 0x27FF;
-            string codePageTitle = "Supplemental Arrows-A 0x27F0-0x27FF";
+            const long codePageStart = 0x27F0;
+            const long codePageEnd = 0x27FF;
+            const string codePageTitle = "Supplemental Arrows-A 0x27F0-0x27FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2931,9 +2931,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSupplementalArrowsB()
         {
-            long codePageStart = 0x2900;
-            long codePageEnd = 0x297F;
-            string codePageTitle = "Supplemental Arrows-B 0x2900-0x297F";
+            const long codePageStart = 0x2900;
+            const long codePageEnd = 0x297F;
+            const string codePageTitle = "Supplemental Arrows-B 0x2900-0x297F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2957,9 +2957,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSupplementalMathematicalOperators()
         {
-            long codePageStart = 0x2A00;
-            long codePageEnd = 0x2AFF;
-            string codePageTitle = "Supplemental Mathematical Operators 0x2A00-0x2AFF";
+            const long codePageStart = 0x2A00;
+            const long codePageEnd = 0x2AFF;
+            const string codePageTitle = "Supplemental Mathematical Operators 0x2A00-0x2AFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -2983,9 +2983,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSupplementalPunctuation()
         {
-            long codePageStart = 0x2E00;
-            long codePageEnd = 0x2E7F;
-            string codePageTitle = "Supplemental Punctuation 0x2E00-0x2E7F";
+            const long codePageStart = 0x2E00;
+            const long codePageEnd = 0x2E7F;
+            const string codePageTitle = "Supplemental Punctuation 0x2E00-0x2E7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3013,9 +3013,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSylotiNagri()
         {
-            long codePageStart = 0xA800;
-            long codePageEnd = 0xA82F;
-            string codePageTitle = "Syloti Nagri 0xA800-0xA82F";
+            const long codePageStart = 0xA800;
+            const long codePageEnd = 0xA82F;
+            const string codePageTitle = "Syloti Nagri 0xA800-0xA82F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3039,9 +3039,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeSyriac()
         {
-            long codePageStart = 0x0700;
-            long codePageEnd = 0x074F;
-            string codePageTitle = "Syriac 0x0700-0x074F";
+            const long codePageStart = 0x0700;
+            const long codePageEnd = 0x074F;
+            const string codePageTitle = "Syriac 0x0700-0x074F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Syriac,
@@ -3065,9 +3065,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTagalog()
         {
-            long codePageStart = 0x1700;
-            long codePageEnd = 0x171F;
-            string codePageTitle = "Tagalog 0x1700-0x171F";
+            const long codePageStart = 0x1700;
+            const long codePageEnd = 0x171F;
+            const string codePageTitle = "Tagalog 0x1700-0x171F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3091,9 +3091,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTagbanwa()
         {
-            long codePageStart = 0x1760;
-            long codePageEnd = 0x177F;
-            string codePageTitle = "Tagbanwa 0x1760-0x177F";
+            const long codePageStart = 0x1760;
+            const long codePageEnd = 0x177F;
+            const string codePageTitle = "Tagbanwa 0x1760-0x177F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3117,9 +3117,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTaiLe()
         {
-            long codePageStart = 0x1950;
-            long codePageEnd = 0x197F;
-            string codePageTitle = "Tai Le 0x1950-0x197F";
+            const long codePageStart = 0x1950;
+            const long codePageEnd = 0x197F;
+            const string codePageTitle = "Tai Le 0x1950-0x197F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3143,9 +3143,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTaiTham()
         {
-            long codePageStart = 0x1A20;
-            long codePageEnd = 0x1AAF;
-            string codePageTitle = "Tai Tham 0x1A20-0x1AAF";
+            const long codePageStart = 0x1A20;
+            const long codePageEnd = 0x1AAF;
+            const string codePageTitle = "Tai Tham 0x1A20-0x1AAF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3169,9 +3169,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTaiViet()
         {
-            long codePageStart = 0xAA80;
-            long codePageEnd = 0xAADF;
-            string codePageTitle = "Tai Viet 0xAA80-0xAADF";
+            const long codePageStart = 0xAA80;
+            const long codePageEnd = 0xAADF;
+            const string codePageTitle = "Tai Viet 0xAA80-0xAADF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3195,9 +3195,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTamil()
         {
-            long codePageStart = 0x0B80;
-            long codePageEnd = 0x0BFF;
-            string codePageTitle = "Tamil 0x0B80-0x0BFF";
+            const long codePageStart = 0x0B80;
+            const long codePageEnd = 0x0BFF;
+            const string codePageTitle = "Tamil 0x0B80-0x0BFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Tamil,
@@ -3228,9 +3228,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTelugu()
         {
-            long codePageStart = 0x0C00;
-            long codePageEnd = 0x0C7F;
-            string codePageTitle = "Telugu 0x0C00-0x0C7F";
+            const long codePageStart = 0x0C00;
+            const long codePageEnd = 0x0C7F;
+            const string codePageTitle = "Telugu 0x0C00-0x0C7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Telugu,
@@ -3256,9 +3256,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeThaana()
         {
-            long codePageStart = 0x0780;
-            long codePageEnd = 0x07BF;
-            string codePageTitle = "Thaana 0x0780-0x07BF";
+            const long codePageStart = 0x0780;
+            const long codePageEnd = 0x07BF;
+            const string codePageTitle = "Thaana 0x0780-0x07BF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Thaana,
@@ -3282,9 +3282,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeThai()
         {
-            long codePageStart = 0x0E00;
-            long codePageEnd = 0x0E7F;
-            string codePageTitle = "Thai 0x0E00-0x0E7F";
+            const long codePageStart = 0x0E00;
+            const long codePageEnd = 0x0E7F;
+            const string codePageTitle = "Thai 0x0E00-0x0E7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Thai,
@@ -3310,9 +3310,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTibetan()
         {
-            long codePageStart = 0x0F00;
-            long codePageEnd = 0x0FFF;
-            string codePageTitle = "Tibetan 0x0F00-0x0FFF";
+            const long codePageStart = 0x0F00;
+            const long codePageEnd = 0x0FFF;
+            const string codePageTitle = "Tibetan 0x0F00-0x0FFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Tibetan,
@@ -3338,9 +3338,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeTifinagh()
         {
-            long codePageStart = 0x2D30;
-            long codePageEnd = 0x2D7F;
-            string codePageTitle = "Tifinagh 0x2D30-0x2D7F";
+            const long codePageStart = 0x2D30;
+            const long codePageEnd = 0x2D7F;
+            const string codePageTitle = "Tifinagh 0x2D30-0x2D7F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3364,9 +3364,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeUnifiedCanadianAboriginalSyllabics()
         {
-            long codePageStart = 0x1400;
-            long codePageEnd = 0x167F;
-            string codePageTitle = "Unified Canadian Aboriginal Syllabics 0x1400-0x167F";
+            const long codePageStart = 0x1400;
+            const long codePageEnd = 0x167F;
+            const string codePageTitle = "Unified Canadian Aboriginal Syllabics 0x1400-0x167F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3390,9 +3390,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeUnifiedCanadianAboriginalSyllabicsExtended()
         {
-            long codePageStart = 0x18B0;
-            long codePageEnd = 0x18FF;
-            string codePageTitle = "Unified Canadian Aboriginal Syllabics Extended 0x18B0-0x18FF";
+            const long codePageStart = 0x18B0;
+            const long codePageEnd = 0x18FF;
+            const string codePageTitle = "Unified Canadian Aboriginal Syllabics Extended 0x18B0-0x18FF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3416,9 +3416,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeVai()
         {
-            long codePageStart = 0xA500;
-            long codePageEnd = 0xA63F;
-            string codePageTitle = "Vai 0xA500-0xA63F";
+            const long codePageStart = 0xA500;
+            const long codePageEnd = 0xA63F;
+            const string codePageTitle = "Vai 0xA500-0xA63F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3442,9 +3442,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeVariationSelectors()
         {
-            long codePageStart = 0xFE00;
-            long codePageEnd = 0xFE0F;
-            string codePageTitle = "Variation Selectors 0xFE00-0xFE0F";
+            const long codePageStart = 0xFE00;
+            const long codePageEnd = 0xFE0F;
+            const string codePageTitle = "Variation Selectors 0xFE00-0xFE0F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3468,9 +3468,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeVedicExtensions()
         {
-            long codePageStart = 0x1CD0;
-            long codePageEnd = 0x1CFF;
-            string codePageTitle = "Vedic Extensions 0x1CD0-0x1CFF";
+            const long codePageStart = 0x1CD0;
+            const long codePageEnd = 0x1CFF;
+            const string codePageTitle = "Vedic Extensions 0x1CD0-0x1CFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3494,9 +3494,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeVerticalForms()
         {
-            long codePageStart = 0xFE10;
-            long codePageEnd = 0xFE1F;
-            string codePageTitle = "Vertical Forms 0xFE10-0xFE1F";
+            const long codePageStart = 0xFE10;
+            const long codePageEnd = 0xFE1F;
+            const string codePageTitle = "Vertical Forms 0xFE10-0xFE1F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3520,9 +3520,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeYiRadicals()
         {
-            long codePageStart = 0xA490;
-            long codePageEnd = 0xA4CF;
-            string codePageTitle = "Yi Radicals 0xA490-0xA4CF";
+            const long codePageStart = 0xA490;
+            const long codePageEnd = 0xA4CF;
+            const string codePageTitle = "Yi Radicals 0xA490-0xA4CF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.YiRadicals, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -3541,9 +3541,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeYiSyllables()
         {
-            long codePageStart = 0xA000;
-            long codePageEnd = 0xA48F;
-            string codePageTitle = "Yi Syllables 0xA000-0xA48F";
+            const long codePageStart = 0xA000;
+            const long codePageEnd = 0xA48F;
+            const string codePageTitle = "Yi Syllables 0xA000-0xA48F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.YiSyllables, Microsoft.Security.Application.UpperCodeCharts.None);
 
@@ -3562,9 +3562,9 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void UnicodeYijingHexagramSymbols()
         {
-            long codePageStart = 0x4DC0;
-            long codePageEnd = 0x4DFF;
-            string codePageTitle = "Yijing Hexagram Symbols 0x4DC0-0x4DFF";
+            const long codePageStart = 0x4DC0;
+            const long codePageEnd = 0x4DFF;
+            const string codePageTitle = "Yijing Hexagram Symbols 0x4DC0-0x4DFF";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
             Microsoft.Security.Application.LowerCodeCharts.Default,
@@ -3590,7 +3590,7 @@ namespace Microsoft.Security.Application.Tests
         {
             string expected;
             string actual;
-            string codePageTitle = " Named Entities";
+            const string codePageTitle = " Named Entities";
 
             // compiled list of characters that translate to named entities http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
             DataSet ds = NamedEntitiesSet();

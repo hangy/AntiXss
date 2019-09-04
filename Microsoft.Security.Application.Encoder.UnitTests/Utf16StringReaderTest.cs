@@ -87,7 +87,7 @@ namespace Microsoft.Security.Application.Tests
         public void InvalidStringWithSurrogates()
         {
             // Arrange
-            string inputString = "X-\uD800-\uDFFF-Z";
+            const string inputString = "X-\uD800-\uDFFF-Z";
             int[] expectedResult = new int[]
             {
                 (int)'X',
@@ -113,7 +113,7 @@ namespace Microsoft.Security.Application.Tests
         public void InvalidStringWithSurrogatesHighSurrogateAtEndOfString()
         {
             // Arrange
-            string inputString = "X-\uD800";
+            const string inputString = "X-\uD800";
             int[] expectedResult = new int[]
             {
                 (int)'X',
@@ -138,7 +138,7 @@ namespace Microsoft.Security.Application.Tests
             // character after encountering an unmatched high surrogate.
 
             // Arrange
-            string inputString = "X-\uD800\uD800\uDD00-Z";
+            const string inputString = "X-\uD800\uD800\uDD00-Z";
             int[] expectedResult = new int[]
             {
                 (int)'X',
@@ -163,7 +163,7 @@ namespace Microsoft.Security.Application.Tests
         public void ValidStringWithSurrogates()
         {
             // Arrange
-            string inputString = "X-\U00010000-\uABCD-\U0010ABCD-Z";
+            const string inputString = "X-\U00010000-\uABCD-\U0010ABCD-Z";
             int[] expectedResult = new int[]
             {
                 (int)'X',

@@ -33,8 +33,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void TestHtmlLowerBoundarySurrogateEncoding()
         {
-            string target = "\uD800\uDC00";
-            string expected = "&#65536;";
+            const string target = "\uD800\uDC00";
+            const string expected = "&#65536;";
 
             string result = Encoder.HtmlEncode(target);
 
@@ -47,8 +47,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void TestHtmlUpperBoundarySurrogateEncoding()
         {
-            string target = "\uDBFF\uDFFF";
-            string expected = "&#1114111;";
+            const string target = "\uDBFF\uDFFF";
+            const string expected = "&#1114111;";
 
             string result = Encoder.HtmlEncode(target);
 
@@ -62,8 +62,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void TestHtmlHighSurrogateWithoutLowSurrogate()
         {
-            string target = "\uD800";
-            string expected = "&#65533;"; // Substitution character.
+            const string target = "\uD800";
+            const string expected = "&#65533;"; // Substitution character.
 
             string result = Encoder.HtmlEncode(target);
 
@@ -77,8 +77,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void TestHtmlLowSurrogateWithoutHighSurrogate()
         {
-            string target = "\uDC00";
-            string expected = "&#65533;"; // Substitution character.
+            const string target = "\uDC00";
+            const string expected = "&#65533;"; // Substitution character.
 
             string result = Encoder.HtmlEncode(target);
 
@@ -91,8 +91,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void TestCssLowerBoundarySurrogateEncoding()
         {
-            string target = "\uD800\uDC00";
-            string expected = @"\010000";
+            const string target = "\uD800\uDC00";
+            const string expected = @"\010000";
 
             string result = Encoder.CssEncode(target);
 
@@ -105,8 +105,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void TestCssUpperBoundarySurrogateEncoding()
         {
-            string target = "\uDBFF\uDFFF";
-            string expected = @"\10FFFF";
+            const string target = "\uDBFF\uDFFF";
+            const string expected = @"\10FFFF";
 
             string result = Encoder.CssEncode(target);
 

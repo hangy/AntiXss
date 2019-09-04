@@ -33,8 +33,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToHtmlEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.HtmlEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -45,8 +45,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToUrlEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.UrlEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -57,8 +57,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToHtmlFromUrlEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.HtmlFormUrlEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -69,8 +69,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToXmlEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.XmlEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -81,8 +81,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToXmlAttributeEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.XmlAttributeEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -93,8 +93,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToLdapDistinguishedNameEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.LdapDistinguishedNameEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -105,8 +105,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToHtmlAttributeEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.HtmlAttributeEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -117,8 +117,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToLdapFilterEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.LdapFilterEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -129,8 +129,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToCssEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.CssEncode(target);
             Assert.AreEqual(expected, actual);
         }
@@ -141,8 +141,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingNullToUrlPathEncodeReturnsNull()
         {
-            string target = null;
-            string expected = null;
+            const string target = null;
+            const string expected = null;
             string actual = Encoder.UrlPathEncode(target);
             Assert.AreEqual(expected, actual);
         }
