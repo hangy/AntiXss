@@ -4075,11 +4075,9 @@ namespace Microsoft.Security.Application.Tests
         /// <param name="codePageTitle">String of the title of the codepage</param>
         private static void TestCssEncoderForSpecifiedCodePage(long codePageStart, long codePageEnd, string codePageTitle)
         {
-            System.Text.Encoding encoders = System.Text.Encoding.UTF8;
             for (long i = codePageStart; i < codePageEnd; i++)
             {
                 string expected;
-                byte[] bytes = encoders.GetBytes(Convert.ToString((char)i));
                 if ((i > 0x002F && i < 0x003A) || (i > 0x0040 && i < 0x005B) || (i > 0x0060 && i < 0x007B))
                 {
                     expected = Convert.ToString((char)i);
