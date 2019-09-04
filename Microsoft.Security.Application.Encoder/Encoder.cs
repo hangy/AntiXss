@@ -568,19 +568,19 @@ namespace Microsoft.Security.Application
             Justification = "This does not return a full URL so the return type can be a string.")]
         public static string UrlPathEncode(string input)
         {
-            if (string.IsNullOrEmpty(input)) 
-            { 
-                return input; 
-            } 
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
 
             // DevDiv #211105: We should make the UrlPathEncode method encode only the path portion of URLs. 
-            string schemeAndAuthority; 
-            string path; 
-            string queryAndFragment; 
+            string schemeAndAuthority;
+            string path;
+            string queryAndFragment;
             bool validUrl = UriUtil.TrySplitUriForPathEncode(input, out schemeAndAuthority, out path, out queryAndFragment);
 
-            if (!validUrl) 
-            { 
+            if (!validUrl)
+            {
                 // treat as a relative URL, so we might still need to chop off the query / fragment components 
                 schemeAndAuthority = null;
 #pragma warning disable CA1062 // Validate arguments of public methods - Is validated above
@@ -588,8 +588,8 @@ namespace Microsoft.Security.Application
 #pragma warning restore CA1062 // Validate arguments of public methods - Is validated above
             }
 
-            return schemeAndAuthority + HtmlParameterEncoder.UrlPathEncode(path, Encoding.UTF8) + queryAndFragment; 
-       }
+            return schemeAndAuthority + HtmlParameterEncoder.UrlPathEncode(path, Encoding.UTF8) + queryAndFragment;
+        }
 
         /// <summary>
         /// Encodes input strings for use in XML.

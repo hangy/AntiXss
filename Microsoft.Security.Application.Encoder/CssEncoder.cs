@@ -51,15 +51,15 @@ namespace Microsoft.Security.Application
             StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input.Length, 7);
 
             Utf16StringReader stringReader = new Utf16StringReader(input);
-            while (true) 
+            while (true)
             {
                 int currentCodePoint = stringReader.ReadNextScalarValue();
-                if (currentCodePoint < 0) 
+                if (currentCodePoint < 0)
                 {
                     break; // EOF
                 }
 
-                if (currentCodePoint >= characterValues.Length) 
+                if (currentCodePoint >= characterValues.Length)
                 {
                     // We don't have a pre-generated mapping of characters beyond the U+00FF, so we need
                     // to generate these encodings on-the-fly. We should encode the code point rather
@@ -68,13 +68,13 @@ namespace Microsoft.Security.Application
                     char[] encodedCharacter = SafeList.SlashThenSixDigitHexValueGenerator(currentCodePoint);
                     builder.Append(encodedCharacter);
                 }
-                else if (characterValues[currentCodePoint] != null) 
+                else if (characterValues[currentCodePoint] != null)
                 {
                     // character needs to be encoded
                     char[] encodedCharacter = characterValues[currentCodePoint];
                     builder.Append(encodedCharacter);
                 }
-                else 
+                else
                 {
                     // character does not need encoding
                     builder.Append((char)currentCodePoint);

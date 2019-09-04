@@ -28,13 +28,13 @@ namespace Microsoft.Security.Application.Tests
     /// Tests the Encoder utility class
     /// </summary>
     [TestClass]
-    public class EncoderUtilTest 
+    public class EncoderUtilTest
     {
         /// <summary>
         /// Tests the output string builder.
         /// </summary>
         [TestMethod]
-        public void GetOutputStringBuilder() 
+        public void GetOutputStringBuilder()
         {
             RunGetOutputStringBuilderTest(300, 30, 9000, "I forgot how to multiply.");
             RunGetOutputStringBuilderTest(300, 100, 16 * 1024, "Default capacity should never exceed 16k chars if input length is small.");
@@ -49,7 +49,7 @@ namespace Microsoft.Security.Application.Tests
         /// <param name="worstCaseOutputCharsPerInputChar">The worst case scenario.</param>
         /// <param name="expectedCapacity">The expected capacity of the string builder created.</param>
         /// <param name="failureMessage">The message to use if the test fails.</param>
-        private static void RunGetOutputStringBuilderTest(int inputLength, int worstCaseOutputCharsPerInputChar, int expectedCapacity, string failureMessage) 
+        private static void RunGetOutputStringBuilderTest(int inputLength, int worstCaseOutputCharsPerInputChar, int expectedCapacity, string failureMessage)
         {
             StringBuilder builder = EncoderUtil.GetOutputStringBuilder(inputLength, worstCaseOutputCharsPerInputChar);
             Assert.AreEqual(expectedCapacity, builder.Capacity, failureMessage);

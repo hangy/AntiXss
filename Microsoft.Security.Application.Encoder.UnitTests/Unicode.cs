@@ -216,7 +216,7 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Alphabetic Presentation Forms http://www.Unicode.org/charts/PDF/UFB00.pdf
             List<long> unicodeGaps = new List<long>()
             {
-                0xFB07, 0xFB08, 0xFB09, 0xFB0A, 0xFB0B, 0xFB0C, 0xFB0D, 0xFB0E, 0xFB0F, 0xFB10, 0xFB11, 0xFB12, 0xFB18, 0xFB19, 0xFB1A, 0xFB1B, 0xFB1C, 0xFB37, 0xFB3D, 0xFB3F, 0xFB42, 0xFB4, 0xFB45  
+                0xFB07, 0xFB08, 0xFB09, 0xFB0A, 0xFB0B, 0xFB0C, 0xFB0D, 0xFB0E, 0xFB0F, 0xFB10, 0xFB11, 0xFB12, 0xFB18, 0xFB19, 0xFB1A, 0xFB1B, 0xFB1C, 0xFB37, 0xFB3D, 0xFB3F, 0xFB42, 0xFB4, 0xFB45
             };
 
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
@@ -555,7 +555,7 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 CJK Compatibility Ideographs http://www.Unicode.org/charts/PDF/Unicode-5.2/U52-F900.pdf
             List<long> unicodeGaps = new List<long>()
             {
-                0xFA2E, 0xFA2F, 0xFA6E, 0xFA6F, 0xFADA, 0xFADB, 0xFADC, 0xFADD, 0xFADE, 0xFADF, 
+                0xFA2E, 0xFA2F, 0xFA6E, 0xFA6F, 0xFADA, 0xFADB, 0xFADC, 0xFADD, 0xFADE, 0xFADF,
                 0xFAE0, 0xFAE1, 0xFAE2, 0xFAE3, 0xFAE4, 0xFAE5, 0xFAE6, 0xFAE7, 0xFAE8, 0xFAE9, 0xFAEA, 0xFAEB, 0xFAEC, 0xFAED, 0xFAEE, 0xFAEF,
                 0xFAF0, 0xFAF1, 0xFAF2, 0xFAF3, 0xFAF4, 0xFAF5, 0xFAF6, 0xFAF7, 0xFAF8, 0xFAF9, 0xFAFA, 0xFAFB, 0xFAFC, 0xFAFD, 0xFAFE, 0xFAFF
             };
@@ -616,7 +616,7 @@ namespace Microsoft.Security.Application.Tests
             string codePageTitle = "CJK Symbols and Punctuation 0x3000-0x303F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.CjkSymbolsAndPunctuation, Microsoft.Security.Application.UpperCodeCharts.None);
-            
+
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 CJK Symbols and Punctuation http://www.Unicode.org/charts/PDF/U3000.pdf
             List<long> unicodeGaps = new List<long>()
             {
@@ -742,7 +742,7 @@ namespace Microsoft.Security.Application.Tests
             string codePageTitle = "Combining Half Marks 0xFE20-0xFE2F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(Microsoft.Security.Application.LowerCodeCharts.Default, Microsoft.Security.Application.LowerMidCodeCharts.None, Microsoft.Security.Application.MidCodeCharts.None, Microsoft.Security.Application.UpperMidCodeCharts.None, Microsoft.Security.Application.UpperCodeCharts.CombiningHalfMarks);
-            
+
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Combining Half Marks http://www.Unicode.org/charts/PDF/UFE20.pdf
             List<long> unicodeGaps = new List<long>()
             {
@@ -1167,7 +1167,7 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of not assigned from the Unicode Standard, Version 5.2 Georgian http://www.Unicode.org/charts/PDF/U10A0.pdf
             List<long> unicodeGaps = new List<long>()
             {
-                0x10C6, 0x10C7, 0x10C8, 0x10C9, 0x10CA, 0x10CB, 0x10CC, 0x10CD, 0x10CE, 0x10CF, 0x10FD, 0x10FE, 0x10FF 
+                0x10C6, 0x10C7, 0x10C8, 0x10C9, 0x10CA, 0x10CB, 0x10CC, 0x10CD, 0x10CE, 0x10CF, 0x10FD, 0x10FE, 0x10FF
             };
 
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
@@ -1231,7 +1231,7 @@ namespace Microsoft.Security.Application.Tests
             List<long> unicodeGaps = new List<long>()
             {
                 0x1F16, 0x1F17, 0x1F1E, 0x1F1F, 0x1F46, 0x1F47, 0x1F4E, 0x1F4F, 0x1F58, 0x1F5A, 0x1F5C, 0x1F5E,
-                0x1F7E, 0x1F7F, 0x1FB5, 0x1FC5, 0x1F, 0x1FD4, 0x1FD5, 0x1FDC, 0x1FF0, 0x1FF1, 0x1FF5, 0x1FFF 
+                0x1F7E, 0x1F7F, 0x1FB5, 0x1FC5, 0x1F, 0x1FD4, 0x1FD5, 0x1FDC, 0x1FF0, 0x1FF1, 0x1FF5, 0x1FFF
             };
 
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
@@ -1252,11 +1252,11 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of not assigned from the Unicode Standard, Version 5.2 Gujarati http://www.Unicode.org/charts/PDF/U0A80.pdf
             List<long> unicodeGaps = new List<long>()
             {
-                0x0A80, 0x0A84, 0x0A8E, 
-                0x0A92, 0x0AA9, 0x0AB1, 0x0AB4, 0x0ABA, 0x0ABB, 
-                0x0AC6, 0x0ACA, 0x0ACE, 0x0ACF, 
-                0x0AD1, 0x0AD2, 0x0AD3, 0x0AD4, 0x0AD5, 0x0AD6, 0x0AD7, 0x0AD8, 0x0AD9, 0x0ADA, 0x0ADB, 0x0ADC, 0x0ADD, 0x0ADE, 0x0ADF, 
-                0x0AE4, 0x0AE5, 
+                0x0A80, 0x0A84, 0x0A8E,
+                0x0A92, 0x0AA9, 0x0AB1, 0x0AB4, 0x0ABA, 0x0ABB,
+                0x0AC6, 0x0ACA, 0x0ACE, 0x0ACF,
+                0x0AD1, 0x0AD2, 0x0AD3, 0x0AD4, 0x0AD5, 0x0AD6, 0x0AD7, 0x0AD8, 0x0AD9, 0x0ADA, 0x0ADB, 0x0ADC, 0x0ADD, 0x0ADE, 0x0ADF,
+                0x0AE4, 0x0AE5,
                 0x0AF0, 0x0AF2, 0x0AF3, 0x0AF4, 0x0AF5, 0x0AF6, 0x0AF7, 0x0AF8, 0x0AF9, 0x0AFA, 0x0AFB, 0x0AFC, 0x0AFD, 0x0AFE, 0x0AFF
             };
 
@@ -1278,7 +1278,7 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of not assigned from the Unicode Standard, Version 5.2 Gurmukhi
             List<long> unicodeGaps = new List<long>()
             {
-                0x0A00, 0x0A04, 0x0A0B, 0x0A0C, 0x0A0D, 0x0A0E, 
+                0x0A00, 0x0A04, 0x0A0B, 0x0A0C, 0x0A0D, 0x0A0E,
                 0x0A11, 0x0A12, 0x0A29, 0x0A31, 0x0A34, 0x0A37, 0x0A3A, 0x0A3B, 0x0A3D,
                 0x0A43, 0x0A44, 0x0A45, 0x0A46, 0x0A49, 0x0A4A, 0x0A4E, 0x0A4F,
                 0x0A50, 0x0A52, 0x0A53, 0x0A54, 0x0A55, 0x0A56, 0x0A57, 0x0A58, 0x0A5D, 0x0A5F,
@@ -1657,10 +1657,10 @@ namespace Microsoft.Security.Application.Tests
             string codePageTitle = "Kayah Li 0xA900-0xA92F";
 
             Microsoft.Security.Application.UnicodeCharacterEncoder.MarkAsSafe(
-                Microsoft.Security.Application.LowerCodeCharts.Default, 
-                Microsoft.Security.Application.LowerMidCodeCharts.None, 
-                Microsoft.Security.Application.MidCodeCharts.None, 
-                Microsoft.Security.Application.UpperMidCodeCharts.None, 
+                Microsoft.Security.Application.LowerCodeCharts.Default,
+                Microsoft.Security.Application.LowerMidCodeCharts.None,
+                Microsoft.Security.Application.MidCodeCharts.None,
+                Microsoft.Security.Application.UpperMidCodeCharts.None,
                 Microsoft.Security.Application.UpperCodeCharts.KayahLi);
 
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Kayah Li http://www.Unicode.org/charts/PDF/UA900.pdf
@@ -2181,18 +2181,18 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Miscellaneous Symbols and Arrows http://www.Unicode.org/charts/PDF/Unicode-5.2/U52-2B00.pdf
             List<long> unicodeGaps = new List<long>()
              {
-                0x2B4D, 0x2B4E, 0x2B4F, 
-                0x2B5A, 0x2B5B, 0x2B5C, 0x2B5D, 0x2B5E, 0x2B5F, 
-                0x2B60, 0x2B61, 0x2B62, 0x2B63, 0x2B64, 0x2B65, 0x2B66, 0x2B67, 0x2B68, 0x2B69, 0x2B6A, 0x2B6B, 0x2B6C, 0x2B6D, 0x2B6E, 0x2B6F, 
-                0x2B70, 0x2B71, 0x2B72, 0x2B73, 0x2B74, 0x2B75, 0x2B76, 0x2B77, 0x2B78, 0x2B79, 0x2B7A, 0x2B7B, 0x2B7C, 0x2B7D, 0x2B7E, 0x2B7F, 
-                0x2B80, 0x2B81, 0x2B82, 0x2B83, 0x2B84, 0x2B85, 0x2B86, 0x2B87, 0x2B88, 0x2B89, 0x2B8A, 0x2B8B, 0x2B8C, 0x2B8D, 0x2B8E, 0x2B8F, 
-                0x2B90, 0x2B91, 0x2B92, 0x2B93, 0x2B94, 0x2B95, 0x2B96, 0x2B97, 0x2B98, 0x2B99, 0x2B9A, 0x2B9B, 0x2B9C, 0x2B9D, 0x2B9E, 0x2B9F, 
-                0x2BA0, 0x2BA1, 0x2BA2, 0x2BA3, 0x2BA4, 0x2BA5, 0x2BA6, 0x2BA7, 0x2BA8, 0x2BA9, 0x2BAA, 0x2BAB, 0x2BAC, 0x2BAD, 0x2BAE, 0x2BAF, 
-                0x2BB0, 0x2BB1, 0x2BB2, 0x2BB3, 0x2BB4, 0x2BB5, 0x2BB6, 0x2BB7, 0x2BB8, 0x2BB9, 0x2BBA, 0x2BBB, 0x2BBC, 0x2BBD, 0x2BBE, 0x2BBF, 
-                0x2BC0, 0x2BC1, 0x2BC2, 0x2BC3, 0x2BC4, 0x2BC5, 0x2BC6, 0x2BC7, 0x2BC8, 0x2BC9, 0x2BCA, 0x2BCB, 0x2BCC, 0x2BCD, 0x2BCE, 0x2BCF, 
-                0x2BD0, 0x2BD1, 0x2BD2, 0x2BD3, 0x2BD4, 0x2BD5, 0x2BD6, 0x2BD7, 0x2BD8, 0x2BD9, 0x2BDA, 0x2BDB, 0x2BDC, 0x2BDD, 0x2BDE, 0x2BDF, 
-                0x2BE0, 0x2BE1, 0x2BE2, 0x2BE3, 0x2BE4, 0x2BE5, 0x2BE6, 0x2BE7, 0x2BE8, 0x2BE9, 0x2BEA, 0x2BEB, 0x2BEC, 0x2BED, 0x2BEE, 0x2BEF, 
-                0x2BF0, 0x2BF1, 0x2BF2, 0x2BF3, 0x2BF4, 0x2BF5, 0x2BF6, 0x2BF7, 0x2BF8, 0x2BF9, 
+                0x2B4D, 0x2B4E, 0x2B4F,
+                0x2B5A, 0x2B5B, 0x2B5C, 0x2B5D, 0x2B5E, 0x2B5F,
+                0x2B60, 0x2B61, 0x2B62, 0x2B63, 0x2B64, 0x2B65, 0x2B66, 0x2B67, 0x2B68, 0x2B69, 0x2B6A, 0x2B6B, 0x2B6C, 0x2B6D, 0x2B6E, 0x2B6F,
+                0x2B70, 0x2B71, 0x2B72, 0x2B73, 0x2B74, 0x2B75, 0x2B76, 0x2B77, 0x2B78, 0x2B79, 0x2B7A, 0x2B7B, 0x2B7C, 0x2B7D, 0x2B7E, 0x2B7F,
+                0x2B80, 0x2B81, 0x2B82, 0x2B83, 0x2B84, 0x2B85, 0x2B86, 0x2B87, 0x2B88, 0x2B89, 0x2B8A, 0x2B8B, 0x2B8C, 0x2B8D, 0x2B8E, 0x2B8F,
+                0x2B90, 0x2B91, 0x2B92, 0x2B93, 0x2B94, 0x2B95, 0x2B96, 0x2B97, 0x2B98, 0x2B99, 0x2B9A, 0x2B9B, 0x2B9C, 0x2B9D, 0x2B9E, 0x2B9F,
+                0x2BA0, 0x2BA1, 0x2BA2, 0x2BA3, 0x2BA4, 0x2BA5, 0x2BA6, 0x2BA7, 0x2BA8, 0x2BA9, 0x2BAA, 0x2BAB, 0x2BAC, 0x2BAD, 0x2BAE, 0x2BAF,
+                0x2BB0, 0x2BB1, 0x2BB2, 0x2BB3, 0x2BB4, 0x2BB5, 0x2BB6, 0x2BB7, 0x2BB8, 0x2BB9, 0x2BBA, 0x2BBB, 0x2BBC, 0x2BBD, 0x2BBE, 0x2BBF,
+                0x2BC0, 0x2BC1, 0x2BC2, 0x2BC3, 0x2BC4, 0x2BC5, 0x2BC6, 0x2BC7, 0x2BC8, 0x2BC9, 0x2BCA, 0x2BCB, 0x2BCC, 0x2BCD, 0x2BCE, 0x2BCF,
+                0x2BD0, 0x2BD1, 0x2BD2, 0x2BD3, 0x2BD4, 0x2BD5, 0x2BD6, 0x2BD7, 0x2BD8, 0x2BD9, 0x2BDA, 0x2BDB, 0x2BDC, 0x2BDD, 0x2BDE, 0x2BDF,
+                0x2BE0, 0x2BE1, 0x2BE2, 0x2BE3, 0x2BE4, 0x2BE5, 0x2BE6, 0x2BE7, 0x2BE8, 0x2BE9, 0x2BEA, 0x2BEB, 0x2BEC, 0x2BED, 0x2BEE, 0x2BEF,
+                0x2BF0, 0x2BF1, 0x2BF2, 0x2BF3, 0x2BF4, 0x2BF5, 0x2BF6, 0x2BF7, 0x2BF8, 0x2BF9,
                 0x2BFA, 0x2BFB, 0x2BFC, 0x2BFD, 0x2BFE, 0x2BFF
              };
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
@@ -2213,8 +2213,8 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Miscellaneous Technical http://www.Unicode.org/charts/PDF/Unicode-5.2/U52-2300.pdf
             List<long> unicodeGaps = new List<long>()
              {
-                0x23E9, 0x23EA, 0x23EB, 0x23EC, 0x23ED, 0x23EE, 0x23EF, 
-                0x23F0, 0x23F1, 0x23F2, 0x23F3, 0x23F4, 0x23F5, 0x23F6, 0x23F7, 0x23F8, 0x23F9, 0x23FA, 0x23FB, 0x23FC, 0x23FD, 0x23FE, 0x23FF 
+                0x23E9, 0x23EA, 0x23EB, 0x23EC, 0x23ED, 0x23EE, 0x23EF,
+                0x23F0, 0x23F1, 0x23F2, 0x23F3, 0x23F4, 0x23F5, 0x23F6, 0x23F7, 0x23F8, 0x23F9, 0x23FA, 0x23FB, 0x23FC, 0x23FD, 0x23FE, 0x23FF
              };
 
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
@@ -2502,7 +2502,7 @@ namespace Microsoft.Security.Application.Tests
             {
                 0x0B00, 0x0B04, 0x0B0D, 0x0B0E, 0x0B11, 0x0B12, 0x0B29, 0x0B31, 0x0B34, 0x0B3A, 0x0B3B, 0x0B45, 0x0B46, 0x0B49, 0x0B4A, 0x0B4E, 0x0B4F,
                 0x0B50, 0x0B51, 0x0B52, 0x0B53, 0x0B54, 0x0B55, 0x0B58, 0x0B59, 0x0B5A, 0x0B5B, 0x0B5E,
-                0x0B64, 0x0B65, 0x0B72, 0x0B73, 0x0B74, 0x0B75, 0x0B76, 0x0B77, 0x0B78, 0x0B79, 0x0B7A, 0x0B7B, 0x0B7C, 0x0B7D, 0x0B7E, 0x0B7F 
+                0x0B64, 0x0B65, 0x0B72, 0x0B73, 0x0B74, 0x0B75, 0x0B76, 0x0B77, 0x0B78, 0x0B79, 0x0B7A, 0x0B7B, 0x0B7C, 0x0B7D, 0x0B7E, 0x0B7F
             };
 
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
@@ -2757,7 +2757,7 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Sinhala http://www.Unicode.org/charts/PDF/U0D80.pdf
             List<long> unicodeGaps = new List<long>()
             {
-                0x0D80, 0x0D81, 0x0D84, 0x0D97, 0x0D98, 0x0D99, 0x0DB2, 0x0DBC, 0x0DBE, 0x0DBF, 0x0DC7, 0x0DC8, 0x0DC9, 0x0DCB, 0x0DCC, 0x0DCD, 0x0DCE, 
+                0x0D80, 0x0D81, 0x0D84, 0x0D97, 0x0D98, 0x0D99, 0x0DB2, 0x0DBC, 0x0DBE, 0x0DBF, 0x0DC7, 0x0DC8, 0x0DC9, 0x0DCB, 0x0DCC, 0x0DCD, 0x0DCE,
                 0x0DD5, 0x0DD7,
                 0x0DE0, 0x0DE1, 0x0DE2, 0x0DE3, 0x0DE4, 0x0DE5, 0x0DE6, 0x0DE7, 0x0DE8, 0x0DE9, 0x0DEA, 0x0DEB, 0x0DEC, 0x0DED, 0x0DEE, 0x0DEF,
                 0x0DF0, 0x0DF1, 0x0DF5, 0x0DF6, 0x0DF7, 0x0DF8, 0x0DF9, 0x0DFA, 0x0DFB, 0x0DFC, 0x0DFD, 0x0DFE, 0x0DFF
@@ -2890,9 +2890,9 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Superscripts and Subscripts http://www.Unicode.org/charts/PDF/U2070.pdf
             List<long> unicodeGaps = new List<long>()
             {
-                0x2072, 
-                0x2073, 
-                0x208F, 
+                0x2072,
+                0x2073,
+                0x208F,
                 0x2095, 0x2096, 0x2097, 0x2098, 0x2099, 0x209A, 0x209B, 0x209C, 0x209D, 0x209E, 0x209F
             };
 
@@ -2997,9 +2997,9 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Supplemental Punctuation http://www.Unicode.org/charts/PDF/U2E00.pdf
             List<long> unicodeGaps = new List<long>()
              {
-                0x2E32, 0x2E33, 0x2E34, 0x2E35, 0x2E36, 0x2E37, 0x2E38, 0x2E39, 0x2E3A, 0x2E3B, 0x2E3C, 0x2E3D, 0x2E3E, 0x2E3F, 
-                0x2E40, 0x2E41, 0x2E42, 0x2E43, 0x2E44, 0x2E45, 0x2E46, 0x2E47, 0x2E48, 0x2E49, 0x2E4A, 0x2E4B, 0x2E4C, 0x2E4D, 0x2E4E, 0x2E4F, 
-                0x2E50, 0x2E51, 0x2E52, 0x2E53, 0x2E54, 0x2E55, 0x2E56, 0x2E57, 0x2E58, 0x2E59, 0x2E5A, 0x2E5B, 0x2E5C, 0x2E5D, 0x2E5E, 0x2E5F, 
+                0x2E32, 0x2E33, 0x2E34, 0x2E35, 0x2E36, 0x2E37, 0x2E38, 0x2E39, 0x2E3A, 0x2E3B, 0x2E3C, 0x2E3D, 0x2E3E, 0x2E3F,
+                0x2E40, 0x2E41, 0x2E42, 0x2E43, 0x2E44, 0x2E45, 0x2E46, 0x2E47, 0x2E48, 0x2E49, 0x2E4A, 0x2E4B, 0x2E4C, 0x2E4D, 0x2E4E, 0x2E4F,
+                0x2E50, 0x2E51, 0x2E52, 0x2E53, 0x2E54, 0x2E55, 0x2E56, 0x2E57, 0x2E58, 0x2E59, 0x2E5A, 0x2E5B, 0x2E5C, 0x2E5D, 0x2E5E, 0x2E5F,
                 0x2E60, 0x2E61, 0x2E62, 0x2E63, 0x2E64, 0x2E65, 0x2E66, 0x2E67, 0x2E68, 0x2E69, 0x2E6A, 0x2E6B, 0x2E6C, 0x2E6D, 0x2E6E, 0x2E6F,
                 0x2E70, 0x2E71, 0x2E72, 0x2E73, 0x2E74, 0x2E75, 0x2E76, 0x2E77, 0x2E78, 0x2E79, 0x2E7A, 0x2E7B, 0x2E7C, 0x2E7D, 0x2E7E, 0x2E7F
              };
@@ -3110,7 +3110,7 @@ namespace Microsoft.Security.Application.Tests
 
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
         }
-      
+
         /// <summary>
         /// All Unicode characters from Tai Le 0x1950-0x197F
         /// </summary>
@@ -3209,8 +3209,8 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Tamil http://www.Unicode.org/charts/PDF/U0B80.pdf
             List<long> unicodeGaps = new List<long>()
             {
-                0x0B98, 
-                0x0BFB, 0x0BFC, 0x0BFD, 0x0BFE, 
+                0x0B98,
+                0x0BFB, 0x0BFC, 0x0BFD, 0x0BFE,
                 0x0B80, 0x0B81, 0x0B84, 0x0B8B, 0x0B8C, 0x0B8D, 0x0B91, 0x0B96, 0x0B97, 0x0B9B, 0x0B9D,
                 0x0BA0, 0x0BA1, 0x0BA2, 0x0BA5, 0x0BA6, 0x0BA7, 0x0BAB, 0x0BAC, 0x0BAD,
                 0x0BBA, 0x0BBB, 0x0BBC, 0x0BBD,
@@ -3296,9 +3296,9 @@ namespace Microsoft.Security.Application.Tests
             // compiled list of "not assigned" from the Unicode Standard, Version 5.2 Thai http://www.Unicode.org/charts/PDF/U0E00.pdf
             List<long> unicodeGaps = new List<long>()
             {
-                0x0E00, 0x0E3B, 0x0E3C, 0x0E3D, 0x0E3E, 0x0E5C, 0x0E5D, 0x0E5E, 0x0E5F, 
-                0x0E60, 0x0E61, 0x0E62, 0x0E63, 0x0E64, 0x0E65, 0x0E66, 0x0E67, 0x0E68, 0x0E69, 0x0E6A, 0x0E6B, 0x0E6C, 0x0E6D, 0x0E6E, 0x0E6F, 
-                0x0E70, 0x0E71, 0x0E72, 0x0E73, 0x0E74, 0x0E75, 0x0E76, 0x0E77, 0x0E78, 0x0E79, 0x0E7A, 0x0E7B, 0x0E7C, 0x0E7D, 0x0E7E, 0x0E7F 
+                0x0E00, 0x0E3B, 0x0E3C, 0x0E3D, 0x0E3E, 0x0E5C, 0x0E5D, 0x0E5E, 0x0E5F,
+                0x0E60, 0x0E61, 0x0E62, 0x0E63, 0x0E64, 0x0E65, 0x0E66, 0x0E67, 0x0E68, 0x0E69, 0x0E6A, 0x0E6B, 0x0E6C, 0x0E6D, 0x0E6E, 0x0E6F,
+                0x0E70, 0x0E71, 0x0E72, 0x0E73, 0x0E74, 0x0E75, 0x0E76, 0x0E77, 0x0E78, 0x0E79, 0x0E7A, 0x0E7B, 0x0E7C, 0x0E7D, 0x0E7E, 0x0E7F
             };
 
             this.CallUnitTests(codePageStart, codePageEnd, codePageTitle, unicodeGaps);
@@ -3615,7 +3615,7 @@ namespace Microsoft.Security.Application.Tests
                 LowerMidCodeCharts.None,
                 MidCodeCharts.None,
                 UpperMidCodeCharts.None,
-                UpperCodeCharts.None);            
+                UpperCodeCharts.None);
 
             for (int i = 0; i < 0xFFFF; i++)
             {
@@ -3677,14 +3677,14 @@ namespace Microsoft.Security.Application.Tests
             TestCssEncoderForSpecifiedCodePage(codePageStart, codePageEnd, codePageTitle);
         }
 
-         /// <summary>
-         /// Named Entities
-         /// </summary>
-         /// <returns>Dataset for named entities</returns>
+        /// <summary>
+        /// Named Entities
+        /// </summary>
+        /// <returns>Dataset for named entities</returns>
         private static DataSet NamedEntitiesSet()
         {
             DataSet ds = new DataSet();
-            
+
             const string XmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <Root> <NamedEntity><Name>quot</Name><Code>0x0022</Code></NamedEntity><NamedEntity><Name>amp</Name><Code>0x0026</Code></NamedEntity><NamedEntity><Name>lt</Name><Code>0x003C</Code></NamedEntity><NamedEntity><Name>gt</Name><Code>0x003E</Code></NamedEntity><NamedEntity><Name>nbsp</Name><Code>0x00A0</Code></NamedEntity><NamedEntity><Name>iexcl</Name><Code>0x00A1</Code></NamedEntity><NamedEntity><Name>cent</Name><Code>0x00A2</Code></NamedEntity><NamedEntity><Name>pound</Name><Code>0x00A3</Code></NamedEntity><NamedEntity><Name>curren</Name><Code>0x00A4</Code></NamedEntity><NamedEntity><Name>yen</Name><Code>0x00A5</Code></NamedEntity><NamedEntity><Name>brvbar</Name><Code>0x00A6</Code></NamedEntity><NamedEntity><Name>sect</Name><Code>0x00A7</Code></NamedEntity><NamedEntity><Name>uml</Name><Code>0x00A8</Code></NamedEntity><NamedEntity><Name>copy</Name><Code>0x00A9</Code></NamedEntity><NamedEntity><Name>ordf</Name><Code>0x00AA</Code></NamedEntity><NamedEntity><Name>laquo</Name><Code>0x00AB</Code></NamedEntity><NamedEntity><Name>not</Name><Code>0x00AC</Code></NamedEntity><NamedEntity><Name>shy</Name><Code>0x00AD</Code></NamedEntity><NamedEntity><Name>reg</Name><Code>0x00AE</Code></NamedEntity><NamedEntity><Name>macr</Name><Code>0x00AF</Code></NamedEntity><NamedEntity><Name>deg</Name><Code>0x00B0</Code></NamedEntity><NamedEntity><Name>plusmn</Name><Code>0x00B1</Code></NamedEntity><NamedEntity><Name>sup2</Name><Code>0x00B2</Code></NamedEntity><NamedEntity><Name>sup3</Name><Code>0x00B3</Code></NamedEntity><NamedEntity><Name>acute</Name><Code>0x00B4</Code></NamedEntity><NamedEntity><Name>micro</Name><Code>0x00B5</Code></NamedEntity><NamedEntity><Name>para</Name><Code>0x00B6</Code></NamedEntity><NamedEntity><Name>middot</Name><Code>0x00B7</Code></NamedEntity><NamedEntity><Name>cedil</Name><Code>0x00B8</Code></NamedEntity><NamedEntity><Name>sup1</Name><Code>0x00B9</Code></NamedEntity><NamedEntity><Name>ordm</Name><Code>0x00BA</Code></NamedEntity><NamedEntity><Name>raquo</Name><Code>0x00BB</Code></NamedEntity><NamedEntity><Name>frac14</Name><Code>0x00BC</Code></NamedEntity><NamedEntity><Name>frac12</Name><Code>0x00BD</Code></NamedEntity><NamedEntity><Name>frac34</Name><Code>0x00BE</Code></NamedEntity><NamedEntity><Name>iquest</Name><Code>0x00BF</Code></NamedEntity><NamedEntity><Name>Agrave</Name><Code>0x00C0</Code></NamedEntity><NamedEntity><Name>Aacute</Name><Code>0x00C1</Code></NamedEntity><NamedEntity><Name>Acirc</Name><Code>0x00C2</Code></NamedEntity><NamedEntity><Name>Atilde</Name><Code>0x00C3</Code></NamedEntity><NamedEntity><Name>Auml</Name><Code>0x00C4</Code></NamedEntity><NamedEntity><Name>Aring</Name><Code>0x00C5</Code></NamedEntity><NamedEntity><Name>AElig</Name><Code>0x00C6</Code></NamedEntity><NamedEntity><Name>Ccedil</Name><Code>0x00C7</Code></NamedEntity><NamedEntity><Name>Egrave</Name><Code>0x00C8</Code></NamedEntity><NamedEntity><Name>Eacute</Name><Code>0x00C9</Code></NamedEntity><NamedEntity><Name>Ecirc</Name><Code>0x00CA</Code></NamedEntity><NamedEntity><Name>Euml</Name><Code>0x00CB</Code></NamedEntity><NamedEntity><Name>Igrave</Name><Code>0x00CC</Code></NamedEntity><NamedEntity><Name>Iacute</Name><Code>0x00CD</Code></NamedEntity><NamedEntity><Name>Icirc</Name><Code>0x00CE</Code></NamedEntity><NamedEntity><Name>Iuml</Name><Code>0x00CF</Code></NamedEntity><NamedEntity><Name>ETH</Name><Code>0x00D0</Code></NamedEntity><NamedEntity><Name>Ntilde</Name><Code>0x00D1</Code></NamedEntity><NamedEntity><Name>Ograve</Name><Code>0x00D2</Code></NamedEntity><NamedEntity><Name>Oacute</Name><Code>0x00D3</Code></NamedEntity><NamedEntity><Name>Ocirc</Name><Code>0x00D4</Code></NamedEntity><NamedEntity><Name>Otilde</Name><Code>0x00D5</Code></NamedEntity><NamedEntity><Name>Ouml</Name><Code>0x00D6</Code></NamedEntity><NamedEntity><Name>times</Name><Code>0x00D7</Code></NamedEntity><NamedEntity><Name>Oslash</Name><Code>0x00D8</Code></NamedEntity><NamedEntity><Name>Ugrave</Name><Code>0x00D9</Code></NamedEntity><NamedEntity><Name>Uacute</Name><Code>0x00DA</Code></NamedEntity><NamedEntity><Name>Ucirc</Name><Code>0x00DB</Code></NamedEntity><NamedEntity><Name>Uuml</Name><Code>0x00DC</Code></NamedEntity><NamedEntity><Name>Yacute</Name><Code>0x00DD</Code></NamedEntity><NamedEntity><Name>THORN</Name><Code>0x00DE</Code></NamedEntity><NamedEntity><Name>szlig</Name><Code>0x00DF</Code></NamedEntity><NamedEntity><Name>agrave</Name><Code>0x00E0</Code></NamedEntity><NamedEntity><Name>aacute</Name><Code>0x00E1</Code></NamedEntity><NamedEntity><Name>acirc</Name><Code>0x00E2</Code></NamedEntity><NamedEntity><Name>atilde</Name><Code>0x00E3</Code></NamedEntity><NamedEntity><Name>auml</Name><Code>0x00E4</Code></NamedEntity><NamedEntity><Name>aring</Name><Code>0x00E5</Code></NamedEntity><NamedEntity><Name>aelig</Name><Code>0x00E6</Code></NamedEntity><NamedEntity><Name>ccedil</Name><Code>0x00E7</Code></NamedEntity><NamedEntity><Name>egrave</Name><Code>0x00E8</Code></NamedEntity><NamedEntity><Name>eacute</Name><Code>0x00E9</Code></NamedEntity><NamedEntity><Name>ecirc</Name><Code>0x00EA</Code></NamedEntity><NamedEntity><Name>euml</Name><Code>0x00EB</Code></NamedEntity><NamedEntity><Name>igrave</Name><Code>0x00EC</Code></NamedEntity><NamedEntity><Name>iacute</Name><Code>0x00ED</Code></NamedEntity><NamedEntity><Name>icirc</Name><Code>0x00EE</Code></NamedEntity><NamedEntity><Name>iuml</Name><Code>0x00EF</Code></NamedEntity><NamedEntity><Name>eth</Name><Code>0x00F0</Code></NamedEntity><NamedEntity><Name>ntilde</Name><Code>0x00F1</Code></NamedEntity><NamedEntity><Name>ograve</Name><Code>0x00F2</Code></NamedEntity><NamedEntity><Name>oacute</Name><Code>0x00F3</Code></NamedEntity><NamedEntity><Name>ocirc</Name><Code>0x00F4</Code></NamedEntity><NamedEntity><Name>otilde</Name><Code>0x00F5</Code></NamedEntity><NamedEntity><Name>ouml</Name><Code>0x00F6</Code></NamedEntity><NamedEntity><Name>divide</Name><Code>0x00F7</Code></NamedEntity><NamedEntity><Name>oslash</Name><Code>0x00F8</Code></NamedEntity><NamedEntity><Name>ugrave</Name><Code>0x00F9</Code></NamedEntity><NamedEntity><Name>uacute</Name><Code>0x00FA</Code></NamedEntity><NamedEntity><Name>ucirc</Name><Code>0x00FB</Code></NamedEntity><NamedEntity><Name>uuml</Name><Code>0x00FC</Code></NamedEntity><NamedEntity><Name>yacute</Name><Code>0x00FD</Code></NamedEntity><NamedEntity><Name>thorn</Name><Code>0x00FE</Code></NamedEntity><NamedEntity><Name>yuml</Name><Code>0x00FF</Code></NamedEntity><NamedEntity><Name>OElig</Name><Code>0x0152</Code></NamedEntity><NamedEntity><Name>oelig</Name><Code>0x0153</Code></NamedEntity><NamedEntity><Name>Scaron</Name><Code>0x0160</Code></NamedEntity><NamedEntity><Name>scaron</Name><Code>0x0161</Code></NamedEntity><NamedEntity><Name>Yuml</Name><Code>0x0178</Code></NamedEntity><NamedEntity><Name>fnof</Name><Code>0x0192</Code></NamedEntity><NamedEntity><Name>circ</Name><Code>0x02C6</Code></NamedEntity><NamedEntity><Name>tilde</Name><Code>0x02DC</Code></NamedEntity><NamedEntity><Name>Alpha</Name><Code>0x0391</Code></NamedEntity><NamedEntity><Name>Beta</Name><Code>0x0392</Code></NamedEntity><NamedEntity><Name>Gamma</Name><Code>0x0393</Code></NamedEntity><NamedEntity><Name>Delta</Name><Code>0x0394</Code></NamedEntity><NamedEntity><Name>Epsilon</Name><Code>0x0395</Code></NamedEntity><NamedEntity><Name>Zeta</Name><Code>0x0396</Code></NamedEntity><NamedEntity><Name>Eta</Name><Code>0x0397</Code></NamedEntity><NamedEntity><Name>Theta</Name><Code>0x0398</Code></NamedEntity><NamedEntity><Name>Iota</Name><Code>0x0399</Code></NamedEntity><NamedEntity><Name>Kappa</Name><Code>0x039A</Code></NamedEntity><NamedEntity><Name>Lambda</Name><Code>0x039B</Code></NamedEntity><NamedEntity><Name>Mu</Name><Code>0x039C</Code></NamedEntity><NamedEntity><Name>Nu</Name><Code>0x039D</Code></NamedEntity><NamedEntity><Name>Xi</Name><Code>0x039E</Code></NamedEntity><NamedEntity><Name>Omicron</Name><Code>0x039F</Code></NamedEntity><NamedEntity><Name>Pi</Name><Code>0x03A0</Code></NamedEntity><NamedEntity><Name>Rho</Name><Code>0x03A1</Code></NamedEntity><NamedEntity><Name>Sigma</Name><Code>0x03A3</Code></NamedEntity><NamedEntity><Name>Tau</Name><Code>0x03A4</Code></NamedEntity><NamedEntity><Name>Upsilon</Name><Code>0x03A5</Code></NamedEntity><NamedEntity><Name>Phi</Name><Code>0x03A6</Code></NamedEntity><NamedEntity><Name>Chi</Name><Code>0x03A7</Code></NamedEntity><NamedEntity><Name>Psi</Name><Code>0x03A8</Code></NamedEntity><NamedEntity><Name>Omega</Name><Code>0x03A9</Code></NamedEntity><NamedEntity><Name>alpha</Name><Code>0x03B1</Code></NamedEntity><NamedEntity><Name>beta</Name><Code>0x03B2</Code></NamedEntity><NamedEntity><Name>gamma</Name><Code>0x03B3</Code></NamedEntity><NamedEntity><Name>delta</Name><Code>0x03B4</Code></NamedEntity><NamedEntity><Name>epsilon</Name><Code>0x03B5</Code></NamedEntity><NamedEntity><Name>zeta</Name><Code>0x03B6</Code></NamedEntity><NamedEntity><Name>eta</Name><Code>0x03B7</Code></NamedEntity><NamedEntity><Name>theta</Name><Code>0x03B8</Code></NamedEntity><NamedEntity><Name>iota</Name><Code>0x03B9</Code></NamedEntity><NamedEntity><Name>kappa</Name><Code>0x03BA</Code></NamedEntity><NamedEntity><Name>lambda</Name><Code>0x03BB</Code></NamedEntity><NamedEntity><Name>mu</Name><Code>0x03BC</Code></NamedEntity><NamedEntity><Name>nu</Name><Code>0x03BD</Code></NamedEntity><NamedEntity><Name>xi</Name><Code>0x03BE</Code></NamedEntity><NamedEntity><Name>omicron</Name><Code>0x03BF</Code></NamedEntity><NamedEntity><Name>pi</Name><Code>0x03C0</Code></NamedEntity><NamedEntity><Name>rho</Name><Code>0x03C1</Code></NamedEntity><NamedEntity><Name>sigmaf</Name><Code>0x03C2</Code></NamedEntity><NamedEntity><Name>sigma</Name><Code>0x03C3</Code></NamedEntity><NamedEntity><Name>tau</Name><Code>0x03C4</Code></NamedEntity><NamedEntity><Name>upsilon</Name><Code>0x03C5</Code></NamedEntity><NamedEntity><Name>phi</Name><Code>0x03C6</Code></NamedEntity><NamedEntity><Name>chi</Name><Code>0x03C7</Code></NamedEntity><NamedEntity><Name>psi</Name><Code>0x03C8</Code></NamedEntity><NamedEntity><Name>omega</Name><Code>0x03C9</Code></NamedEntity><NamedEntity><Name>thetasym</Name><Code>0x03D1</Code></NamedEntity><NamedEntity><Name>upsih</Name><Code>0x03D2</Code></NamedEntity><NamedEntity><Name>piv</Name><Code>0x03D6</Code></NamedEntity><NamedEntity><Name>ensp</Name><Code>0x2002</Code></NamedEntity><NamedEntity><Name>emsp</Name><Code>0x2003</Code></NamedEntity><NamedEntity><Name>thinsp</Name><Code>0x2009</Code></NamedEntity><NamedEntity><Name>zwnj</Name><Code>0x200C</Code></NamedEntity><NamedEntity><Name>zwj</Name><Code>0x200D</Code></NamedEntity><NamedEntity><Name>lrm</Name><Code>0x200E</Code></NamedEntity><NamedEntity><Name>rlm</Name><Code>0x200F</Code></NamedEntity><NamedEntity><Name>ndash</Name><Code>0x2013</Code></NamedEntity><NamedEntity><Name>mdash</Name><Code>0x2014</Code></NamedEntity><NamedEntity><Name>lsquo</Name><Code>0x2018</Code></NamedEntity><NamedEntity><Name>rsquo</Name><Code>0x2019</Code></NamedEntity><NamedEntity><Name>sbquo</Name><Code>0x201A</Code></NamedEntity><NamedEntity><Name>ldquo</Name><Code>0x201C</Code></NamedEntity><NamedEntity><Name>rdquo</Name><Code>0x201D</Code></NamedEntity><NamedEntity><Name>bdquo</Name><Code>0x201E</Code></NamedEntity><NamedEntity><Name>dagger</Name><Code>0x2020</Code></NamedEntity><NamedEntity><Name>Dagger</Name><Code>0x2021</Code></NamedEntity><NamedEntity><Name>bull</Name><Code>0x2022</Code></NamedEntity><NamedEntity><Name>hellip</Name><Code>0x2026</Code></NamedEntity><NamedEntity><Name>permil</Name><Code>0x2030</Code></NamedEntity><NamedEntity><Name>prime</Name><Code>0x2032</Code></NamedEntity><NamedEntity><Name>Prime</Name><Code>0x2033</Code></NamedEntity><NamedEntity><Name>lsaquo</Name><Code>0x2039</Code></NamedEntity><NamedEntity><Name>rsaquo</Name><Code>0x203A</Code></NamedEntity><NamedEntity><Name>oline</Name><Code>0x203E</Code></NamedEntity><NamedEntity><Name>frasl</Name><Code>0x2044</Code></NamedEntity><NamedEntity><Name>euro</Name><Code>0x20AC</Code></NamedEntity><NamedEntity><Name>image</Name><Code>0x2111</Code></NamedEntity><NamedEntity><Name>weierp</Name><Code>0x2118</Code></NamedEntity><NamedEntity><Name>real</Name><Code>0x211C</Code></NamedEntity><NamedEntity><Name>trade</Name><Code>0x2122</Code></NamedEntity><NamedEntity><Name>alefsym</Name><Code>0x2135</Code></NamedEntity><NamedEntity><Name>larr</Name><Code>0x2190</Code></NamedEntity><NamedEntity><Name>uarr</Name><Code>0x2191</Code></NamedEntity><NamedEntity><Name>rarr</Name><Code>0x2192</Code></NamedEntity><NamedEntity><Name>darr</Name><Code>0x2193</Code></NamedEntity><NamedEntity><Name>harr</Name><Code>0x2194</Code></NamedEntity><NamedEntity><Name>crarr</Name><Code>0x21B5</Code></NamedEntity><NamedEntity><Name>lArr</Name><Code>0x21D0</Code></NamedEntity><NamedEntity><Name>uArr</Name><Code>0x21D1</Code></NamedEntity><NamedEntity><Name>rArr</Name><Code>0x21D2</Code></NamedEntity><NamedEntity><Name>dArr</Name><Code>0x21D3</Code></NamedEntity><NamedEntity><Name>hArr</Name><Code>0x21D4</Code></NamedEntity><NamedEntity><Name>forall</Name><Code>0x2200</Code></NamedEntity><NamedEntity><Name>part</Name><Code>0x2202</Code></NamedEntity><NamedEntity><Name>exist</Name><Code>0x2203</Code></NamedEntity><NamedEntity><Name>empty</Name><Code>0x2205</Code></NamedEntity><NamedEntity><Name>nabla</Name><Code>0x2207</Code></NamedEntity><NamedEntity><Name>isin</Name><Code>0x2208</Code></NamedEntity><NamedEntity><Name>notin</Name><Code>0x2209</Code></NamedEntity><NamedEntity><Name>ni</Name><Code>0x220B</Code></NamedEntity><NamedEntity><Name>prod</Name><Code>0x220F</Code></NamedEntity><NamedEntity><Name>sum</Name><Code>0x2211</Code></NamedEntity><NamedEntity><Name>minus</Name><Code>0x2212</Code></NamedEntity><NamedEntity><Name>lowast</Name><Code>0x2217</Code></NamedEntity><NamedEntity><Name>radic</Name><Code>0x221A</Code></NamedEntity><NamedEntity><Name>prop</Name><Code>0x221D</Code></NamedEntity><NamedEntity><Name>infin</Name><Code>0x221E</Code></NamedEntity><NamedEntity><Name>ang</Name><Code>0x2220</Code></NamedEntity><NamedEntity><Name>and</Name><Code>0x2227</Code></NamedEntity><NamedEntity><Name>or</Name><Code>0x2228</Code></NamedEntity><NamedEntity><Name>cap</Name><Code>0x2229</Code></NamedEntity><NamedEntity><Name>cup</Name><Code>0x222A</Code></NamedEntity><NamedEntity><Name>int</Name><Code>0x222B</Code></NamedEntity><NamedEntity><Name>there4</Name><Code>0x2234</Code></NamedEntity><NamedEntity><Name>sim</Name><Code>0x223C</Code></NamedEntity><NamedEntity><Name>cong</Name><Code>0x2245</Code></NamedEntity><NamedEntity><Name>asymp</Name><Code>0x2248</Code></NamedEntity><NamedEntity><Name>ne</Name><Code>0x2260</Code></NamedEntity><NamedEntity><Name>equiv</Name><Code>0x2261</Code></NamedEntity><NamedEntity><Name>le</Name><Code>0x2264</Code></NamedEntity><NamedEntity><Name>ge</Name><Code>0x2265</Code></NamedEntity><NamedEntity><Name>sub</Name><Code>0x2282</Code></NamedEntity><NamedEntity><Name>sup</Name><Code>0x2283</Code></NamedEntity><NamedEntity><Name>nsub</Name><Code>0x2284</Code></NamedEntity><NamedEntity><Name>sube</Name><Code>0x2286</Code></NamedEntity><NamedEntity><Name>supe</Name><Code>0x2287</Code></NamedEntity><NamedEntity><Name>oplus</Name><Code>0x2295</Code></NamedEntity><NamedEntity><Name>otimes</Name><Code>0x2297</Code></NamedEntity><NamedEntity><Name>perp</Name><Code>0x22A5</Code></NamedEntity><NamedEntity><Name>sdot</Name><Code>0x22C5</Code></NamedEntity><NamedEntity><Name>lceil</Name><Code>0x2308</Code></NamedEntity><NamedEntity><Name>rceil</Name><Code>0x2309</Code></NamedEntity><NamedEntity><Name>lfloor</Name><Code>0x230A</Code></NamedEntity><NamedEntity><Name>rfloor</Name><Code>0x230B</Code></NamedEntity><NamedEntity><Name>lang</Name><Code>0x2329</Code></NamedEntity><NamedEntity><Name>rang</Name><Code>0x232A</Code></NamedEntity><NamedEntity><Name>loz</Name><Code>0x25CA</Code></NamedEntity><NamedEntity><Name>spades</Name><Code>0x2660</Code></NamedEntity><NamedEntity><Name>clubs</Name><Code>0x2663</Code></NamedEntity><NamedEntity><Name>hearts</Name><Code>0x2665</Code></NamedEntity><NamedEntity><Name>diams</Name><Code>0x2666</Code></NamedEntity></Root>";
 
             using (StringReader stringReader = new StringReader(XmlData))
@@ -3693,7 +3693,7 @@ namespace Microsoft.Security.Application.Tests
             }
 
             return ds;
-        }     
+        }
 
         /// <summary>
         /// A test for HtmlAttributeEncode
@@ -3800,7 +3800,7 @@ namespace Microsoft.Security.Application.Tests
                 {
                     expected = ".";
                 }
-                   
+
                 if (i.Equals(0x005f))
                 {
                     expected = "_";
@@ -3825,7 +3825,7 @@ namespace Microsoft.Security.Application.Tests
                 {
                     expected = System.Text.Encoding.ASCII.GetString(bytes);
                 }
-              
+
                 string actual = Encoder.HtmlFormUrlEncode(Convert.ToString((char)i));
                 string testmessage = "0x" + i.ToString("X").PadLeft(4, '0') + " (gap value) ";
                 Assert.AreEqual(expected, actual, "HtmlFormUrlEncode.HtmlFormUrlEncode " + testmessage + codePageTitle);
@@ -3857,8 +3857,8 @@ namespace Microsoft.Security.Application.Tests
                     {
                         expected = expected + "%" + bytes[x].ToString("X");
                         expected = expected.ToLower();
-                    }                        
-                }                 
+                    }
+                }
 
                 if (i.Equals(0x002d))
                 {
@@ -3869,7 +3869,7 @@ namespace Microsoft.Security.Application.Tests
                 {
                     expected = ".";
                 }
-                   
+
                 if (i.Equals(0x005f))
                 {
                     expected = "_";
@@ -3962,7 +3962,7 @@ namespace Microsoft.Security.Application.Tests
                 Assert.AreEqual(expected, actual, "HtmlEncoder.HtmlEncode " + testmessage + codePageTitle);
             }
         }
-   
+
         /// <summary>
         /// A test for XmlAttributeEncode
         /// </summary>
@@ -4039,7 +4039,7 @@ namespace Microsoft.Security.Application.Tests
                 string expected;
                 string actual;
                 string testmessage;
-              
+
                 if (!unicodeGaps.Contains(i))
                 {
                     expected = Convert.ToString((char)i);
@@ -4226,7 +4226,7 @@ namespace Microsoft.Security.Application.Tests
 
                 string actual = Encoder.LdapDistinguishedNameEncode(Convert.ToString((char)i));
                 Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - DN - " + "-" + codePageTitle + " Code - " + i.ToString("X"));
-           }
+            }
         }
 
         /// <summary>
@@ -4262,7 +4262,7 @@ namespace Microsoft.Security.Application.Tests
                 {
                     expected = Convert.ToString((char)i);
                 }
-         
+
                 if (i.Equals(0x0028))
                 {
                     expected = "\\28";
@@ -4287,7 +4287,7 @@ namespace Microsoft.Security.Application.Tests
                 {
                     expected = "\\2f";
                 }
-                
+
                 string actual = Encoder.LdapFilterEncode(Convert.ToString((char)i));
                 Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - Filter -  " + "-" + codePageTitle + " Code - " + i.ToString("X"));
             }

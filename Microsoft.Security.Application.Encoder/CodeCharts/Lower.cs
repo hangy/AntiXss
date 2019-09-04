@@ -107,8 +107,8 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable GreekAndCoptic()
         {
             return CodeChartHelper.GetRange(
-                0x0370, 
-                0x03FF, 
+                0x0370,
+                0x03FF,
                 i => (i == 0x378 || i == 0x379 || (i >= 0x37F && i <= 0x383) || i == 0x38B || i == 0x38D || i == 0x3A2));
         }
 
@@ -137,7 +137,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Armenian()
         {
             return CodeChartHelper.GetRange(
-                0x0531, 
+                0x0531,
                 0x058A,
                 i => (i == 0x0557 || i == 0x0558 || i == 0x0560 || i == 0x0588));
         }
@@ -149,7 +149,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Hebrew()
         {
             return CodeChartHelper.GetRange(
-                0x0591, 
+                0x0591,
                 0x05F4,
                 i => ((i >= 0x05C8 && i <= 0x05CF) || (i >= 0x05EB && i <= 0x05EF)));
         }
@@ -161,7 +161,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Arabic()
         {
             return CodeChartHelper.GetRange(
-                0x0600, 
+                0x0600,
                 0x06FF,
                 i => (i == 0x0604 ||
                     i == 0x0605 ||
@@ -223,7 +223,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Devanagari()
         {
             return CodeChartHelper.GetRange(
-                0x0900, 
+                0x0900,
                 0x097F,
                 i => (i == 0x093A ||
                     i == 0x093B ||
@@ -240,7 +240,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Bengali()
         {
             return CodeChartHelper.GetRange(
-                0x0981, 
+                0x0981,
                 0x09FB,
                 i => (i == 0x0984 ||
                     i == 0x098D ||
@@ -272,7 +272,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Gurmukhi()
         {
             return CodeChartHelper.GetRange(
-                0x0A01, 
+                0x0A01,
                 0x0A75,
                 i => (i == 0x0A04 ||
                     (i >= 0x0A0B && i <= 0x0A0E) ||
@@ -301,7 +301,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Gujarati()
         {
             return CodeChartHelper.GetRange(
-                0x0A81, 
+                0x0A81,
                 0x0AF1,
                 i => (i == 0x0A84 ||
                     i == 0x0A8E ||
@@ -328,7 +328,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Oriya()
         {
             return CodeChartHelper.GetRange(
-                0x0B01, 
+                0x0B01,
                 0x0B71,
                 i => (i == 0x0B04 ||
                     i == 0x0B0D ||
@@ -359,7 +359,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Tamil()
         {
             return CodeChartHelper.GetRange(
-                0x0B82, 
+                0x0B82,
                 0x0BFA,
                 i => (i == 0x0B84 ||
                     i == 0x0B8B ||
@@ -398,7 +398,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Telugu()
         {
             return CodeChartHelper.GetRange(
-                0x0C01, 
+                0x0C01,
                 0x0C7F,
                 i => (i == 0x0C04 ||
                     i == 0x0C0D ||
@@ -425,7 +425,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Kannada()
         {
             return CodeChartHelper.GetRange(
-                0x0C82, 
+                0x0C82,
                 0x0CF2,
                 i => (i == 0x0C84 ||
                     i == 0x0C8D ||
@@ -451,7 +451,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Malayalam()
         {
             return CodeChartHelper.GetRange(
-                0x0D02, 
+                0x0D02,
                 0x0D7F,
                 i => (i == 0x0D04 ||
                     i == 0x0D0D ||
@@ -478,7 +478,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Sinhala()
         {
             return CodeChartHelper.GetRange(
-                0x0D82, 
+                0x0D82,
                 0x0DF4,
                 i => (i == 0x0D84 ||
                     i == 0x0D97 ||
@@ -514,7 +514,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Lao()
         {
             return CodeChartHelper.GetRange(
-                0x0E81, 
+                0x0E81,
                 0x0EDD,
                 i => (i == 0x0E83 ||
                     i == 0x0E85 ||
@@ -548,7 +548,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Tibetan()
         {
             return CodeChartHelper.GetRange(
-                0x0F00, 
+                0x0F00,
                 0x0FD8,
                 i => (i == 0x0F48 ||
                       (i >= 0x0F6D && i <= 0x0F70) ||

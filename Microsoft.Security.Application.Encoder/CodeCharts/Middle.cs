@@ -44,7 +44,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable GreekExtended()
         {
             return CodeChartHelper.GetRange(
-                0x1F00, 
+                0x1F00,
                 0x1FFE,
                 i => (i == 0x1F16 ||
                     i == 0x1F17 ||
@@ -221,7 +221,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Dingbats()
         {
             return CodeChartHelper.GetRange(
-                0x2701, 
+                0x2701,
                 0x27BE,
                 i => (i == 0x2705 ||
                     i == 0x270A ||
@@ -354,8 +354,8 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable EthiopicExtended()
         {
-            return CodeChartHelper.GetRange(                
-                0x2D80, 
+            return CodeChartHelper.GetRange(
+                0x2D80,
                 0x2DDE,
                 i => ((i >= 0x2D97 && i <= 0x2D9F) ||
                     i == 0x2DA7 ||

@@ -120,11 +120,11 @@ namespace Microsoft.Security.Application
         /// Lock object
         /// </summary>
         private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
-  
+
         /// <summary>
         /// Acquires a read lock.
         /// </summary>
-        private static void AcquireReadLock() 
+        private static void AcquireReadLock()
         {
             SyncLock.EnterReadLock();
         }
@@ -379,7 +379,7 @@ namespace Microsoft.Security.Application
             // Setup a new StringBuilder for output.
             // Worse case scenario - the longest entity name, thetasym is 10 characters, including the & and ;.
             StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input.Length, 10);
-            
+
             AcquireReadLock();
             try
             {

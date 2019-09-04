@@ -71,7 +71,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Ethiopic()
         {
             return CodeChartHelper.GetRange(
-                0x1200, 
+                0x1200,
                 0x137C,
                 i => (i == 0x1249 ||
                     i == 0x124E ||
@@ -185,7 +185,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Khmer()
         {
             return CodeChartHelper.GetRange(
-                0x1780, 
+                0x1780,
                 0x17F9,
                 i => (i == 0x17DE ||
                       i == 0x17DF ||
@@ -199,7 +199,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Mongolian()
         {
             return CodeChartHelper.GetRange(
-                0x1800, 
+                0x1800,
                 0x18AA,
                 i => (i == 0x180F ||
                       (i >= 0x181A && i <= 0x181F) ||
@@ -222,7 +222,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Limbu()
         {
             return CodeChartHelper.GetRange(
-                0x1900, 
+                0x1900,
                 0x194F,
                 i => (i == 0x191D ||
                     i == 0x191E ||
@@ -250,7 +250,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable NewTaiLue()
         {
             return CodeChartHelper.GetRange(
-                0x1980, 
+                0x1980,
                 0x19DF,
                 i => ((i >= 0x19AC && i <= 0x19AF) ||
                       (i >= 0x19CA && i <= 0x19CF) ||
@@ -282,7 +282,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable TaiTham()
         {
             return CodeChartHelper.GetRange(
-                0x1A20, 
+                0x1A20,
                 0x1AAD,
                 i => (i == 0x1A5F ||
                     i == 0x1A7D ||

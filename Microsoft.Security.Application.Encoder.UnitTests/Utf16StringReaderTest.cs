@@ -29,7 +29,7 @@ namespace Microsoft.Security.Application.Tests
     /// Tests the Utf16StringReader
     /// </summary>
     [TestClass]
-    public class Utf16StringReaderTest 
+    public class Utf16StringReaderTest
     {
         /// <summary>
         /// Unicode replacement character.
@@ -62,7 +62,7 @@ namespace Microsoft.Security.Application.Tests
         /// Validates that valid Unicode points are left along.
         /// </summary>
         [TestMethod]
-        public void CanHandleAllValidUnicodeCodePoints() 
+        public void CanHandleAllValidUnicodeCodePoints()
         {
             // Arrange
             int[] allValidUnicodeCodePoints =
@@ -84,11 +84,11 @@ namespace Microsoft.Security.Application.Tests
         /// Validates that a string with weird surrogates in the midst of the string gets substituted correctly.
         /// </summary>
         [TestMethod]
-        public void InvalidStringWithSurrogates() 
+        public void InvalidStringWithSurrogates()
         {
             // Arrange
             string inputString = "X-\uD800-\uDFFF-Z";
-            int[] expectedResult = new int[] 
+            int[] expectedResult = new int[]
             {
                 (int)'X',
                 (int)'-',
@@ -96,7 +96,7 @@ namespace Microsoft.Security.Application.Tests
                 (int)'-',
                 UnicodeReplacementCharacterCodePoint,
                 (int)'-',
-                (int)'Z' 
+                (int)'Z'
             };
 
             // Act
@@ -110,15 +110,15 @@ namespace Microsoft.Security.Application.Tests
         /// Validates that a string with a high surrogate at the end of the string gets substituted correctly.
         /// </summary>
         [TestMethod]
-        public void InvalidStringWithSurrogatesHighSurrogateAtEndOfString() 
+        public void InvalidStringWithSurrogatesHighSurrogateAtEndOfString()
         {
             // Arrange
             string inputString = "X-\uD800";
-            int[] expectedResult = new int[] 
+            int[] expectedResult = new int[]
             {
                 (int)'X',
                 (int)'-',
-                UnicodeReplacementCharacterCodePoint 
+                UnicodeReplacementCharacterCodePoint
             };
 
             // Act
@@ -132,21 +132,21 @@ namespace Microsoft.Security.Application.Tests
         /// Validates that a string with a two high surrogates at the end of the string gets substituted correctly.
         /// </summary>
         [TestMethod]
-        public void InvalidStringWithSurrogatesTwoHighSurrogates() 
+        public void InvalidStringWithSurrogatesTwoHighSurrogates()
         {
             // This test makes sure that we don't accidentally consume the next
             // character after encountering an unmatched high surrogate.
 
             // Arrange
             string inputString = "X-\uD800\uD800\uDD00-Z";
-            int[] expectedResult = new int[] 
+            int[] expectedResult = new int[]
             {
                 (int)'X',
                 (int)'-',
                 UnicodeReplacementCharacterCodePoint,
                 0x10100,
                 (int)'-',
-                (int)'Z' 
+                (int)'Z'
             };
 
             // Act
@@ -160,11 +160,11 @@ namespace Microsoft.Security.Application.Tests
         /// Validates that a string with a valid surrogates  at the end of the string does not get substituted.
         /// </summary>
         [TestMethod]
-        public void ValidStringWithSurrogates() 
+        public void ValidStringWithSurrogates()
         {
             // Arrange
             string inputString = "X-\U00010000-\uABCD-\U0010ABCD-Z";
-            int[] expectedResult = new int[] 
+            int[] expectedResult = new int[]
             {
                 (int)'X',
                 (int)'-',
@@ -174,7 +174,7 @@ namespace Microsoft.Security.Application.Tests
                 (int)'-',
                 0x10ABCD,
                 (int)'-',
-                (int)'Z' 
+                (int)'Z'
             };
 
             // Act
@@ -189,11 +189,11 @@ namespace Microsoft.Security.Application.Tests
         /// </summary>
         /// <param name="codePoint">The code point to convert.</param>
         /// <returns>A string representing the code point.</returns>
-        private static string ConvertFromCodePoint(int codePoint) 
+        private static string ConvertFromCodePoint(int codePoint)
         {
             // Do this manually since ConvertFromUtf32 has its own invalid character checking,
             // and we might want to generate invalid strings.
-            if (codePoint <= char.MaxValue) 
+            if (codePoint <= char.MaxValue)
             {
                 return new string(new char[] { (char)codePoint });
             }
@@ -208,7 +208,7 @@ namespace Microsoft.Security.Application.Tests
         /// <param name="firstCodePointInclusive">The number to start at.</param>
         /// <param name="lastCodePointInclusive">The number to finish at.</param>
         /// <returns>A range of integers of characters from <paramref name="firstCodePointInclusive"/> to <paramref name="lastCodePointInclusive"/>.</returns>
-        private static IEnumerable<int> CreateCharacterRange(int firstCodePointInclusive, int lastCodePointInclusive) 
+        private static IEnumerable<int> CreateCharacterRange(int firstCodePointInclusive, int lastCodePointInclusive)
         {
             return Enumerable.Range(firstCodePointInclusive, lastCodePointInclusive - firstCodePointInclusive + 1);
         }
@@ -218,14 +218,14 @@ namespace Microsoft.Security.Application.Tests
         /// </summary>
         /// <param name="inputString">The string to read values from.</param>
         /// <returns>An array of scalar values contained in the string.</returns>
-        private static int[] ReadAllScalarValues(string inputString) 
+        private static int[] ReadAllScalarValues(string inputString)
         {
             Utf16StringReader stringReader = new Utf16StringReader(inputString);
             List<int> retVal = new List<int>();
-            while (true) 
+            while (true)
             {
                 int nextValue = stringReader.ReadNextScalarValue();
-                if (nextValue < 0) 
+                if (nextValue < 0)
                 {
                     return retVal.ToArray();
                 }

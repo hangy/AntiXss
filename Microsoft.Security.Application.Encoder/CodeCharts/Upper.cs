@@ -90,7 +90,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable Cham()
         {
             return CodeChartHelper.GetRange(
-                0xAA00, 
+                0xAA00,
                 0xAA5F,
                 i => ((i >= 0xAA37 && i <= 0xAA3F) ||
                     i == 0xAA4E ||
@@ -160,7 +160,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable AlphabeticPresentationForms()
         {
             return CodeChartHelper.GetRange(
-                0xFB00, 
+                0xFB00,
                 0xFB4F,
                 i => ((i >= 0xFB07 && i <= 0xFB12) ||
                     (i >= 0xFB18 && i <= 0xFB1C) ||
@@ -178,7 +178,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable ArabicPresentationFormsA()
         {
             return CodeChartHelper.GetRange(
-                0xFB50, 
+                0xFB50,
                 0xFDFD,
                 i => ((i >= 0xFBB2 && i <= 0xFBD2) ||
                     (i >= 0xFD40 && i <= 0xFD4F) ||
@@ -248,7 +248,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable HalfWidthAndFullWidthForms()
         {
             return CodeChartHelper.GetRange(
-                0xFF01, 
+                0xFF01,
                 0xFFEE,
                 i => (i == 0xFFBF ||
                     i == 0xFFC0 ||

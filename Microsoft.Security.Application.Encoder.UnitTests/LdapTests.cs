@@ -63,7 +63,7 @@ namespace Microsoft.Security.Application.Tests
         {
             const string Target = @"Parens R Us (for all your parenthetical needs)";
             const string Expected = @"Parens R Us \28for all your parenthetical needs\29";
-            
+
             string actual = Encoder.LdapFilterEncode(Target);
 
             Assert.AreEqual(Expected, actual);
@@ -267,7 +267,7 @@ namespace Microsoft.Security.Application.Tests
 
             string actual = Encoder.LdapDistinguishedNameEncode(Target);
 
-            Assert.AreEqual(Expected, actual);            
+            Assert.AreEqual(Expected, actual);
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace Microsoft.Security.Application.Tests
 
             string actual = Encoder.LdapDistinguishedNameEncode(Target, false, true);
 
-            Assert.AreEqual(Expected, actual);            
+            Assert.AreEqual(Expected, actual);
         }
 
         /// <summary>

@@ -65,11 +65,11 @@ namespace Microsoft.Security.Application
                 originalQueryString = "?" + parts[1];
             }
 
-            byte[] inputAsArray = Encoding.UTF8.GetBytes(actualPath.ToCharArray()); 
+            byte[] inputAsArray = Encoding.UTF8.GetBytes(actualPath.ToCharArray());
             int outputLength = 0;
             int inputLength = inputAsArray.Length;
             char[] encodedInput = new char[inputLength * 3]; // Worse case scenario - URL encoding uses %XX for encoded characters.
-            
+
             SyncLock.EnterReadLock();
             try
             {

@@ -222,8 +222,8 @@ namespace Microsoft.Security.Application
             for (int i = 0x30; i <= 0x39; i++)
             {
                 yield return i;
-            }  
-            
+            }
+
             // Upper case alphabet
             for (int i = 0x41; i <= 0x5A; i++)
             {
@@ -238,7 +238,7 @@ namespace Microsoft.Security.Application
             {
                 yield return i;
             }
-     
+
             // Tilde
             yield return 0x7E;
         }

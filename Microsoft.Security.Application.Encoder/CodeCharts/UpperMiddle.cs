@@ -252,7 +252,7 @@ namespace Microsoft.Security.Application.CodeCharts
         public static IEnumerable CyrillicExtendedB()
         {
             return CodeChartHelper.GetRange(
-                0xA640, 
+                0xA640,
                 0xA697,
                 i => (i == 0xA660 || i == 0xA661 || (i >= 0xA674 && i <= 0xA67b)));
         }

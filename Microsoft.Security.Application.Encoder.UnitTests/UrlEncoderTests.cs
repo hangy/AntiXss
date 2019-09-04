@@ -141,7 +141,7 @@ namespace Microsoft.Security.Application.Tests
             string intermediate = Encoder.UrlPathEncode(Target);
             string actual = Encoder.UrlPathEncode(intermediate);
 
-            Assert.AreEqual(Expected, actual);            
+            Assert.AreEqual(Expected, actual);
         }
 
         /// <summary>

@@ -17,7 +17,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.Security.Application.Tests 
+namespace Microsoft.Security.Application.Tests
 {
     using System.Linq;
 
@@ -27,8 +27,8 @@ namespace Microsoft.Security.Application.Tests
     /// <summary>
     /// Tests the range helpers.
     /// </summary>
-    [TestClass]    
-    public class CodeChartHelperTests 
+    [TestClass]
+    public class CodeChartHelperTests
     {
         /// <summary>
         /// Tests GetRange() returns the correct range with no exclusions.

@@ -110,7 +110,7 @@ namespace Microsoft.Security.Application
         /// </summary>
         /// <value>The low surrogate.</value>
         public char LowSurrogate
-         {
+        {
             get => this.lowSurrogate;
             protected set => this.lowSurrogate = value;
         }
@@ -143,7 +143,7 @@ namespace Microsoft.Security.Application
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)
-            {           
+            {
                 throw new ArgumentNullException(nameof(info));
             }
 
