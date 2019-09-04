@@ -76,7 +76,7 @@ namespace Microsoft.Security.Application.Tests
         private static T SerializeAndDeserialize<T>(T instance)
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            MemoryStream ms = new MemoryStream();
+            using MemoryStream ms = new MemoryStream();
             formatter.Serialize(ms, instance);
             ms.Position = 0;
             return (T)formatter.Deserialize(ms);

@@ -3593,7 +3593,7 @@ namespace Microsoft.Security.Application.Tests
             const string codePageTitle = " Named Entities";
 
             // compiled list of characters that translate to named entities http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
-            DataSet ds = NamedEntitiesSet();
+            using DataSet ds = NamedEntitiesSet();
 
             foreach (DataRow dr in ds.Tables["NamedEntity"].Rows)
             {
