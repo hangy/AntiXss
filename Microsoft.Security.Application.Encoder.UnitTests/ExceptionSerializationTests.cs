@@ -45,7 +45,7 @@ namespace Microsoft.Security.Application.Tests
             InvalidUnicodeValueException cloned = SerializeAndDeserialize(ex);
 
             // Assert
-            Assert.AreEqual(@"Value : 002a" + Environment.NewLine + "Message: the-message", cloned.Message);
+            Assert.AreEqual("Value : 002a" + Environment.NewLine + "Message: the-message", cloned.Message);
             Assert.AreEqual(42, cloned.Value);
         }
 
@@ -62,7 +62,7 @@ namespace Microsoft.Security.Application.Tests
             InvalidSurrogatePairException cloned = SerializeAndDeserialize(ex);
 
             // Assert
-            Assert.AreEqual(@"Surrogate Pair = 	1234:5678" + Environment.NewLine + "Message: the-message", cloned.Message);
+            Assert.AreEqual("Surrogate Pair = 	1234:5678" + Environment.NewLine + "Message: the-message", cloned.Message);
             Assert.AreEqual('\u1234', cloned.HighSurrogate);
             Assert.AreEqual('\u5678', cloned.LowSurrogate);
         }

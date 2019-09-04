@@ -61,7 +61,7 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void FilterEncodingShouldEncodeParenthesis()
         {
-            const string Target = @"Parens R Us (for all your parenthetical needs)";
+            const string Target = "Parens R Us (for all your parenthetical needs)";
             const string Expected = @"Parens R Us \28for all your parenthetical needs\29";
 
             string actual = Encoder.LdapFilterEncode(Target);
@@ -75,7 +75,7 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void FilterEncodingShouldEncodeAsterisks()
         {
-            const string Target = @"*";
+            const string Target = "*";
             const string Expected = @"\2a";
 
             string actual = Encoder.LdapFilterEncode(Target);
@@ -118,7 +118,7 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void FilterEncodingShouldEncodeAccentedCharacters()
         {
-            const string Target = @"Lučić";
+            const string Target = "Lučić";
             const string Expected = @"Lu\c4\8di\c4\87";
 
             string actual = Encoder.LdapFilterEncode(Target);
