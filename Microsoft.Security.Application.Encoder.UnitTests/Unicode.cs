@@ -3776,7 +3776,7 @@ namespace Microsoft.Security.Application.Tests
                 {
                     if (bytes[x] < 16)
                     {
-                        expected = expected + "%" + "0" + bytes[x].ToString("X");
+                        expected = expected + "%0" + bytes[x].ToString("X");
                         expected = expected.ToLower();
                     }
                     else
@@ -3850,7 +3850,7 @@ namespace Microsoft.Security.Application.Tests
                 {
                     if (bytes[x] < 16)
                     {
-                        expected = expected + "%" + "0" + bytes[x].ToString("X");
+                        expected = expected + "%0" + bytes[x].ToString("X");
                         expected = expected.ToLower();
                     }
                     else
@@ -4136,7 +4136,7 @@ namespace Microsoft.Security.Application.Tests
                     {
                         if (bytes[x] < 16)
                         {
-                            expected = expected + "#" + "0" + bytes[x].ToString("X");
+                            expected = expected + "#0" + bytes[x].ToString("X");
                         }
                         else
                         {
@@ -4225,7 +4225,7 @@ namespace Microsoft.Security.Application.Tests
                 }
 
                 string actual = Encoder.LdapDistinguishedNameEncode(Convert.ToString((char)i));
-                Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - DN - " + "-" + codePageTitle + " Code - " + i.ToString("X"));
+                Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - DN - -" + codePageTitle + " Code - " + i.ToString("X"));
             }
         }
 
@@ -4248,7 +4248,7 @@ namespace Microsoft.Security.Application.Tests
                     {
                         if (bytes[x] < 16)
                         {
-                            expected = expected + "\\" + "0" + bytes[x].ToString("X");
+                            expected = expected + "\\0" + bytes[x].ToString("X");
                             expected = expected.ToLower();
                         }
                         else
@@ -4289,7 +4289,7 @@ namespace Microsoft.Security.Application.Tests
                 }
 
                 string actual = Encoder.LdapFilterEncode(Convert.ToString((char)i));
-                Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - Filter -  " + "-" + codePageTitle + " Code - " + i.ToString("X"));
+                Assert.AreEqual(expected, actual, "LDAPEncode.LDAPEncode - Filter -  -" + codePageTitle + " Code - " + i.ToString("X"));
             }
         }
     }
