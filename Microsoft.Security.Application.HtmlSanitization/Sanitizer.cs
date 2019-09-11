@@ -57,22 +57,18 @@ namespace Microsoft.Security.Application
                 return string.Empty;
             }
 
-            using (TextReader stringReader = new StringReader(input))
+            using TextReader stringReader = new StringReader(input);
+            using TextWriter stringWriter = new StringWriter();
+            HtmlToHtml htmlObject = new HtmlToHtml
             {
-                using (TextWriter stringWriter = new StringWriter())
-                {
-                    HtmlToHtml htmlObject = new HtmlToHtml
-                                                {
-                                                    FilterHtml = true,
-                                                    OutputHtmlFragment = false,
-                                                    NormalizeHtml = true
-                                                };
+                FilterHtml = true,
+                OutputHtmlFragment = false,
+                NormalizeHtml = true
+            };
 
-                    htmlObject.Convert(stringReader, stringWriter);
+            htmlObject.Convert(stringReader, stringWriter);
 
-                    return stringWriter.ToString().Length != 0 ? stringWriter.ToString() : string.Empty;
-                }
-            }
+            return stringWriter.ToString().Length != 0 ? stringWriter.ToString() : string.Empty;
         }
 
         /// <summary>
@@ -93,35 +89,31 @@ namespace Microsoft.Security.Application
                 return string.Empty;
             }
 
-            using (TextReader stringReader = new StringReader(input))
+            using TextReader stringReader = new StringReader(input);
+            using TextWriter stringWriter = new StringWriter();
+            HtmlToHtml htmlObject = new HtmlToHtml
             {
-                using (TextWriter stringWriter = new StringWriter())
-                {
-                    HtmlToHtml htmlObject = new HtmlToHtml
-                                                {
-                                                    FilterHtml = true,
-                                                    OutputHtmlFragment = true,
-                                                    NormalizeHtml = true
-                                                };
+                FilterHtml = true,
+                OutputHtmlFragment = true,
+                NormalizeHtml = true
+            };
 
-                    htmlObject.Convert(stringReader, stringWriter);
+            htmlObject.Convert(stringReader, stringWriter);
 
-                    if (stringWriter.ToString().Length == 0)
-                    {
-                        return string.Empty;
-                    }
-
-                    // stripping <div> tags
-                    string output = stringWriter.ToString();
-                    if (string.Equals(output.Substring(0, 5), "<div>", System.StringComparison.OrdinalIgnoreCase))
-                    {
-                        output = output.Substring(5);
-                        output = output.Substring(0, output.Length - 8);
-                    }
-
-                    return output;
-                }
+            if (stringWriter.ToString().Length == 0)
+            {
+                return string.Empty;
             }
+
+            // stripping <div> tags
+            string output = stringWriter.ToString();
+            if (string.Equals(output.Substring(0, 5), "<div>", System.StringComparison.OrdinalIgnoreCase))
+            {
+                output = output.Substring(5);
+                output = output.Substring(0, output.Length - 8);
+            }
+
+            return output;
         }
 
         /// <summary>
