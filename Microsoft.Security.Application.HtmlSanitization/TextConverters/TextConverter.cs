@@ -240,7 +240,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             if (destinationStream == null)
             {
-                throw new ArgumentNullException("destinationStream");
+                throw new ArgumentNullException(nameof(destinationStream));
             }
             
             Stream converter = new ConverterStream(sourceReader, this);
@@ -270,7 +270,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             if (destinationWriter == null)
             {
-                throw new ArgumentNullException("destinationWriter");
+                throw new ArgumentNullException(nameof(destinationWriter));
             }
             
             TextReader converter = new ConverterReader(sourceReader, this);

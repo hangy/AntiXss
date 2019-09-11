@@ -422,11 +422,11 @@ namespace Microsoft.Exchange.Data.TextConverters
             int bufferLength = buffer.Length;
             if (offset < 0 || offset > bufferLength)
             {
-                throw new ArgumentOutOfRangeException("offset");
+                throw new ArgumentOutOfRangeException(nameof(offset));
             }
             if (length < 0)
             {
-                throw new ArgumentOutOfRangeException("length");
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
             if (offset + length < offset ||
                 offset + length > bufferLength)

@@ -109,7 +109,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private IProgressMonitor progressMonitor;
 
-        private static readonly string NamePrefix = "x_";
+        private const string NamePrefix = "x_";
 
         internal enum CopyPendingState : byte
         {

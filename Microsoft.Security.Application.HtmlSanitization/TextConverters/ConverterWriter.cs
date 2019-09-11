@@ -238,22 +238,22 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             if (index < 0 || index > buffer.Length)
             {
-                throw new ArgumentOutOfRangeException("index", Strings.IndexOutOfRange);
+                throw new ArgumentOutOfRangeException(nameof(index), Strings.IndexOutOfRange);
             }
 
             if (count < 0 || count > buffer.Length)
             {
-                throw new ArgumentOutOfRangeException("count", Strings.CountOutOfRange);
+                throw new ArgumentOutOfRangeException(nameof(count), Strings.CountOutOfRange);
             }
 
             if (buffer.Length - index < count)
             {
-                throw new ArgumentOutOfRangeException("count", Strings.CountTooLarge);
+                throw new ArgumentOutOfRangeException(nameof(count), Strings.CountTooLarge);
             }
 
             if (this.inconsistentState)

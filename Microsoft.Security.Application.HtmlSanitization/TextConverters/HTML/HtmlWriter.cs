@@ -1249,7 +1249,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             if (value == null)
             {
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             }
 
             if (this.copyPending)

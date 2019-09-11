@@ -125,12 +125,12 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             if (sourceReader == null)
             {
-                throw new ArgumentNullException("sourceReader");
+                throw new ArgumentNullException(nameof(sourceReader));
             }
 
             if (converter == null)
             {
-                throw new ArgumentNullException("converter");
+                throw new ArgumentNullException(nameof(converter));
             }
 
             this.producer = converter.CreatePullChain(sourceReader, this);
@@ -404,22 +404,22 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (null == buffer)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             if (offset > buffer.Length || offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", Strings.OffsetOutOfRange);
+                throw new ArgumentOutOfRangeException(nameof(offset), Strings.OffsetOutOfRange);
             }
 
             if (count > buffer.Length || count < 0)
             {
-                throw new ArgumentOutOfRangeException("count", Strings.CountOutOfRange);
+                throw new ArgumentOutOfRangeException(nameof(count), Strings.CountOutOfRange);
             }
 
             if (count + offset > buffer.Length)
             {
-                throw new ArgumentOutOfRangeException("count", Strings.CountTooLarge);
+                throw new ArgumentOutOfRangeException(nameof(count), Strings.CountTooLarge);
             }
 
             if (this.endOfFile)
@@ -625,22 +625,22 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (null == buffer)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             if (offset > buffer.Length || offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", Strings.OffsetOutOfRange);
+                throw new ArgumentOutOfRangeException(nameof(offset), Strings.OffsetOutOfRange);
             }
 
             if (count > buffer.Length || count < 0)
             {
-                throw new ArgumentOutOfRangeException("count", Strings.CountOutOfRange);
+                throw new ArgumentOutOfRangeException(nameof(count), Strings.CountOutOfRange);
             }
 
             if (count + offset > buffer.Length)
             {
-                throw new ArgumentOutOfRangeException("count", Strings.CountTooLarge);
+                throw new ArgumentOutOfRangeException(nameof(count), Strings.CountTooLarge);
             }
 
             if (this.inconsistentState)
