@@ -91,21 +91,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 return this.inputBufferSize;
             }
-
-// Orphaned WPL code.
-#if false
-            set
-            {
-                this.AssertNotLocked();
-
-                if (value < 1024 || value > 80 * 1024)
-                {
-                    throw new ArgumentOutOfRangeException("value", Strings.BufferSizeValueRange);
-                }
-
-                this.inputBufferSize = value;
-            }
-#endif
         }
 
         /// <summary>
@@ -118,21 +103,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 return this.outputBufferSize;
             }
-
-// Orphaned WPL code.
-#if false
-            set
-            {
-                this.AssertNotLocked();
-
-                if (value < 1024 || value > 80 * 1024)
-                {
-                    throw new ArgumentOutOfRangeException("value", Strings.BufferSizeValueRange);
-                }
-
-                this.outputBufferSize = value;
-            }
-#endif
         }
 
         /// <summary>
@@ -147,15 +117,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 return this.testBoundaryConditions;
             }
-
-// Orphaned WPL code.
-#if false
-            set
-            {
-                this.AssertNotLocked();
-                this.testBoundaryConditions = value;
-            }
-#endif
         }
 
         /// <summary>
@@ -167,69 +128,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             get;
             set;
         }
-
-// Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Converts the specified source stream.
-        /// </summary>
-        /// <param name="sourceStream">The source stream.</param>
-        /// <param name="destinationStream">The destination stream.</param>
-        public void Convert(Stream sourceStream, Stream destinationStream)
-        {
-            if (destinationStream == null)
-            {
-                throw new ArgumentNullException("destinationStream");
-            }
-            
-            Stream converter = new ConverterStream(sourceStream, this, ConverterStreamAccess.Read);
-
-            byte[] buf = new byte[this.outputBufferSize];
-
-            while (true)
-            {
-                int cnt = converter.Read(buf, 0, buf.Length);
-                if (0 == cnt)
-                {
-                    break;
-                }
-
-                destinationStream.Write(buf, 0, cnt);
-            }
-
-            destinationStream.Flush();
-        }
-
-        /// <summary>
-        /// Converts the specified source stream.
-        /// </summary>
-        /// <param name="sourceStream">The source stream.</param>
-        /// <param name="destinationWriter">The destination writer.</param>
-        public void Convert(Stream sourceStream, TextWriter destinationWriter)
-        {
-            if (destinationWriter == null)
-            {
-                throw new ArgumentNullException("destinationWriter");
-            }
-            
-            TextReader converter = new ConverterReader(sourceStream, this);
-
-            char[] buf = new char[4096];
-
-            while (true)
-            {
-                int cnt = converter.Read(buf, 0, buf.Length);
-                if (0 == cnt)
-                {
-                    break;
-                }
-
-                destinationWriter.Write(buf, 0, cnt);
-            }
-
-            destinationWriter.Flush();
-        }
-#endif
 
         /// <summary>
         /// Converts the specified source reader.
@@ -273,7 +171,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 throw new ArgumentNullException(nameof(destinationWriter));
             }
             
-            TextReader converter = new ConverterReader(sourceReader, this);
+            using TextReader converter = new ConverterReader(sourceReader, this);
 
             char[] buf = new char[4096];
 
@@ -316,25 +214,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <param name="output">The output.</param>
         /// <returns>An <see cref="IProducerConsumer"/> for use in a chain.</returns>
         internal abstract IProducerConsumer CreatePushChain(ConverterStream converterStream, TextWriter output);
-
-// Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Creates the push chain.
-        /// </summary>
-        /// <param name="converterWriter">The converter writer.</param>
-        /// <param name="output">The output.</param>
-        /// <returns>An <see cref="IProducerConsumer"/> for use in a chain.</returns>
-        internal abstract IProducerConsumer CreatePushChain(ConverterWriter converterWriter, Stream output);
-
-        /// <summary>
-        /// Creates the push chain.
-        /// </summary>
-        /// <param name="converterWriter">The converter writer.</param>
-        /// <param name="output">The output.</param>
-        /// <returns>An <see cref="IProducerConsumer"/> for use in a chain.</returns>
-        internal abstract IProducerConsumer CreatePushChain(ConverterWriter converterWriter, TextWriter output);
-#endif
 
         /// <summary>
         /// Creates the pull chain.

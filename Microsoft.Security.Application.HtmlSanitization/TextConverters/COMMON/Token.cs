@@ -107,26 +107,10 @@ namespace Microsoft.Exchange.Data.TextConverters
 
 #endif
 
-        // Orphaned WPL code.
-#if false
-        public RunType Type
-        {
-            get { this.AssertCurrent(); return this.token.runList[this.token.wholePosition.run].Type; }
-        }
-#endif
-
         public bool IsTextRun
         {
             get { this.AssertCurrent(); return this.token.runList[this.token.wholePosition.run].Type >= RunType.Normal; }
         }
-
-        // Orphaned WPL code.
-#if false
-        public bool IsSpecial
-        {
-            get { this.AssertCurrent(); return this.token.runList[this.token.wholePosition.run].Type == RunType.Special; }
-        }
-#endif
 
         public bool IsNormal
         {
@@ -158,14 +142,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             get { this.AssertCurrent(); return this.token.runList[this.token.wholePosition.run].Length; }
         }
 
-        // Orphaned WPL code.
-#if false
-        public uint Kind
-        {
-            get { this.AssertCurrent(); return this.token.runList[this.token.wholePosition.run].Kind; }
-        }
-#endif
-
         public int Literal
         {
             get { this.AssertCurrent(); InternalDebug.Assert(this.IsLiteral); return this.token.runList[this.token.wholePosition.run].Value; }
@@ -179,14 +155,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return this.IsNormal ? this.RawLength : this.IsLiteral ? Token.LiteralLength(this.Literal) : 0;
             }
         }
-
-        // Orphaned WPL code.
-#if false
-        public int Value
-        {
-            get { this.AssertCurrent(); return this.token.runList[this.token.wholePosition.run].Value; }
-        }
-#endif
 
         public char FirstChar
         {
@@ -205,61 +173,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return this.TextType <= RunTextType.LastWhitespace;
             }
         }
-
-        // Orphaned WPL code.
-#if false
-        public int ReadLiteral(char[] buffer)
-        {
-            this.AssertCurrent();
-            InternalDebug.Assert(this.IsLiteral);
-            InternalDebug.Assert(buffer.Length >= 2);
-
-            int literalValue = this.token.runList[this.token.wholePosition.run].Value;
-            int literalLength = Token.LiteralLength(literalValue);
-
-            if (literalLength == 1)
-            {
-                buffer[0] = (char) literalValue;
-                return 1;
-            }
-
-            InternalDebug.Assert(literalLength == 2);
-
-            buffer[0] = Token.LiteralFirstChar(literalValue);
-            buffer[1] = Token.LiteralLastChar(literalValue);
-            return 2;
-        }
-
-        public string GetString(int maxSize)
-        {
-            Token.Fragment fragment;
-            int run = this.token.wholePosition.run;
-            Token.RunEntry[] runList = this.token.runList;
-
-            switch (runList[run].Type)
-            {
-                case RunType.Normal:
-
-                        return new string(this.token.buffer, this.token.wholePosition.runOffset, Math.Min(maxSize, runList[run].Length));
-
-                case RunType.Literal:
-
-                        if (this.Length == 1)
-                        {
-                            return this.FirstChar.ToString();
-                        }
-                        
-                        fragment = new Token.Fragment();
-
-                        fragment.Initialize(run, this.token.wholePosition.runOffset);
-                        fragment.tail = fragment.head + 1;
-
-                        return this.token.GetString(ref fragment, maxSize);
-            }
-
-            return "";
-        }
-#endif
 
         [System.Diagnostics.Conditional("DEBUG")]
         private void AssertCurrent()
@@ -300,11 +213,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         public TokenId TokenId
         {
             get { return this.tokenId; }
-
-            // Orphaned WPL code.
-#if false
-            set { this.tokenId = value; }
-#endif
         }
 
         public int Argument
@@ -371,166 +279,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             return (literal > 0xFFFF) ? ParseSupport.LowSurrogateCharFromUcs4(literal) : (char)literal;
         }
-
-        // Orphaned WPL code.
-#if false
-       protected internal int Read(ref Fragment fragment, ref FragmentPosition position, char[] buffer, int offset, int count)
-        {
-            InternalDebug.Assert(count != 0);
-
-            int startOffset = offset;
-            int run = position.run;
-
-            if (run == fragment.head - 1)
-            {
-                run = position.run = fragment.head;
-            }
-
-            if (run != fragment.tail)
-            {
-                int runOffset = position.runOffset;
-                int runDeltaOffset = position.runDeltaOffset;
-
-                do
-                {
-                    RunEntry runEntry = this.runList[run];
-
-                    InternalDebug.Assert(count != 0);
-
-                    if (runEntry.Type == RunType.Literal)
-                    {
-                        int literalLength = Token.LiteralLength(runEntry.Value);
-
-                        if (runDeltaOffset != literalLength)
-                        {
-                            if (literalLength == 1)
-                            {
-                                InternalDebug.Assert(runDeltaOffset == 0);
-
-                                buffer[offset++] = (char) runEntry.Value;
-                                count --;
-                            }
-                            else
-                            {
-                                InternalDebug.Assert(literalLength == 2);
-
-                                if (runDeltaOffset != 0)
-                                {
-                                    InternalDebug.Assert(runDeltaOffset == 1);
-
-                                    buffer[offset++] = Token.LiteralLastChar(runEntry.Value);
-                                    count --;
-                                }
-                                else
-                                {
-                                    buffer[offset++] = Token.LiteralFirstChar(runEntry.Value);
-                                    count --;
-
-                                    if (count == 0)
-                                    {
-                                        runDeltaOffset = 1;
-                                        break;
-                                    }
-
-                                    buffer[offset++] = Token.LiteralLastChar(runEntry.Value);
-                                    count --;
-                                }
-                            }
-                        }
-                    }
-                    else if (runEntry.Type == RunType.Normal)
-                    {
-                        InternalDebug.Assert(runDeltaOffset >= 0 && runDeltaOffset < runEntry.Length);
-
-                        int copyCount = Math.Min(count, runEntry.Length - runDeltaOffset);
-
-                        InternalDebug.Assert(copyCount != 0);
-                        
-                        {
-                            Buffer.BlockCopy(this.buffer, (runOffset + runDeltaOffset) * 2, buffer, offset * 2, copyCount * 2);
-
-                            offset += copyCount;
-                            count -= copyCount;
-
-                            if (runDeltaOffset + copyCount != runEntry.Length)
-                            {
-                                runDeltaOffset += copyCount;
-                                break;
-                            }
-                        }
-                    }
-
-                    runOffset += runEntry.Length;
-                    runDeltaOffset = 0;
-                }
-                while (++run != fragment.tail && count != 0);
-
-                position.run = run;
-                position.runOffset = runOffset;
-                position.runDeltaOffset = runDeltaOffset;
-            }
-
-            return offset - startOffset;
-        }
-
-        protected internal int ReadOriginal(ref Fragment fragment, ref FragmentPosition position, char[] buffer, int offset, int count)
-        {
-            InternalDebug.Assert(count != 0);
-
-            int startOffset = offset;
-            int run = position.run;
-
-            if (run == fragment.head - 1)
-            {
-                run = position.run = fragment.head;
-            }
-
-            if (run != fragment.tail)
-            {
-                int runOffset = position.runOffset;
-                int runDeltaOffset = position.runDeltaOffset;
-
-                do
-                {
-                    RunEntry runEntry = this.runList[run];
-
-                    InternalDebug.Assert(count != 0);
-
-                    if (runEntry.Type == RunType.Literal ||runEntry.Type == RunType.Normal)
-                    {
-                        InternalDebug.Assert(runDeltaOffset >= 0 && runDeltaOffset < runEntry.Length);
-
-                        int copyCount = Math.Min(count, runEntry.Length - runDeltaOffset);
-
-                        InternalDebug.Assert(copyCount != 0);
-                        
-                        {
-                            Buffer.BlockCopy(this.buffer, (runOffset + runDeltaOffset) * 2, buffer, offset * 2, copyCount * 2);
-
-                            offset += copyCount;
-                            count -= copyCount;
-
-                            if (runDeltaOffset + copyCount != runEntry.Length)
-                            {
-                                runDeltaOffset += copyCount;
-                                break;
-                            }
-                        }
-                    }
-
-                    runOffset += runEntry.Length;
-                    runDeltaOffset = 0;
-                }
-                while (++run != fragment.tail && count != 0);
-
-                position.run = run;
-                position.runOffset = runOffset;
-                position.runDeltaOffset = runDeltaOffset;
-            }
-
-            return offset - startOffset;
-        }
-#endif
 
         protected internal int Read(LexicalUnit unit, ref FragmentPosition position, char[] buffer, int offset, int count)
         {
@@ -669,31 +417,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             return length;
         }
-
-        // Orphaned WPL code.
-#if false
-        protected internal int GetOriginalLength(ref Fragment fragment)
-        {
-            int run = fragment.head;
-            int length = 0;
-
-            if (run != fragment.tail)
-            {
-                do
-                {
-                    RunEntry runEntry = this.runList[run];
-
-                    if (runEntry.Type == RunType.Normal || runEntry.Type == RunType.Literal)
-                    {
-                        length += runEntry.Length;
-                    }
-                }
-                while (++run != fragment.tail);
-            }
-
-            return length;
-        }
-#endif
 
         protected internal int GetLength(LexicalUnit unit)
         {
@@ -862,95 +585,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
 
             return HashCode.CalculateEmptyHash();
-        }
-
-        // Orphaned WPL code.
-#if false
-        protected internal int CalculateHash(Fragment fragment)
-        {
-            int run = fragment.head;
-
-            if (run != fragment.tail)
-            {
-                int runOffset = fragment.headOffset;
-
-                if (run + 1 == fragment.tail && this.runList[run].Type == RunType.Normal)
-                {
-                    
-                    return HashCode.Calculate(this.buffer, runOffset, this.runList[run].Length);
-                }
-
-                HashCode hashCode = new HashCode(true);
-
-                do
-                {
-                    RunEntry runEntry = this.runList[run];
-
-                    if (runEntry.Type == RunType.Normal)
-                    {
-                        hashCode.Advance(this.buffer, runOffset, runEntry.Length);
-                    }
-                    else if (runEntry.Type == RunType.Literal)
-                    {
-                        hashCode.Advance(runEntry.Value);
-                    }
-
-                    runOffset += runEntry.Length;
-                }
-                while (++run != fragment.tail);
-
-                return hashCode.FinalizeHash();
-            }
-
-            return HashCode.CalculateEmptyHash();
-        }
-
-        protected internal int CalculateHash(LexicalUnit unit)
-        {
-            int run = unit.head;
-
-            if (run != -1)
-            {
-                int runOffset = unit.headOffset;
-                RunEntry runEntry = this.runList[run];
-                uint kind = runEntry.MajorKind;  
-
-                if (runEntry.Type == RunType.Normal &&
-                    kind != this.runList[run + 1].MajorKindPlusStartFlag)
-                {
-                    
-                    return HashCode.Calculate(this.buffer, runOffset, runEntry.Length);
-                }
-
-                HashCode hashCode = new HashCode(true);
-
-                do
-                {
-                    if (runEntry.Type == RunType.Normal)
-                    {
-                        hashCode.Advance(this.buffer, runOffset, runEntry.Length);
-                    }
-                    else if (runEntry.Type == RunType.Literal)
-                    {
-                        hashCode.Advance(runEntry.Value);
-                    }
-
-                    runOffset += runEntry.Length;
-
-                    runEntry = this.runList[++run];
-
-                    
-                    
-                    
-                }
-                while (runEntry.MajorKindPlusStartFlag == kind);
-
-                return hashCode.FinalizeHash();
-            }
-
-            return HashCode.CalculateEmptyHash();
-        }
-#endif        
+        }     
 
         protected internal void WriteOriginalTo(ref Fragment fragment, ITextSink sink)
         {
@@ -1030,85 +665,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 }
                 while (runEntry.MajorKindPlusStartFlag == kind && !sink.IsEnough);
             }
-        }
-
-        // Orphaned WPL code.
-#if false
-        private static char[] staticCollapseWhitespace = { ' ', '\r', '\n' };
-
-        protected internal void WriteToAndCollapseWhitespace(ref Fragment fragment, ITextSink sink, ref CollapseWhitespaceState collapseWhitespaceState)
-        {
-            int run = fragment.head;
-
-            if (run != fragment.tail)
-            {
-                int runOffset = fragment.headOffset;
-
-                
-                if (this.runList[run].Type < RunType.Normal)
-                {
-                    this.SkipNonTextRuns(ref run, ref runOffset, fragment.tail);
-                }
-
-                while (run != fragment.tail && !sink.IsEnough)
-                {
-                    InternalDebug.Assert(this.runList[run].Type >= RunType.Normal);
-                    
-
-                    if (this.runList[run].TextType <= RunTextType.Nbsp)
-                    {
-                        if (this.runList[run].TextType == RunTextType.NewLine)
-                        {
-                            collapseWhitespaceState = CollapseWhitespaceState.NewLine;
-                        }
-                        else if (collapseWhitespaceState == CollapseWhitespaceState.NonSpace)
-                        {
-                            collapseWhitespaceState = CollapseWhitespaceState.Whitespace;
-                        }
-                    }
-                    else
-                    {
-                        if (collapseWhitespaceState != CollapseWhitespaceState.NonSpace)
-                        {
-                            if (collapseWhitespaceState == CollapseWhitespaceState.NewLine)
-                            {
-                                
-                                sink.Write(staticCollapseWhitespace, 1, 2);
-                            }
-                            else
-                            {
-                                
-                                sink.Write(staticCollapseWhitespace, 0, 1);
-                            }
-
-                            collapseWhitespaceState = CollapseWhitespaceState.NonSpace;
-                        }
-
-                        if (this.runList[run].Type == RunType.Literal)
-                        {
-                            
-                            sink.Write(this.runList[run].Value);
-                        }
-                        else
-                        {
-                            sink.Write(this.buffer, runOffset, this.runList[run].Length);
-                        }
-                    }
-
-                    runOffset += this.runList[run].Length;
-
-                    run ++;
-
-                    
-                    if (run != fragment.tail && this.runList[run].Type < RunType.Normal)
-                    {
-                        this.SkipNonTextRuns(ref run, ref runOffset, fragment.tail);
-                    }
-
-                }
-            }
-        }
-#endif        
+        }     
 
         protected internal string GetString(ref Fragment fragment, int maxLength)
         {
@@ -1222,24 +779,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.WriteTo(ref fragment, this.searchSink);
 
             return this.searchSink.IsFound;
-        }
-
-        // Orphaned WPL code.
-#if false
-        protected internal bool CaseInsensitiveContainsSubstring(LexicalUnit unit, string str)
-        {
-            if (this.searchSink == null)
-            {
-                this.searchSink = new LowerCaseSubstringSearchSink();
-            }
-
-            this.searchSink.Reset(str);
-
-            this.WriteTo(unit, this.searchSink);
-
-            return this.searchSink.IsFound;
-        }
-#endif        
+        }     
 
         protected internal void StripLeadingWhitespace(ref Fragment fragment)
         {
@@ -1418,89 +958,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return false;
         }
 
-        // Orphaned WPL code.
-#if false
-        protected internal bool IsCurrentEof(ref FragmentPosition position)
-        {
-            int run = position.run;
-
-            InternalDebug.Assert(this.runList[run].Type >= RunType.Normal);
-
-            if (this.runList[run].Type == RunType.Literal)
-            {
-                return (position.runDeltaOffset == Token.LiteralLength(this.runList[run].Value));
-            }
-
-            return (position.runDeltaOffset == this.runList[run].Length);
-        }
-
-        protected internal int ReadCurrent(ref FragmentPosition position, char[] buffer, int offset, int count)
-        {
-            int run = position.run;
-
-            InternalDebug.Assert(this.runList[run].Type >= RunType.Normal);
-            InternalDebug.Assert(count > 0);
-
-            if (this.runList[run].Type == RunType.Literal)
-            {
-                int literalLength = Token.LiteralLength(this.runList[run].Value);
-
-                if (position.runDeltaOffset == literalLength)
-                {
-                    return 0;
-                }
-
-                if (literalLength == 1)
-                {
-                    InternalDebug.Assert(position.runDeltaOffset == 0);
-
-                    buffer[offset] = (char) this.runList[run].Value;
-
-                    position.runDeltaOffset ++;
-                    return 1;
-                }
-
-                InternalDebug.Assert(literalLength == 2);
-
-                if (position.runDeltaOffset != 0)
-                {
-                    InternalDebug.Assert(position.runDeltaOffset == 1);
-
-                    buffer[offset] = Token.LiteralLastChar(this.runList[run].Value);
-
-                    position.runDeltaOffset ++;
-                    return 1;
-                }
-
-                buffer[offset++] = Token.LiteralFirstChar(this.runList[run].Value);
-                count --;
-
-                position.runDeltaOffset ++;
-
-                if (count == 0)
-                {
-                    return 1;
-                }
-
-                buffer[offset] = Token.LiteralLastChar(this.runList[run].Value);
-
-                position.runDeltaOffset ++;
-                return 2;
-            }
-
-            int copyCount = Math.Min(count, this.runList[run].Length - position.runDeltaOffset);
-
-            if (copyCount != 0)
-            {
-                Buffer.BlockCopy(this.buffer, (position.runOffset + position.runDeltaOffset) * 2, buffer, offset * 2, copyCount * 2);
-
-                position.runDeltaOffset += copyCount;
-            }
-
-            return copyCount;
-        }
-#endif
-
         internal void SkipNonTextRuns(ref int run, ref int runOffset, int tail)
         {
             InternalDebug.Assert(run != tail && this.runList[run].Type < RunType.Normal);
@@ -1585,19 +1042,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return ret;
             }
 
-            // Orphaned WPL code.
-#if false
-            public void Rewind()
-            {
-                this.AssertCurrent();
-
-                this.token.wholePosition.Rewind(this.token.whole);
-#if DEBUG
-                this.index = this.token.wholePosition.run;
-#endif
-            }
-#endif
-
             public RunEnumerator GetEnumerator()
             {
                 return this;
@@ -1636,20 +1080,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 }
             }
 
-            // Orphaned WPL code.
-#if false
-            public int Read(char[] buffer, int offset, int count)
-            {
-                this.AssertCurrent();
-
-                int countRead = this.token.Read(ref this.token.whole, ref this.token.wholePosition, buffer, offset, count);
-#if DEBUG
-                this.position = this.token.wholePosition;
-#endif
-                return countRead;
-            }
-#endif
-
             public void Rewind()
             {
                 this.AssertCurrent();
@@ -1667,51 +1097,11 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.token.WriteTo(ref this.token.whole, sink);
             }
 
-            // Orphaned WPL code.
-#if false
-            public void WriteToAndCollapseWhitespace(ITextSink sink, ref CollapseWhitespaceState collapseWhitespaceState)
-            {
-                this.AssertCurrent();
-
-                this.token.WriteToAndCollapseWhitespace(ref this.token.whole, sink, ref collapseWhitespaceState);
-            }
-#endif
-
             public void StripLeadingWhitespace()
             {
                 this.token.StripLeadingWhitespace(ref this.token.whole);
                 this.Rewind();
-            }
-
-            // Orphaned WPL code.
-#if false
-            public int OriginalLength
-            {
-                get
-                {
-                    this.AssertCurrent();
-                    return this.token.GetOriginalLength(ref this.token.whole);
-                }
-            }
-
-            public int ReadOriginal(char[] buffer, int offset, int count)
-            {
-                this.AssertCurrent();
-
-                int countRead = this.token.ReadOriginal(ref this.token.whole, ref this.token.wholePosition, buffer, offset, count);
-#if DEBUG
-                this.position = this.token.wholePosition;
-#endif
-                return countRead;
-            }
-
-            public void WriteOriginalTo(ITextSink sink)
-            {
-                this.AssertCurrent();
-
-                this.token.WriteOriginalTo(ref this.token.whole, sink);
-            }
-#endif         
+            }  
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()

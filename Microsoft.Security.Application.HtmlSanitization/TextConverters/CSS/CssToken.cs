@@ -195,19 +195,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             get { return (CssTokenId)base.TokenId; }
         }
 
-        // Orphaned WPL code.
-#if false
-        public PropertyListPartMajor MajorPart
-        {
-            get { return this.partMajor; }
-        }
-
-        public PropertyListPartMinor MinorPart
-        {
-            get { return this.partMinor; }
-        }
-#endif
-
         public bool IsPropertyListBegin
         {
             get { return (this.partMajor & PropertyListPartMajor.Begin) == PropertyListPartMajor.Begin; }
@@ -387,17 +374,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 #endif
             }
 
-            // Orphaned WPL code.
-#if false
-            public int Count
-            {
-                get
-                {
-                    return this.token.propertyTail - this.token.propertyHead;
-                }
-            }
-#endif
-
             public int ValidCount
             {
                 get
@@ -423,30 +399,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     return new CssProperty(this.token);
                 }
-            }
-
-            // Orphaned WPL code.
-#if false
-            public int CurrentIndex
-            {
-                get { return this.token.currentProperty; }
-            }
-
-            public CssProperty this[int i]
-            {
-                get
-                {
-                    InternalDebug.Assert(i >= this.token.propertyHead && i < this.token.propertyTail);
-
-                    this.token.currentProperty = i;
-
-                    this.token.propertyNamePosition.Rewind(this.token.propertyList[i].name);
-                    this.token.propertyValuePosition.Rewind(this.token.propertyList[i].value);
-
-                    return new CssProperty(this.token);
-                }
-            }
-#endif            
+            }     
 
             public bool MoveNext()
             {
@@ -483,28 +436,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public PropertyEnumerator GetEnumerator()
             {
                 return this;
-            }
-
-            // Orphaned WPL code.
-#if false
-            public bool Find(CssNameIndex nameId)
-            {
-                for (int i = this.token.propertyHead; i < this.token.propertyTail; i++)
-                {
-                    if (this.token.propertyList[i].nameId == nameId)
-                    {
-                        this.token.currentProperty = i;
-
-                        this.token.propertyNamePosition.Rewind(this.token.propertyList[i].name);
-                        this.token.propertyValuePosition.Rewind(this.token.propertyList[i].value);
-
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-#endif            
+            }     
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -530,53 +462,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 #endif
             }
 
-            // Orphaned WPL code.
-#if false
-            public int Length
-            {
-                get { return this.token.GetLength(ref this.token.propertyList[this.token.currentProperty].name); }
-            }
-
-            public int Read(char[] buffer, int offset, int count)
-            {
-                this.AssertCurrent();
-
-                int countRead = this.token.Read(ref this.token.propertyList[this.token.currentProperty].name, ref this.token.propertyNamePosition, buffer, offset, count);
-#if DEBUG
-                this.position = this.token.propertyNamePosition;
-#endif
-                return countRead;
-            }
-
-            public void Rewind()
-            {
-                this.token.propertyNamePosition.Rewind(this.token.propertyList[this.token.currentProperty].name);
-            }
-
-            public void WriteTo(ITextSink sink)
-            {
-                this.token.WriteTo(ref this.token.propertyList[this.token.currentProperty].name, sink);
-            }
-#endif
-
             public void WriteOriginalTo(ITextSink sink)
             {
                 this.token.WriteOriginalTo(ref this.token.propertyList[this.token.currentProperty].name, sink);
-            }
-
-            // Orphaned WPL code.
-#if false
-            public string GetString(int maxSize)
-            {
-                return this.token.GetString(ref this.token.propertyList[this.token.currentProperty].name, maxSize);
-            }
-
-            public void MakeEmpty()
-            {
-                this.token.propertyList[this.token.currentProperty].name.Reset();
-                this.Rewind();
-            }
-#endif            
+            }     
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -602,94 +491,16 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 #endif
             }
 
-            // Orphaned WPL code.
-#if false
-            public int Length
-            {
-                get { return this.token.GetLength(ref this.token.propertyList[this.token.currentProperty].value); }
-            }
-
-            public bool IsEmpty
-            {
-                get { return this.token.IsFragmentEmpty(ref this.token.propertyList[this.token.currentProperty].value); }
-            }
-
-            public bool IsContiguous
-            {
-                get { return this.token.IsContiguous(ref this.token.propertyList[this.token.currentProperty].value); }
-            }
-
-            public BufferString ContiguousBufferString
-            {
-                get
-                {
-                    InternalDebug.Assert(this.IsContiguous);
-                    return new BufferString(
-                                this.token.buffer,
-                                this.token.propertyList[this.token.currentProperty].value.headOffset,
-                                this.token.runList[this.token.propertyList[this.token.currentProperty].value.head].Length);
-                }
-            }
-
-            public int Read(char[] buffer, int offset, int count)
-            {
-                this.AssertCurrent();
-
-                int countRead = this.token.Read(ref this.token.propertyList[this.token.currentProperty].value, ref this.token.propertyValuePosition, buffer, offset, count);
-#if DEBUG
-                this.position = this.token.propertyValuePosition;
-#endif
-                return countRead;
-            }
-
-            public void Rewind()
-            {
-                this.token.propertyValuePosition.Rewind(this.token.propertyList[this.token.currentProperty].value);
-            }
-
-            public void WriteTo(ITextSink sink)
-            {
-                this.token.WriteTo(ref this.token.propertyList[this.token.currentProperty].value, sink);
-            }
-
-            public void WriteOriginalTo(ITextSink sink)
-            {
-                this.token.WriteOriginalTo(ref this.token.propertyList[this.token.currentProperty].value, sink);
-            }
-#endif
-
             public void WriteEscapedOriginalTo(ITextSink sink)
             {
                 this.token.WriteEscapedOriginalTo(ref this.token.propertyList[this.token.currentProperty].value, sink);
             }
 
-            // Orphaned WPL code.
-#if false
-            public string GetString(int maxSize)
-            {
-                return this.token.GetString(ref this.token.propertyList[this.token.currentProperty].value, maxSize);
-            }
-
-            public bool CaseInsensitiveCompareEqual(string str)
-            {
-                return this.token.CaseInsensitiveCompareEqual(ref this.token.propertyList[this.token.currentProperty].value, str);
-            }
-#endif
-
             public bool CaseInsensitiveContainsSubstring(string str)
             {
                 return this.token.CaseInsensitiveContainsSubstring(ref this.token.propertyList[this.token.currentProperty].value, str);
             }
-
-            // Orphaned WPL code.
-#if false
-            public void MakeEmpty()
-            {
-                this.token.propertyList[this.token.currentProperty].value.Reset();
-                this.Rewind();
-            }
-#endif            
-
+            
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
             {
@@ -709,56 +520,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public Fragment name;
             public Fragment value;
 
-            // Orphaned WPL code.
-#if false
-            public bool IsCompleteProperty
-            {
-                get { return this.MajorPart == PropertyPartMajor.Complete; }
-            }
-#endif
-
             public bool IsPropertyBegin
             {
                 get { return (this.partMajor & PropertyPartMajor.Begin) == PropertyPartMajor.Begin; }
             }
 
-            // Orphaned WPL code.
-#if false
-            public bool IsPropertyEnd
-            {
-                get { return (this.partMajor & PropertyPartMajor.End) == PropertyPartMajor.End; }
-            }
-#endif
-
             public bool IsPropertyNameEnd
             {
                 get { return (this.partMinor & PropertyPartMinor.EndName) == PropertyPartMinor.EndName; }
             }
-
-            // Orphaned WPL code.
-#if false
-            public bool IsPropertyValueBegin
-            {
-                get { return (this.partMinor & PropertyPartMinor.BeginValue) == PropertyPartMinor.BeginValue; }
-            }
-
-            public PropertyPartMajor MajorPart
-            {
-                get { return this.partMajor & PropertyPartMajor.MaskOffFlags; }
-            }
-
-           public PropertyPartMinor MinorPart
-            {
-                get { return this.partMinor; }
-                set { this.partMinor = value; }
-            }
-
-            public bool IsPropertyValueQuoted
-            {
-                get { return (this.partMajor & PropertyPartMajor.ValueQuoted) == PropertyPartMajor.ValueQuoted; }
-                set { this.partMajor = value ? (this.partMajor | PropertyPartMajor.ValueQuoted) : (this.partMajor & ~PropertyPartMajor.ValueQuoted); }
-            }
-#endif
 
             public bool IsPropertyDeleted
             {
@@ -781,17 +551,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 this.index = this.token.currentSelector;
 #endif
             }
-
-            // Orphaned WPL code.
-#if false
-            public int Count
-            {
-                get
-                {
-                    return this.token.selectorTail - this.token.selectorHead;
-                }
-            }
-#endif
 
             public int ValidCount
             {
@@ -819,29 +578,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     return new CssSelector(this.token);
                 }
             }
-
-            // Orphaned WPL code.
-#if false
-            public int CurrentIndex
-            {
-                get { return this.token.currentSelector; }
-            }
-
-            public CssSelector this[int i]
-            {
-                get
-                {
-                    InternalDebug.Assert(i >= this.token.selectorHead && i < this.token.selectorTail);
-
-                    this.token.currentSelector = i;
-
-                    this.token.selectorNamePosition.Rewind(this.token.selectorList[i].name);
-                    this.token.selectorClassPosition.Rewind(this.token.selectorList[i].className);
-
-                    return new CssSelector(this.token);
-                }
-            }
-#endif            
 
             public bool MoveNext()
             {
@@ -880,27 +616,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 return this;
             }
 
-            // Orphaned WPL code.
-#if false
-            public bool Find(HtmlNameIndex nameId)
-            {
-                for (int i = this.token.selectorHead; i < this.token.selectorTail; i++)
-                {
-                    if (this.token.selectorList[i].nameId == nameId)
-                    {
-                        this.token.currentSelector = i;
-
-                        this.token.selectorNamePosition.Rewind(this.token.selectorList[i].name);
-                        this.token.selectorClassPosition.Rewind(this.token.selectorList[i].className);
-
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-#endif            
-
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
             {
@@ -925,53 +640,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 #endif
             }
 
-            // Orphaned WPL code.
-#if false
-            public int Length
-            {
-                get { return this.token.GetLength(ref this.token.selectorList[this.token.currentSelector].name); }
-            }
-
-            public int Read(char[] buffer, int offset, int count)
-            {
-                this.AssertCurrent();
-
-                int countRead = this.token.Read(ref this.token.selectorList[this.token.currentSelector].name, ref this.token.selectorNamePosition, buffer, offset, count);
-#if DEBUG
-                this.position = this.token.selectorNamePosition;
-#endif
-                return countRead;
-            }
-
-            public void Rewind()
-            {
-                this.token.selectorNamePosition.Rewind(this.token.selectorList[this.token.currentSelector].name);
-            }
-
-            public void WriteTo(ITextSink sink)
-            {
-                this.token.WriteTo(ref this.token.selectorList[this.token.currentSelector].name, sink);
-            }
-#endif
-
             public void WriteOriginalTo(ITextSink sink)
             {
                 this.token.WriteOriginalTo(ref this.token.selectorList[this.token.currentSelector].name, sink);
-            }
-
-            // Orphaned WPL code.
-#if false
-            public string GetString(int maxSize)
-            {
-                return this.token.GetString(ref this.token.selectorList[this.token.currentSelector].name, maxSize);
-            }
-
-            public void MakeEmpty()
-            {
-                this.token.selectorList[this.token.currentSelector].name.Reset();
-                this.Rewind();
-            }
-#endif            
+            }     
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -997,35 +669,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 #endif
             }
 
-            // Orphaned WPL code.
-#if false
-            public int Length
-            {
-                get { return this.token.GetLength(ref this.token.selectorList[this.token.currentSelector].className); }
-            }
-
-            public int Read(char[] buffer, int offset, int count)
-            {
-                this.AssertCurrent();
-
-                int countRead = this.token.Read(ref this.token.selectorList[this.token.currentSelector].className, ref this.token.selectorClassPosition, buffer, offset, count);
-#if DEBUG
-                this.position = this.token.selectorClassPosition;
-#endif
-                return countRead;
-            }
-
-            public void Rewind()
-            {
-                this.token.selectorClassPosition.Rewind(this.token.selectorList[this.token.currentSelector].className);
-            }
-
-            public void WriteTo(ITextSink sink)
-            {
-                this.token.WriteTo(ref this.token.selectorList[this.token.currentSelector].className, sink);
-            }
-#endif
-
             public void WriteOriginalTo(ITextSink sink)
             {
                 this.token.WriteEscapedOriginalTo(ref this.token.selectorList[this.token.currentSelector].className, sink);
@@ -1035,25 +678,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             {
                 return this.token.GetString(ref this.token.selectorList[this.token.currentSelector].className, maxSize);
             }
-
-            // Orphaned WPL code.
-#if false
-            public bool CaseInsensitiveCompareEqual(string str)
-            {
-                return this.token.CaseInsensitiveCompareEqual(ref this.token.selectorList[this.token.currentSelector].className, str);
-            }
-
-           public bool CaseInsensitiveContainsSubstring(string str)
-            {
-                return this.token.CaseInsensitiveContainsSubstring(ref this.token.selectorList[this.token.currentSelector].className, str);
-            }
-
-            public void MakeEmpty()
-            {
-                this.token.selectorList[this.token.currentSelector].className.Reset();
-                this.Rewind();
-            }
-#endif           
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -1078,11 +702,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public bool IsSelectorDeleted
             {
                 get { return this.deleted; }
-
-        // Orphaned WPL code.
-#if false
-                set { this.deleted = value; }
-#endif
             }
         }
     }
@@ -1101,14 +720,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             this.index = this.token.currentSelector;
 #endif
         }
-
-        // Orphaned WPL code.
-#if false
-        public int Index
-        {
-            get { this.AssertCurrent(); return this.token.currentSelector; }
-        }
-#endif
 
         public bool IsDeleted
         {
@@ -1186,31 +797,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 #endif
         }
 
-        // Orphaned WPL code.
-#if false
-        public int Index
-        {
-            get { this.AssertCurrent(); return this.token.currentProperty; }
-        }
-
-        public bool IsCompleteProperty
-        {
-            get { this.AssertCurrent(); return this.token.propertyList[this.token.currentProperty].IsCompleteProperty; }
-        }
-#endif
-
         public bool IsPropertyBegin
         {
             get { this.AssertCurrent(); return this.token.propertyList[this.token.currentProperty].IsPropertyBegin; }
         }
-
-        // Orphaned WPL code.
-#if false
-        public bool IsPropertyEnd
-        {
-            get { this.AssertCurrent(); return this.token.propertyList[this.token.currentProperty].IsPropertyEnd; }
-        }
-#endif
 
         public bool IsPropertyNameEnd
         {
@@ -1222,26 +812,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             get { this.AssertCurrent(); return this.token.propertyList[this.token.currentProperty].IsPropertyDeleted; }
         }
 
-        // Orphaned WPL code.
-#if false
-        public bool IsPropertyValueQuoted
-        {
-            get { this.AssertCurrent(); return this.token.propertyList[this.token.currentProperty].IsPropertyValueQuoted; }
-        }
-#endif
-
         public CssNameIndex NameId
         {
             get { this.AssertCurrent(); return this.token.propertyList[this.token.currentProperty].nameId; }
         }
-
-        // Orphaned WPL code.
-#if false
-        public char QuoteChar
-        {
-            get { this.AssertCurrent(); return (char)this.token.propertyList[this.token.currentProperty].quoteChar; }
-        }
-#endif
 
         public bool HasNameFragment
         {
@@ -1262,15 +836,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         {
             get { this.AssertCurrent(); return new CssToken.PropertyValueTextReader(this.token); }
         }
-
-        // Orphaned WPL code.
-#if false
-        public void SetMinorPart(CssToken.PropertyPartMinor newMinorPart)
-        {
-            this.AssertCurrent();
-            this.token.propertyList[this.token.currentProperty].MinorPart = newMinorPart;
-        }
-#endif        
 
         [System.Diagnostics.Conditional("DEBUG")]
         private void AssertCurrent()

@@ -98,14 +98,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             get { return this.token.whole.headOffset; }
             set { this.token.whole.headOffset = value; }
         }
-#endif
-
-        // Orphaned WPL code.
-#if false
-        public int TotalLength
-        {
-            get { return this.tailOffset - this.token.whole.headOffset; }
-        }
 #endif        
 
         public void BufferChanged(char[] newBuffer, int newBase)
@@ -187,22 +179,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             this.token.wholePosition.Rewind(this.token.whole);
 
             this.AddSentinelRun();
-        }
-
-        // Orphaned WPL code.
-#if false
-        public void SkipRunIfNecessary(int start, uint skippedRunKind)
-        {
-#if DEBUG
-            InternalDebug.Assert(this.preparedForNumRuns > 0);
-#endif
-            
-            if (start != this.tailOffset)
-            {
-                this.AddInvalidRun(start, skippedRunKind);
-            }
-        }
-#endif        
+        }     
 
         public bool PrepareToAddMoreRuns(int numRuns, int start, uint skippedRunKind)
         {
@@ -287,16 +264,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
         {
             InternalDebug.Assert(start == this.tailOffset);
             this.AddRun(RunType.Literal, textType, (uint)RunKind.Text, start, end, literal);
-        }
-
-        // Orphaned WPL code.
-#if false
-        public void AddSpecialRun(RunKind kind, int startEnd, int value)
-        {
-            InternalDebug.Assert(startEnd == this.tailOffset);
-            this.AddRun(RunType.Special, RunTextType.Unknown, (uint)kind, this.tailOffset, startEnd, value);
-        }
-#endif        
+        }     
 
         internal void AddRun(RunType type, RunTextType textType, uint kind, int start, int end, int value)
         {

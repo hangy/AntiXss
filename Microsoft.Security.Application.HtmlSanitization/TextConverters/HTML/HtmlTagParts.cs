@@ -35,34 +35,9 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.major = major;
         }
 
-        // Orphaned WPL code.
-#if false
-        internal void Reset()
-        {
-            this.minor = 0;
-            this.major = 0;
-        }
-#endif
-
         public bool Begin { get { return HtmlToken.TagPartMajor.Begin == (this.major & HtmlToken.TagPartMajor.Begin); } }
 
-        // Orphaned WPL code.
-#if false
-        public bool End { get { return HtmlToken.TagPartMajor.End == (this.major & HtmlToken.TagPartMajor.End); } }
-        public bool Complete { get { return HtmlToken.TagPartMajor.Complete == this.major; } }
-
-        public bool NameBegin { get { return HtmlToken.TagPartMinor.BeginName == (this.minor & HtmlToken.TagPartMinor.BeginName); } }
-#endif
-
         public bool Name { get { return HtmlToken.TagPartMinor.ContinueName == (this.minor & HtmlToken.TagPartMinor.ContinueName); } }
-
-        // Orphaned WPL code.
-#if false
-        public bool NameEnd { get { return HtmlToken.TagPartMinor.EndName == (this.minor & HtmlToken.TagPartMinor.EndName); } }
-        public bool NameComplete { get { return HtmlToken.TagPartMinor.CompleteName == (this.minor & HtmlToken.TagPartMinor.CompleteName); } }
-
-        public bool Attributes { get { return 0 != (this.minor & (HtmlToken.TagPartMinor.Attributes | HtmlToken.TagPartMinor.ContinueAttribute)); } }
-#endif
 
         public override string ToString()
         {

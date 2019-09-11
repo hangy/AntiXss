@@ -134,157 +134,11 @@ namespace Microsoft.Exchange.Data.TextConverters
             (char) 0x0178
         };
 
-        // Orphaned WPL code.
-#if false
-        private static readonly DbcsLeadBits[] dbcsLeadTable = 
-        {
-            0,                                                                                                                                      
-            DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                                      
-            DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                                      
-            DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                                      
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                 
-
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead9XX,                                                                           
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead9XX,                                                     
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead9XX,                                                     
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead9XX,                                                     
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead9XX,                                                                           
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead9XX,                                                                           
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead9XX,                                                                           
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                                                     
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                                                    
-            DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                                                    
-            DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                                                    
-            DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                                                    
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                               
-            DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead9XX,                                                    
-
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead10008 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,       
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,           
-            DbcsLeadBits.Lead1361 | DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,           
-            DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                
-            DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                
-            DbcsLeadBits.Lead10001 | DbcsLeadBits.Lead10002 | DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead932 | DbcsLeadBits.Lead9XX,                                
-            DbcsLeadBits.Lead10003 | DbcsLeadBits.Lead9XX,                                                                                                
-            DbcsLeadBits.Lead9XX,                                                                                                                      
-            0,                                                                                                                                      
-        };
-#endif
-
         private static readonly byte[] charToHexTable =
         {
             0xFF, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
         };
-
-        // Orphaned WPL code.
-#if false
-        private static readonly byte[] octetBitsCount = 
-        {
-            0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4
-        };
-#endif
 
         private static readonly CharClass[] lowCharClass =
         {
@@ -563,24 +417,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return (int)charToHexTable[ch & 0x1F];
         }
 
-        // Orphaned WPL code.
-#if false
-        public static int BitCount(byte v)
-        {
-            return (int)octetBitsCount[v & 0x0F] + octetBitsCount[(v >> 4) & 0x0F];
-        }
-        
-        public static int BitCount(short v)
-        {
-            return BitCount((byte)v) + BitCount((byte)(v >> 8));
-        }
-        
-        public static int BitCount(int v)
-        {
-            return BitCount((short)v) + BitCount((short)(v >> 16));
-        }
-#endif
-
         public static char HighSurrogateCharFromUcs4(int ich)
         {
             return (char)(0xd800 + ((ich - 0x10000) >> 10));
@@ -590,28 +426,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             return (char)(0xdc00 + (ich & 0x3ff));
         }
-
-        // Orphaned WPL code.
-#if false
-        public static int Ucs4FromSurrogatePair(char low, char high)
-        {
-            InternalDebug.Assert(IsHighSurrogate(high) && IsLowSurrogate(low));
-
-            return (low & 0x3FF) + ((high & 0x3FF) << 10) + 0x10000;
-        }
-
-        
-        public static bool IsHighSurrogate(char ch)
-        {
-            return ch >= (char)0xd800 && ch < (char)0xdc00;
-        }
-
-        
-        public static bool IsLowSurrogate(char ch)
-        {
-            return ch >= (char)0xdc00 && ch < (char)0xde00;
-        }
-#endif
 
         public static bool IsCharClassOneOf(CharClass charClass, CharClass charClassSet)
         {
@@ -627,35 +441,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             return (charClass & CharClass.HtmlNonWhitespaceText) != 0;
         }
-
-        // Orphaned WPL code.
-#if false
-        public static bool TextCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.NonWhitespaceText) != 0;
-        }
-
-        
-        public static bool TextNonUriCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.NonWhitespaceNonUri) != 0;
-        }
-
-        public static bool TextUriCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.NonWhitespaceUri) != 0;
-        }
-
-        public static bool NonControlTextCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.NonWhitespaceNonControlText) != 0;
-        }
-
-        public static bool ControlCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.Control) != 0;
-        }
-#endif
 
         public static bool WhitespaceCharacter(CharClass charClass)
         {
@@ -677,43 +462,10 @@ namespace Microsoft.Exchange.Data.TextConverters
             return (charClass & CharClass.Alpha) != 0;
         }
 
-        // Orphaned WPL code.
-#if false
-        public static bool AlphaCharacter(char ch)
-        {
-            return (GetCharClass(ch) & CharClass.Alpha) != 0;
-        }
-#endif
-
         public static bool QuoteCharacter(CharClass charClass)
         {
             return (charClass & CharClass.Quote) != 0;
         }
-
-        // Orphaned WPL code.
-#if false
-        public static bool HtmlTagNamePrefixCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.HtmlTagNamePrefix) != 0;
-        }
-
-        public static bool HtmlTagNameCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.HtmlTagName) != 0;
-        }
-
-        
-        public static bool HtmlAttrNamePrefixCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.HtmlAttrNamePrefix) != 0;
-        }
-
-        
-        public static bool HtmlAttrNameCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.HtmlAttrName) != 0;
-        }
-#endif
 
         public static bool HtmlAttrValueCharacter(CharClass charClass)
         {
@@ -765,14 +517,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return (charClass & CharClass.Numeric) != 0;
         }
 
-        // Orphaned WPL code.
-#if false
-        public static bool NumericCharacter(char ch)
-        {
-            return (GetCharClass(ch) & CharClass.Numeric) != 0;
-        }
-#endif
-
         public static bool HexCharacter(CharClass charClass)
         {
             return (charClass & CharClass.Hex) != 0;
@@ -788,19 +532,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return (charClass & CharClass.HtmlSuffix) != 0;
         }
 
-        // Orphaned WPL code.
-#if false
-        public static bool RtfInterestingCharacter(CharClass charClass)
-        {
-            return (charClass & CharClass.RtfInteresting) != 0;
-        }
-        
-        public static CharClass GetCharClass(byte ch)
-        {
-            return lowCharClass[ch];
-        }
-#endif
-
         public static CharClass GetCharClass(char ch)
         {
             return (int)ch <= 0xFF/*lowCharClass.Length*/ ? lowCharClass[(int)ch] : GetHighCharClass(ch);
@@ -813,73 +544,11 @@ namespace Microsoft.Exchange.Data.TextConverters
                         ? CharClass.Invalid : CharClass.NotInterestingText;
         }
 
-        // Orphaned WPL code.
-#if false
-        public static bool IsLeadByte(byte bt, DbcsLeadBits codePageMask)
-        {
-            return codePageMask != 0 && IsLeadByteEx(bt, codePageMask);
-        }
-        
-        private static bool IsLeadByteEx(byte bt, DbcsLeadBits codePageMask)
-        {
-            return bt >= 0x80 && (dbcsLeadTable[bt - 0x80] & codePageMask) != 0;
-        }
-        
-        public static DbcsLeadBits GetCodePageLeadMask(int codePage)
-        {
-            DbcsLeadBits leadMask = 0;
-
-            if (codePage >= 1361)                               
-            {
-                if (codePage == 1361)                               
-                {
-                    leadMask = DbcsLeadBits.Lead1361;
-                }
-                else if (codePage == 10001)                         
-                {
-                    leadMask = DbcsLeadBits.Lead10001;
-                }
-                else if (codePage == 10002)                         
-                {
-                    leadMask = DbcsLeadBits.Lead10002;
-                }
-                else if (codePage == 10003)                         
-                {
-                    leadMask = DbcsLeadBits.Lead10003;
-                }
-                else if (codePage == 10008)                         
-                {
-                    leadMask = DbcsLeadBits.Lead10008;
-                }
-            }
-            else if (codePage <= 950)
-            {
-                if (codePage == 950 || codePage == 949 || codePage == 936)
-                {                                                   
-                    leadMask = DbcsLeadBits.Lead9XX;
-                }
-                else if (codePage == 932)                           
-                {
-                    leadMask = DbcsLeadBits.Lead932;
-                }
-            }
-
-            return leadMask;
-        }
-#endif
-
         public static bool IsUpperCase(char ch)
         {
             return (uint)(ch - 'A') <= ('Z' - 'A');
         }
 
-        // Orphaned WPL code.
-#if false
-        public static bool IsLowerCase(char ch)
-        {
-            return (uint)(ch - 'a') <= ('z' - 'a');
-        }
-#endif        
         public static char ToLowerCase(char ch)
         {
             return IsUpperCase(ch) ? (char)(ch + ('a' - 'A')) : ch;
@@ -916,47 +585,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 (0xac00 <= ch && ch <= 0xd7a3) ||
                 (0xffa1 <= ch && ch <= 0xffdc));
         }
-
-        // Orphaned WPL code.
-#if false
-        public static string TrimWhitespace(string value)
-        {
-            string result = value;
-
-            if (!string.IsNullOrEmpty(value))
-            {
-                int start = 0;
-                int end = value.Length;
-                if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(value[0])))
-                {
-                    for (start = 1; start < end && ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(value[start])); start++)
-                    {
-                    }
-                }
-
-                if (start != end)
-                {
-                    if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(value[end - 1])))
-                    {
-                        for (end = end - 1; ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(value[end - 1])); end--)
-                        {
-                        }
-                    }
-
-                    if (end - start != value.Length)
-                    {
-                        result = value.Substring(start, end - start);
-                    }
-                }
-                else
-                {
-                    result = String.Empty;
-                }
-            }
-
-            return result;
-        }
-#endif
     }
 }
 

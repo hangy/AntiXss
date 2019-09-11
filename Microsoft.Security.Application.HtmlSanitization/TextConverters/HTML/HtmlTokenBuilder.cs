@@ -211,39 +211,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
 
             this.state = BuildStateTagBeforeAttr;
-        }
-
-        // Orphaned WPL code.
-#if false
-        public void EndTagName(HtmlNameIndex resolvedNameIndex)
-        {
-            InternalDebug.Assert(this.state == BuildStateTagName);
-
-            InternalDebug.Assert(this.htmlToken.partMinor == HtmlToken.TagPartMinor.BeginName || 
-                                this.htmlToken.partMinor == HtmlToken.TagPartMinor.ContinueName);
-
-            if (this.htmlToken.localName.head == this.htmlToken.whole.tail)
-            {
-                InternalDebug.Assert(this.htmlToken.localName.headOffset == this.tailOffset);
-
-                this.AddNullRun(HtmlRunKind.Name);
-                if (this.htmlToken.localName.head == this.htmlToken.name.head)
-                {
-                    this.htmlToken.flags |= HtmlToken.TagFlags.EmptyTagName;
-                }
-            }
-
-            this.htmlToken.partMinor |= HtmlToken.TagPartMinor.EndName;
-
-            if (this.htmlToken.IsTagBegin)
-            {
-                this.htmlToken.nameIndex = resolvedNameIndex;
-                this.htmlToken.tagIndex = this.htmlToken.originalTagIndex = HtmlNameData.names[(int)resolvedNameIndex].tagIndex;
-            }
-
-            this.state = BuildStateTagBeforeAttr;
-        }
-#endif        
+        }     
 
         public bool CanAddAttribute()
         {
@@ -774,74 +742,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return HtmlNameIndex.Unknown;
         }
 
-        // Orphaned WPL code.
-#if false
-        public static HtmlNameIndex LookupName(char[] nameBuffer, int nameOffset, int nameLength)
-        {
-            InternalDebug.Assert(nameLength >= 0);
-
-            if (nameLength != 0 && nameLength <= HtmlNameData.MAX_NAME)
-            {
-                
-
-                short nameHashValue = (short)(((uint)HashCode.CalculateLowerCase(nameBuffer, nameOffset, nameLength) ^ HtmlNameData.NAME_HASH_MODIFIER) % HtmlNameData.NAME_HASH_SIZE);
-
-                int nameIndex = (int)HtmlNameData.nameHashTable[nameHashValue];
-
-                if (nameIndex > 0)
-                {
-                    do
-                    {
-                        
-
-                        string name = HtmlNameData.names[nameIndex].name;
-
-                        if (name.Length == nameLength &&
-                            name[0] == ParseSupport.ToLowerCase(nameBuffer[nameOffset]))
-                        {
-                            int i = 0;
-
-                            while (++i < name.Length)
-                            {
-                                InternalDebug.Assert(!ParseSupport.IsUpperCase(name[i]));
-
-                                if (ParseSupport.ToLowerCase(nameBuffer[nameOffset + i]) != name[i])
-                                {
-                                    break;
-                                }
-                            }
-
-                            if (i == name.Length)
-                            {
-                                return (HtmlNameIndex)nameIndex;
-                            }
-                        }
-
-                        nameIndex ++;
-
-                        
-                        
-                    }
-                    while (HtmlNameData.names[nameIndex].hash == nameHashValue);
-                }
-            }
-
-            return HtmlNameIndex.Unknown;
-        }
-#endif
-
         public bool PrepareToAddMoreRuns(int numRuns, int start, HtmlRunKind skippedRunKind)
         {
             return base.PrepareToAddMoreRuns(numRuns, start, (uint)skippedRunKind);
         }
-
-        // Orphaned WPL code.
-#if false
-        public void AddInvalidRun(int end, HtmlRunKind kind)
-        {
-            base.AddInvalidRun(end, (uint)kind);
-        }
-#endif
 
         public void AddNullRun(HtmlRunKind kind)
         {

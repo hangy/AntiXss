@@ -272,25 +272,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return this.endOfFile;
         }
 
-        // Orphaned WPL code.
-#if false
-        public void Initialize(string fragment, bool preformatedText)
-        {
-            InternalDebug.Assert(this.convertFragment);
-
-            if (this.parser is HtmlNormalizingParser)
-            {
-                ((HtmlNormalizingParser)this.parser).Initialize(fragment, preformatedText);
-            }
-            else
-            {
-                ((HtmlParser)this.parser).Initialize(fragment, preformatedText);
-            }
-
-            ((IRestartable)this).Restart();
-        }
-#endif
-
         bool IRestartable.CanRestart()
         {
             if (this.writer is IRestartable restartable)
@@ -1979,34 +1960,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private static Dictionary<string, string> safeUrlDictionary;
 
-        // Orphaned WPL code.
-#if false
-        internal static void RefreshConfiguration()
-        {
-            textConvertersConfigured = false;
-        }
-
-        internal static bool TestSafeUrlSchema(string schema)
-        {
-            if (schema.Length < 2 || schema.Length > 20)
-            {
-                return false;
-            }
-
-            if (!textConvertersConfigured)
-            {
-                ConfigureTextConverters();
-            }
-
-            if (safeUrlDictionary.ContainsKey(schema))
-            {
-                return true;
-            }
-
-            return false;
-        }
-#endif
-
         private static void ConfigureTextConverters()
         {
             lock (lockObject)
@@ -2199,26 +2152,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             return CheckUrlResult.Inconclusive;
         }
-
-        // Orphaned WPL code.
-#if false
-        internal static bool IsUrlSafe(string url, bool callbackRequested)
-        {
-            
-            char[] urlBuffer = url.ToCharArray();
-
-            switch (CheckUrl(urlBuffer, urlBuffer.Length, callbackRequested))
-            {
-                case CheckUrlResult.Safe:
-                case CheckUrlResult.Inconclusive:
-                case CheckUrlResult.LocalHyperlink:
-
-                    return true;
-            }
-
-            return false;
-        }
-#endif
 
         private int AllocateVirtualEntry(int index, int offset, int length)
         {
@@ -2524,53 +2457,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             return attribute.Value.GetString(int.MaxValue);
         }
-
-        // Orphaned WPL code.
-#if false
-        internal int ReadAttributeValue(int index, char[] buffer, int offset, int count)
-        {
-            AttributeIndirectKind kind = this.GetAttributeIndirectKind(index);
-
-            if (kind != AttributeIndirectKind.PassThrough)
-            {
-                if (kind == AttributeIndirectKind.FilteredStyle)
-                {
-                    
-                    this.VirtualizeFilteredStyle(index);
-                    kind = AttributeIndirectKind.VirtualFilteredStyle;
-                }
-
-                if (kind == AttributeIndirectKind.Virtual || kind == AttributeIndirectKind.VirtualFilteredStyle)
-                {
-                    
-                    int vi = this.GetAttributeVirtualEntryIndex(index);
-
-                    InternalDebug.Assert(this.attributeVirtualList[vi].position < this.attributeVirtualList[vi].length);
-
-                    int countRead = Math.Min(this.attributeVirtualList[vi].length - this.attributeVirtualList[vi].position, count);
-                    if (countRead != 0)
-                    {
-                        Buffer.BlockCopy(this.attributeVirtualScratch.Buffer, 2 * (this.attributeVirtualList[vi].offset + this.attributeVirtualList[vi].position), buffer, offset, 2 * countRead);
-                        this.attributeVirtualList[vi].position += countRead;
-                    }
-
-                    return countRead;
-                }
-
-                InternalDebug.Assert(kind == AttributeIndirectKind.EmptyValue || kind == AttributeIndirectKind.NameOnlyFragment);
-                return 0;
-            }
-
-            HtmlAttribute attribute = this.GetAttribute(index);
-
-            if (!attribute.HasValueFragment)
-            {
-                return 0;
-            }
-
-            return attribute.Value.Read(buffer, offset, count);
-        }
-#endif
 
         internal void WriteTag(bool copyTagAttributes)
         {
@@ -3045,14 +2931,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         {
             return this.converter.GetAttributeValue(attributeIndex);
         }
-
-        // Orphaned WPL code.
-#if false
-        internal override int ReadAttributeValueImpl(int attributeIndex, char[] buffer, int offset, int count)
-        {
-            return this.converter.ReadAttributeValue(attributeIndex, buffer, offset, count);
-        }
-#endif
 
         internal override void WriteTagImpl(bool copyTagAttributes)
         {

@@ -181,11 +181,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
         public new HtmlTokenId TokenId
         {
             get { return (HtmlTokenId)base.TokenId; }
-
-            // Orphaned WPL code.
-#if false
-            set { base.TokenId = (TokenId)value; }
-#endif
         }
 
         public TagFlags Flags
@@ -214,14 +209,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
             get { return this.partMinor; }
         }
 
-        // Orphaned WPL code.
-#if false
-        public bool IsTagComplete
-        {
-            get { return this.partMajor == TagPartMajor.Complete; }
-        }
-#endif
-
         public bool IsTagBegin
         {
             get { return (this.partMajor & TagPartMajor.Begin) == TagPartMajor.Begin; }
@@ -231,14 +218,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
         {
             get { return (this.partMajor & TagPartMajor.End) == TagPartMajor.End; }
         }
-
-        // Orphaned WPL code.
-#if false
-        public bool IsTagNameEmpty
-        {
-            get { return 0 != (this.flags & TagFlags.EmptyTagName); }
-        }
-#endif
 
         public bool IsTagNameBegin
         {
@@ -354,14 +333,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
                     return new HtmlAttribute(this.token);
                 }
             }
-
-            // Orphaned WPL code.
-#if false
-            public int CurrentIndex
-            {
-                get { return this.token.currentAttribute; }
-            }
-#endif
 
             public HtmlAttribute this[int i]
             {
@@ -490,14 +461,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
                 this.token.WriteTo(this.token.unstructured, sink);
             }
 
-            // Orphaned WPL code.
-#if false
-            public string GetString(int maxSize)
-            {
-                return this.token.GetString(this.token.unstructured, maxSize);
-            }
-#endif            
-
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
             {
@@ -523,25 +486,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
                 this.position = this.token.namePosition;
 #endif
             }
-
-            // Orphaned WPL code.
-#if false
-            public int Length
-            {
-                get { return this.token.GetLength(this.token.name); }
-            }
-
-            public int Read(char[] buffer, int offset, int count)
-            {
-                this.AssertCurrent();
-
-                int countRead = this.token.Read(this.token.name, ref this.token.namePosition, buffer, offset, count);
-#if DEBUG
-                this.position = this.token.namePosition;
-#endif
-                return countRead;
-            }
-#endif
 
             public void Rewind()
             {
@@ -590,30 +534,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 #endif
             }
 
-            // Orphaned WPL code.
-#if false
-            public int Length
-            {
-                get { return this.token.GetLength(this.token.attributeList[this.token.currentAttribute].name); }
-            }
-
-            public int Read(char[] buffer, int offset, int count)
-            {
-                this.AssertCurrent();
-
-                int countRead = this.token.Read(this.token.attributeList[this.token.currentAttribute].name, ref this.token.attrNamePosition, buffer, offset, count);
-#if DEBUG
-                this.position = this.token.attrNamePosition;
-#endif
-                return countRead;
-            }
-
-            public void Rewind()
-            {
-                this.token.attrNamePosition.Rewind(this.token.attributeList[this.token.currentAttribute].name);
-            }
-#endif
-
             public void WriteTo(ITextSink sink)
             {
                 this.token.WriteTo(this.token.attributeList[this.token.currentAttribute].name, sink);
@@ -655,14 +575,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
                 this.position = this.token.attrValuePosition;
 #endif
             }
-
-            // Orphaned WPL code.
-#if false
-            public int Length
-            {
-                get { return this.token.GetLength(this.token.attributeList[this.token.currentAttribute].value); }
-            }
-#endif
 
             public bool IsEmpty
             {
@@ -717,27 +629,10 @@ namespace Microsoft.Security.Application.TextConverters.HTML
                 return this.token.CaseInsensitiveCompareEqual(this.token.attributeList[this.token.currentAttribute].value, str);
             }
 
-            // Orphaned WPL code.
-#if false
-            public bool CaseInsensitiveContainsSubstring(string str)
-            {
-                return this.token.CaseInsensitiveContainsSubstring(this.token.attributeList[this.token.currentAttribute].value, str);
-            }
-#endif
-
             public bool SkipLeadingWhitespace()
             {
                 return this.token.SkipLeadingWhitespace(this.token.attributeList[this.token.currentAttribute].value, ref this.token.attrValuePosition);
-            }
-
-            // Orphaned WPL code.
-#if false
-            public void MakeEmpty()
-            {
-                this.token.attributeList[this.token.currentAttribute].value.Reset();
-                this.Rewind();
-            }
-#endif            
+            }     
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -774,26 +669,10 @@ namespace Microsoft.Security.Application.TextConverters.HTML
                 get { return (this.partMajor & AttrPartMajor.End) == AttrPartMajor.End; }
             }
 
-            // Orphaned WPL code.
-#if false
-            public bool IsAttrEmptyName
-            {
-                get { return (this.partMajor & AttrPartMajor.EmptyName) == AttrPartMajor.EmptyName; }
-            }
-#endif
-
             public bool IsAttrNameEnd
             {
                 get { return (this.partMinor & AttrPartMinor.EndName) == AttrPartMinor.EndName; }
             }
-
-            // Orphaned WPL code.
-#if false
-            public bool IsAttrValueBegin
-            {
-                get { return (this.partMinor & AttrPartMinor.BeginValue) == AttrPartMinor.BeginValue; }
-            }
-#endif
 
             public AttrPartMajor MajorPart
             {
@@ -835,14 +714,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 #endif
         }
 
-        // Orphaned WPL code.
-#if false
-        public bool IsNull
-        {
-            get { return this.token == null; }
-        }
-#endif
-
         public int Index
         {
             get { this.AssertCurrent(); return this.token.currentAttribute; }
@@ -868,14 +739,6 @@ namespace Microsoft.Security.Application.TextConverters.HTML
             get { this.AssertCurrent(); return this.token.attributeList[this.token.currentAttribute].IsAttrBegin; }
         }
 
-        // Orphaned WPL code.
-#if false
-        public bool IsAttrEmptyName
-        {
-            get { this.AssertCurrent(); return this.token.attributeList[this.token.currentAttribute].IsAttrEmptyName; }
-        }
-#endif
-
         public bool IsAttrEnd
         {
             get { this.AssertCurrent(); return this.token.attributeList[this.token.currentAttribute].IsAttrEnd; }
@@ -891,31 +754,10 @@ namespace Microsoft.Security.Application.TextConverters.HTML
             get { this.AssertCurrent(); return this.token.attributeList[this.token.currentAttribute].IsAttrDeleted; }
         }
 
-        // Orphaned WPL code.
-#if false
-        public bool IsAttrValueBegin
-        {
-            get { this.AssertCurrent(); return this.token.attributeList[this.token.currentAttribute].IsAttrValueBegin; }
-        }
-
-        public bool IsAttrValueQuoted
-        {
-            get { this.AssertCurrent(); return this.token.attributeList[this.token.currentAttribute].IsAttrValueQuoted; }
-        }
-#endif
-
         public HtmlNameIndex NameIndex
         {
             get { this.AssertCurrent(); return this.token.attributeList[this.token.currentAttribute].nameIndex; }
         }
-
-        // Orphaned WPL code.
-#if false
-        public char QuoteChar
-        {
-            get { this.AssertCurrent(); return (char) this.token.attributeList[this.token.currentAttribute].quoteChar; }
-        }
-#endif
 
         public bool HasNameFragment
         {

@@ -676,32 +676,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             new NameDef(329, null, CssNameIndex.Unknown),
         };
 
-        // Orphaned WPL code.
-#if false
-        public static CssNameIndex[] nameIndex = InitializeNameIndex();
-
-        private static CssNameIndex[] InitializeNameIndex()
-        {
-            InternalDebug.Assert(CssData.names.Length != 0);
-
-            CssNameIndex[] index = new CssNameIndex[(int)CssNameIndex.Max];
-
-            for (int i = 0; i < CssData.names.Length; i++)
-            {
-                InternalDebug.Assert((int)CssData.names[i].publicNameId < index.Length);
-                if (CssData.names[i].publicNameId != CssNameIndex.Unknown)
-                {
-                    index[(int)CssData.names[i].publicNameId] = (CssNameIndex)i;
-                }
-            }
-
-            index[(int)CssNameIndex.Unknown] = CssNameIndex.Unknown;
-
-            
-            return index;
-        }
-#endif
-
         public static FilterActionEntry[] filterInstructions =
         {
             new FilterActionEntry(FilterAction.Drop),

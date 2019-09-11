@@ -43,37 +43,6 @@ namespace Microsoft.Exchange.Data.Internal
         /// </summary>
         private volatile Dictionary<string, IList<CtsConfigurationSetting>> configurationSubSections;
 
-        // Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Creates the temporary storage stream.
-        /// </summary>
-        /// <param name="acquireBuffer">The acquire buffer.</param>
-        /// <param name="releaseBuffer">The release buffer.</param>
-        /// <returns>A temporary storage stream.</returns>
-        public static Stream CreateTemporaryStorage(Func<int, byte[]> acquireBuffer, Action<byte[]> releaseBuffer)
-        {
-            TemporaryDataStorage storage = new TemporaryDataStorage(acquireBuffer, releaseBuffer);
-
-            Stream stream = storage.OpenWriteStream(false);
-
-            storage.Release();
-
-            return stream;
-        }
-
-        /// <summary>
-        /// Creates the temporary storage stream.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="Stream"/> for temporary storage.
-        /// </returns>
-        public Stream CreateTemporaryStorage()
-        {
-            return CreateTemporaryStorage(null, null);
-        }
-#endif
-
         /// <summary>
         /// Gets the configuration subsection specified.
         /// </summary>

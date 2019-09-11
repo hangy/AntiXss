@@ -78,38 +78,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// </summary>
         private bool inconsistentState;
 
-        // Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConverterReader"/> class.
-        /// </summary>
-        /// <param name="sourceStream">The source stream.</param>
-        /// <param name="converter">The converter to use.</param>
-        public ConverterReader(Stream sourceStream, TextConverter converter)
-        {
-            if (sourceStream == null)
-            {
-                throw new ArgumentNullException("sourceStream");
-            }
-
-            if (converter == null)
-            {
-                throw new ArgumentNullException("converter");
-            }
-
-            if (!sourceStream.CanRead)
-            {
-                throw new ArgumentException(Strings.CannotReadFromSource, "sourceStream");
-            }
-
-            this.producer = converter.CreatePullChain(sourceStream, this);
-            
-            this.source = sourceStream;
-
-            this.maxLoopsWithoutProgress = 100000 + converter.InputStreamBufferSize + converter.OutputStreamBufferSize;
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConverterReader"/> class.
         /// </summary>
@@ -416,32 +384,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             this.endOfFile = true;
         }
-
-        // Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Reuses the specified new source.
-        /// </summary>
-        /// <param name="newSource">The new source.</param>
-        internal void Reuse(object newSource)
-        {
-            if (!(this.producer is IReusable))
-            {
-                throw new NotSupportedException("this converter is not reusable");
-            }
-
-            ((IReusable)this.producer).Initialize(newSource);
-
-            this.source = newSource;
-
-            this.writeBuffer = null;
-            this.writeIndex = 0;
-            this.writeCount = 0;
-
-            this.endOfFile = false;
-            this.inconsistentState = false;
-        }
-#endif
 
         /// <summary>
         /// Releases the unmanaged resources used by the <see cref="System.IO.TextReader"/> and optionally releases the managed resources.

@@ -58,171 +58,6 @@ namespace Microsoft.Exchange.Data.Globalization
             }
         }
 
-                    // Orphaned WPL code.
-#if false
-
-        /// <summary>
-        /// Refreshes the globalization data with the specified default culture name.
-        /// </summary>
-        /// <param name="defaultCultureName">
-        /// The default culture name.
-        /// </param>
-        internal static void RefreshConfiguration(string defaultCultureName)
-        {
-            internalGlobalizationDataStore = LoadGlobalizationData(defaultCultureName);
-        }
-
-        /// <summary>
-        /// Gets the code page detection list, ordered by priority for the specified Culture.
-        /// </summary>
-        /// <param name="charset">
-        /// The character set  to get the ordered detection list for.
-        /// </param>
-        /// <param name="originalPriorityList">
-        /// The original priority list.
-        /// </param>
-        /// <returns>
-        /// An ordered list of the code page ids.
-        /// </returns>
-        internal static int[] GetAdjustedCodepageDetectionPriorityOrder(Charset charset, int[] originalPriorityList)
-        {
-            if (!charset.IsDetectable &&
-                originalPriorityList != null)
-            {
-                return originalPriorityList;
-            }
-
-            var newPriorityList = new int[CodePageDetectData.CodePages.Length];
-            int newPriorityListIndex = 0;
-
-            newPriorityList[newPriorityListIndex++] = 20127;
-
-            if (charset.IsDetectable && !IsDbcs(charset.CodePage) &&
-                !InList(charset.CodePage, newPriorityList, newPriorityListIndex))
-            {
-                newPriorityList[newPriorityListIndex++] = charset.CodePage;
-            }
-
-            if (originalPriorityList != null)
-            {
-                for (int i = 0; i < originalPriorityList.Length; i++)
-                {
-                    if (!IsDbcs(originalPriorityList[i]) &&
-                        !InList(originalPriorityList[i], newPriorityList, newPriorityListIndex) &&
-                        IsSameLanguage(originalPriorityList[i], charset.Culture.WindowsCharset.CodePage))
-                    {
-                        newPriorityList[newPriorityListIndex++] = originalPriorityList[i];
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < CodePageDetectData.CodePages.Length; i++)
-                {
-                    if (!IsDbcs(CodePageDetectData.CodePages[i].Id) &&
-                        !InList(CodePageDetectData.CodePages[i].Id, newPriorityList, newPriorityListIndex) &&
-                        IsSameLanguage(CodePageDetectData.CodePages[i].Id, charset.Culture.WindowsCharset.CodePage))
-                    {
-                        newPriorityList[newPriorityListIndex++] = CodePageDetectData.CodePages[i].Id;
-                    }
-                }
-            }
-
-            if (originalPriorityList != null)
-            {
-                for (int i = 0; i < originalPriorityList.Length; i++)
-                {
-                    if (!IsDbcs(originalPriorityList[i]) &&
-                        !InList(originalPriorityList[i], newPriorityList, newPriorityListIndex))
-                    {
-                        newPriorityList[newPriorityListIndex++] = originalPriorityList[i];
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < CodePageDetectData.CodePages.Length; i++)
-                {
-                    if (!IsDbcs(CodePageDetectData.CodePages[i].Id) &&
-                        !InList(CodePageDetectData.CodePages[i].Id, newPriorityList, newPriorityListIndex))
-                    {
-                        newPriorityList[newPriorityListIndex++] = CodePageDetectData.CodePages[i].Id;
-                    }
-                }
-            }
-
-            if (charset.IsDetectable && IsDbcs(charset.CodePage) &&
-                !InList(charset.CodePage, newPriorityList, newPriorityListIndex))
-            {
-                newPriorityList[newPriorityListIndex++] = charset.CodePage;
-            }
-
-            if (originalPriorityList != null)
-            {
-                for (int i = 0; i < originalPriorityList.Length; i++)
-                {
-                    if (IsDbcs(originalPriorityList[i]) &&
-                        !InList(originalPriorityList[i], newPriorityList, newPriorityListIndex) &&
-                        IsSameLanguage(originalPriorityList[i], charset.Culture.WindowsCharset.CodePage))
-                    {
-                        newPriorityList[newPriorityListIndex++] = originalPriorityList[i];
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < CodePageDetectData.CodePages.Length; i++)
-                {
-                    if (IsDbcs(CodePageDetectData.CodePages[i].Id) &&
-                        !InList(CodePageDetectData.CodePages[i].Id, newPriorityList, newPriorityListIndex) &&
-                        IsSameLanguage(CodePageDetectData.CodePages[i].Id, charset.Culture.WindowsCharset.CodePage))
-                    {
-                        newPriorityList[newPriorityListIndex++] = CodePageDetectData.CodePages[i].Id;
-                    }
-                }
-            }
-
-            if (originalPriorityList != null)
-            {
-                for (int i = 0; i < originalPriorityList.Length; i++)
-                {
-                    if (!InList(originalPriorityList[i], newPriorityList, newPriorityListIndex))
-                    {
-                        newPriorityList[newPriorityListIndex++] = originalPriorityList[i];
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < CodePageDetectData.CodePages.Length; i++)
-                {
-                    if (!InList(CodePageDetectData.CodePages[i].Id, newPriorityList, newPriorityListIndex))
-                    {
-                        newPriorityList[newPriorityListIndex++] = CodePageDetectData.CodePages[i].Id;
-                    }
-                }
-            }
-
-            InternalDebug.Assert(newPriorityListIndex == CodePageDetectData.CodePages.Length);
-
-            if (originalPriorityList != null)
-            {
-                for (int i = 0; i < originalPriorityList.Length; i++)
-                {
-                    if (newPriorityList[i] !=
-                        originalPriorityList[i])
-                    {
-                        return newPriorityList;
-                    }
-                }
-
-                return originalPriorityList;
-            }
-
-            return newPriorityList;
-        }
-#endif
-
         /// <summary>
         /// Gets the code page detection list, ordered by priority for the specified Culture.
         /// </summary>
@@ -1071,11 +906,6 @@ namespace Microsoft.Exchange.Data.Globalization
             }
 
             InternalDebug.Assert(invariantCulture != null);
-
-            // Orphaned WPL code.
-#if false
-            newData.InvariantCulture = invariantCulture;
-#endif
 
             foreach (CultureInfo ci in cultures)
             {
@@ -2514,14 +2344,6 @@ namespace Microsoft.Exchange.Data.Globalization
             /// </summary>
             private Dictionary<int, Charset> codePageToCharset = new Dictionary<int, Charset>(IntComparerInstance);
 
-            // Orphaned WPL code.
-#if false
-            /// <summary>
-            /// The invariant culture.
-            /// </summary>
-            private Culture invariantCulture;
-#endif
-
             /// <summary>
             /// Gets or sets the default culture.
             /// </summary>
@@ -2576,28 +2398,6 @@ namespace Microsoft.Exchange.Data.Globalization
                     this.codePageToCharset = value;
                 }
             }
-
-            // Orphaned WPL code.
-#if false
-            /// <summary>
-            /// Gets or sets the invariant culture.
-            /// </summary>
-            public Culture InvariantCulture
-            {
-                // Orphaned WPL code.
-#if false
-                get
-                {
-                    return this.invariantCulture;
-                }
-#endif
-
-                set
-                {
-                    this.invariantCulture = value;
-                }
-            }
-#endif
 
             /// <summary>
             /// Gets or sets the name to character set map.

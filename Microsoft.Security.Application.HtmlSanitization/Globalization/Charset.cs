@@ -100,20 +100,6 @@ namespace Microsoft.Exchange.Data.Globalization
             }
         }
 
-        // Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Gets a value indicating whether the character set is available.
-        /// </summary>
-        public bool IsAvailable
-        {
-            get
-            {
-                return !this.available ? false : this.encoding != null ? true : this.CheckAvailable();
-            }
-        }
-#endif
-
         /// <summary>
         /// Gets or sets a value indicating whether the character set is a Windows character set.
         /// </summary>
@@ -138,63 +124,11 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </summary>
         internal int MapIndex
         {
-            // Orphaned WPL code.
-#if false
-            get
-            {
-                return this.mapIndex;
-            }
-#endif
-
             set
             {
                 this.mapIndex = (short)value;
             }
         }
-
-        // Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Gets the Unicode coverage for this character set.
-        /// </summary>
-        internal CodePageUnicodeCoverage UnicodeCoverage
-        {
-            get
-            {
-                return this.mapIndex < 0
-                           ? CodePageUnicodeCoverage.Unknown
-                           : CodePageMapData.CodePages[this.mapIndex].UnicodeCoverage;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the character set is 7bit..
-        /// </summary>
-        internal bool IsSevenBit
-        {
-            get
-            {
-                return this.mapIndex >= 0 &&
-                       0 != (CodePageMapData.CodePages[this.mapIndex].Flags & CodePageFlags.SevenBit);
-            }
-        }
-
-
-        /// <summary>
-        /// Gets an coverage equivilant detectable codepage.
-        /// </summary>
-        internal int DetectableCodePageWithEquivalentCoverage
-        {
-            get
-            {
-                return this.mapIndex < 0
-                           ? 0
-                           : 0 != (CodePageMapData.CodePages[this.mapIndex].Flags & CodePageFlags.Detectable)
-                                 ? this.CodePage
-                                 : CodePageMapData.CodePages[this.mapIndex].DetectId;
-            }
-        }
-#endif
 
         /// <summary>
         /// Looks up the passed-in character set name and sets the corresponding character set.
@@ -418,161 +352,5 @@ namespace Microsoft.Exchange.Data.Globalization
 
             return discoveredEncoding;
         }
-
-        // Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Checks if encoding is available for this character set.
-        /// </summary>
-        /// <returns>
-        /// True if encoding is available otherwise false.
-        /// </returns>
-        internal bool CheckAvailable()
-        {
-            Encoding availableEncoding;
-            return this.TryGetEncoding(out availableEncoding);
-        }
-
-        /// <summary>
-        /// Gets the default MIME character set for this character set.
-        /// </summary>
-        public static Charset DefaultMimeCharset
-        {
-            get
-            {
-                return Culture.Default.MimeCharset;
-            }
-        }
-
-        /// <summary>
-        /// Gets the default web characterset for this character set.
-        /// </summary>
-        public static Charset DefaultWebCharset
-        {
-            get
-            {
-                return Culture.Default.WebCharset;
-            }
-        }
-
-        /// <summary>
-        /// Gets the default windows character set for this character set.
-        /// </summary>
-        public static Charset DefaultWindowsCharset
-        {
-            get
-            {
-                return Culture.Default.WindowsCharset;
-            }
-        }
-
-        /// <summary>
-        /// Gets the ASCII character set for this character set.
-        /// </summary>
-        public static Charset Ascii
-        {
-            get
-            {
-                return CultureCharsetDatabase.InternalGlobalizationData.AsciiCharset;
-            }
-        }
-
-        /// <summary>
-        /// Gets the UTF8 character set for this character set.
-        /// </summary>
-        public static Charset Utf8
-        {
-            get
-            {
-                return CultureCharsetDatabase.InternalGlobalizationData.Utf8Charset;
-            }
-        }
-
-        /// <summary>
-        /// Gets the Unicode character set for this character set.
-        /// </summary>
-        public static Charset Unicode
-        {
-            get
-            {
-                return CultureCharsetDatabase.InternalGlobalizationData.UnicodeCharset;
-            }
-        }
-
-        /// <summary>
-        /// Gets the maximum length of the character set name.
-        /// </summary>
-        internal static int MaxCharsetNameLength
-        {
-            get
-            {
-                return CultureCharsetDatabase.InternalGlobalizationData.MaxCharsetNameLength;
-            }
-        }
-
-        /// <summary>
-        /// Gets the kind of the character set.
-        /// </summary>
-        internal CodePageKind Kind
-        {
-            get
-            {
-                return this.mapIndex < 0 ? CodePageKind.Unknown : CodePageMapData.CodePages[this.mapIndex].Kind;
-            }
-        }
-
-        /// <summary>
-        /// Gets the ASCII support for this character set.
-        /// </summary>
-        internal CodePageAsciiSupport AsciiSupport
-        {
-            get
-            {
-                return this.mapIndex < 0
-                           ? CodePageAsciiSupport.Unknown
-                           : CodePageMapData.CodePages[this.mapIndex].AsciiSupport;
-            }
-        }
-
-        /// <summary>
-        /// Gets the character set for a given name.
-        /// </summary>
-        /// <param name="name">
-        /// The name of the character set to find.
-        /// </param>
-        /// <returns>
-        /// The character set for the provided name.
-        /// </returns>
-        /// <exception cref="InvalidCharsetException">
-        /// Thrown if the character set cannot be found.
-        /// </exception>
-        public static Charset GetCharset(string name)
-        {
-            Charset cs;
-
-            if (!TryGetCharset(name, out cs))
-            {
-                throw new InvalidCharsetException(name);
-            }
-
-            return cs;
-        }
-
-        /// <summary>
-        /// Gets the encoding for the named character set.
-        /// </summary>
-        /// <param name="name">
-        /// The name of the character set.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Encoding"/> for the specified code page.
-        /// </returns>
-        public static Encoding GetEncoding(string name)
-        {
-            Charset charset = GetCharset(name);
-            return charset.GetEncoding();
-        }
-
-#endif
     }
 }

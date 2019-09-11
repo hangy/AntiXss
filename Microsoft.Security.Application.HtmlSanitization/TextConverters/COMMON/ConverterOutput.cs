@@ -21,7 +21,7 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System;
     using System.IO;
     using System.Text;
-    
+
     internal interface IFallback
     {
         byte[] GetUnsafeAsciiMap(out byte unsafeAsciiMask);
@@ -32,17 +32,17 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         bool FallBackChar(char ch, char[] outputBuffer, ref int outputBufferCount, int lineBufferEnd);
     }
-    
+
     internal abstract class ConverterOutput : ITextSink, IDisposable
     {
         protected char[] stringBuffer;
 
-        protected const int stringBufferMax = 128; 
+        protected const int stringBufferMax = 128;
         protected const int stringBufferReserve = 20;
         protected const int stringBufferThreshold = stringBufferMax - stringBufferReserve;
 
         private IFallback fallback;
-        
+
         public ConverterOutput()
         {
             this.stringBuffer = new char[stringBufferMax];
@@ -54,29 +54,21 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         public abstract void Flush();
 
-        // Orphaned WPL code.
-#if false
-        public void Write(char[] buffer, int offset, int count)
-        {
-            this.Write(buffer, offset, count, null);
-        }
-#endif
-        
         public virtual void Write(string text)
         {
             this.Write(text, 0, text.Length, null);
         }
-        
+
         public void Write(string text, IFallback fallback)
         {
             this.Write(text, 0, text.Length, fallback);
         }
-        
+
         public void Write(string text, int offset, int count)
         {
             this.Write(text, offset, count, null);
         }
-        
+
         public void Write(string text, int offset, int count, IFallback fallback)
         {
             if (this.stringBuffer.Length < count)
@@ -93,21 +85,13 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             this.Write(ch, null);
         }
-        
+
         public void Write(char ch, IFallback fallback)
         {
             this.stringBuffer[0] = ch;
             this.Write(this.stringBuffer, 0, 1, fallback);
         }
 
-        // Orphaned WPL code.
-#if false
-        public void Write(int ucs32Literal)
-        {
-            this.Write(ucs32Literal, null);
-        }
-#endif
-        
         public void Write(int ucs32Literal, IFallback fallback)
         {
             if (ucs32Literal > 0xFFFF)
@@ -122,16 +106,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.Write(this.stringBuffer, 0, ucs32Literal > 0xFFFF ? 2 : 1, fallback);
         }
-        
-        // Orphaned WPL code.
-#if false
-        public ITextSink PrepareSink(IFallback fallback)
-        {
-            this.fallback = fallback;
-            return this as ITextSink;
-        }
-#endif
-        
+
         bool ITextSink.IsEnough { get { return false; } }
 
         void ITextSink.Write(char[] buffer, int offset, int count)

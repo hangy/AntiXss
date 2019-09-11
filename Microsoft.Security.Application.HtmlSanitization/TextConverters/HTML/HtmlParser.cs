@@ -77,10 +77,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         private bool rightMeta;
         private Encoding newEncoding;
 
-        // Orphaned WPL code.
-#if false
-        private SavedParserState savedState;
-#endif        
         public HtmlParser(
                 ConverterInput input,
                 bool detectEncodingFromMetaTag,
@@ -166,106 +162,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.tokenBuilder.Reset();
             this.tokenBuilder.MakeEmptyToken(HtmlTokenId.Restart);
         }
-
-        // Orphaned WPL code.
-#if false
-        public bool ParsingFragment
-        {
-            get { return this.savedState != null && this.savedState.StateSaved; }
-        }
-
-
-        public void PushFragment(ConverterInput fragmentInput, bool literalTextInput)
-        {
-            if (this.savedState == null)
-            {
-                this.savedState = new SavedParserState();
-            }
-
-            this.savedState.PushState(this, fragmentInput, literalTextInput);
-        }
-
-        public void PopFragment()
-        {
-            this.savedState.PopState(this);
-        }
-
-        private class SavedParserState
-        {
-            private ConverterInput input;
-            private bool endOfFile;
-            private ParseState parseState;
-            private bool slowParse;
-            private bool literalTags;
-            private HtmlNameIndex literalTagNameId;
-            private bool literalEntities;
-            private bool plaintext;
-            private char[] parseBuffer;
-            private int parseStart;
-            private int parseCurrent;
-            private int parseEnd;
-            private int parseThreshold;
-
-            public bool StateSaved { get { return this.input != null; } }
-
-            public void PushState(HtmlParser parser, ConverterInput newInput, bool literalTextInput)
-            {
-                InternalDebug.Assert(!this.StateSaved);
-                InternalDebug.Assert(parser.parseState == ParseState.Text || parser.parseState == ParseState.TagStart);
-
-                this.input = parser.input;
-                this.endOfFile = parser.endOfFile;
-                this.parseState = parser.parseState;
-                this.slowParse = parser.slowParse;
-                this.literalTags = parser.literalTags;
-                this.literalTagNameId = parser.literalTagNameId;
-                this.literalEntities = parser.literalEntities;
-                this.plaintext = parser.plaintext;
-                this.parseBuffer = parser.parseBuffer;
-                this.parseStart = parser.parseStart;
-                this.parseCurrent = parser.parseCurrent;
-                this.parseEnd = parser.parseEnd;
-                this.parseThreshold = parser.parseThreshold;
-
-                parser.input = newInput;
-                parser.endOfFile = false;
-                parser.parseState = ParseState.Text;
-                parser.slowParse = true;
-                parser.literalTags = literalTextInput;
-                parser.literalTagNameId = HtmlNameIndex.PlainText;
-                parser.literalEntities = literalTextInput;
-                parser.plaintext = literalTextInput;
-                parser.parseBuffer = null;
-                parser.parseStart = 0;
-                parser.parseCurrent = 0;
-                parser.parseEnd = 0;
-                parser.parseThreshold = 1;
-            }
-
-            public void PopState(HtmlParser parser)
-            {
-                InternalDebug.Assert(this.StateSaved);
-                InternalDebug.Assert(parser.endOfFile);
-
-                parser.input = this.input;
-                parser.endOfFile = this.endOfFile;
-                parser.parseState = this.parseState;
-                parser.slowParse = this.slowParse;
-                parser.literalTags = this.literalTags;
-                parser.literalTagNameId = this.literalTagNameId;
-                parser.literalEntities = this.literalEntities;
-                parser.plaintext = this.plaintext;
-                parser.parseBuffer = this.parseBuffer;
-                parser.parseStart = this.parseStart;
-                parser.parseCurrent = this.parseCurrent;
-                parser.parseEnd = this.parseEnd;
-                parser.parseThreshold = this.parseThreshold;
-
-                this.input = null;
-                this.parseBuffer = null;
-            }
-        }
-#endif
 
         bool IRestartable.CanRestart()
         {

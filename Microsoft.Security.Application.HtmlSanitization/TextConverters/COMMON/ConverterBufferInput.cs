@@ -30,14 +30,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         private string originalFragment;
         private char[] parseBuffer;
 
-        // Orphaned WPL code.
-#if false
-        public ConverterBufferInput(IProgressMonitor progressMonitor) :
-            this(DefaultMaxLength, progressMonitor)
-        {
-        }
-#endif
-
         public ConverterBufferInput(int maxLength, IProgressMonitor progressMonitor) :
             base(progressMonitor)
         {

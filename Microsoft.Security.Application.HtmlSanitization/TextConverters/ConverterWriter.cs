@@ -51,57 +51,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
         }
 
-        // Orphaned WPL code.
-#if false
-        public ConverterWriter(Stream destinationStream, TextConverter converter)
-        {
-            if (destinationStream == null)
-            {
-                throw new ArgumentNullException("destinationStream");
-            }
-
-            if (converter == null)
-            {
-                throw new ArgumentNullException("converter");
-            }
-
-            if (!destinationStream.CanWrite)
-            {
-                throw new ArgumentException(Strings.CannotWriteToDestination, "destinationStream");
-            }
-
-            this.consumer = converter.CreatePushChain(this, destinationStream);
-            
-            this.destination = destinationStream;
-
-            this.boundaryTesting = converter.TestBoundaryConditions;
-
-            this.maxLoopsWithoutProgress = 100000 + converter.InputStreamBufferSize + converter.OutputStreamBufferSize;
-        }
-        
-        public ConverterWriter(TextWriter destinationWriter, TextConverter converter)
-        {
-            if (destinationWriter == null)
-            {
-                throw new ArgumentNullException("destinationWriter");
-            }
-
-            if (converter == null)
-            {
-                throw new ArgumentNullException("converter");
-            }
-
-            this.consumer = converter.CreatePushChain(this, destinationWriter);
-
-            
-            this.destination = destinationWriter;
-
-            this.boundaryTesting = converter.TestBoundaryConditions;
-
-            this.maxLoopsWithoutProgress = 100000 + converter.InputStreamBufferSize + converter.OutputStreamBufferSize;
-        }
-#endif
-
         public override Encoding Encoding
         {
             get { return null; }
@@ -148,86 +97,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 textWriter.Flush();
             }
         }
-
-        // Orphaned WPL code.
-#if false
-        public override void Write(char value)
-        {
-            if (this.destination == null)
-            {
-                throw new ObjectDisposedException("ConverterWriter");
-            }
-
-            if (this.inconsistentState)
-            {
-                throw new InvalidOperationException(Strings.ConverterWriterInInconsistentStare);
-            }
-
-            int parseCount = 10000;
-
-            if (!this.boundaryTesting)
-            {
-                char[] inputBuffer;
-                int inputIndex;
-                int inputCount;
-
-                this.sinkInputObject.GetInputBuffer(out inputBuffer, out inputIndex, out inputCount, out parseCount);
-
-                if (inputCount >= 1)
-                {
-                    inputBuffer[inputIndex] = value;
-                    this.sinkInputObject.Commit(1);
-                    return;
-                }
-            }
-
-            char[] buffer = new char[]
-            {
-                value
-            };
-
-            this.WriteBig(buffer, 0, 1, parseCount);
-        }
-
-        
-        public override void Write(char[] buffer)
-        {
-            if (this.destination == null)
-            {
-                throw new ObjectDisposedException("ConverterWriter");
-            }
-
-            if (this.inconsistentState)
-            {
-                throw new InvalidOperationException(Strings.ConverterWriterInInconsistentStare);
-            }
-            
-            if (buffer == null)
-            {
-                return;
-            }
-
-            int parseCount = 10000;
-
-            if (!this.boundaryTesting)
-            {
-                char[] inputBuffer;
-                int inputIndex;
-                int inputCount;
-
-                this.sinkInputObject.GetInputBuffer(out inputBuffer, out inputIndex, out inputCount, out parseCount);
-
-                if (inputCount >= buffer.Length)
-                {
-                    Buffer.BlockCopy(buffer, 0, inputBuffer, inputIndex * 2, buffer.Length * 2);
-                    this.sinkInputObject.Commit(buffer.Length);
-                    return;
-                }
-            }
-
-            this.WriteBig(buffer, 0, buffer.Length, parseCount);
-        }
-#endif
 
         public override void Write(char[] buffer, int index, int count)
         {
@@ -422,27 +291,5 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             this.madeProgress = true;
         }
-
-        // Orphaned WPL code.
-#if false
-        internal void Reuse(object newSink)
-        {
-            if (!(this.consumer is IReusable))
-            {
-                throw new NotSupportedException("this converter is not reusable");
-            }
-
-            ((IReusable)this.consumer).Initialize(newSink);
-
-            this.destination = newSink;
-
-            this.chunkToReadBuffer = null;
-            this.chunkToReadIndex = 0;
-            this.chunkToReadCount = 0;
-
-            this.endOfFile = false;
-            this.inconsistentState = false;
-        }
-#endif
     }
 }

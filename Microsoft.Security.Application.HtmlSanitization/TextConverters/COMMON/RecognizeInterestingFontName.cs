@@ -93,17 +93,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             get { return this.state < 0; }
         }
 
-        // Orphaned WPL code.
-#if false
-        public void AddCharacter(byte ch)
-        {
-            if (this.state >= 0)
-            {
-                this.state = StateTransitionTable[this.state, ch > 0x7F ? 0 : (int)CharMapToClass[ch]];
-            }
-        }
-#endif
-
         public void AddCharacter(char ch)
         {
             if (this.state >= 0)

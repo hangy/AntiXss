@@ -1117,14 +1117,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return tagIndex != HtmlTagIndex._NULL ? HtmlDtd.tags[(int)tagIndex] : null;
         }
 
-        // Orphaned WPL code.
-#if false
-        private void OpenAnchor(string urlString)
-        {
-            this.output.AnchorUrl = urlString;
-        }
-#endif
-
         private void EndAnchor()
         {
             if (!this.urlCompareSink.IsMatch)

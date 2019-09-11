@@ -26,14 +26,6 @@ namespace Microsoft.Exchange.Data.Internal
     /// </summary>
     internal interface IApplicationServices
     {
-        // Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Creates the temporary storage stream.
-        /// </summary>
-        /// <returns>A <see cref="Stream"/> for temporary storage.</returns>
-        Stream CreateTemporaryStorage();
-#endif
         /// <summary>
         /// Gets the configuration subsection specified.
         /// </summary>

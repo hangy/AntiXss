@@ -318,18 +318,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             this.state = BuildStatePropertyValue;
         }
 
-        // Orphaned WPL code.
-#if false
-        public void SetPropertyValueQuote(char ch)
-        {
-            InternalDebug.Assert(this.state == BuildStatePropertyValue);
-            InternalDebug.Assert(ParseSupport.QuoteCharacter(ParseSupport.GetCharClass(ch)));
-
-            this.cssToken.propertyList[this.cssToken.propertyTail].IsPropertyValueQuoted = true;
-            this.cssToken.propertyList[this.cssToken.propertyTail].quoteChar = (byte) ch;
-        }
-#endif
-
         public void EndPropertyValue()
         {
             InternalDebug.Assert(this.state == BuildStatePropertyValue);
@@ -491,14 +479,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         {
             this.cssToken.propertyList[this.cssToken.propertyTail].IsPropertyDeleted = true;
         }
-
-        // Orphaned WPL code.
-#if false
-        public CssTokenId MakeEmptyToken(CssTokenId tokenId)
-        {
-            return (CssTokenId)base.MakeEmptyToken((TokenId)tokenId);
-        }
-#endif
 
         public CssNameIndex LookupName(int nameLength, CssToken.Fragment fragment)
         {

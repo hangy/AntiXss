@@ -121,19 +121,6 @@ namespace Microsoft.Exchange.Data.Internal
             {
             }
 
-// Orphaned WPL code.
-#if false
-            /// <summary>
-            /// Initializes a new instance of the <see cref="DebugAssertionViolationException"/> class.
-            /// </summary>
-            /// <param name="message">The message.</param>
-            /// <param name="innerException">The inner exception.</param>
-            public DebugAssertionViolationException(string message, Exception innerException): 
-                 base (message, innerException)
-            {
-            }
-#endif
-
             /// <summary>
             /// Initializes a new instance of the <see cref="DebugAssertionViolationException"/> class.
             /// </summary>

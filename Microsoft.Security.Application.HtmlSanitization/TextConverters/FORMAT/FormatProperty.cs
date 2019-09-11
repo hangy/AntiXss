@@ -163,27 +163,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         LastLength = Multiple,
     }
 
-    // Orphaned WPL code.
-#if false
-    enum LengthUnits : byte
-    {
-        BaseUnits,                  
-        Twips,                      
-        Points,                     
-        Picas,                      
-        Inches,                     
-        Centimeters,                
-        Millimeters,                
-        HtmlFontUnits,              
-        Pixels,                     
-        Ems,                        
-        Exs,                        
-        RelativeHtmlFontUnits,      
-        Percents,                   
-        Multiple,                   
-    }
-#endif
-
     internal struct RGBT
     {
         private uint        rawValue;
@@ -194,69 +173,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
             this.rawValue = rawValue;
         }
 
-        // Orphaned WPL code.
-#if false
-        public RGBT(uint red, uint green, uint blue)
-        {
-            InternalDebug.Assert(red <= 255 && green <= 255 && blue <= 255);
-            this.rawValue = (red << 16) | (green << 8) | blue;
-        }
-
-        public RGBT(float redPercentage, float greenPercentage, float bluePercentage)
-        {
-            InternalDebug.Assert(redPercentage >= 0.0f && greenPercentage >= 0.0f && bluePercentage >= 0.0f);
-            InternalDebug.Assert(redPercentage <= 100.0f &&
-                            greenPercentage <= 100.0 &&
-                            bluePercentage <= 100.0f);
-            this.rawValue = ((uint)(redPercentage * 255.0f / 100.0f) << 16) |
-                            ((uint)(greenPercentage * 255.0f / 100.0f) << 8) |
-                                (uint)(bluePercentage * 255.0f / 100.0f);
-        }
-        
-        public RGBT(uint red, uint green, uint blue, uint transparency)
-        {
-            InternalDebug.Assert(red <= 255 && green <= 255 && blue <= 255 && transparency <= 7);
-            this.rawValue = (red << 16) | (green << 8) | blue | (transparency << 24);
-        }
-
-        public RGBT(float redPercentage, float greenPercentage, float bluePercentage, float transparencyPercentage)
-        {
-            InternalDebug.Assert(redPercentage >= 0.0f && greenPercentage >= 0.0f && bluePercentage >= 0.0f && transparencyPercentage >= 0.0f);
-            InternalDebug.Assert(redPercentage <= 100.0f &&
-                            greenPercentage <= 100.0 &&
-                            bluePercentage <= 100.0f &&
-                            transparencyPercentage <= 100.0f);
-            this.rawValue = ((uint)(redPercentage * 255.0f / 100.0f) << 16) |
-                            ((uint)(greenPercentage * 255.0f / 100.0f) << 8) |
-                                (uint)(bluePercentage * 255.0f / 100.0f) |
-                                (uint)(transparencyPercentage * 7.0f / 100.0f);
-        }
-        
-        public uint     RawValue { get { return rawValue; } }
-
-        public uint RGB { get { return rawValue & 0xFFFFFF; } }
-        
-#endif
         public bool     IsTransparent { get { return this.Transparency == 7; } }
-
-        // Orphaned WPL code.
-#if false
-        public bool IsOpaque { get { return this.Transparency == 0; } }
-        
-#endif
         public uint     Transparency { get { return (rawValue >> 24) & 0x07; } }
         public uint     Red { get { return (rawValue >> 16) & 0xFF; } }
         public uint     Green { get { return (rawValue >> 8) & 0xFF; } }
         public uint     Blue { get { return rawValue & 0xFF; } }
-
-        // Orphaned WPL code.
-#if false
-        public float RedPercentage { get { return (float)((rawValue >> 16) & 0xFF) * (100.0f / 255.0f); } }
-        public float GreenPercentage { get { return (float)((rawValue >> 8) & 0xFF) * (100.0f / 255.0f); } }
-        public float BluePercentage { get { return (float)(rawValue & 0xFF) * (100.0f / 255.0f); } }
-        public float TransparencyPercentage { get { return (float)((rawValue >> 24) & 0x07) * (100.0f / 7.0f); } }
-        
-#endif
         public override string ToString()
         {
             return this.IsTransparent ? "transparent" :
@@ -283,14 +204,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         internal static readonly int[] sizesInTwips = { 151, 200, 240, 271, 360, 480, 720 };
         internal static readonly int[] maxSizesInTwips = { 160, 220, 260, 320, 420, 620 };
 
-        // Orphaned WPL code.
-#if false
-        public PropertyValue(uint rawValue)
-        {
-            this.rawValue = rawValue;
-        }
-#endif        
-
         public PropertyValue(bool value)
         {
             this.rawValue = ComposeRawValue(value);
@@ -301,126 +214,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         public PropertyValue(PropertyType type, int value)
         {
             this.rawValue = ComposeRawValue(type, value);
-        }
-
-        // Orphaned WPL code.
-#if false
-        public PropertyValue(PropertyType type, uint value)
-        {
-            this.rawValue = ComposeRawValue(type, value);
-        }
-
-        
-#if false
-        public PropertyValue(StringHandle handle)
-        {
-            this.rawValue = ComposeRawValue(handle);
-        }
-
-        public PropertyValue(MultiValueHandle handle)
-        {
-            this.rawValue = ComposeRawValue(handle);
-        }
-
-        public PropertyValue(LengthUnits lengthUnits, float value)
-        {
-            this.rawValue = ComposeRawValue(lengthUnits, value);
-        }
-
-        public PropertyValue(LengthUnits lengthUnits, int value)
-        {
-            this.rawValue = ComposeRawValue(lengthUnits, value);
-        }
-
-        public PropertyValue(PropertyType type, float value)
-        {
-            this.rawValue = ComposeRawValue(type, value);
-        }
-#endif        
-
-        public PropertyValue(RGBT color)
-        {
-            this.rawValue = ComposeRawValue(color);
-        }
-
-        public PropertyValue(Enum value)
-        {
-            this.rawValue = ComposeRawValue(value);
-        }
-
-        
-
-        public void Set(uint rawValue)
-        {
-            this.rawValue = rawValue;
-        }
-
-        
-
-        public void Set(bool value)
-        {
-            this.rawValue = ComposeRawValue(value);
-        }
-
-        
-
-        public void Set(PropertyType type, int value)
-        {
-            this.rawValue = ComposeRawValue(type, value);
-        }
-
-        
-
-        public void Set(PropertyType type, uint value)
-        {
-            this.rawValue = ComposeRawValue(type, value);
-        }
-
-        
-#if false
-        public void Set(StringHandle handle)
-        {
-            this.rawValue = ComposeRawValue(handle);
-        }
-
-        
-
-        public void Set(MultiValueHandle handle)
-        {
-            this.rawValue = ComposeRawValue(handle);
-        }
-        
-
-        public void Set(LengthUnits lengthUnits, float value)
-        {
-            this.rawValue = ComposeRawValue(lengthUnits, value);
-        }
-
-        
-
-        public void Set(PropertyType type, float value)
-        {
-            this.rawValue = ComposeRawValue(type, value);
-        }
-#endif        
-
-        public void Set(RGBT color)
-        {
-            this.rawValue = ComposeRawValue(color);
-        }
-
-        public void Set(Enum value)
-        {
-            this.rawValue = ComposeRawValue(value);
-        }
-#endif        
+        }     
 
         private static uint ComposeRawValue(bool value)
         {
             return (GetRawType(PropertyType.Bool) | (value ? 1u : 0u));
         }
-
-        
 
         private static uint ComposeRawValue(PropertyType type, int value)
         {
@@ -428,158 +227,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
             return (((uint)type<<TypeShift) | ((uint)value & ValueMask));
         }
 
-        // Orphaned WPL code.
-#if false
-        private static uint ComposeRawValue(PropertyType type, uint value)
-        {
-            InternalDebug.Assert(value <= ValueMask);
-            return (((uint)type<<TypeShift) | value);
-        }
-        
-#if false
-        private static uint ComposeRawValue(StringHandle handle)
-        {
-            InternalDebug.Assert(handle.Handle < ValueMask);
-            return (GetRawType(PropertyType.String) | handle.Handle);
-        }
-
-        
-
-        private static uint ComposeRawValue(MultiValueHandle handle)
-        {
-            InternalDebug.Assert(handle.Handle < ValueMask);
-            return (GetRawType(PropertyType.MultiValue) | handle.Handle);
-        }
-
-        private static uint ComposeRawValue(LengthUnits lengthUnits, float len)
-        {
-            switch (lengthUnits)
-            {
-                
-                case LengthUnits.BaseUnits:                 
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)len & ValueMask));
-                case LengthUnits.Twips:                     
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * (8.0f)) & ValueMask));
-                case LengthUnits.Points:                    
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * (8.0f * 20.0f)) & ValueMask));
-                case LengthUnits.Picas:                     
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * (8.0f * 20.0f * 12.0f)) & ValueMask));
-                case LengthUnits.Inches:                    
-                        return (GetRawType(PropertyType.AbsLength) |
-                                        ((uint)(len * (8.0f * 20.0f * 72.0f)) & ValueMask));
-                case LengthUnits.Centimeters:               
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * ((8.0f * 20.0f * 72.0f) / 2.54f)) & ValueMask));
-                case LengthUnits.Millimeters:               
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * ((8.0f * 20.0f * 72.0f) / 25.4f)) & ValueMask));
-                case LengthUnits.HtmlFontUnits:             
-                        return (GetRawType(PropertyType.HtmlFontUnits) | 
-                                        ((uint)len & ValueMask));
-
-                
-                case LengthUnits.Pixels:                    
-                                                            
-                        return (GetRawType(PropertyType.Pixels) | 
-                                        ((uint)(len * ((8.0f * 20.0f * 72.0f) / 120.0f)) & ValueMask));
-                case LengthUnits.Ems:                       
-                        return (GetRawType(PropertyType.Ems) | 
-                                        ((uint)(len * (8.0f * 20.0f)) & ValueMask));
-                case LengthUnits.Exs:                       
-                        return (GetRawType(PropertyType.Exs) | 
-                                        ((uint)(len * (8.0f * 20.0f)) & ValueMask));
-                case LengthUnits.RelativeHtmlFontUnits:     
-                        return (GetRawType(PropertyType.RelHtmlFontUnits) | 
-                                        (((uint)(int)len) & ValueMask));
-                case LengthUnits.Percents:                  
-                        return (GetRawType(PropertyType.Percentage) | 
-                                        ((uint)len & ValueMask));
-            }
-
-            InternalDebug.Assert(false, "invalid length unit type");
-            return 0;
-        }
-
-        private static uint ComposeRawValue(LengthUnits lengthUnits, int len)
-        {
-            switch (lengthUnits)
-            {
-                
-
-                case LengthUnits.BaseUnits:                 
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)len & ValueMask));
-                case LengthUnits.Twips:                     
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * (8)) & ValueMask));
-                case LengthUnits.Points:                    
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * (8 * 20)) & ValueMask));
-                case LengthUnits.Picas:                     
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * (8 * 20 * 12)) & ValueMask));
-                case LengthUnits.Inches:                    
-                        return (GetRawType(PropertyType.AbsLength) |
-                                        ((uint)(len * (8 * 20 * 72)) & ValueMask));
-                case LengthUnits.Centimeters:               
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * ((8 * 20 * 72 * 100) / 254)) & ValueMask));
-                case LengthUnits.Millimeters:               
-                        return (GetRawType(PropertyType.AbsLength) | 
-                                        ((uint)(len * ((8 * 20 * 72 * 10) / 254)) & ValueMask));
-                case LengthUnits.HtmlFontUnits:             
-                        return (GetRawType(PropertyType.HtmlFontUnits) | 
-                                        ((uint)len & ValueMask));
-
-                
-
-                case LengthUnits.Pixels:                    
-                                                            
-                        return (GetRawType(PropertyType.Pixels) | 
-                                        ((uint)(len * ((8 * 20 * 72) / 120)) & ValueMask));
-                case LengthUnits.Ems:                       
-                        return (GetRawType(PropertyType.Ems) | 
-                                        ((uint)(len * (8 * 20)) & ValueMask));
-                case LengthUnits.Exs:                       
-                        return (GetRawType(PropertyType.Exs) | 
-                                        ((uint)(len * (8 * 20)) & ValueMask));
-                case LengthUnits.RelativeHtmlFontUnits:     
-                        return (GetRawType(PropertyType.RelHtmlFontUnits) | 
-                                        ((uint)len & ValueMask));
-                case LengthUnits.Percents:                  
-                        return (GetRawType(PropertyType.Percentage) | 
-                                        ((uint)len & ValueMask));
-            }
-
-            InternalDebug.Assert(false, "invalid length unit type");
-            return 0;
-        }
-
-        private static uint ComposeRawValue(PropertyType type, float value)
-        {
-            InternalDebug.Assert(type == PropertyType.Fractional || type == PropertyType.Percentage);
-
-            return (GetRawType(type) | ((uint)(value * 10000.0f) & ValueMask));
-        }
-#endif        
-
-        private static uint ComposeRawValue(RGBT color)
-        {
-            return (GetRawType(PropertyType.Color) | ((uint)color.RawValue & ValueMask));
-        }
-
-        private static uint ComposeRawValue(Enum value)
-        {
-            
-            return (GetRawType(PropertyType.Enum) | ((uint)((IConvertible)value).ToInt32(null) & ValueMask));
-        }
-
-        public uint             RawValue        { get { return this.rawValue; } set { this.rawValue = value; } }
-#endif
         public uint             RawType         { get { return (this.rawValue & TypeMask); } }
 
         public static uint GetRawType(PropertyType type)
@@ -591,32 +238,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         public int              Value           { get { return ((int)((this.rawValue & ValueMask) << ValueShift) >> ValueShift); } }     
         public uint             UnsignedValue   { get { return this.rawValue & ValueMask; } }
 
-        // Orphaned WPL code.
-#if false
-        public bool             IsNull          { get { return this.RawType == GetRawType(PropertyType.Null); } }
-        public bool             IsCalculated    { get { return this.RawType == GetRawType(PropertyType.Calculated); } }
-        public bool             IsBool          { get { return this.RawType == GetRawType(PropertyType.Bool); } }
-        public bool             IsEnum          { get { return this.RawType == GetRawType(PropertyType.Enum); } }
-
-        public bool             IsString        { get { return this.RawType == GetRawType(PropertyType.String); } }
-        public bool             IsMultiValue    { get { return this.RawType == GetRawType(PropertyType.MultiValue); } }
-        public bool             IsRefCountedHandle { get { return this.IsString || this.IsMultiValue; } }
-
-        public bool             IsColor         { get { return this.RawType == GetRawType(PropertyType.Color); } }
-        public bool             IsInteger       { get { return this.RawType == GetRawType(PropertyType.Integer); } }
-        public bool             IsFractional    { get { return this.RawType == GetRawType(PropertyType.Fractional); } }
-        public bool             IsPercentage    { get { return this.RawType == GetRawType(PropertyType.Percentage); } }
-        public bool             IsAbsLength     { get { return this.RawType == GetRawType(PropertyType.AbsLength); } }
-        public bool             IsPixels        { get { return this.RawType == GetRawType(PropertyType.Pixels); } }
-        public bool             IsEms           { get { return this.RawType == GetRawType(PropertyType.Ems); } }
-        public bool             IsExs           { get { return this.RawType == GetRawType(PropertyType.Exs); } }
-        public bool             IsMilliseconds  { get { return this.RawType == GetRawType(PropertyType.Milliseconds); } }
-        public bool             IsKHz           { get { return this.RawType == GetRawType(PropertyType.kHz); } }
-        public bool             IsDegrees       { get { return this.RawType == GetRawType(PropertyType.Degrees); } }
-        public bool             IsHtmlFontUnits { get { return this.RawType == GetRawType(PropertyType.HtmlFontUnits); } }
-        public bool             IsRelativeHtmlFontUnits { get { return this.RawType == GetRawType(PropertyType.RelHtmlFontUnits); } }
-#endif
-
         public bool             IsAbsRelLength  { get { return this.RawType == GetRawType(PropertyType.AbsLength) ||
                                                             this.RawType == GetRawType(PropertyType.RelLength) ||
                                                             this.RawType == GetRawType(PropertyType.Pixels); } }
@@ -627,85 +248,20 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         public int              Enum            { get { InternalDebug.Assert(this.Type == PropertyType.Enum); return (int)this.UnsignedValue; } }
         public RGBT             Color           { get { InternalDebug.Assert(this.Type == PropertyType.Color); return new RGBT(this.UnsignedValue); } }
         public float            Percentage      { get { InternalDebug.Assert(this.Type == PropertyType.Percentage); return (float) this.Value / (10000.0f); } }
-        // Orphaned WPL code.
-#if false
-        public int              Percentage10K   { get { InternalDebug.Assert(this.Type == PropertyType.Percentage); return this.Value; } }
-#endif
         public float            Fractional      { get { InternalDebug.Assert(this.Type == PropertyType.Fractional); return (float) this.Value / (10000.0f); } }
         public int              Integer         { get { InternalDebug.Assert(this.Type == PropertyType.Integer); return this.Value; } }
         public int              Milliseconds    { get { InternalDebug.Assert(this.Type == PropertyType.Milliseconds); return this.Value; } }
         public int              kHz             { get { InternalDebug.Assert(this.Type == PropertyType.kHz); return this.Value; } }
         public int              Degrees         { get { InternalDebug.Assert(this.Type == PropertyType.Degrees); return this.Value; } }
-
-        // Orphaned WPL code.
-#if false
-        public int              BaseUnits       { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value; } }
-        public float            Twips           { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / (8.0f); } }
-        public int              TwipsInteger    { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value / 8; } }
-#endif
         public float            Points          { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / (8.0f * 20.0f) ; } }
-        // Orphaned WPL code.
-#if false
-        public int              PointsInteger   { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value / (8 * 20) ; } }
-        public int              PointsInteger160 { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value; } }
-        public float            Picas           { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / (8.0f * 20.0f * 12.0f); } }
-#endif
         public float            Inches          { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / (8.0f * 20.0f * 72.0f); } }
-        // Orphaned WPL code.
-#if false
-        public float            Centimeters     { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / ((8.0f * 20.0f * 72.0f) / 2.54f); } }
-        public int              MillimetersInteger { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value / 454; } }
-#endif
         public float            Millimeters     { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / ((8.0f * 20.0f * 72.0f) / 25.4f); } }
-
         public int              HtmlFontUnits   { get { InternalDebug.Assert(this.Type == PropertyType.HtmlFontUnits); return this.Value; } }
-
         public float            Pixels          { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / ((8.0f * 20.0f * 72.0f) / 120.0f); } }
         public int              PixelsInteger   { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value / 96; } }
-        // Orphaned WPL code.
-#if false
-        public int              PixelsInteger96 { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value; } }
-#endif
         public float            Ems             { get { InternalDebug.Assert(this.Type == PropertyType.Ems); return (float) this.Value / (8.0f * 20.0f); } }
-        // Orphaned WPL code.
-#if false
-        public int              EmsInteger      { get { InternalDebug.Assert(this.Type == PropertyType.Ems); return this.Value / (8 * 20); } }
-        public int              EmsInteger160   { get { InternalDebug.Assert(this.Type == PropertyType.Ems); return this.Value; } }
-#endif
         public float            Exs             { get { InternalDebug.Assert(this.Type == PropertyType.Exs); return (float) this.Value / (8.0f * 20.0f); } }
-        // Orphaned WPL code.
-#if false
-        public int              ExsInteger      { get { InternalDebug.Assert(this.Type == PropertyType.Exs); return this.Value / (8 * 20); } }
-        public int              ExsInteger160   { get { InternalDebug.Assert(this.Type == PropertyType.Exs); return this.Value; } }
-#endif
-
         public int              RelativeHtmlFontUnits { get { InternalDebug.Assert(this.Type == PropertyType.RelHtmlFontUnits); return this.Value; } }
-
-
-
-        // Orphaned WPL code.
-#if false
-        internal static int ConvertHtmlFontUnitsToTwips(int nHtmlSize)
-        {
-            
-            
-            nHtmlSize = Math.Max(1, Math.Min(7, nHtmlSize));
-            return sizesInTwips[nHtmlSize - 1];
-        }
-
-        internal static int ConvertTwipsToHtmlFontUnits(int twips)
-        {
-            
-            
-            for (int i = 0; i < maxSizesInTwips.Length; i++)
-            {
-                if (twips <= maxSizesInTwips[i])
-                    return i + 1;
-            }
-
-            return maxSizesInTwips.Length + 1;
-        }
-#endif
 
         public override string ToString()
         {
@@ -769,29 +325,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         private PropertyValue value;
 
         public static readonly Property Null = new Property();
-
-        // Orphaned WPL code.
-#if false
-        public Property(PropertyId id, PropertyValue value)
-        {
-            this.id = id;
-            this.value = value;
-        }
-
-        public bool IsNull { get { return this.id == PropertyId.Null; } }
-
-        public PropertyId Id { 
-            get { return this.id; }
-            set { this.id = value; } 
-        }
-        public PropertyValue Value { get { return this.value; } set { this.value = value; } }
-
-        public void Set(PropertyId id, PropertyValue value)
-        {
-            this.id = id;
-            this.value = value;
-        }
-#endif
 
         public override string ToString()
         {

@@ -28,19 +28,6 @@ namespace Microsoft.Exchange.Data.Globalization
     [Serializable]
     internal class InvalidCharsetException : ExchangeDataException
     {
-// Orphaned WPL code.
-#if false
-        /// <summary>
-        /// The code page which caused the exception.
-        /// </summary>
-        private readonly int codePage;
-
-        /// <summary>
-        /// The character set which caused the exception/
-        /// </summary>
-        private readonly string charsetName;
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidCharsetException"/> class.
         /// </summary>
@@ -48,10 +35,6 @@ namespace Microsoft.Exchange.Data.Globalization
         public InvalidCharsetException(int codePage) :
             base(GlobalizationStrings.InvalidCodePage(codePage))
         {
-// Orphaned WPL code.
-#if false
-            this.codePage = codePage;
-#endif
         }
 
         /// <summary>
@@ -62,10 +45,6 @@ namespace Microsoft.Exchange.Data.Globalization
         public InvalidCharsetException(int codePage, string message) :
             base(message)
         {
-// Orphaned WPL code.
-#if false
-            this.codePage = codePage;
-#endif
         }
 
         /// <summary>
@@ -82,97 +61,6 @@ namespace Microsoft.Exchange.Data.Globalization
         protected InvalidCharsetException(SerializationInfo info, StreamingContext context) :
             base(info, context)
         {
-// Orphaned WPL code.
-#if false
-            this.codePage = info.GetInt32("codePage");
-            this.charsetName = info.GetString("charsetName");
-#endif
         }
-
-// Orphaned WPL code.
-#if false
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidCharsetException"/> class.
-        /// </summary>
-        /// <param name="charsetName">Name of the character set.</param>
-        /// <param name="message">The exception message.</param>
-        public InvalidCharsetException(string charsetName, string message) :
-            base(message)
-        {
-            this.charsetName = charsetName;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidCharsetException"/> class.
-        /// </summary>
-        /// <param name="codePage">The code page.</param>
-        /// <param name="message">The exception message.</param>
-        /// <param name="innerException">The inner exception.</param>
-        public InvalidCharsetException(int codePage, string message, Exception innerException) :
-            base(message, innerException)
-        {
-            this.codePage = codePage;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidCharsetException"/> class.
-        /// </summary>
-        /// <param name="charsetName">Name of the character set.</param>
-        /// <param name="message">The exception message.</param>
-        /// <param name="innerException">The inner exception.</param>
-        public InvalidCharsetException(string charsetName, string message, Exception innerException) :
-            base(message, innerException)
-        {
-            this.charsetName = charsetName;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidCharsetException"/> class.
-        /// </summary>
-        /// <param name="charsetName">Name of the character set.</param>
-        /// <param name="codePage">The code page.</param>
-        /// <param name="message">The exception message.</param>
-        internal InvalidCharsetException(string charsetName, int codePage, string message) :
-            base(message)
-        {
-            this.codePage = codePage;
-            this.charsetName = charsetName;
-        }
-
-        /// <summary>
-        /// Gets the code page.
-        /// </summary>
-        /// <value>The code page.</value>
-        public int CodePage
-        {
-            get
-            {
-                return this.codePage;
-            }
-        }
-
-        /// <summary>
-        /// Gets the name of the character set.
-        /// </summary>
-        /// <value>The name of the character set.</value>
-        public string CharsetName
-        {
-            get
-            {
-                return this.charsetName;
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidCharsetException"/> class.
-        /// </summary>
-        /// <param name="charsetName">Name of the character set.</param>
-        public InvalidCharsetException(string charsetName) :
-            base(GlobalizationStrings.InvalidCharset(charsetName ?? "<null>"))
-        {
-            this.charsetName = charsetName;
-        }
-
-#endif
     }
 }

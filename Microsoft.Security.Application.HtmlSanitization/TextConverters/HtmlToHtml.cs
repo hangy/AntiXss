@@ -91,14 +91,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             /// </summary>
             private bool testTruncateForCallback = true;
 
-            // Orphaned WPL code.
-#if false
-            /// <summary>
-            /// Value indicating if tests for fragmentation during conversion are performed.
-            /// </summary>
-            private bool testConvertFragment;
-#endif
-
             /// <summary>
             /// Value indicating fragmented output can be generated.
             /// </summary>        
@@ -158,16 +150,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             /// </summary>
             private bool preserveDisplayNoneStyle;
 
-            // Orphaned WPL code.
-#if false
-        private bool testConvertFragment;
-
-            // <summary>
-            // Value indicating whether no new lines should be included.
-            // </summary>
-            private bool testNoNewLines;
-#endif
-
             internal bool NormalizeHtml
             {
                 set { this.AssertNotLocked(); this.normalizeInputHtml = value; }
@@ -194,247 +176,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             get { return this.filterTables; }
             set { this.AssertNotLocked(); this.filterTables = value; }
-        }
-#endif
-            // Orphaned WPL code.
-#if false
-        public System.Text.Encoding InputEncoding
-        {
-            get { return this.inputEncoding; }
-            set { this.AssertNotLocked(); this.inputEncoding = value; }
-        }
-        
-        public bool DetectEncodingFromByteOrderMark
-        {
-            get { return this.detectEncodingFromByteOrderMark; }
-            set { this.AssertNotLocked(); this.detectEncodingFromByteOrderMark = value; }
-        }
-        
-        public bool DetectEncodingFromMetaTag
-        {
-            get { return this.detectEncodingFromMetaTag; }
-            set { this.AssertNotLocked(); this.detectEncodingFromMetaTag = value; }
-        }
-
-        public System.Text.Encoding OutputEncoding
-        {
-            get { return this.outputEncoding; }
-            set
-            {
-                this.AssertNotLocked(); 
-                this.outputEncoding = value;
-                this.outputEncodingSameAsInput = (value == null);
-            }
-        }
-
-        public HeaderFooterFormat HeaderFooterFormat
-        {
-            get { return this.injectionFormat; }
-            set { this.AssertNotLocked(); this.injectionFormat = value; }
-        }
-        
-        public string Header
-        {
-            get { return this.injectHead; }
-            set { this.AssertNotLocked(); this.injectHead = value; }
-        }
-        
-        public string Footer
-        {
-            get { return this.injectTail; }
-            set { this.AssertNotLocked(); this.injectTail = value; }
-        }
-        
-        public HtmlTagCallback HtmlTagCallback
-        {
-            get { return this.htmlCallback; }
-            set { this.AssertNotLocked(); this.htmlCallback = value; }
-        }
-        
-        public int MaxCallbackTagLength
-        {
-            get { return this.maxHtmlTagSize; }
-            set { this.AssertNotLocked(); this.maxHtmlTagSize = value; }
-        }
-
-        internal HtmlToHtml SetInputEncoding(System.Text.Encoding value)
-        {
-            this.InputEncoding = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetDetectEncodingFromByteOrderMark(bool value)
-        {
-            this.DetectEncodingFromByteOrderMark = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetDetectEncodingFromMetaTag(bool value)
-        {
-            this.DetectEncodingFromMetaTag = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetOutputEncoding(System.Text.Encoding value)
-        {
-            this.OutputEncoding = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetNormalizeHtml(bool value)
-        {
-            this.NormalizeHtml = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetHeaderFooterFormat(HeaderFooterFormat value)
-        {
-            this.HeaderFooterFormat = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetHeader(string value)
-        {
-            this.Header = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetFooter(string value)
-        {
-            this.Footer = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetFilterHtml(bool value)
-        {
-            this.FilterHtml = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetHtmlTagCallback(HtmlTagCallback value)
-        {
-            this.HtmlTagCallback = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestTruncateForCallback(bool value)
-        {
-            this.testTruncateForCallback = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetMaxCallbackTagLength(int value)
-        {
-            this.maxHtmlTagSize = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetInputStreamBufferSize(int value)
-        {
-            this.InputStreamBufferSize = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetOutputHtmlFragment(bool value)
-        {
-            this.OutputHtmlFragment = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestConvertHtmlFragment(bool value)
-        {
-            this.testConvertFragment = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestBoundaryConditions(bool value)
-        {
-            this.TestBoundaryConditions = value;
-            if (value)
-            {
-                this.maxHtmlTagSize = 123;
-                this.testMaxHtmlTagAttributes = 5;
-                this.testMaxHtmlNormalizerNesting = 10;
-            }
-            return this;
-        }
-
-        internal HtmlToHtml SetTestMaxTokenRuns(int value)
-        {
-            this.testMaxTokenRuns = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestTraceStream(Stream value)
-        {
-            this.testTraceStream = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestTraceShowTokenNum(bool value)
-        {
-            this.testTraceShowTokenNum = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestTraceStopOnTokenNum(int value)
-        {
-            this.testTraceStopOnTokenNum = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestNormalizerTraceStream(Stream value)
-        {
-            this.testNormalizerTraceStream = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestNormalizerTraceShowTokenNum(bool value)
-        {
-            this.testNormalizerTraceShowTokenNum = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestNormalizerTraceStopOnTokenNum(int value)
-        {
-            this.testNormalizerTraceStopOnTokenNum = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestMaxHtmlTagAttributes(int value)
-        {
-            this.testMaxHtmlTagAttributes = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestMaxHtmlRestartOffset(int value)
-        {
-            this.testMaxHtmlRestartOffset = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestMaxHtmlNormalizerNesting(int value)
-        {
-            this.testMaxHtmlNormalizerNesting = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetTestNoNewLines(bool value)
-        {
-            this.testNoNewLines = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetSmallCssBlockThreshold(int value)
-        {
-            this.smallCssBlockThreshold = value;
-            return this;
-        }
-
-        internal HtmlToHtml SetPreserveDisplayNoneStyle(bool value)
-        {
-            this.preserveDisplayNoneStyle = value;
-            return this;
         }
 #endif
 
@@ -497,52 +238,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 return CreateChain(converterIn, converterOut, converterStream as IProgressMonitor);
             }
-
-            // Orphaned WPL code.
-#if false
-        internal override IProducerConsumer CreatePushChain(ConverterWriter converterWriter, Stream output)
-        {
-            this.inputEncoding = Encoding.Unicode;
-
-            ConverterInput converterIn = new ConverterUnicodeInput(
-                                    converterWriter,
-                                    true,
-                                    this.maxHtmlTagSize,
-                                    this.TestBoundaryConditions,
-                                    null);
-
-            ConverterOutput converterOut = new ConverterEncodingOutput(
-                                    output,
-                                    true,       
-                                    false,      
-                                    this.outputEncodingSameAsInput ? System.Text.Encoding.UTF8 : this.outputEncoding, 
-                                    this.outputEncodingSameAsInput,
-                                    this.TestBoundaryConditions,
-                                    this as IResultsFeedback);
-
-            return CreateChain(converterIn, converterOut, converterWriter as IProgressMonitor);
-        }
-
-        internal override IProducerConsumer CreatePushChain(ConverterWriter converterWriter, TextWriter output)
-        {
-            this.inputEncoding = Encoding.Unicode;
-            this.outputEncoding = Encoding.Unicode;
-
-            ConverterInput converterIn = new ConverterUnicodeInput(
-                                    converterWriter,
-                                    true,
-                                    this.maxHtmlTagSize,
-                                    this.TestBoundaryConditions,
-                                    null);
-
-            ConverterOutput converterOut = new ConverterUnicodeOutput(
-                                    output,
-                                    true,       
-                                    false);     
-
-            return CreateChain(converterIn, converterOut, converterWriter as IProgressMonitor);
-        }
-#endif
             internal override IProducerConsumer CreatePullChain(Stream input, ConverterStream converterStream)
             {
                 if (this.inputEncoding == null)
@@ -725,14 +420,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                                         output,
                                         this.filterHtml,
                                         this.normalizeInputHtml);
-
-                // Orphaned WPL code.
-#if false
-            HtmlWriter writer = new HtmlWriter(
-                                    output,
-                                    this.filterHtml,
-                                    this.normalizeInputHtml && !this.testNoNewLines);
-#endif
                 return new HtmlToHtmlConverter(
                                         parser,
                                         writer,
@@ -748,25 +435,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                                         this.smallCssBlockThreshold,
                                         this.preserveDisplayNoneStyle,
                                         progressMonitor);
-
-                // Orphaned WPL code.
-#if false
-            return new HtmlToHtmlConverter(
-                                    parser,
-                                    writer,
-                                    this.testConvertFragment,
-                                    this.outputFragment,
-                                    this.filterHtml,
-                                    this.htmlCallback,
-                                    this.testTruncateForCallback,
-                                    injection != null && injection.HaveTail,
-                                    this.testTraceStream,
-                                    this.testTraceShowTokenNum,
-                                    this.testTraceStopOnTokenNum,
-                                    this.smallCssBlockThreshold,
-                                    this.preserveDisplayNoneStyle,
-                                    progressMonitor);
-#endif
             }
         }
     }
