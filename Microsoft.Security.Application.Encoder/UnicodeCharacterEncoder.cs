@@ -78,44 +78,6 @@ namespace Microsoft.Security.Application
         /// </summary>
         private static Lazy<char[][]> namedEntitiesLazy = new Lazy<char[][]>(InitialiseNamedEntityList);
 
-#if NET20
-        /// <summary>
-        /// Lock object
-        /// </summary>
-        private static readonly ReaderWriterLock SyncLock = new ReaderWriterLock();
-  
-        /// <summary>
-        /// Acquires a read lock.
-        /// </summary>
-        private static void AcquireReadLock() 
-        {
-            SyncLock.AcquireReaderLock(-1);
-        }
-        
-        /// <summary>
-        /// Releases a read lock.
-        /// </summary>
-        private static void ReleaseReadLock()
-        {
-            SyncLock.ReleaseReaderLock();
-        }
-
-        /// <summary>
-        /// Acquires a write lock.
-        /// </summary>
-        private static void AcquireWriteLock()
-        {
-            SyncLock.AcquireWriterLock(-1);
-        }
-
-        /// <summary>
-        /// Releases a write lock.
-        /// </summary>        
-        private static void ReleaseWriteLock()
-        {
-            SyncLock.ReleaseWriterLock();
-        }
-#else
         /// <summary>
         /// Lock object
         /// </summary>
@@ -152,7 +114,6 @@ namespace Microsoft.Security.Application
         {
             SyncLock.ExitWriteLock();
         }
-#endif
 
         /// <summary>
         /// Provides method specific encoding of characters.
