@@ -15,12 +15,11 @@
         public void GetSafeHtml_StyleableAttributeOnTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><p style=\"\"></p></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><p style=\"\"></p></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -33,12 +32,11 @@
         public void GetSafeHtmlFragment_StyleableAttributeOnTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<p style=\"\"></p>";
-            string expected = "\r\n<p></p>\r\n";
-            string actual;
-
+            const string input = "<p style=\"\"></p>";
+            const string expected = "\r\n<p></p>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -51,12 +49,11 @@
         public void GetSafeHtml_StyleableAttributeOnTagShouldBeRemovedLeavingOtherTags()
         {
             // Arrange
-            string input = "<html><head></head><body><a href=\"\" style=\"\"></a></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<a href=\"\"></a>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><a href=\"\" style=\"\"></a></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<a href=\"\"></a>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -69,12 +66,11 @@
         public void GetSafeHtmlFragment_StyleableAttributeOnTagShouldBeRemovedLeavingOtherTags()
         {
             // Arrange
-            string input = "<a href=\"\" style=\"\"></a>";
-            string expected = "<a href=\"\"></a>";
-            string actual;
-
+            const string input = "<a href=\"\" style=\"\"></a>";
+            const string expected = "<a href=\"\"></a>";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -87,12 +83,11 @@
         public void GetSafeHtml_StyleTagInHeaderShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head><style></style></head><body></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head><style></style></head><body></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -105,12 +100,11 @@
         public void GetSafeHtml_StyleTagInHeaderShouldBeRemovedAdvanced()
         {
             // Arrange
-            string input = "<html><head><style>* {color:rgb(0,0,0)\\-o-link:'data:text/html,%3c%73%63%72%69%70%74%3e%61%6c%65%72%74%28%31%29%3c%2f%73%63%72%69%70%74%3e';color:rgb(x)\\-o-link-source:current;}</style></head><body></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head><style>* {color:rgb(0,0,0)\\-o-link:'data:text/html,%3c%73%63%72%69%70%74%3e%61%6c%65%72%74%28%31%29%3c%2f%73%63%72%69%70%74%3e';color:rgb(x)\\-o-link-source:current;}</style></head><body></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -123,12 +117,11 @@
         public void GetSafeHtml_StyleTagInBodyShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><style></style></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><style></style></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -141,12 +134,11 @@
         public void GetSafeHtml_OnClickAttributeOnTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><p onclick=\"\"></p></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><p onclick=\"\"></p></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -159,12 +151,11 @@
         public void GetSafeHtmlFragment_OnClickAttributeOnTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<p onclick=\"\"></p>";
-            string expected = "\r\n<p></p>\r\n";
-            string actual;
-
+            const string input = "<p onclick=\"\"></p>";
+            const string expected = "\r\n<p></p>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -177,12 +168,11 @@
         public void GetSafeHtml_OnMouseOverAttributeOnTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><p onmouseover=\"\"></p></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><p onmouseover=\"\"></p></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -195,12 +185,11 @@
         public void GetSafeHtmlFragment_OnMouseOverAttributeOnTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<p onmouseover=\"\"></p>";
-            string expected = "\r\n<p></p>\r\n";
-            string actual;
-
+            const string input = "<p onmouseover=\"\"></p>";
+            const string expected = "\r\n<p></p>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -213,12 +202,11 @@
         public void GetSafeHtml_OnLoadAttributeOnBodyTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body onload=\"\"></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body onload=\"\"></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -231,12 +219,11 @@
         public void GetSafeHtml_ErrorAttributeShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><img src=\"\" onerror=\"XSS\" /></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><img src=\"\" onerror=\"XSS\" /></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -249,12 +236,11 @@
         public void GetSafeHtmlFragment_ErrorAttributeShouldBeRemoved()
         {
             // Arrange
-            string input = "<img src=\"\" onerror=\"XSS\" />";
-            string expected = "<img src=\"\">";
-            string actual;
-
+            const string input = "<img src=\"\" onerror=\"XSS\" />";
+            const string expected = "<img src=\"\">";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -267,12 +253,11 @@
         public void GetSafeHtml_ScriptTagInHeaderShouldBeRemoved()
         {
             // Arrange
-            string input = @"<html><head><script></script></head><body></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = @"<html><head><script></script></head><body></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -285,12 +270,11 @@
         public void GetSafeHtml_ScriptTagInBodyShouldBeRemoved()
         {
             // Arrange
-            string input = @"<html><head></head><body><script></script></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = @"<html><head></head><body><script></script></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -303,12 +287,11 @@
         public void GetSafeHtml_StyleTagShouldBeRemovedUserTwo()
         {
             // Arrange
-            string input = "<div style=\"font-family:Foo,Bar\\,'a\\a';font-family:';color:expression(alert(1));y'\">aaa</div>";
-            string expected = "<html>\r\n<body>\r\n<div>aaa</div>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<div style=\"font-family:Foo,Bar\\,'a\\a';font-family:';color:expression(alert(1));y'\">aaa</div>";
+            const string expected = "<html>\r\n<body>\r\n<div>aaa</div>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -321,12 +304,11 @@
         public void GetSafeHtmlFragment_StyleTagShouldBeRemovedUserTwo()
         {
             // Arrange
-            string input = "<div style=\"font-family:Foo,Bar\\,'a\\a';font-family:';color:expression(alert(1));y'\">aaa</div>";
-            string expected = "\r\n<div>aaa</div>\r\n";
-            string actual;
-
+            const string input = "<div style=\"font-family:Foo,Bar\\,'a\\a';font-family:';color:expression(alert(1));y'\">aaa</div>";
+            const string expected = "\r\n<div>aaa</div>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -340,12 +322,11 @@
         public void GetSafeHtml_BreakTagsShouldNotBeRemoved()
         {
             // Arrange
-            string input = @"<html><head></head><body><br></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<br>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = @"<html><head></head><body><br></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<br>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -359,12 +340,11 @@
         public void GetSafeHtmlFragment_BreakTagsShouldNotBeRemoved()
         {
             // Arrange
-            string input = "<br>";
-            string expected = "<br>\r\n";
-            string actual;
-
+            const string input = "<br>";
+            const string expected = "<br>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -380,12 +360,11 @@
             // autoNewLines in HtmlWriter.cs
 
             // Arrange
-            string input = "<html><head></head><body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.</body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.</body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -401,12 +380,11 @@
             // autoNewLines in HtmlWriter.cs
 
             // Arrange
-            string input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.";
-            string expected = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.";
-            string actual;
-
+            const string input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.";
+            const string expected = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -420,12 +398,11 @@
         public void GetSafeHtml_DivTagsShouldNotBeAdded()
         {
             // Arrange
-            string input = "<html><head></head><body><input type=\"text\" /></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<input type=\"text\">\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><input type=\"text\" /></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<input type=\"text\">\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -439,12 +416,11 @@
         public void GetSafeHtmlFragment_DivTagsShouldNotBeAdded()
         {
             // Arrange
-            string input = "<input type=\"text\" />";
-            string expected = "<input type=\"text\">";
-            string actual;
-
+            const string input = "<input type=\"text\" />";
+            const string expected = "<input type=\"text\">";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -458,13 +434,12 @@
         public void GetSafeHtmlFragment_DoNotAddCarriageReturnAfterEndingWhitespace()
         {
             // Arrange
-            string input = "This brown fox ";
-            string expected = "This brown fox ";
-            string incorrect = "This brown fox\r\n";
-            string actual;
-
+            const string input = "This brown fox ";
+            const string expected = "This brown fox ";
+            const string incorrect = "This brown fox\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -479,12 +454,11 @@
         public void GetSafeHtml_DuplicateAttributesShouldBeHandledAppropriately()
         {
             // Arrange
-            string input = "<html><head></head><body><p id=\"\" id=\"\" style=\"\" style=\"\"></p></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p id=\"\" id=\"\"></p>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><p id=\"\" id=\"\" style=\"\" style=\"\"></p></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p id=\"\" id=\"\"></p>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -498,12 +472,11 @@
         public void GetSafeHtmlFragment_DuplicateAttributesShouldBeHandledAppropriately()
         {
             // Arrange
-            string input = "<p id=\"\" id=\"\" style=\"\" style=\"\"></p>";
-            string expected = "\r\n<p id=\"\" id=\"\"></p>\r\n";
-            string actual;
-
+            const string input = "<p id=\"\" id=\"\" style=\"\" style=\"\"></p>";
+            const string expected = "\r\n<p id=\"\" id=\"\"></p>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -517,12 +490,11 @@
         public void GetSafeHtml_ShouldNotRemoveNonOffendingText()
         {
             // Arrange
-            string input = "<html><head></head><body><script>alert('hi');</script>This text is removed</body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\nThis text is removed\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><script>alert('hi');</script>This text is removed</body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\nThis text is removed\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -536,12 +508,11 @@
         public void GetSafeHtmlFragment_ShouldNotRemoveNonOffendingText()
         {
             // Arrange
-            string input = "<script>alert('hi');</script>This text is removed";
-            string expected = "This text is removed";
-            string actual;
-
+            const string input = "<script>alert('hi');</script>This text is removed";
+            const string expected = "This text is removed";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -555,12 +526,11 @@
         public void GetSafeHtml_ChildControlsShouldNotBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><a href=\"\" target=\"\"><img src=\"\" /> My Image</a></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<a href=\"\" target=\"\"><img src=\"\"> My Image</a>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><a href=\"\" target=\"\"><img src=\"\" /> My Image</a></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<a href=\"\" target=\"\"><img src=\"\"> My Image</a>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -574,12 +544,11 @@
         public void GetSafeHtmlFragment_ChildControlsShouldNotBeRemoved()
         {
             // Arrange
-            string input = "<a href=\"\" target=\"\"><img src=\"\" /> My Image</a>";
-            string expected = "<a href=\"\" target=\"\"><img src=\"\"> My Image</a>";
-            string actual;
-
+            const string input = "<a href=\"\" target=\"\"><img src=\"\" /> My Image</a>";
+            const string expected = "<a href=\"\" target=\"\"><img src=\"\"> My Image</a>";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -593,12 +562,11 @@
         public void GetSafeHtml_NonBlacklistedTagsShouldNotBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><b>Some text</b><strong>More text</strong></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<b>Some text</b><strong>More text</strong>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><b>Some text</b><strong>More text</strong></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<b>Some text</b><strong>More text</strong>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -612,12 +580,11 @@
         public void GetSafeHtmlFragment_NonBlacklistedTagsShouldNotBeRemoved()
         {
             // Arrange
-            string input = "<b>Some text</b><strong>More text</strong>";
-            string expected = "<b>Some text</b><strong>More text</strong>";
-            string actual;
-
+            const string input = "<b>Some text</b><strong>More text</strong>";
+            const string expected = "<b>Some text</b><strong>More text</strong>";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -630,12 +597,11 @@
         public void GetSafeHtml_ScriptInImageSourceShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><img src=\"javascript:alert('XSS');\"></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><img src=\"javascript:alert('XSS');\"></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -648,12 +614,11 @@
         public void GetSafeHtmlFragment_ScriptInImageSourceShouldBeRemoved()
         {
             // Arrange
-            string input = "<img src=\"javascript:alert('XSS');\">";
-            string expected = "<img src=\"\">";
-            string actual;
-
+            const string input = "<img src=\"javascript:alert('XSS');\">";
+            const string expected = "<img src=\"\">";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -666,12 +631,11 @@
         public void GetSafeHtml_ScriptInImageSourceShouldBeRemovedTwo()
         {
             // Arrange
-            string input = "<html><head></head><body><img src=javascript:alert('XSS');></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><img src=javascript:alert('XSS');></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -684,12 +648,11 @@
         public void GetSafeHtmlFragment_ScriptInImageSourceShouldBeRemovedTwo()
         {
             // Arrange
-            string input = "<img src=javascript:alert('XSS');>";
-            string expected = "<img src=\"\">";
-            string actual;
-
+            const string input = "<img src=javascript:alert('XSS');>";
+            const string expected = "<img src=\"\">";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -702,12 +665,11 @@
         public void GetSafeHtml_ScriptInImageSourceShouldBeRemovedThree()
         {
             // Arrange
-            string input = "<html><head></head><body><img src=jav   ascript:alert('XSS');></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"jav\">\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><img src=jav   ascript:alert('XSS');></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"jav\">\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -720,12 +682,11 @@
         public void GetSafeHtmlFragment_ScriptInImageSourceShouldBeRemovedThree()
         {
             // Arrange
-            string input = "<img src=jav   ascript:alert('XSS');>";
-            string expected = "<img src=\"jav\">";
-            string actual;
-
+            const string input = "<img src=jav   ascript:alert('XSS');>";
+            const string expected = "<img src=\"jav\">";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -738,12 +699,11 @@
         public void GetSafeHtml_ScriptInMalformedImageTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><img><script>alert(\"XSS\")</script></img></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><img><script>alert(\"XSS\")</script></img></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -756,12 +716,11 @@
         public void GetSafeHtmlFragment_ScriptInMalformedImageTagShouldBeRemoved()
         {
             // Arrange
-            string input = "<img><script>alert(\"XSS\")</script></img>";
-            string expected = "<img>";
-            string actual;
-
+            const string input = "<img><script>alert(\"XSS\")</script></img>";
+            const string expected = "<img>";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -774,12 +733,11 @@
         public void GetSafeHtml_SourceEncodingShouldBeRemovedFromImageTag()
         {
             // Arrange
-            string input = "<html><head></head><body><IMG SRC=\"jav&#x09;ascript:alert('XSS');\"></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><IMG SRC=\"jav&#x09;ascript:alert('XSS');\"></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -792,12 +750,11 @@
         public void GetSafeHtmlFragment_SourceEncodingShouldBeRemovedFromImageTag()
         {
             // Arrange
-            string input = "<IMG SRC=\"jav&#x09;ascript:alert('XSS');\">";
-            string expected = "<img src=\"\">";
-            string actual;
-
+            const string input = "<IMG SRC=\"jav&#x09;ascript:alert('XSS');\">";
+            const string expected = "<img src=\"\">";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -810,12 +767,11 @@
         public void GetSafeHtml_TitleTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head><title></title></head><body></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head><title></title></head><body></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -828,12 +784,11 @@
         public void GetSafeHtmlFragment_TitleTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<title></title>";
-            string expected = "";
-            string actual;
-
+            const string input = "<title></title>";
+            const string expected = "";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -846,12 +801,11 @@
         public void GetSafeHtml_LinkTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head><link rel=javascript:alert('XSS');></head><body></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head><link rel=javascript:alert('XSS');></head><body></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -864,12 +818,11 @@
         public void GetSafeHtmlFragment_LinkTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<link rel=javascript:alert('XSS');>";
-            string expected = "";
-            string actual;
-
+            const string input = "<link rel=javascript:alert('XSS');>";
+            const string expected = "";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -882,12 +835,11 @@
         public void GetSafeHtml_MetaTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head><meta http-equiv=\"refresh\" content=\"0;url=javascript:alert('XSS');\"></head><body></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head><meta http-equiv=\"refresh\" content=\"0;url=javascript:alert('XSS');\"></head><body></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -900,12 +852,11 @@
         public void GetSafeHtmlFragment_MetaTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<meta http-equiv=\"refresh\" content=\"0;url=javascript:alert('XSS');\">";
-            string expected = "";
-            string actual;
-
+            const string input = "<meta http-equiv=\"refresh\" content=\"0;url=javascript:alert('XSS');\">";
+            const string expected = "";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -918,12 +869,11 @@
         public void GetSafeHtml_ScriptInTableBackgroundAttributeShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><table background=\"javascript:alert('XSS');\"></table></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<table background=\"\">\r\n</table>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><table background=\"javascript:alert('XSS');\"></table></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<table background=\"\">\r\n</table>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -936,12 +886,11 @@
         public void GetSafeHtmlFragment_ScriptInTableBackgroundAttributeShouldBeRemoved()
         {
             // Arrange
-            string input = "<table background=\"javascript:alert('XSS');\"></table>";
-            string expected = "\r\n<table background=\"\">\r\n</table>\r\n";
-            string actual;
-
+            const string input = "<table background=\"javascript:alert('XSS');\"></table>";
+            const string expected = "\r\n<table background=\"\">\r\n</table>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -954,12 +903,11 @@
         public void GetSafeHtml_ObjectTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><object classid=clsid:ae24fdae-03c6-11d1-8b76-0080c744f389><param name=url value=javascript:alert('XSS')></object></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><object classid=clsid:ae24fdae-03c6-11d1-8b76-0080c744f389><param name=url value=javascript:alert('XSS')></object></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -972,12 +920,11 @@
         public void GetSafeHtmlFragment_ObjectTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<object classid=clsid:ae24fdae-03c6-11d1-8b76-0080c744f389><param name=url value=javascript:alert('XSS')></object>";
-            string expected = "";
-            string actual;
-
+            const string input = "<object classid=clsid:ae24fdae-03c6-11d1-8b76-0080c744f389><param name=url value=javascript:alert('XSS')></object>";
+            const string expected = "";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -990,12 +937,11 @@
         public void GetSafeHtml_EmbedTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><embed src=\"\" AllowScriptAccess=\"always\"></embed></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><embed src=\"\" AllowScriptAccess=\"always\"></embed></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -1008,12 +954,11 @@
         public void GetSafeHtmlFragment_EmbedTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<embed src=\"\" AllowScriptAccess=\"always\"></embed>";
-            string expected = "";
-            string actual;
-
+            const string input = "<embed src=\"\" AllowScriptAccess=\"always\"></embed>";
+            const string expected = "";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -1026,12 +971,11 @@
         public void GetSafeHtml_XMLTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<html><head></head><body><xml id=\"xss\"></xml></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><xml id=\"xss\"></xml></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -1044,12 +988,11 @@
         public void GetSafeHtmlFragment_XMLTagsShouldBeRemoved()
         {
             // Arrange
-            string input = "<xml id=\"xss\"></xml>";
-            string expected = "";
-            string actual;
-
+            const string input = "<xml id=\"xss\"></xml>";
+            const string expected = "";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -1062,12 +1005,11 @@
         public void GetSafeHtml_OutOfOrderTagsShouldStillRemoveScripts()
         {
             // Arrange
-            string input = "<html><head></head><body><div><p></div><p><script src=\"\" /></p></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<div>\r\n<p></p>\r\n</div>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><div><p></div><p><script src=\"\" /></p></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<div>\r\n<p></p>\r\n</div>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -1080,12 +1022,11 @@
         public void GetSafeHtmlFragment_OutOfOrderTagsShouldStillRemoveScripts()
         {
             // Arrange
-            string input = "<div><p></div><p><script src=\"\" /></p>";
-            string expected = "\r\n<div>\r\n<p></p>\r\n</div>\r\n<p></p>\r\n";
-            string actual;
-
+            const string input = "<div><p></div><p><script src=\"\" /></p>";
+            const string expected = "\r\n<div>\r\n<p></p>\r\n</div>\r\n<p></p>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -1098,12 +1039,11 @@
         public void GetSafeHtml_OutOfOrderTagsShouldStillRemoveScriptsTwo()
         {
             // Arrange
-            string input = "<html><head></head><body><div><p><div><p><script src=\"\" /></p></body></html>";
-            string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<div>\r\n<p></p>\r\n<div>\r\n<p></p>\r\n</div>\r\n</div>\r\n</body>\r\n</html>\r\n";
-            string actual;
-
+            const string input = "<html><head></head><body><div><p><div><p><script src=\"\" /></p></body></html>";
+            const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<div>\r\n<p></p>\r\n<div>\r\n<p></p>\r\n</div>\r\n</div>\r\n</body>\r\n</html>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtml(input);
+            string actual = Sanitizer.GetSafeHtml(input);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -1116,12 +1056,11 @@
         public void GetSafeHtmlFragment_OutOfOrderTagsShouldStillRemoveScriptsTwo()
         {
             // Arrange
-            string input = "<div><p><div><p><script src=\"\" /></p>";
-            string expected = "\r\n<div>\r\n<p></p>\r\n<div>\r\n<p></p>\r\n</div>\r\n</div>\r\n";
-            string actual;
-
+            const string input = "<div><p><div><p><script src=\"\" /></p>";
+            const string expected = "\r\n<div>\r\n<p></p>\r\n<div>\r\n<p></p>\r\n</div>\r\n</div>\r\n";
+            
             // Act
-            actual = Sanitizer.GetSafeHtmlFragment(input);
+            string actual = Sanitizer.GetSafeHtmlFragment(input);
 
             // Assert
             Assert.AreEqual(expected, actual);

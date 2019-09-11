@@ -355,9 +355,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 
         private bool ExpandRunsArray(int numRuns)
         {
-            int newSize;
-
-            newSize = Math.Min(this.maxRuns, Math.Max(this.token.runList.Length * 2, this.token.whole.tail + numRuns + 1));
+            int newSize = Math.Min(this.maxRuns, Math.Max(this.token.runList.Length * 2, this.token.whole.tail + numRuns + 1));
 
             if (newSize - this.token.whole.tail < numRuns + 1)
             {
