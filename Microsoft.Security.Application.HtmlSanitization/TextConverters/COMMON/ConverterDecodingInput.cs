@@ -813,7 +813,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 
                 this.parseBuffer = newBuffer;
 
-                this.parseEnd = (this.parseEnd - this.parseStart);
+                this.parseEnd -= this.parseStart;
                 this.parseStart = 0;
             }
             else
@@ -823,7 +823,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 
                 Buffer.BlockCopy(this.parseBuffer, this.parseStart * 2, this.parseBuffer, 0, (this.parseEnd - this.parseStart + 1) * 2);
 
-                this.parseEnd = (this.parseEnd - this.parseStart);
+                this.parseEnd -= this.parseStart;
                 this.parseStart = 0;
             }
 
