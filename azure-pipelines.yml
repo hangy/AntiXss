@@ -45,7 +45,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: test
-    projects: .\Microsoft.Security.Application.Encoder.UnitTests\Microsoft.Security.Application.Encoder.UnitTests.csproj
+    projects: .\AntiXSS.sln
     arguments: -c $(BuildConfiguration) /p:DebugType=portable
   displayName: Run Tests
 
