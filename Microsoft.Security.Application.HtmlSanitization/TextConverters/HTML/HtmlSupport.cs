@@ -34,167 +34,167 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         public static readonly byte[] UnsafeAsciiMap =
         {
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0,                                                                      
-            0,                                                                      
-            0x02,                                                                   
-            0x02,                                                                   
-            0,                                                                      
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0,                                                                      
-            0x02,                                                                   
-              0x03,                                                                 
-            0x02,                                                                   
-            0x02,                                                                   
-            0x02,                                                                   
-              0x03,                                                                 
-            0x02,                                                                   
-            0x02,                                                                   
-            0x02,                                                                   
-            0x02,                                                                   
-              0x03,                                                                 
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0x02,                                                                   
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0x02,                                                                   
-            0x02,                                                                   
-              0x03,                                                                 
-            0x02,                                                                   
-              0x03,                                                                 
-            0x02,                                                                   
-            0x02,                                                                   
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0x02,                                                                   
-            0x02,                                                                   
-            0x02,                                                                   
-            0x02,                                                                   
-            0,                                                                      
-            0x02,                                                                   
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0,                                                                      
-            0x02,                                                                   
-            0x02,                                                                   
-            0x02,                                                                   
-            0x02,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
-            0x03,                                                                   
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0,
+            0,
+            0x02,
+            0x02,
+            0,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0,
+            0x02,
+              0x03,
+            0x02,
+            0x02,
+            0x02,
+              0x03,
+            0x02,
+            0x02,
+            0x02,
+            0x02,
+              0x03,
+            0,
+            0,
+            0,
+            0x02,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0x02,
+            0x02,
+              0x03,
+            0x02,
+              0x03,
+            0x02,
+            0x02,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0x02,
+            0x02,
+            0x02,
+            0x02,
+            0,
+            0x02,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0x02,
+            0x02,
+            0x02,
+            0x02,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
+            0x03,
         };
 
         public static readonly HtmlEntityIndex[] EntityMap =
@@ -361,102 +361,102 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             0,                                                                      
             0,                                                                      
 #endif
-            HtmlEntityIndex.nbsp,                                                  
-            HtmlEntityIndex.iexcl,                                                 
-            HtmlEntityIndex.cent,                                                  
-            HtmlEntityIndex.pound,                                                 
-            HtmlEntityIndex.curren,                                                
-            HtmlEntityIndex.yen,                                                   
-            HtmlEntityIndex.brvbar,                                                
-            HtmlEntityIndex.sect,                                                  
-            HtmlEntityIndex.uml,                                                   
-            HtmlEntityIndex.copy,                                                  
-            HtmlEntityIndex.ordf,                                                  
-            HtmlEntityIndex.laquo,                                                 
-            HtmlEntityIndex.not,                                                   
-            HtmlEntityIndex.shy,                                                   
-            HtmlEntityIndex.reg,                                                   
-            HtmlEntityIndex.macr,                                                  
-            HtmlEntityIndex.deg,                                                   
-            HtmlEntityIndex.plusmn,                                                
-            HtmlEntityIndex.sup2,                                                  
-            HtmlEntityIndex.sup3,                                                  
-            HtmlEntityIndex.acute,                                                 
-            HtmlEntityIndex.micro,                                                 
-            HtmlEntityIndex.para,                                                  
-            HtmlEntityIndex.middot,                                                
-            HtmlEntityIndex.cedil,                                                 
-            HtmlEntityIndex.sup1,                                                  
-            HtmlEntityIndex.ordm,                                                  
-            HtmlEntityIndex.raquo,                                                 
-            HtmlEntityIndex.frac14,                                                
-            HtmlEntityIndex.frac12,                                                
-            HtmlEntityIndex.frac34,                                                
-            HtmlEntityIndex.iquest,                                                
-            HtmlEntityIndex.Agrave,                                                
-            HtmlEntityIndex.Aacute,                                                
-            HtmlEntityIndex.Acirc,                                                 
-            HtmlEntityIndex.Atilde,                                                
-            HtmlEntityIndex.Auml,                                                  
-            HtmlEntityIndex.Aring,                                                 
-            HtmlEntityIndex.AElig,                                                 
-            HtmlEntityIndex.Ccedil,                                                
-            HtmlEntityIndex.Egrave,                                                
-            HtmlEntityIndex.Eacute,                                                
-            HtmlEntityIndex.Ecirc,                                                 
-            HtmlEntityIndex.Euml,                                                  
-            HtmlEntityIndex.Igrave,                                                
-            HtmlEntityIndex.Iacute,                                                
-            HtmlEntityIndex.Icirc,                                                 
-            HtmlEntityIndex.Iuml,                                                  
-            HtmlEntityIndex.ETH,                                                   
-            HtmlEntityIndex.Ntilde,                                                
-            HtmlEntityIndex.Ograve,                                                
-            HtmlEntityIndex.Oacute,                                                
-            HtmlEntityIndex.Ocirc,                                                 
-            HtmlEntityIndex.Otilde,                                                
-            HtmlEntityIndex.Ouml,                                                  
-            HtmlEntityIndex.times,                                                 
-            HtmlEntityIndex.Oslash,                                                
-            HtmlEntityIndex.Ugrave,                                                
-            HtmlEntityIndex.Uacute,                                                
-            HtmlEntityIndex.Ucirc,                                                 
-            HtmlEntityIndex.Uuml,                                                  
-            HtmlEntityIndex.Yacute,                                                
-            HtmlEntityIndex.THORN,                                                 
-            HtmlEntityIndex.szlig,                                                 
-            HtmlEntityIndex.agrave,                                                
-            HtmlEntityIndex.aacute,                                                
-            HtmlEntityIndex.acirc,                                                 
-            HtmlEntityIndex.atilde,                                                
-            HtmlEntityIndex.auml,                                                  
-            HtmlEntityIndex.aring,                                                 
-            HtmlEntityIndex.aelig,                                                 
-            HtmlEntityIndex.ccedil,                                                
-            HtmlEntityIndex.egrave,                                                
-            HtmlEntityIndex.eacute,                                                
-            HtmlEntityIndex.ecirc,                                                 
-            HtmlEntityIndex.euml,                                                  
-            HtmlEntityIndex.igrave,                                                
-            HtmlEntityIndex.iacute,                                                
-            HtmlEntityIndex.icirc,                                                 
-            HtmlEntityIndex.iuml,                                                  
-            HtmlEntityIndex.eth,                                                   
-            HtmlEntityIndex.ntilde,                                                
-            HtmlEntityIndex.ograve,                                                
-            HtmlEntityIndex.oacute,                                                
-            HtmlEntityIndex.ocirc,                                                 
-            HtmlEntityIndex.otilde,                                                
-            HtmlEntityIndex.ouml,                                                  
-            HtmlEntityIndex.divide,                                                
-            HtmlEntityIndex.oslash,                                                
-            HtmlEntityIndex.ugrave,                                                
-            HtmlEntityIndex.uacute,                                                
-            HtmlEntityIndex.ucirc,                                                 
-            HtmlEntityIndex.uuml,                                                  
-            HtmlEntityIndex.yacute,                                                
-            HtmlEntityIndex.thorn,                                                 
-            HtmlEntityIndex.yuml,                                                  
+            HtmlEntityIndex.nbsp,
+            HtmlEntityIndex.iexcl,
+            HtmlEntityIndex.cent,
+            HtmlEntityIndex.pound,
+            HtmlEntityIndex.curren,
+            HtmlEntityIndex.yen,
+            HtmlEntityIndex.brvbar,
+            HtmlEntityIndex.sect,
+            HtmlEntityIndex.uml,
+            HtmlEntityIndex.copy,
+            HtmlEntityIndex.ordf,
+            HtmlEntityIndex.laquo,
+            HtmlEntityIndex.not,
+            HtmlEntityIndex.shy,
+            HtmlEntityIndex.reg,
+            HtmlEntityIndex.macr,
+            HtmlEntityIndex.deg,
+            HtmlEntityIndex.plusmn,
+            HtmlEntityIndex.sup2,
+            HtmlEntityIndex.sup3,
+            HtmlEntityIndex.acute,
+            HtmlEntityIndex.micro,
+            HtmlEntityIndex.para,
+            HtmlEntityIndex.middot,
+            HtmlEntityIndex.cedil,
+            HtmlEntityIndex.sup1,
+            HtmlEntityIndex.ordm,
+            HtmlEntityIndex.raquo,
+            HtmlEntityIndex.frac14,
+            HtmlEntityIndex.frac12,
+            HtmlEntityIndex.frac34,
+            HtmlEntityIndex.iquest,
+            HtmlEntityIndex.Agrave,
+            HtmlEntityIndex.Aacute,
+            HtmlEntityIndex.Acirc,
+            HtmlEntityIndex.Atilde,
+            HtmlEntityIndex.Auml,
+            HtmlEntityIndex.Aring,
+            HtmlEntityIndex.AElig,
+            HtmlEntityIndex.Ccedil,
+            HtmlEntityIndex.Egrave,
+            HtmlEntityIndex.Eacute,
+            HtmlEntityIndex.Ecirc,
+            HtmlEntityIndex.Euml,
+            HtmlEntityIndex.Igrave,
+            HtmlEntityIndex.Iacute,
+            HtmlEntityIndex.Icirc,
+            HtmlEntityIndex.Iuml,
+            HtmlEntityIndex.ETH,
+            HtmlEntityIndex.Ntilde,
+            HtmlEntityIndex.Ograve,
+            HtmlEntityIndex.Oacute,
+            HtmlEntityIndex.Ocirc,
+            HtmlEntityIndex.Otilde,
+            HtmlEntityIndex.Ouml,
+            HtmlEntityIndex.times,
+            HtmlEntityIndex.Oslash,
+            HtmlEntityIndex.Ugrave,
+            HtmlEntityIndex.Uacute,
+            HtmlEntityIndex.Ucirc,
+            HtmlEntityIndex.Uuml,
+            HtmlEntityIndex.Yacute,
+            HtmlEntityIndex.THORN,
+            HtmlEntityIndex.szlig,
+            HtmlEntityIndex.agrave,
+            HtmlEntityIndex.aacute,
+            HtmlEntityIndex.acirc,
+            HtmlEntityIndex.atilde,
+            HtmlEntityIndex.auml,
+            HtmlEntityIndex.aring,
+            HtmlEntityIndex.aelig,
+            HtmlEntityIndex.ccedil,
+            HtmlEntityIndex.egrave,
+            HtmlEntityIndex.eacute,
+            HtmlEntityIndex.ecirc,
+            HtmlEntityIndex.euml,
+            HtmlEntityIndex.igrave,
+            HtmlEntityIndex.iacute,
+            HtmlEntityIndex.icirc,
+            HtmlEntityIndex.iuml,
+            HtmlEntityIndex.eth,
+            HtmlEntityIndex.ntilde,
+            HtmlEntityIndex.ograve,
+            HtmlEntityIndex.oacute,
+            HtmlEntityIndex.ocirc,
+            HtmlEntityIndex.otilde,
+            HtmlEntityIndex.ouml,
+            HtmlEntityIndex.divide,
+            HtmlEntityIndex.oslash,
+            HtmlEntityIndex.ugrave,
+            HtmlEntityIndex.uacute,
+            HtmlEntityIndex.ucirc,
+            HtmlEntityIndex.uuml,
+            HtmlEntityIndex.yacute,
+            HtmlEntityIndex.thorn,
+            HtmlEntityIndex.yuml,
         };
 
         [Flags]
@@ -464,7 +464,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         {
             Integer = 0x0001,
             Float = 0x0002,
-            AbsoluteLength = 0x0004,        
+            AbsoluteLength = 0x0004,
             EmExLength = 0x0008,
             Percentage = 0x0010,
             Multiple = 0x0020,
@@ -491,7 +491,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             int offset = 0;
             int end = value.Length;
 
-            
             while (offset < end && ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(value[offset])))
             {
                 offset++;
@@ -518,7 +517,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else
                 {
-                    
                     exponent++;
                 }
                 offset++;
@@ -533,7 +531,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     isValidNumber = true;
 
-                    
                     if (result < ulong.MaxValue / 10 - 9)
                     {
                         result = unchecked(result * 10u + (uint)(value[offset] - '0'));
@@ -563,10 +560,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (offset + 1 < end && (value[offset + 1] == '-' || value[offset + 1] == '+' || ParseSupport.NumericCharacter(ParseSupport.GetCharClass(value[offset + 1]))))
                 {
-                    
-
                     floatNumber = true;
-                    offset ++;  
+                    offset ++;
 
                     bool isNegativeScientificExponent = false;
 
@@ -601,16 +596,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (offset + 1 < end)
             {
-                
-
                 if ((value[offset] | '\x20') == 'p')
                 {
-                    
-
                     if ((value[offset + 1] | '\x20') == 'c')
                     {
-                        
-
                         mul = 8 * 20 * 12;
                         div = 1;
                         recognized = true;
@@ -619,8 +608,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                     else if ((value[offset + 1] | '\x20') == 't')
                     {
-                        
-
                         mul = 8 * 20;
                         div = 1;
                         recognized = true;
@@ -629,8 +616,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                     else if ((value[offset + 1] | '\x20') == 'x')
                     {
-                        
-
                         mul = 8 * 20 * 72;
                         div = 120;
                         units = PropertyType.Pixels;
@@ -640,12 +625,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else if ((value[offset] | '\x20') == 'e')
                 {
-                    
-
                     if ((value[offset + 1] | '\x20') == 'm')
                     {
-                        
-
                         mul = 8 * 20;
                         div = 1;
                         units = PropertyType.Ems;
@@ -654,8 +635,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                     else if ((value[offset + 1] | '\x20') == 'x')
                     {
-                        
-
                         mul = 8 * 20;
                         div = 1;
                         units = PropertyType.Exs;
@@ -665,12 +644,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else if ((value[offset] | '\x20') == 'i')
                 {
-                    
-
                     if ((value[offset + 1] | '\x20') == 'n')
                     {
-                        
-
                         mul = 8 * 20 * 72;
                         div = 1;
                         recognized = true;
@@ -680,12 +655,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else if ((value[offset] | '\x20') == 'c')
                 {
-                    
-
                     if ((value[offset + 1] | '\x20') == 'm')
                     {
-                        
-
                         mul = 8 * 20 * 72 * 100;
                         div = 254;
                         recognized = true;
@@ -695,12 +666,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else if ((value[offset] | '\x20') == 'm')
                 {
-                    
-
                     if ((value[offset + 1] | '\x20') == 'm')
                     {
-                        
-
                         mul = 8 * 20 * 72 * 10;
                         div = 254;
                         recognized = true;
@@ -714,8 +681,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (value[offset] == '%')
                 {
-                    
-
                     mul = 10000;
                     div = 1;
                     units = PropertyType.Percentage;
@@ -724,8 +689,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else if (value[offset] == '*')
                 {
-                    
-
                     mul = 1;
                     div = 1;
                     units = PropertyType.Multiple;
@@ -754,12 +717,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (result != 0)
             {
-                
-                
-                
                 int actualExponent = exponent + scientificExponent;
-
-                
 
                 if (actualExponent > 0)
                 {
@@ -828,7 +786,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (0 != (parseFlags & NumberParseFlags.Integer))
                 {
-                    
                 }
                 else if (0 != (parseFlags & NumberParseFlags.HtmlFontUnits))
                 {
@@ -857,11 +814,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         units = PropertyType.HtmlFontUnits;
                     }
                 }
-                
                 else if (0 != (parseFlags & NumberParseFlags.AbsoluteLength))
                 {
-                    
-                    
                     result = result * (8 * 20 * 72) / 120;
                     if (result > PropertyValue.ValueMax)
                     {
@@ -901,13 +855,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (0 != (parseFlags & NumberParseFlags.Float))
                 {
-                    
                 }
-                
                 else if (0 != (parseFlags & NumberParseFlags.AbsoluteLength))
                 {
-                    
-                    
                     result = result * (8 * 20 * 72) / 120 / 10000;
                     if (result > PropertyValue.ValueMax)
                     {
@@ -958,7 +908,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (intValue < 0 && 0 != (parseFlags & NumberParseFlags.NonNegative) && units != PropertyType.RelHtmlFontUnits)
             {
-                
                 return PropertyValue.Null;
             }
 

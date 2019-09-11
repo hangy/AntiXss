@@ -50,7 +50,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         SelectorName = (16u << 24),
         SelectorCombinatorOrComma = (17u << 24),
 
-        
         SelectorPseudoStart = (18u << 24),
         SelectorPseudo = (19u << 24),
         SelectorPseudoArg = (20u << 24),
@@ -70,7 +69,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         PropertyName = (40u << 24),
         PropertyColon = (41u << 24),
 
-        
         ImportantStart = (42u << 24),
         Important = (43u << 24),
         Operator = (44u << 24),
@@ -90,7 +88,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         PropertySemicolon = (57u << 24),
 
-        
         PageIdent = (70u << 24),
         PagePseudoStart = (71u << 24),
         PagePseudo = (72u << 24),
@@ -107,34 +104,32 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
     internal enum CssSelectorCombinator : byte
     {
-        None, 
-        Descendant, 
-        Adjacent, 
-        Child, 
+        None,
+        Descendant,
+        Adjacent,
+        Child,
     }
 
     internal class CssToken : Token
     {
-        protected internal PropertyListPartMajor partMajor;         
-        protected internal PropertyListPartMinor partMinor;         
+        protected internal PropertyListPartMajor partMajor;
+        protected internal PropertyListPartMinor partMinor;
 
-        protected internal PropertyEntry[] propertyList;            
-        protected internal int propertyHead;                        
-        protected internal int propertyTail;                        
-        protected internal int currentProperty;                     
+        protected internal PropertyEntry[] propertyList;
+        protected internal int propertyHead;
+        protected internal int propertyTail;
+        protected internal int currentProperty;
 
-        protected internal FragmentPosition propertyNamePosition;   
-        protected internal FragmentPosition propertyValuePosition;  
+        protected internal FragmentPosition propertyNamePosition;
+        protected internal FragmentPosition propertyValuePosition;
 
-        protected internal SelectorEntry[] selectorList;            
-        protected internal int selectorHead;                        
-        protected internal int selectorTail;                        
-        protected internal int currentSelector;                     
+        protected internal SelectorEntry[] selectorList;
+        protected internal int selectorHead;
+        protected internal int selectorTail;
+        protected internal int currentSelector;
 
-        protected internal FragmentPosition selectorNamePosition;   
-        protected internal FragmentPosition selectorClassPosition;  
-
-        
+        protected internal FragmentPosition selectorNamePosition;
+        protected internal FragmentPosition selectorClassPosition;
 
         public enum PropertyListPartMajor : byte
         {
@@ -145,24 +140,18 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             Complete = Begin | End,
         }
 
-        
-
         public enum PropertyListPartMinor : byte
         {
             Empty = 0,
 
-            
             BeginProperty = 0x08 | ContinueProperty,
             ContinueProperty = 0x10,
             EndProperty = ContinueProperty | 0x20,
             EndPropertyWithOtherProperties = EndProperty | Properties,
             PropertyPartMask = BeginProperty | EndProperty,
 
-            
             Properties = 0x80,
         }
-
-        
 
         public enum PropertyPartMajor : byte
         {
@@ -172,13 +161,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             End = Continue | 0x04,
             Complete = Begin | End,
 
-            
             ValueQuoted = 0x40,
             Deleted = 0x80,
             MaskOffFlags = Complete,
         }
-
-        
 
         public enum PropertyPartMinor : byte
         {
@@ -254,11 +240,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             this.currentSelector = -1;
         }
 
-        
-        
-        
-        
-        
         protected internal void WriteEscapedOriginalTo(ref Fragment fragment, ITextSink sink)
         {
             int run = fragment.head;
@@ -296,19 +277,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             {
                 char ch = buffer[idx];
 
-                
-                
                 if (ch == '>' || ch == '<')
                 {
-                    
-                    
                     if (idx - lastIdx > 0)
                     {
                         sink.Write(buffer, lastIdx, idx - lastIdx);
                     }
 
-                    
-                    
                     uint value = (uint)ch;
                     char[] escapeSequenceBuffer = new char[4];
                     escapeSequenceBuffer[0] = '\\';
@@ -325,24 +300,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 }
                 else
                 {
-                    
-                    
                     CssToken.AttemptUnescape(buffer, offset + length, ref ch, ref idx);
                     ++idx;
                 }
             }
-            
-            
+
             sink.Write(buffer, lastIdx, length - (lastIdx - offset));
         }
 
-        
-        
-        
-        
-        
-        
-        
         internal static bool AttemptUnescape(char[] parseBuffer, int parseEnd, ref char ch, ref int parseCurrent)
         {
             if (ch != '\\' || parseCurrent == parseEnd)
@@ -358,8 +323,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             if (ParseSupport.HexCharacter(charClass))
             {
-                
-                
                 int result = 0;
                 while (true)
                 {
@@ -400,20 +363,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             if (ch >= ' ' && ch != (char)0x7F)
             {
-                
-                
                 return true;
             }
 
-            
-            
             --parseCurrent;
             ch = '\\';
 
             return false;
         }
-
-        
 
         public struct PropertyEnumerator
         {
@@ -421,7 +378,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 #if DEBUG
             private int index;
 #endif
-            
 
             internal PropertyEnumerator(CssToken token)
             {
@@ -559,20 +515,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
-
         public struct PropertyNameTextReader
         {
             private CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
-            
 
             internal PropertyNameTextReader(CssToken token)
             {
-                
-
                 this.token = token;
 #if DEBUG
                 this.position = this.token.propertyNamePosition;
@@ -636,20 +587,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
-
         public struct PropertyValueTextReader
         {
             private CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
-            
 
             internal PropertyValueTextReader(CssToken token)
             {
-                
-
                 this.token = token;
 #if DEBUG
                 this.position = this.token.propertyValuePosition;
@@ -753,12 +699,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
-
         protected internal struct PropertyEntry
         {
             public CssNameIndex nameId;
-            public byte quoteChar;              
+            public byte quoteChar;
             public PropertyPartMajor partMajor;
             public PropertyPartMinor partMinor;
 
@@ -823,15 +767,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
-
         public struct SelectorEnumerator
         {
             private CssToken token;
 #if DEBUG
             private int index;
 #endif
-            
 
             internal SelectorEnumerator(CssToken token)
             {
@@ -969,20 +910,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
-
         public struct SelectorNameTextReader
         {
             private CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
-            
 
             internal SelectorNameTextReader(CssToken token)
             {
-                
-
                 this.token = token;
 #if DEBUG
                 this.position = this.token.selectorNamePosition;
@@ -1046,20 +982,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
-
         public struct SelectorClassTextReader
         {
             private CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
-            
 
             internal SelectorClassTextReader(CssToken token)
             {
-                
-
                 this.token = token;
 #if DEBUG
                 this.position = this.token.selectorClassPosition;
@@ -1133,8 +1064,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
-
         protected internal struct SelectorEntry
         {
             public HtmlNameIndex nameId;
@@ -1145,8 +1074,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public Fragment className;
             public CssSelectorClassType classType;
             public CssSelectorCombinator combinator;
-
-            
 
             public bool IsSelectorDeleted
             {
@@ -1160,15 +1087,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         }
     }
 
-    
-
     internal struct CssSelector
     {
         private CssToken token;
 #if DEBUG
         private int index;
 #endif
-        
 
         internal CssSelector(CssToken token)
         {
@@ -1177,8 +1101,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             this.index = this.token.currentSelector;
 #endif
         }
-
-
 
         // Orphaned WPL code.
 #if false
@@ -1229,8 +1151,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             {
                 this.AssertCurrent();
 
-                
-                
                 return (this.token.selectorList[this.token.currentSelector].combinator == CssSelectorCombinator.None &&
                     ((this.token.selectorTail == this.token.currentSelector + 1) ||
                     (this.token.selectorList[this.token.currentSelector + 1].combinator == CssSelectorCombinator.None)));
@@ -1242,20 +1162,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             get { this.AssertCurrent(); return this.token.selectorList[this.token.currentSelector].combinator; }
         }
 
-        
-
         [System.Diagnostics.Conditional("DEBUG")]
         private void AssertCurrent()
         {
-            
-            
 #if DEBUG
             InternalDebug.Assert(this.token.currentSelector == this.index);
 #endif
         }
     }
-
-    
 
     internal struct CssProperty
     {
@@ -1263,7 +1177,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 #if DEBUG
         private int index;
 #endif
-        
 
         internal CssProperty(CssToken token)
         {
@@ -1362,8 +1275,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         [System.Diagnostics.Conditional("DEBUG")]
         private void AssertCurrent()
         {
-            
-            
 #if DEBUG
             InternalDebug.Assert(this.token.currentProperty == this.index);
 #endif

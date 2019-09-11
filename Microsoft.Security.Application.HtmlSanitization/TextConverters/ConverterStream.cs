@@ -32,13 +32,13 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// Read access.
         /// </summary>        
         Read,
-        
+
         /// <summary>
         /// Write access.
         /// </summary>
         Write
     }
-    
+
     /// <summary>
     /// A stream class used for conversion.
     /// </summary>
@@ -63,12 +63,12 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// The read buffer
         /// </summary>
         private byte[] chunkToReadBuffer;
-        
+
         /// <summary>
         /// The offset to start reading from
         /// </summary>
         private int chunkToReadOffset;
-        
+
         /// <summary>
         /// The number of bytes read.
         /// </summary>
@@ -443,11 +443,11 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.inconsistentState = true;
 
             while (0 != this.chunkToReadCount)
-            {                
+            {
                 this.consumer.Run();
 
                 if (this.madeProgress)
-                {                    
+                {
                     loopsWithoutProgress = 0;
                     this.madeProgress = false;
                 }
@@ -457,10 +457,10 @@ namespace Microsoft.Exchange.Data.TextConverters
                     throw new TextConvertersException(Strings.TooManyIterationsToProcessInput);
                 }
             }
-            
+
             this.inconsistentState = false;
 
-            this.chunkToReadBuffer = null;       
+            this.chunkToReadBuffer = null;
         }
 
         /// <summary>
@@ -503,7 +503,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 while (!this.consumer.Flush())
                 {
                     if (this.madeProgress)
-                    {                        
+                    {
                         loopsWithoutProgress = 0;
                         this.madeProgress = false;
                     }
@@ -513,7 +513,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                         throw new TextConvertersException(Strings.TooManyIterationsToFlushConverter);
                     }
                 }
-                
+
                 this.inconsistentState = false;
             }
 
@@ -540,8 +540,8 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         this.Flush();
                     }
-                }               
-                
+                }
+
                 if (this.producer != null && this.producer is IDisposable)
                 {
                     ((IDisposable)this.producer).Dispose();
@@ -654,7 +654,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (this.byteSource != null)
             {
-
                 while (count != 0 && this.byteSource.GetOutputChunk(out byte[] chunkBuffer, out int chunkOffset, out int chunkCount))
                 {
                     int bytesRead = Math.Min(chunkCount, count);
@@ -682,7 +681,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     this.producer.Run();
 
                     if (this.madeProgress)
-                    {                        
+                    {
                         loopsWithoutProgress = 0;
                         this.madeProgress = false;
                     }
@@ -693,12 +692,12 @@ namespace Microsoft.Exchange.Data.TextConverters
                     }
                 }
 
-                count = this.writeCount;     
+                count = this.writeCount;
 
                 this.writeBuffer = null;
                 this.writeOffset = 0;
                 this.writeCount = 0;
-                
+
                 this.inconsistentState = false;
             }
 
@@ -718,7 +717,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// </summary>
         /// <param name="newByteSource">The byte source.</param>
         internal void SetSource(IByteSource newByteSource)
-        {            
+        {
             InternalDebug.Assert(this.producer == null && this.consumer == null);
 
             this.byteSource = newByteSource;

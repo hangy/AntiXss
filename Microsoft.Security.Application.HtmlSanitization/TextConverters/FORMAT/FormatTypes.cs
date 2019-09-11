@@ -24,8 +24,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
     using System.Runtime.InteropServices;
     using Microsoft.Exchange.Data.Internal;
 
-    
-
     internal struct FlagProperties
     {
         private const uint AllDefinedBits = 0xAAAAAAAAu;
@@ -100,7 +98,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         {
             InternalDebug.Assert(IsFlagProperty(id));
 
-            return 0 != (this.bits & (DefinedBit << ((id - PropertyId.FirstFlag) * 2)));    
+            return 0 != (this.bits & (DefinedBit << ((id - PropertyId.FirstFlag) * 2)));
         }
 
         // Orphaned WPL code.
@@ -115,7 +113,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         {
             InternalDebug.Assert(IsFlagProperty(id) && IsDefined(id));
 
-            return 0 != (this.bits & (ValueBit << ((id - PropertyId.FirstFlag) * 2)));    
+            return 0 != (this.bits & (ValueBit << ((id - PropertyId.FirstFlag) * 2)));
         }
 
         // Orphaned WPL code.
@@ -189,55 +187,36 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
         public static FlagProperties Merge(FlagProperties baseFlags, FlagProperties overrideFlags)
         {
-            
-            
-            
             return new FlagProperties((baseFlags.bits & ~((overrideFlags.bits & AllDefinedBits) >> 1)) | overrideFlags.bits);
         }
 
-        
-        
-        
-        public static FlagProperties operator &(FlagProperties x, FlagProperties y) 
+        public static FlagProperties operator &(FlagProperties x, FlagProperties y)
         {
             return new FlagProperties(x.bits & ((y.bits & AllDefinedBits) | ((y.bits & AllDefinedBits) >> 1)));
         }
 
-        
-        
-        
-        
-        
-        public static FlagProperties operator |(FlagProperties x, FlagProperties y) 
+        public static FlagProperties operator |(FlagProperties x, FlagProperties y)
         {
             return FlagProperties.Merge(x, y);
         }
 
-        
-        
-        
-        public static FlagProperties operator ^(FlagProperties x, FlagProperties y) 
+        public static FlagProperties operator ^(FlagProperties x, FlagProperties y)
         {
             uint tmp = (x.bits ^ y.bits) & x.Mask & y.Mask;
             return new FlagProperties(tmp | (tmp << 1));
         }
 
-        
-        
-        
-        public static FlagProperties operator ~(FlagProperties x) 
+        public static FlagProperties operator ~(FlagProperties x)
         {
             return new FlagProperties(~((x.bits & AllDefinedBits) | ((x.bits & AllDefinedBits) >> 1)));
         }
 
-        
-        public static bool operator ==(FlagProperties x, FlagProperties y) 
+        public static bool operator ==(FlagProperties x, FlagProperties y)
         {
             return x.bits == y.bits;
         }
 
-        
-        public static bool operator !=(FlagProperties x, FlagProperties y) 
+        public static bool operator !=(FlagProperties x, FlagProperties y)
         {
             return x.bits != y.bits;
         }
@@ -252,7 +231,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
             return (int)this.bits;
         }
 
-        
         public override string ToString()
         {
             string result = "";
@@ -273,8 +251,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         }
     }
 
-    
-
     internal struct PropertyBitMask
     {
         public const PropertyId FirstNonFlag = PropertyId.LastFlag + 1;
@@ -287,8 +263,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
         internal PropertyBitMask(uint bits1, uint bits2)
         {
-            
-            
             InternalDebug.Assert(PropertyId.MaxValue - FirstNonFlag <= 32 * 2);
 
             this.bits1 = bits1;
@@ -371,34 +345,32 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         }
 #endif
 
-        public static PropertyBitMask operator |(PropertyBitMask x, PropertyBitMask y) 
+        public static PropertyBitMask operator |(PropertyBitMask x, PropertyBitMask y)
         {
             return new PropertyBitMask(x.bits1 | y.bits1, x.bits2 | y.bits2);
         }
 
-        public static PropertyBitMask operator &(PropertyBitMask x, PropertyBitMask y) 
+        public static PropertyBitMask operator &(PropertyBitMask x, PropertyBitMask y)
         {
             return new PropertyBitMask(x.bits1 & y.bits1, x.bits2 & y.bits2);
         }
 
-        public static PropertyBitMask operator ^(PropertyBitMask x, PropertyBitMask y) 
+        public static PropertyBitMask operator ^(PropertyBitMask x, PropertyBitMask y)
         {
             return new PropertyBitMask(x.bits1 ^ y.bits1, x.bits2 ^ y.bits2);
         }
 
-        public static PropertyBitMask operator ~(PropertyBitMask x) 
+        public static PropertyBitMask operator ~(PropertyBitMask x)
         {
             return new PropertyBitMask(~x.bits1, ~x.bits2);
         }
 
-        
-        public static bool operator ==(PropertyBitMask x, PropertyBitMask y) 
+        public static bool operator ==(PropertyBitMask x, PropertyBitMask y)
         {
             return x.bits1 == y.bits1 && x.bits2 == y.bits2;
         }
 
-        
-        public static bool operator !=(PropertyBitMask x, PropertyBitMask y) 
+        public static bool operator !=(PropertyBitMask x, PropertyBitMask y)
         {
             return x.bits1 != y.bits1 || x.bits2 != y.bits2;
         }
@@ -413,7 +385,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
             return (int)(this.bits1 ^ this.bits2);
         }
 
-        
         public override string ToString()
         {
             string result = "";
@@ -486,7 +457,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
     }
 
-    
 #if !DATAGEN
     internal class PropertyState
     {
@@ -813,7 +783,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         {
             return "flags: (" + this.flagProperties.ToString() + "), props: (" + this.propertyMask.ToString() + "), dflags: (" + this.distinctFlagProperties.ToString() + "), dprops: (" + this.distinctPropertyMask.ToString() + ")";
         }
-
     }
 #endif
 }

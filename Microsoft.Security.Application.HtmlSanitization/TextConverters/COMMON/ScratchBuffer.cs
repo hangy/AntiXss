@@ -100,7 +100,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         public void TrimWhitespace()
         {
-            
             while (this.count != 0 && ParseSupport.WhitespaceCharacter(this.buffer[this.offset]))
             {
                 this.offset++;
@@ -109,7 +108,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (this.count != 0)
             {
-                
                 int end = this.offset + this.count - 1;
                 while (ParseSupport.WhitespaceCharacter(this.buffer[end--]))
                 {
@@ -145,12 +143,10 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             AssertStringIsLowerCase(rightPart);
 
-            
             if (this.count != rightPart.Length)
             {
                 return false;
             }
-
 
             for (int i = 0; i < rightPart.Length; i++)
             {
@@ -342,13 +338,13 @@ namespace Microsoft.Exchange.Data.TextConverters
             get
             {
                 InternalDebug.Assert(offset < this.buffer.Length);
-                
+
                 return this.buffer[offset];
             }
             set
             {
                 InternalDebug.Assert(offset < this.buffer.Length);
-                
+
                 this.buffer[offset] = value;
             }
         }
@@ -391,7 +387,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             int countRead;
             int countTotal = 0;
 
-            while (0 != (countRead = this.GetSpace(maxSize)) && 
+            while (0 != (countRead = this.GetSpace(maxSize)) &&
                 0 != (countRead = attr.Value.Read(this.buffer, this.count, countRead)))
             {
                 this.count += countRead;

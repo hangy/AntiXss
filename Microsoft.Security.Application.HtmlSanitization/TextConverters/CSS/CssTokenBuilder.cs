@@ -26,7 +26,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
     internal class CssTokenBuilder : TokenBuilder
     {
-        protected const byte BuildStateEndedCss = BuildStateEnded + 1; 
+        protected const byte BuildStateEndedCss = BuildStateEnded + 1;
         protected const byte BuildStatePropertyListStarted = 20;
 
         protected const byte BuildStateBeforeSelector = 23;
@@ -36,7 +36,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         protected const byte BuildStateEndSelectorClass = 27;
 
         protected const byte BuildStateBeforeProperty = 43;
-        
+
         protected const byte BuildStatePropertyName = 44;
         protected const byte BuildStateEndPropertyName = 45;
         protected const byte BuildStatePropertyValue = 46;
@@ -167,7 +167,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             InternalDebug.Assert(this.state == BuildStateSelectorName);
 
             this.cssToken.selectorList[this.cssToken.selectorTail].name.tail = this.cssToken.whole.tail;
-            
+
             this.cssToken.selectorList[this.cssToken.selectorTail].nameId = this.LookupTagName(nameLength, this.cssToken.selectorList[this.cssToken.selectorTail].name);
 
             this.state = BuildStateEndSelectorName;
@@ -199,7 +199,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             int index = this.cssToken.selectorTail;
             if (previous)
             {
-                
                 index--;
             }
 
@@ -505,7 +504,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         {
             if (nameLength > CssData.MAX_NAME)
             {
-                
                 return CssNameIndex.Unknown;
             }
 
@@ -548,7 +546,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         {
             if (nameLength > HtmlNameData.MAX_NAME)
             {
-                
                 return HtmlNameIndex.Unknown;
             }
 

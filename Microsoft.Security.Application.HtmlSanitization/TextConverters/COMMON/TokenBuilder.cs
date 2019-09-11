@@ -39,13 +39,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 
         protected int tailOffset;
 
-        protected bool tokenValid;              
+        protected bool tokenValid;
 
 #if DEBUG
         private int preparedForNumRuns;
 #endif
-
-        
 
         public TokenBuilder(Token token, char[] buffer, int maxRuns, bool testBoundaryConditions)
         {
@@ -61,31 +59,21 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
                 initialRuns = 6 + 1;
             }
 
-            
-
             this.token = token;
 
             this.token.buffer = buffer;
             this.token.runList = new Token.RunEntry[initialRuns];
-
-            
         }
-
-        
 
         public Token Token
         {
             get { return this.token; }
         }
 
-        
-
         public bool IsStarted
         {
             get { return this.state != BuildStateInitialized; }
         }
-
-        
 
         public bool Valid
         {
@@ -124,23 +112,16 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
         {
             if (newBuffer != this.token.buffer || newBase != this.token.whole.headOffset)
             {
-                
-
-                
                 this.token.buffer = newBuffer;
 
                 if (newBase != this.token.whole.headOffset)
                 {
-                    
-
                     int delta = newBase - this.token.whole.headOffset;
 
                     this.Rebase(delta);
                 }
             }
         }
-
-        
 
         public virtual void Reset()
         {
@@ -158,8 +139,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             }
         }
 
-        
-
         public TokenId MakeEmptyToken(TokenId tokenId)
         {
             InternalDebug.Assert(this.state == BuildStateInitialized && this.token.IsEmpty && !this.tokenValid);
@@ -171,8 +150,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 
             return tokenId;
         }
-
-        
 
         public TokenId MakeEmptyToken(TokenId tokenId, int argument)
         {
@@ -187,8 +164,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             return tokenId;
         }
 
-        
-
         public void StartText(int baseOffset)
         {
             InternalDebug.Assert(this.state == BuildStateInitialized && this.token.IsEmpty && !this.tokenValid);
@@ -201,8 +176,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             this.tailOffset = baseOffset;
         }
 
-        
-
         public void EndText()
         {
             InternalDebug.Assert(this.state == BuildStateText);
@@ -213,7 +186,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 
             this.token.wholePosition.Rewind(this.token.whole);
 
-            
             this.AddSentinelRun();
         }
 
@@ -237,8 +209,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 #if DEBUG
             this.preparedForNumRuns = numRuns;
 #endif
-            
-            return (start == this.tailOffset && this.token.whole.tail + numRuns < this.token.runList.Length) || 
+
+            return (start == this.tailOffset && this.token.whole.tail + numRuns < this.token.runList.Length) ||
                             this.SlowPrepareToAddMoreRuns(numRuns, start, skippedRunKind);
         }
 
@@ -267,8 +239,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             return false;
         }
 
-        
-
         public bool PrepareToAddMoreRuns(int numRuns)
         {
 #if DEBUG
@@ -276,8 +246,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 #endif
             return this.token.whole.tail + numRuns < this.token.runList.Length || this.ExpandRunsArray(numRuns);
         }
-
-        
 
         [Conditional("DEBUG")]
         public void AssertPreparedToAddMoreRuns(int numRuns)
@@ -309,15 +277,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 #endif
         }
 
-        
-
         public void AddTextRun(RunTextType textType, int start, int end)
         {
             InternalDebug.Assert(start == this.tailOffset);
             this.AddRun(RunType.Normal, textType, (uint)RunKind.Text, start, end, 0);
         }
-
-        
 
         public void AddLiteralTextRun(RunTextType textType, int start, int end, int literal)
         {
@@ -350,8 +314,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             this.tailOffset = end;
         }
 
-        
-
         internal void AddInvalidRun(int offset, uint kind)
         {
 #if DEBUG
@@ -365,8 +327,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             this.tailOffset = offset;
         }
 
-        
-
         internal void AddNullRun(uint kind)
         {
 #if DEBUG
@@ -378,17 +338,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             this.token.runList[this.token.whole.tail++].Initialize(RunType.Invalid, RunTextType.Unknown, kind, 0, 0);
         }
 
-        
-
         internal void AddSentinelRun()
         {
-            
             InternalDebug.Assert(this.token.whole.tail + 1 <= this.token.runList.Length);
 
             this.token.runList[this.token.whole.tail].InitializeSentinel();
         }
-
-        
 
         protected virtual void Rebase(int deltaOffset)
         {
@@ -397,8 +352,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 
             this.tailOffset += deltaOffset;
         }
-
-        
 
         private bool ExpandRunsArray(int numRuns)
         {

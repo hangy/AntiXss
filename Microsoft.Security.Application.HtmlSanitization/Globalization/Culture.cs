@@ -176,7 +176,6 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </returns>
         public CultureInfo CultureInfo
         {
-
         // Orphaned WPL code.
 #if false
             get

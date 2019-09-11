@@ -24,16 +24,16 @@ namespace Microsoft.Exchange.Data.TextConverters
     using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.TextConverters.Internal.Html;
     using Strings = Microsoft.Exchange.CtsResources.TextConvertersStrings;
-    
+
     internal enum HtmlWriterState
     {
         Default,
-        
+
         Tag,
-        
+
         Attribute,
     }
-    
+
     internal class HtmlWriter : IRestartable, IFallback, IDisposable, ITextSinkEx
     {
         private ConverterOutput output;
@@ -115,19 +115,19 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.autoNewLines = true;
         }
 #endif
-        
+
         internal HtmlWriter(ConverterOutput output, bool filterHtml, bool autoNewLines)
         {
             this.output = output;
             this.filterHtml = filterHtml;
             this.autoNewLines = autoNewLines;
         }
-        
+
         internal bool HasEncoding
         {
             get { return this.output is ConverterEncodingOutput; }
         }
-        
+
         internal bool CodePageSameAsInput
         {
             get
@@ -196,7 +196,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 throw new InvalidOperationException(Strings.CannotWriteWhileCopyPending);
             }
-            
+
             if (this.outputState != OutputState.OutsideTag)
             {
                 this.WriteTagEnd();
@@ -204,12 +204,12 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.output.Flush();
         }
-        
+
         internal void SetCopyPending(bool copyPending)
         {
             this.copyPending = copyPending;
         }
-        
+
         // Orphaned WPL code.
 #if false
         public void WriteTag(HtmlReader reader)
@@ -345,16 +345,16 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.WriteTagBegin(nameIndex, name, isEndTag, false, false);
         }
 #endif
-        
+
         internal void WriteStartTag(HtmlNameIndex nameIndex)
         {
             this.WriteTagBegin(nameIndex, null, false, false, false);
         }
-        
+
         internal void WriteEndTag(HtmlNameIndex nameIndex)
         {
             this.WriteTagBegin(nameIndex, null, true, false, false);
-            this.WriteTagEnd();             
+            this.WriteTagEnd();
         }
 
         // Orphaned WPL code.
@@ -369,7 +369,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.Exchange.Data.TextConverters.ConverterOutput.Write(System.String)")]
         internal void WriteTagBegin(HtmlNameIndex nameIndex, string name, bool isEndTag, bool allowWspLeft, bool allowWspRight)
         {
-            
             if (this.outputState != OutputState.OutsideTag)
             {
                 this.WriteTagEnd();
@@ -414,7 +413,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     isEndTag = false;
                 }
             }
-            
+
             InternalDebug.Assert(0 == (HtmlDtd.tags[(int)tagIndex].literal & HtmlDtd.Literal.Entities) ||
                                 0 != (HtmlDtd.tags[(int)tagIndex].literal & HtmlDtd.Literal.Tags));
 
@@ -473,11 +472,10 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (isEndTag)
                 {
-                    
                     if (0 != (HtmlDtd.tags[(int)tagIndex].literal & HtmlDtd.Literal.Tags))
                     {
                         this.literalTags = false;
-                        
+
                         this.literalEntities = false;
                         this.cssEscaping = false;
                     }
@@ -511,7 +509,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         this.outputState = OutputState.TagStarted;
                     }
-                    
+
                     this.isEmptyScopeTag = false;
                 }
             }
@@ -539,21 +537,21 @@ namespace Microsoft.Exchange.Data.TextConverters
                     this.output.Write('?');
                     this.lineLength++;
                 }
-                else 
+                else
                 {
                     this.output.Write('!');
                     this.lineLength++;
                 }
-                
+
                 this.outputState = OutputState.WritingUnstructuredTagContent;
-                
+
                 this.isEmptyScopeTag = true;
             }
 
             this.tagNameIndex = nameIndex;
             this.isEndTag = isEndTag;
         }
-        
+
         internal void WriteTagEnd()
         {
             this.WriteTagEnd(this.isEmptyScopeTag);
@@ -858,7 +856,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.outputState = OutputState.BeforeAttribute;
         }
 #endif
-        
+
         internal void WriteAttribute(HtmlNameIndex nameIndex, string value)
         {
             InternalDebug.Assert(nameIndex > HtmlNameIndex.Unknown && (int)nameIndex < HtmlNameData.names.Length);
@@ -1001,14 +999,13 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.OutputAttributeName(name);
         }
 #endif
-        
+
         internal void WriteAttributeName(HtmlNameIndex nameIndex)
         {
             InternalDebug.Assert(nameIndex > HtmlNameIndex.Unknown && (int)nameIndex < HtmlNameData.names.Length);
             InternalDebug.Assert(this.outputState >= OutputState.WritingTagName);
             InternalDebug.Assert(!this.isEndTag);
 
-            
             if (this.outputState > OutputState.BeforeAttribute)
             {
                 this.OutputAttributeEnd();
@@ -1016,7 +1013,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.OutputAttributeName(HtmlNameData.names[(int)nameIndex].name);
         }
-        
+
         // Orphaned WPL code.
 #if false
         public void WriteAttributeName(HtmlAttributeReader attributeReader)
@@ -1129,7 +1126,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 #endif
-        
+
         internal void WriteAttributeValueInternal(string value)
         {
             InternalDebug.Assert(value != null);
@@ -1247,7 +1244,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             reader.WriteTextTo(this.WriteText());
         }
 #endif
-        
+
         public void WriteMarkupText(string value)
         {
             if (value == null)
@@ -1272,7 +1269,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.output.Write(value, null);
             this.lineLength += value.Length;
-            
+
             this.allowWspBeforeFollowingTag = false;
         }
 
@@ -1350,7 +1347,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             reader.WriteMarkupTextTo(this.WriteMarkupText());
         }
 #endif
-        
+
         internal ITextSinkEx WriteUnstructuredTagContent()
         {
             InternalDebug.Assert(this.outputState == OutputState.WritingUnstructuredTagContent);
@@ -1358,7 +1355,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.fallback = null;
             return this;
         }
-        
+
         internal ITextSinkEx WriteTagName()
         {
             InternalDebug.Assert(this.outputState == OutputState.TagStarted ||
@@ -1370,7 +1367,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return this;
         }
 
-        
         internal ITextSinkEx WriteAttributeName()
         {
             InternalDebug.Assert(this.outputState >= OutputState.WritingTagName);
@@ -1399,7 +1395,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     this.lineLength = 0;
                 }
 #endif
-                this.output.Write(' ');     
+                this.output.Write(' ');
                 this.lineLength++;
             }
 
@@ -1408,7 +1404,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.fallback = null;
             return this;
         }
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.Exchange.Data.TextConverters.ConverterOutput.Write(System.String)")]
         internal ITextSinkEx WriteAttributeValue()
@@ -1427,10 +1422,8 @@ namespace Microsoft.Exchange.Data.TextConverters
             return this;
         }
 
-        
         internal ITextSinkEx WriteText()
         {
-            
             if (this.outputState != OutputState.OutsideTag)
             {
                 this.WriteTagEnd();
@@ -1440,7 +1433,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (this.lastWhitespace)
             {
-                
                 InternalDebug.Assert(ParseSupport.FarEastNonHanguelChar('\x3000'));
                 this.OutputLastWhitespace('\x3000');
             }
@@ -1470,16 +1462,14 @@ namespace Microsoft.Exchange.Data.TextConverters
             return this;
         }
 #endif
-        
+
         internal void WriteNewLine()
         {
             this.WriteNewLine(false);
         }
 
-        
         internal void WriteNewLine(bool optional)
         {
-            
             if (this.outputState != OutputState.OutsideTag)
             {
                 this.WriteTagEnd();
@@ -1499,16 +1489,13 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         internal void WriteAutoNewLine()
         {
             this.WriteNewLine(false);
         }
 
-        
         internal void WriteAutoNewLine(bool optional)
         {
-            
             if (this.outputState != OutputState.OutsideTag)
             {
                 this.WriteTagEnd();
@@ -1644,7 +1631,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 #endif
-        
+
         internal void WriteCollapsedWhitespace()
         {
             if (this.outputState != OutputState.OutsideTag)
@@ -1655,7 +1642,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.lastWhitespace = true;
             this.allowWspBeforeFollowingTag = false;
         }
-        
+
         private void OutputLastWhitespace(char nextChar)
         {
             if (this.lineLength > 255 && this.autoNewLines)
@@ -1683,7 +1670,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.lastWhitespace = false;
         }
 
-        
         private void OutputAttributeName(string name)
         {
 #if false
@@ -1704,7 +1690,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.lineLength = 0;
             }
 #endif
-            this.output.Write(' ');     
+            this.output.Write(' ');
             this.output.Write(name);
             this.lineLength += name.Length + 1;
 
@@ -1756,7 +1742,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.lineLength += 2;
             }
 
-            
             this.output.Write('\"');
             this.lineLength++;
         }
@@ -1831,7 +1816,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.outputState = OutputState.OutsideTag;
         }
-        
+
         void IRestartable.DisableRestart()
         {
             if (this.output is IRestartable)
@@ -1839,7 +1824,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 ((IRestartable)this.output).DisableRestart();
             }
         }
-        
+
         byte[] IFallback.GetUnsafeAsciiMap(out byte unsafeAsciiMask)
         {
             if (this.literalEntities)
@@ -1850,7 +1835,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (this.filterHtml)
             {
-                
                 unsafeAsciiMask = 0x01;
             }
             else
@@ -1860,7 +1844,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             return HtmlSupport.UnsafeAsciiMap;
         }
-        
+
         bool IFallback.HasUnsafeUnicode()
         {
             return this.filterHtml;
@@ -1870,17 +1854,17 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             return this.filterHtml && charset.StartsWith("x-", StringComparison.OrdinalIgnoreCase);
         }
-        
+
         bool IFallback.IsUnsafeUnicode(char ch, bool isFirstChar)
         {
             return this.filterHtml &&
                 ((byte)(ch & 0xFF) == (byte)'<' ||
                 (byte)((ch >> 8) & 0xFF) == (byte)'<' ||
-                
+
                 (!isFirstChar && ch == '\uFEFF') ||
                 Char.GetUnicodeCategory(ch) == System.Globalization.UnicodeCategory.PrivateUse);
         }
-        
+
         bool IFallback.FallBackChar(char ch, char[] outputBuffer, ref int outputBufferCount, int outputEnd)
         {
             if (this.literalEntities)
@@ -1986,7 +1970,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             return true;
         }
-        
+
         bool ITextSink.IsEnough { get { return false; } }
 
         void ITextSink.Write(char[] buffer, int offset, int count)
@@ -2002,7 +1986,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.textLineLength++;
             this.output.Write(ucs32Char, this.fallback);
         }
-        
+
         void ITextSinkEx.Write(string text)
         {
             this.lineLength += text.Length;
@@ -2028,12 +2012,12 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.Dispose(true);
         }
 #endif
-        
+
         void IDisposable.Dispose()
         {
             this.Dispose(true);
         }
-        
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

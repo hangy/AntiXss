@@ -24,15 +24,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
     using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.Globalization;
     using Microsoft.Exchange.Data.TextConverters.Internal.Text;
-    
+
     using Microsoft.Exchange.Data.TextConverters.Internal.Format;
 
     using Security.Application.TextConverters.HTML;
 
     internal class HtmlToTextConverter : IProducerConsumer, IRestartable, IReusable, IDisposable
     {
-        
-
         private bool convertFragment;
 
         private IHtmlParser parser;
@@ -52,10 +50,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private TextMapping textMapping;
 
-        
         private struct NormalizerContext
         {
-            
             public char lastCh;
             public bool oneNL;
             public bool hasSpace;
@@ -68,7 +64,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         private bool afterFirstParagraph;
         private bool ignoreNextP;
 
-        
         private int listLevel;
         private int listIndex;
         private bool listOrdered;
@@ -88,17 +83,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private UrlCompareSink urlCompareSink;
 
-        
-
         public HtmlToTextConverter(
                     IHtmlParser parser,
                     TextOutput output,
                     Injection injection,
                     bool convertFragment,
                     bool preformattedText,
-                    bool testTreatNbspAsBreakable, 
-                    Stream traceStream, 
-                    bool traceShowTokenNum, 
+                    bool testTreatNbspAsBreakable,
+                    Stream traceStream,
+                    bool traceShowTokenNum,
                     int traceStopOnTokenNum)
         {
             this.normalizedInput = (parser is HtmlNormalizingParser);
@@ -151,7 +144,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.listLevel = 0;
             this.listIndex= 0;
             this.listOrdered = false;
-            
+
             if (!this.convertFragment)
             {
                 if (this.injection != null)
@@ -190,7 +183,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             return this.endOfFile;
         }
-        
 
         private void Process(HtmlTokenId tokenId)
         {
@@ -198,8 +190,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             switch (tokenId)
             {
-                
-
                 case HtmlTokenId.Tag:
 
                     if (this.token.TagIndex <= HtmlTagIndex.Unknown)
@@ -215,7 +205,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         {
                             if (this.token.IsTagBegin)
                             {
-                                
                                 this.PushElement(tagDef);
                             }
 
@@ -254,8 +243,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                     break;
 
-                
-
                 case HtmlTokenId.Text:
 
                     if (!this.insideComment)
@@ -280,21 +267,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                     break;
 
-
-                
-
                 case HtmlTokenId.OverlappedClose:
                 case HtmlTokenId.OverlappedReopen:
 
                     break;
 
-                
-
                 case HtmlTokenId.Restart:
 
                     break;
-
-                
 
                 case HtmlTokenId.EncodingChange:
 
@@ -307,14 +287,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         InternalDebug.Assert(Charset.TryGetEncoding(codePage, out Encoding newOutputEncoding));
 #endif
 
-
-
                         this.output.OutputEncoding = Charset.GetEncoding(codePage);
                     }
 
                     break;
-
-                
 
                 case HtmlTokenId.EndOfFile:
 
@@ -340,14 +316,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         this.output.CloseDocument();
                         this.output.Flush();
                     }
-                    
+
                     this.endOfFile = true;
                     break;
-
             }
         }
 
-        
         private void PushElement(HtmlDtd.TagDefinition tagDef)
         {
             switch (tagDef.tagIndex)
@@ -356,7 +330,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 case HtmlTagIndex.Comment:
                 case HtmlTagIndex.Script:
                 case HtmlTagIndex.Style:
-                
+
                 case HtmlTagIndex.NoEmbed:
                 case HtmlTagIndex.NoFrames:
 
@@ -364,19 +338,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         break;
 
                 case HtmlTagIndex.A:
-                
 
                         if (this.insideAnchor)
                         {
-                            
-                            
-                            
-
                             this.EndAnchor();
                         }
                         break;
 
-                case HtmlTagIndex.Image:           
+                case HtmlTagIndex.Image:
                 case HtmlTagIndex.Img:
 
                         break;
@@ -399,14 +368,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         this.nextParagraphCloseWideGap = true;
                         break;
 
-                
                 case HtmlTagIndex.BR:
                 case HtmlTagIndex.Option:
 
                         this.EndLine();
                         break;
 
-                
                 case HtmlTagIndex.HR:
 
                         this.EndParagraph(false);
@@ -414,7 +381,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         this.EndParagraph(false);
                         break;
 
-                
                 case HtmlTagIndex.OL:
                 case HtmlTagIndex.UL:
                 case HtmlTagIndex.Dir:
@@ -439,12 +405,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                         this.EndParagraph(false);
 
-                        
                         this.OutputText("  ");
 
                         for (int i = 0; i < this.listLevel - 1; i++)
                         {
-                            
                             this.OutputText("   ");
                         }
 
@@ -465,13 +429,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                         break;
 
-                
-                case HtmlTagIndex.DL:              
+                case HtmlTagIndex.DL:
 
                         this.EndParagraph(true);
                         break;
 
-                case HtmlTagIndex.DT:              
+                case HtmlTagIndex.DT:
 
                         if (this.lineStarted)
                         {
@@ -479,7 +442,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                         break;
 
-                case HtmlTagIndex.DD:              
+                case HtmlTagIndex.DD:
 
                         if (this.lineStarted)
                         {
@@ -487,7 +450,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                         break;
 
-                
                 case HtmlTagIndex.Pre:
                 case HtmlTagIndex.PlainText:
                 case HtmlTagIndex.Listing:
@@ -514,7 +476,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (tagDef.tagIndex == HtmlTagIndex.LI)
             {
-                
                 this.ignoreNextP = true;
             }
         }
@@ -524,7 +485,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             switch (tagDef.tagIndex)
             {
                 case HtmlTagIndex.A:
-                
 
                         if (this.outputAnchorLinks)
                         {
@@ -555,9 +515,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                         this.StartParagraphOrLine();
                                     }
 
-                                    
-                                    
-
                                     string urlString = url.ToString();
 
                                     if (urlString.IndexOf(' ') != -1)
@@ -581,10 +538,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                         break;
 
-                case HtmlTagIndex.Image:           
+                case HtmlTagIndex.Image:
                 case HtmlTagIndex.Img:
-
-                        
 
                         if (this.outputImageLinks)
                         {
@@ -664,14 +619,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 }
                             }
 
-                            
-
                             if (this.token.IsTagEnd)
                             {
                                 string urlString = null;
                                 string altString = null;
-
-                                
 
                                 BufferString alt = this.imageAltText.BufferString;
 
@@ -711,15 +662,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 case HtmlTagIndex.P:
 
-                        
-                        
-
                         if (this.token.Attributes.Find(HtmlNameIndex.Class) && this.token.Attributes.Current.Value.CaseInsensitiveCompareEqual("msonormal"))
                         {
-                            
-                            
-                            
-
                             this.wideGap = false;
                             this.nextParagraphCloseWideGap = false;
                         }
@@ -748,7 +692,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                         break;
 
-
                 case HtmlTagIndex.Span:
 
                         foreach (HtmlAttribute attr in this.token.Attributes)
@@ -771,11 +714,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
 
                         break;
-
             }
         }
 
-        
         private void PopElement(HtmlDtd.TagDefinition tagDef)
         {
             switch (tagDef.tagIndex)
@@ -784,7 +725,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 case HtmlTagIndex.Comment:
                 case HtmlTagIndex.Script:
                 case HtmlTagIndex.Style:
-                
+
                 case HtmlTagIndex.NoEmbed:
                 case HtmlTagIndex.NoFrames:
 
@@ -792,7 +733,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         break;
 
                 case HtmlTagIndex.A:
-                
 
                         if (this.insideAnchor)
                         {
@@ -800,7 +740,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                         break;
 
-                case HtmlTagIndex.Image:           
+                case HtmlTagIndex.Image:
                 case HtmlTagIndex.Img:
 
                         break;
@@ -817,14 +757,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         this.nextParagraphCloseWideGap = true;
                         break;
 
-                
                 case HtmlTagIndex.BR:
                 case HtmlTagIndex.Option:
 
                         this.EndLine();
                         break;
 
-                
                 case HtmlTagIndex.HR:
 
                         this.EndParagraph(false);
@@ -832,7 +770,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         this.EndParagraph(false);
                         break;
 
-                
                 case HtmlTagIndex.OL:
                 case HtmlTagIndex.UL:
                 case HtmlTagIndex.Dir:
@@ -846,15 +783,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         this.EndParagraph(this.listLevel == 0);
                         break;
 
-                case HtmlTagIndex.DT:              
+                case HtmlTagIndex.DT:
 
                         break;
 
-                case HtmlTagIndex.DD:              
+                case HtmlTagIndex.DD:
 
                         break;
 
-                
                 case HtmlTagIndex.Pre:
                 case HtmlTagIndex.PlainText:
                 case HtmlTagIndex.Listing:
@@ -881,7 +817,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.ignoreNextP = false;
         }
 
-        
         private void ProcessText()
         {
             if (!this.lineStarted)
@@ -908,7 +843,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             this.output.OutputNbsp(run.Length);
                         }
                     }
-                    else 
+                    else
                     {
                         if (run.IsLiteral)
                         {
@@ -923,7 +858,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void ProcessPreformatedText()
         {
             if (!this.lineStarted)
@@ -941,7 +875,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         {
                             case RunTextType.NewLine:
 
-                                    
                                     this.output.OutputNewLine();
                                     break;
 
@@ -980,7 +913,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             this.output.OutputNbsp(run.Length);
                         }
                     }
-                    else 
+                    else
                     {
                         if (run.IsLiteral)
                         {
@@ -995,7 +928,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void NormalizeProcessText()
         {
             Token.RunEnumerator runs = this.token.Runs;
@@ -1008,14 +940,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 if (run.IsAnyWhitespace)
                 {
-                    
-
                     int cntWhitespaces = 0;
 
                     do
                     {
-                        
-                        
                         cntWhitespaces += runs.Current.TextType == RunTextType.NewLine ? 1 : 2;
                     }
                     while (runs.MoveNext(true) && (runs.Current.TextType <= RunTextType.LastWhitespace));
@@ -1030,7 +958,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else
                 {
-                    
                     this.NormalizeAddNonspace(run);
 
                     runs.MoveNext(true);
@@ -1038,7 +965,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-         
         private void NormalizeAddNonspace(TokenRun run)
         {
             if (!this.lineStarted)
@@ -1049,8 +975,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             if (this.normalizerContext.hasSpace)
             {
                 this.normalizerContext.hasSpace = false;
-
-                
 
                 if ('\0' == this.normalizerContext.lastCh || !this.normalizerContext.oneNL || !ParseSupport.TwoFarEastNonHanguelChars(this.normalizerContext.lastCh, run.FirstChar))
                 {
@@ -1072,7 +996,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.normalizerContext.oneNL = false;
         }
 
-        
         private void NormalizeAddNbsp(int count)
         {
             if (!this.lineStarted)
@@ -1101,7 +1024,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.normalizerContext.oneNL = false;
         }
 
-        
         private void NormalizeAddSpace(bool oneNL)
         {
             InternalDebug.Assert(!this.insidePre);
@@ -1124,12 +1046,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
-        
-        
-        
-
-        
         private void LFillTagB(HtmlDtd.TagDefinition tagDef)
         {
             if (!this.insidePre)
@@ -1138,7 +1054,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void RFillTagB(HtmlDtd.TagDefinition tagDef)
         {
             if (!this.insidePre)
@@ -1147,7 +1062,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void LFillTagE(HtmlDtd.TagDefinition tagDef)
         {
             if (!this.insidePre)
@@ -1156,7 +1070,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void RFillTagE(HtmlDtd.TagDefinition tagDef)
         {
             if (!this.insidePre)
@@ -1165,7 +1078,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void LFill(HtmlDtd.FillCode codeLeft)
         {
             this.normalizerContext.lastCh = '\0';
@@ -1187,7 +1099,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void RFill(HtmlDtd.FillCode code)
         {
             if (code == HtmlDtd.FillCode.EAT)
@@ -1201,7 +1112,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private static HtmlDtd.TagDefinition GetTagDefinition(HtmlTagIndex tagIndex)
         {
             return tagIndex != HtmlTagIndex._NULL ? HtmlDtd.tags[(int)tagIndex] : null;
@@ -1235,8 +1145,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.urlCompareSink.Reset();
         }
 
-        
-
         private void OutputText(string text)
         {
             if (!this.lineStarted)
@@ -1246,8 +1154,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             this.output.OutputNonspace(text, this.textMapping);
         }
-
-        
 
         private void StartParagraphOrLine()
         {
@@ -1267,8 +1173,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.afterFirstParagraph = true;
         }
 
-        
-
         private void EndLine()
         {
             this.output.OutputNewLine();
@@ -1276,13 +1180,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.wideGap = false;
         }
 
-        
-
         private void EndParagraph(bool wideGap)
         {
             if (this.insideAnchor)
             {
-                
                 this.EndAnchor();
             }
 
@@ -1294,8 +1195,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             this.wideGap = (this.wideGap || wideGap);
         }
-
-        
 
         void IDisposable.Dispose()
         {
@@ -1322,14 +1221,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             GC.SuppressFinalize(this);
         }
 
-        
-
         bool IRestartable.CanRestart()
         {
             return this.convertFragment || ((IRestartable)this.output).CanRestart();
         }
-
-        
 
         void IRestartable.Restart()
         {
@@ -1343,8 +1238,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.Reinitialize();
         }
 
-        
-
         void IRestartable.DisableRestart()
         {
             if (!this.convertFragment)
@@ -1352,8 +1245,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 ((IRestartable)this.output).DisableRestart();
             }
         }
-
-        
 
         void IReusable.Initialize(object newSourceOrDestination)
         {
@@ -1366,8 +1257,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             this.parser.SetRestartConsumer(this);
         }
-
-        
 
         public void Initialize(string fragment, bool preformatedText)
         {

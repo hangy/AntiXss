@@ -21,8 +21,8 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System;
     using System.IO;
     using Data.Internal;
-    using Strings = CtsResources.TextConvertersStrings;        
-    
+    using Strings = CtsResources.TextConvertersStrings;
+
     /// <summary>
     /// A conversion class presented as a text reader.
     /// </summary>
@@ -37,7 +37,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// The output of the convertor.
         /// </summary>
         private ConverterUnicodeOutput sourceOutputObject;
-        
+
         /// <summary>
         /// The conversion producer and consume.
         /// </summary>
@@ -47,17 +47,17 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// Value indicating if any progress has been made during conversion.
         /// </summary>
         private bool madeProgress;
-        
+
         /// <summary>
         /// The internal write buffer.
         /// </summary>
         private char[] writeBuffer;
-        
+
         /// <summary>
         /// The position within the internal write buffer.
         /// </summary>
         private int writeIndex;
-        
+
         /// <summary>
         /// A running total of the number of characters written.
         /// </summary>
@@ -186,7 +186,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     throw new TextConvertersException(Strings.TooManyIterationsToProduceOutput);
                 }
             }
-            
+
             this.inconsistentState = false;
 
             return -1;
@@ -246,7 +246,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     throw new TextConvertersException(Strings.TooManyIterationsToProduceOutput);
                 }
             }
-            
+
             this.inconsistentState = false;
 
             return -1;
@@ -310,7 +310,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             int initialCount = count;
 
-
             while (count != 0 && this.sourceOutputObject.GetOutputChunk(out char[] chunkBuffer, out int chunkIndex, out int chunkCount))
             {
                 int charsRead = Math.Min(chunkCount, count);
@@ -329,8 +328,8 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 this.writeBuffer = buffer;
                 this.writeIndex = index;
-                this.writeCount = count;                
-                
+                this.writeCount = count;
+
                 this.inconsistentState = true;
 
                 while (0 != this.writeCount && !this.endOfFile)
@@ -354,7 +353,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.writeBuffer = null;
                 this.writeIndex = 0;
                 this.writeCount = 0;
-                
+
                 this.inconsistentState = false;
             }
 

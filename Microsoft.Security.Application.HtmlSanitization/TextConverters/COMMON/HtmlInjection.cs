@@ -45,8 +45,8 @@ namespace Microsoft.Exchange.Data.TextConverters
         protected HtmlToTextConverter fragmentToTextConverter;
 
         public HtmlInjection(
-                    string injectHead, 
-                    string injectTail, 
+                    string injectHead,
+                    string injectTail,
                     HeaderFooterFormat injectionFormat,
                     bool filterHtml,
                     HtmlTagCallback callback,
@@ -80,19 +80,18 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                     if (this.fragmentParser == null)
                     {
-                        
                         this.fragmentParser = new HtmlParser(
-                                        new ConverterBufferInput(this.injectHead, this.progressMonitor), 
-                                        false,  
-                                        (this.injectionFormat == HeaderFooterFormat.Text), 
-                                        64,     
-                                        8,      
+                                        new ConverterBufferInput(this.injectHead, this.progressMonitor),
+                                        false,
+                                        (this.injectionFormat == HeaderFooterFormat.Text),
+                                        64,
+                                        8,
                                         this.testBoundaryConditions);
                     }
                     else
                     {
                         this.fragmentParser.Initialize(
-                                    this.injectHead, 
+                                    this.injectHead,
                                     (this.injectionFormat == HeaderFooterFormat.Text));
                     }
 
@@ -105,9 +104,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (this.injectHead != null && !this.headInjected)
                 {
-                    
                     InternalDebug.Assert(false);
-                    
 
                     this.headInjected = true;
                 }
@@ -119,17 +116,17 @@ namespace Microsoft.Exchange.Data.TextConverters
                     if (this.fragmentParser == null)
                     {
                         this.fragmentParser = new HtmlParser(
-                                    new ConverterBufferInput(this.injectTail, this.progressMonitor), 
-                                    false,      
-                                    (this.injectionFormat == HeaderFooterFormat.Text), 
-                                    64,         
-                                    8,          
+                                    new ConverterBufferInput(this.injectTail, this.progressMonitor),
+                                    false,
+                                    (this.injectionFormat == HeaderFooterFormat.Text),
+                                    64,
+                                    8,
                                     this.testBoundaryConditions);
                     }
                     else
                     {
                         this.fragmentParser.Initialize(
-                                    this.injectTail, 
+                                    this.injectTail,
                                     (this.injectionFormat == HeaderFooterFormat.Text));
                     }
 
@@ -139,7 +136,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 }
             }
 
-            
             return documentParser;
         }
 
@@ -151,7 +147,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 this.headInjected = true;
 
-                
                 if (this.injectTail == null)
                 {
                     ((IDisposable)this.fragmentParser).Dispose();
@@ -162,7 +157,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 this.tailInjected = true;
 
-                
                 ((IDisposable)this.fragmentParser).Dispose();
                 this.fragmentParser = null;
             }
@@ -313,23 +307,23 @@ namespace Microsoft.Exchange.Data.TextConverters
                 if (this.injectHead != null && !this.headInjected)
                 {
                     parser = new HtmlParser(
-                                        new ConverterBufferInput(this.injectHead, this.progressMonitor), 
-                                        false,      
-                                        (this.injectionFormat == HeaderFooterFormat.Text), 
-                                        64,         
-                                        8,          
+                                        new ConverterBufferInput(this.injectHead, this.progressMonitor),
+                                        false,
+                                        (this.injectionFormat == HeaderFooterFormat.Text),
+                                        64,
+                                        8,
                                         this.testBoundaryConditions);
 
                     this.fragmentToTextConverter = new HtmlToTextConverter(
-                                        parser, 
+                                        parser,
                                         output,
-                                        null,   
-                                        true,   
+                                        null,
+                                        true,
                                         this.injectionFormat == HeaderFooterFormat.Text,
-                                        false,  
+                                        false,
                                         this.traceStream,
-                                        true,   
-                                        0);     
+                                        true,
+                                        0);
 
                     while (!this.fragmentToTextConverter.Flush())
                     {
@@ -337,7 +331,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                     this.headInjected = true;
 
-                    
                     if (this.injectTail == null)
                     {
                         ((IDisposable)this.fragmentToTextConverter).Dispose();
@@ -349,9 +342,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (this.injectHead != null && !this.headInjected)
                 {
-                    
                     InternalDebug.Assert(false);
-                    
 
                     this.headInjected = true;
                 }
@@ -361,28 +352,28 @@ namespace Microsoft.Exchange.Data.TextConverters
                     if (this.fragmentToTextConverter == null)
                     {
                         parser = new HtmlParser(
-                                        new ConverterBufferInput(this.injectTail, this.progressMonitor), 
-                                        false,      
-                                        (this.injectionFormat == HeaderFooterFormat.Text), 
-                                        64, 
-                                        8, 
+                                        new ConverterBufferInput(this.injectTail, this.progressMonitor),
+                                        false,
+                                        (this.injectionFormat == HeaderFooterFormat.Text),
+                                        64,
+                                        8,
                                         this.testBoundaryConditions);
 
                         this.fragmentToTextConverter = new HtmlToTextConverter(
-                                        parser, 
+                                        parser,
                                         output,
-                                        null,   
-                                        true,   
+                                        null,
+                                        true,
                                         this.injectionFormat == HeaderFooterFormat.Text,
-                                        false,  
+                                        false,
                                         this.traceStream,
-                                        true,   
-                                        0);     
+                                        true,
+                                        0);
                     }
                     else
                     {
                         this.fragmentToTextConverter.Initialize(
-                                        this.injectTail, 
+                                        this.injectTail,
                                         (this.injectionFormat == HeaderFooterFormat.Text));
                     }
 
@@ -390,7 +381,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                     }
 
-                    
                     ((IDisposable)this.fragmentToTextConverter).Dispose();
                     this.fragmentToTextConverter = null;
 
@@ -432,83 +422,20 @@ namespace Microsoft.Exchange.Data.TextConverters
         
 
         
-        
-        
-
-        
-        
-        
-        
-        
-
-        
-        
-
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-
-        
-        
 
         public override void InjectRtfFonts(int firstAvailableFontHandle)
         {
-            
-            
-            
-            
         }
 
         public override void InjectRtfColors(int nextColorIndex)
         {
-            
-            
-            
-            
         }
-
-        
-        
-        
-        
-        
-        
         
 
         
-        
-        
-        
-        
-        
-        
-        
-        
 
-        
-        
-
-        
-        
-
-        
-        
-        
-
-        
-        
-        
-        
     }
 
-    
 
 
 
@@ -524,85 +451,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    
 
 
 

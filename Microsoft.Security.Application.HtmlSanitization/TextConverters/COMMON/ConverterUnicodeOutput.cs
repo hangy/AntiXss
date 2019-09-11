@@ -22,7 +22,7 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System.IO;
     using System.Text;
     using Microsoft.Exchange.Data.Internal;
-    
+
     internal class ConverterUnicodeOutput : ConverterOutput, IRestartable, IReusable, IDisposable
     {
         private const int FallbackExpansionMax = 16;
@@ -38,7 +38,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         private TextCache cache = new TextCache();
 
-        
         public ConverterUnicodeOutput(object destination, bool push, bool restartable)
         {
             if (push)
@@ -57,7 +56,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.restartable = this.canRestart = restartable;
         }
 
-        
         private void Reinitialize()
         {
             this.endOfFile = false;
@@ -66,13 +64,11 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.isFirstChar = true;
         }
 
-        
         bool IRestartable.CanRestart()
         {
             return this.canRestart;
         }
 
-        
         void IRestartable.Restart()
         {
             InternalDebug.Assert(this.canRestart);
@@ -82,7 +78,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.canRestart = false;
         }
 
-        
         void IRestartable.DisableRestart()
         {
             InternalDebug.Assert(this.canRestart);
@@ -92,7 +87,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.FlushCached();
         }
 
-        
         void IReusable.Initialize(object newSourceOrDestination)
         {
             if (this.pushSink != null)
@@ -111,7 +105,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.Reinitialize();
         }
 
-        
         protected override void Dispose()
         {
             if (this.cache != null && this.cache is IDisposable)
@@ -126,7 +119,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             base.Dispose();
         }
 
-        
         public override bool CanAcceptMore
         {
             get
@@ -135,7 +127,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         public override void Write(char[] buffer, int offset, int count, IFallback fallback)
         {
             InternalDebug.Assert(!this.endOfFile);
@@ -146,8 +137,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (this.cache.Length != 0 || this.canRestart)
             {
-                
-
                 while (count != 0)
                 {
                     char[] cacheBuffer;
@@ -170,26 +159,17 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                                 if (!fallback.FallBackChar(ch, cacheBuffer, ref cacheOffset, cacheOffset + cacheSpace))
                                 {
-                                    
-                                    
-
                                     break;
                                 }
                                 cacheSpace -= (cacheOffset - cacheOffsetSave);
                             }
                             else
                             {
-                                
-
                                 cacheBuffer[cacheOffset++] = ch;
                                 cacheSpace--;
                             }
                             this.isFirstChar = false;
                         }
-
-                        
-                        
-                        
 
                         this.cache.Commit(cacheOffset - cacheOffsetStart);
                     }
@@ -213,9 +193,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
             else if (this.pullSink != null)
             {
-
-
-
                 this.pullSink.GetOutputBuffer(out char[] pullBuffer, out int pullOffset, out int pullSpace);
 
                 if (pullSpace != 0)
@@ -234,9 +211,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                                 if (!fallback.FallBackChar(ch, pullBuffer, ref pullOffset, pullOffset + pullSpace))
                                 {
-                                    
-                                    
-
                                     break;
                                 }
 
@@ -244,8 +218,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                             }
                             else
                             {
-                                
-
                                 pullBuffer[pullOffset++] = ch;
                                 pullSpace--;
                             }
@@ -271,8 +243,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     }
                 }
 
-                
-
                 while (count != 0)
                 {
                     char[] cacheBuffer;
@@ -295,9 +265,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                                 if (!fallback.FallBackChar(ch, cacheBuffer, ref cacheOffset, cacheOffset + cacheSpace))
                                 {
-                                    
-                                    
-
                                     break;
                                 }
 
@@ -305,17 +272,11 @@ namespace Microsoft.Exchange.Data.TextConverters
                             }
                             else
                             {
-                                
-
                                 cacheBuffer[cacheOffset++] = ch;
                                 cacheSpace--;
                             }
                             this.isFirstChar = false;
                         }
-
-                        
-                        
-                        
 
                         this.cache.Commit(cacheOffset - cacheOffsetStart);
                     }
@@ -337,16 +298,8 @@ namespace Microsoft.Exchange.Data.TextConverters
                     }
                 }
 
-                
-
                 while (pullSpace != 0 && this.cache.Length != 0)
                 {
-
-
-
-
-
-
                     this.cache.GetData(out char[] outputBuffer, out int outputOffset, out int outputCount);
 
                     int countToCopy = Math.Min(outputCount, pullSpace);
@@ -363,14 +316,8 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
             else
             {
-                
-                
-
                 if (fallback != null)
                 {
-
-
-
                     this.cache.GetBuffer(1024, out char[] cacheBuffer, out int cacheOffset, out int cacheSpace);
 
                     int cacheOffsetStart = cacheOffset;
@@ -388,9 +335,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                                 if (!fallback.FallBackChar(ch, cacheBuffer, ref cacheOffset, cacheOffset + cacheSpace))
                                 {
-                                    
-                                    
-
                                     break;
                                 }
 
@@ -398,8 +342,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                             }
                             else
                             {
-                                
-
                                 cacheBuffer[cacheOffset++] = ch;
                                 cacheSpace--;
                             }
@@ -426,7 +368,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         public override void Flush()
         {
             if (this.endOfFile)
@@ -444,9 +385,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
             else
             {
-                
-                
-
                 if (this.cache.Length == 0)
                 {
                     this.pullSink.ReportEndOfFile();
@@ -456,7 +394,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.endOfFile = true;
         }
 
-        
         public bool GetOutputChunk(out char[] chunkBuffer, out int chunkOffset, out int chunkLength)
         {
             if (this.cache.Length == 0 || this.canRestart)
@@ -471,7 +408,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return true;
         }
 
-        
         public void ReportOutput(int readCount)
         {
             InternalDebug.Assert(this.cache.Length >= readCount);
@@ -484,7 +420,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         private bool FlushCached()
         {
             if (this.canRestart || this.cache.Length == 0)
@@ -492,16 +427,12 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return false;
             }
 
-            
-
             char[] outputBuffer;
             int outputOffset;
             int outputCount;
 
             if (this.pullSink == null)
             {
-                
-
                 while (this.cache.Length != 0)
                 {
                     this.cache.GetData(out outputBuffer, out outputOffset, out outputCount);
@@ -530,10 +461,9 @@ namespace Microsoft.Exchange.Data.TextConverters
             return true;
         }
 
-        
         private static bool IsUnsafeCharacter(
-            char ch, 
-            byte[] unsafeAsciiMap, 
+            char ch,
+            byte[] unsafeAsciiMap,
             byte unsafeAsciiMask,
             bool hasUnsafeUnicode,
             bool isFirstChar,

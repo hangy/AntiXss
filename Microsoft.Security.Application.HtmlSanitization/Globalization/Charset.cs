@@ -279,7 +279,6 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </returns>
         public static bool TryGetEncoding(int codePage, out Encoding encoding)
         {
-
             if (!TryGetCharset(codePage, out Charset charset))
             {
                 encoding = null;
@@ -341,7 +340,6 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </exception>
         public static Charset GetCharset(int codePage)
         {
-
             if (!TryGetCharset(codePage, out Charset cs))
             {
                 throw new InvalidCharsetException(codePage);
@@ -413,7 +411,6 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </exception>
         public Encoding GetEncoding()
         {
-
             if (!this.TryGetEncoding(out Encoding discoveredEncoding))
             {
                 throw new CharsetNotInstalledException(this.CodePage, this.Name);

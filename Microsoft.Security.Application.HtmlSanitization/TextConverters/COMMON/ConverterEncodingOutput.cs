@@ -22,8 +22,8 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System.IO;
     using System.Text;
     using Microsoft.Exchange.Data.Internal;
-    using Microsoft.Exchange.Data.Globalization;    
-    
+    using Microsoft.Exchange.Data.Globalization;
+
     internal class ConverterEncodingOutput : ConverterOutput, IByteSource, IRestartable, IReusable
     {
         protected IResultsFeedback resultFeedback;
@@ -61,7 +61,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         private bool isFirstChar = true;
 
-        
         public ConverterEncodingOutput(
             Stream destination,
             bool push,
@@ -110,7 +109,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         private void Reinitialize()
         {
             this.endOfFile = false;
@@ -126,7 +124,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.canRestart = this.restartable;
         }
 
-        
         public Encoding Encoding
         {
             get { return this.encoding; }
@@ -144,26 +141,22 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         public bool CodePageSameAsInput
         {
             get { return this.encodingSameAsInput; }
         }
 
-        
         bool IRestartable.CanRestart()
         {
             return this.canRestart;
         }
 
-        
         void IRestartable.Restart()
         {
             InternalDebug.Assert(this.canRestart);
 
             if (this.pullSink == null && this.restartablePushSink)
             {
-                
                 this.pushSink.Position = this.restartPosition;
                 this.pushSink.SetLength(this.restartPosition);
             }
@@ -173,7 +166,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.canRestart = false;
         }
 
-        
         void IRestartable.DisableRestart()
         {
             InternalDebug.Assert(this.canRestart);
@@ -183,7 +175,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.FlushCached();
         }
 
-        
         void IReusable.Initialize(object newSourceOrDestination)
         {
             this.restartablePushSink = false;
@@ -192,7 +183,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (newSourceOrDestination != null)
                 {
-                    
                     Stream newSink = newSourceOrDestination as Stream;
 
                     if (newSink == null || !newSink.CanWrite)
@@ -213,7 +203,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.Reinitialize();
         }
 
-        
         public override bool CanAcceptMore
         {
             get
@@ -222,7 +211,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         public override void Write(char[] buffer, int offset, int count, IFallback fallback)
         {
             if (fallback == null && !this.lineModeEncoding && this.lineBufferCount + count <= this.lineBuffer.Length - this.minCharsEncode)
@@ -305,9 +293,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 while (0 != count)
                 {
-                    
-                    
-
                     for (; 0 != count && this.lineBufferCount != this.lineBuffer.Length; count--, offset++)
                     {
                         char ch = buffer[offset];
@@ -320,17 +305,12 @@ namespace Microsoft.Exchange.Data.TextConverters
                             {
                                 if (!fallback.FallBackChar(ch, this.lineBuffer, ref this.lineBufferCount, this.lineBuffer.Length))
                                 {
-                                    
-                                    
-
                                     break;
                                 }
                                 this.isFirstChar = false;
                                 continue;
                             }
                         }
-
-                        
 
                         this.lineBuffer[this.lineBufferCount++] = ch;
                         this.isFirstChar = false;
@@ -339,7 +319,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                         {
                             if (ch == '\n' || ch == '\r')
                             {
-                                
                                 this.lineBufferLastNL = this.lineBufferCount;
                             }
                             else if (this.lineBufferLastNL > this.lineBuffer.Length - LineSpaceThreshold)
@@ -352,33 +331,22 @@ namespace Microsoft.Exchange.Data.TextConverters
                         }
                     }
 
-                    
-
-                    
-                    
-
                     if (this.lineModeEncoding &&
                         (this.lineBufferLastNL > this.lineBuffer.Length - LineSpaceThreshold ||
                         (this.lineBufferCount > this.lineBuffer.Length - SpaceThreshold &&
                         this.lineBufferLastNL != 0)))
                     {
-                        
-
                         this.EncodeBuffer(this.lineBuffer, 0, this.lineBufferLastNL, false);
 
                         this.lineBufferCount -= this.lineBufferLastNL;
 
                         if (this.lineBufferCount != 0)
                         {
-                            
-
                             Buffer.BlockCopy(this.lineBuffer, this.lineBufferLastNL * 2, this.lineBuffer, 0, this.lineBufferCount * 2);
                         }
                     }
                     else if (this.lineBufferCount > this.lineBuffer.Length - Math.Max(this.minCharsEncode, SpaceThreshold))
                     {
-                        
-
                         this.EncodeBuffer(this.lineBuffer, 0, this.lineBufferCount, false);
 
                         this.lineBufferCount = 0;
@@ -389,28 +357,15 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
             else
             {
-                
-                
-
                 if (count > this.minCharsEncode)
                 {
-                    
-
                     if (this.lineBufferCount != 0)
                     {
-                        
-                        
-                        
-                        
-
                         this.EncodeBuffer(this.lineBuffer, 0, this.lineBufferCount, false);
 
                         this.lineBufferCount = 0;
                         this.lineBufferLastNL = 0;
                     }
-
-                    
-                    
 
                     this.EncodeBuffer(buffer, offset, count, false);
                 }
@@ -418,21 +373,11 @@ namespace Microsoft.Exchange.Data.TextConverters
                 {
                     InternalDebug.Assert(this.lineBufferCount + count <= this.lineBuffer.Length);
 
-                    
-                    
-                    
-                    
-
                     Buffer.BlockCopy(buffer, offset * 2, this.lineBuffer, this.lineBufferCount * 2, count * 2);
                     this.lineBufferCount += count;
 
                     if (this.lineBufferCount > this.lineBuffer.Length - this.minCharsEncode)
                     {
-                        
-                        
-                        
-                        
-
                         this.EncodeBuffer(this.lineBuffer, 0, this.lineBufferCount, false);
 
                         this.lineBufferCount = 0;
@@ -442,7 +387,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         public override void Write(string text)
         {
             if (text.Length == 0)
@@ -452,18 +396,12 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (this.lineModeEncoding || this.lineBufferCount + text.Length > this.lineBuffer.Length - this.minCharsEncode)
             {
-                
                 this.Write(text, 0, text.Length);
                 return;
             }
 
-            
-
             if (text.Length <= 4)
             {
-                
-                
-
                 int count = text.Length;
 
                 this.lineBuffer[this.lineBufferCount++] = text[0];
@@ -487,7 +425,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         public override void Flush()
         {
             if (this.endOfFile)
@@ -498,8 +435,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.canRestart = false;
 
             this.FlushCached();
-
-            
 
             this.EncodeBuffer(this.lineBuffer, 0, this.lineBufferCount, true);
 
@@ -512,9 +447,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
             else
             {
-                
-                
-
                 if (this.cache.Length == 0)
                 {
                     this.pullSink.ReportEndOfFile();
@@ -524,7 +456,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.endOfFile = true;
         }
 
-        
         bool IByteSource.GetOutputChunk(out byte[] chunkBuffer, out int chunkOffset, out int chunkLength)
         {
             if (this.cache.Length == 0 || this.canRestart)
@@ -539,7 +470,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return true;
         }
 
-        
         void IByteSource.ReportOutput(int readCount)
         {
             InternalDebug.Assert(this.cache.Length >= readCount);
@@ -552,7 +482,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         protected override void Dispose()
         {
             if (this.cache != null && this.cache is IDisposable)
@@ -571,7 +500,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             base.Dispose();
         }
 
-        
         private void EncodeBuffer(char[] buffer, int offset, int count, bool flush)
         {
             int maxSpaceRequired = this.encoding.GetMaxByteCount(count);
@@ -581,25 +509,16 @@ namespace Microsoft.Exchange.Data.TextConverters
             int directSpace = 0;
             bool encodingToCache = true;
 
-            
-            
-
             if (this.canRestart || this.pullSink == null || this.cache.Length != 0)
             {
-                
-
                 this.cache.GetBuffer(maxSpaceRequired, out outputBuffer, out outputOffset);
             }
             else
             {
-                
-
                 this.pullSink.GetOutputBuffer(out directBuffer, out directOffset, out directSpace);
 
                 if (directSpace >= maxSpaceRequired)
                 {
-                    
-
                     outputBuffer = directBuffer;
                     outputOffset = directOffset;
 
@@ -621,8 +540,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 {
                     if (!this.canRestart || this.restartablePushSink)
                     {
-                        
-
                         while (this.cache.Length != 0)
                         {
                             this.cache.GetData(out outputBuffer, out outputOffset, out int outputCount);
@@ -651,15 +568,10 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         internal void ChangeEncoding(Encoding newEncoding)
         {
-            
-
             if (this.encoding != null)
             {
-                
-
                 this.EncodeBuffer(this.lineBuffer, 0, this.lineBufferCount, true);
 
                 this.lineBufferCount = 0;
@@ -670,15 +582,15 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.encoder = newEncoding.GetEncoder();
             int encodingCodePage = newEncoding.CodePage;
 
-            if (encodingCodePage == 1200 ||        
-                encodingCodePage == 1201 ||        
-                encodingCodePage == 12000 ||       
-                encodingCodePage == 12001 ||       
-                encodingCodePage == 65000 ||       
-                encodingCodePage == 65001 ||       
-                encodingCodePage == 65005 ||       
-                encodingCodePage == 65006 ||       
-                encodingCodePage == 54936)         
+            if (encodingCodePage == 1200 ||
+                encodingCodePage == 1201 ||
+                encodingCodePage == 12000 ||
+                encodingCodePage == 12001 ||
+                encodingCodePage == 65000 ||
+                encodingCodePage == 65001 ||
+                encodingCodePage == 65005 ||
+                encodingCodePage == 65006 ||
+                encodingCodePage == 54936)
             {
                 this.lineModeEncoding = false;
                 this.encodingCompleteUnicode = true;
@@ -689,25 +601,19 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.encodingCompleteUnicode = false;
                 this.codePageMap.ChoseCodePage(encodingCodePage);
 
-                if (encodingCodePage == 50220 ||       
-                    encodingCodePage == 50221 ||       
-                    encodingCodePage == 50222 ||       
-                    encodingCodePage == 50225 ||       
-                    encodingCodePage == 50227 ||       
-                    encodingCodePage == 50229 ||       
-                    encodingCodePage == 52936)         
+                if (encodingCodePage == 50220 ||
+                    encodingCodePage == 50221 ||
+                    encodingCodePage == 50222 ||
+                    encodingCodePage == 50225 ||
+                    encodingCodePage == 50227 ||
+                    encodingCodePage == 50229 ||
+                    encodingCodePage == 52936)
                 {
-                    
-                    
-                    
-                    
-
                     this.lineModeEncoding = true;
                 }
             }
         }
 
-        
         private bool FlushCached()
         {
             if (this.canRestart || this.cache.Length == 0)
@@ -715,16 +621,12 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return false;
             }
 
-            
-
             byte[] outputBuffer;
             int outputOffset;
             int outputCount;
 
             if (this.pullSink == null)
             {
-                
-
                 while (this.cache.Length != 0)
                 {
                     this.cache.GetData(out outputBuffer, out outputOffset, out outputCount);

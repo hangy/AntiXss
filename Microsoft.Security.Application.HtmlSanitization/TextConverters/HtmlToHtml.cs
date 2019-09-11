@@ -158,7 +158,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             /// </summary>
             private bool preserveDisplayNoneStyle;
 
-
             // Orphaned WPL code.
 #if false
         private bool testConvertFragment;

@@ -91,7 +91,7 @@ namespace Microsoft.Security.Application
             if (string.IsNullOrEmpty(input))
             {
                 return string.Empty;
-            }          
+            }
 
             using (TextReader stringReader = new StringReader(input))
             {
@@ -169,7 +169,7 @@ namespace Microsoft.Security.Application
 
             htmlObject.Convert(sourceReader, destinationStream);
         }
-        
+
         /// <summary>
         /// Sanitizes input HTML fragment for safe display on browser.
         /// </summary>

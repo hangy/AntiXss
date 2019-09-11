@@ -27,15 +27,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
     internal class HtmlTokenBuilder : TokenBuilder
     {
-        
-
-        
-        protected const byte BuildStateEndedHtml = BuildStateEnded + 1; 
+        protected const byte BuildStateEndedHtml = BuildStateEnded + 1;
         protected const byte BuildStateTagStarted = 20;
         protected const byte BuildStateTagText = 21;
         protected const byte BuildStateTagName = 22;
         protected const byte BuildStateTagBeforeAttr = 23;
-        
+
         protected const byte BuildStateTagAttrName = 24;
         protected const byte BuildStateTagEndAttrName = 25;
         protected const byte BuildStateTagAttrValue = 26;
@@ -45,16 +42,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         protected int maxAttrs;
 
-        protected int numCarryOverRuns;        
+        protected int numCarryOverRuns;
         protected int carryOverRunsHeadOffset;
         protected int carryOverRunsLength;
 
-        
-
         public HtmlTokenBuilder(
-                    char[] buffer, 
-                    int maxRuns, 
-                    int maxAttrs, 
+                    char[] buffer,
+                    int maxRuns,
+                    int maxAttrs,
                     bool testBoundaryConditions) :
             base(new HtmlToken(), buffer, maxRuns, testBoundaryConditions)
         {
@@ -74,29 +69,21 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     this.maxAttrs = 5;
                 }
 
-                
-
                 this.htmlToken.attributeList = new HtmlToken.AttributeEntry[initialAttrs];
             }
 
             this.htmlToken.nameIndex = HtmlNameIndex._NOTANAME;
         }
 
-        
-
         public new HtmlToken Token
         {
             get { return this.htmlToken; }
         }
 
-        
-
         public bool IncompleteTag
         {
             get { return this.state >= FirstStarted && this.state != BuildStateText; }
         }
-
-        
 
         public override void Reset()
         {
@@ -110,21 +97,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             base.Reset();
         }
 
-        
-
         public HtmlTokenId MakeEmptyToken(HtmlTokenId tokenId)
         {
             return (HtmlTokenId)base.MakeEmptyToken((TokenId)tokenId);
         }
 
-        
-
         public HtmlTokenId MakeEmptyToken(HtmlTokenId tokenId, int argument)
         {
             return (HtmlTokenId)base.MakeEmptyToken((TokenId)tokenId, argument);
         }
-
-        
 
         public void StartTag(HtmlNameIndex nameIndex, int baseOffset)
         {
@@ -142,38 +123,23 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.tailOffset = baseOffset;
         }
 
-        
-
         public void AbortConditional(bool comment)
         {
             InternalDebug.Assert(this.htmlToken.nameIndex == HtmlNameIndex._CONDITIONAL);
             InternalDebug.Assert(this.state == BuildStateTagStarted || this.state == BuildStateTagText);
 
-            
-            
-            
-            
-            
-            
-
             this.htmlToken.nameIndex = comment ? HtmlNameIndex._COMMENT : HtmlNameIndex._BANG;
         }
-
-        
 
         public void SetEndTag()
         {
             this.htmlToken.flags |= HtmlToken.TagFlags.EndTag;
         }
 
-        
-
         public void SetEmptyScope()
         {
             this.htmlToken.flags |= HtmlToken.TagFlags.EmptyScope;
         }
-
-        
 
         public void StartTagText()
         {
@@ -184,8 +150,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.htmlToken.unstructured.Initialize(this.htmlToken.whole.tail, this.tailOffset);
             this.htmlToken.unstructuredPosition.Rewind(this.htmlToken.unstructured);
         }
-
-        
 
         public void EndTagText()
         {
@@ -198,8 +162,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             this.state = BuildStateTagStarted;
         }
-
-        
 
         public void StartTagName()
         {
@@ -221,13 +183,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.htmlToken.localName.Initialize(this.htmlToken.whole.tail, this.tailOffset);
         }
 
-        
-
         public void EndTagName(int nameLength)
         {
             InternalDebug.Assert(this.state == BuildStateTagName);
 
-            InternalDebug.Assert(this.htmlToken.partMinor == HtmlToken.TagPartMinor.BeginName || 
+            InternalDebug.Assert(this.htmlToken.partMinor == HtmlToken.TagPartMinor.BeginName ||
                                 this.htmlToken.partMinor == HtmlToken.TagPartMinor.ContinueName);
 
             if (this.htmlToken.localName.head == this.htmlToken.whole.tail)
@@ -292,15 +252,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return this.htmlToken.attributeTail < this.maxAttrs;
         }
 
-        
-
         public void StartAttribute()
         {
             if (this.htmlToken.attributeTail == this.htmlToken.attributeList.Length)
             {
-                
-
-                
                 InternalDebug.Assert(this.htmlToken.attributeList.Length < this.maxAttrs);
 
                 int newSize;
@@ -356,8 +311,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.htmlToken.attributeList[this.htmlToken.attributeTail].localName.Initialize(this.htmlToken.whole.tail, this.tailOffset);
         }
 
-        
-
         public void EndAttributeName(int nameLength)
         {
             InternalDebug.Assert(this.state == BuildStateTagAttrName);
@@ -384,8 +337,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.state = BuildStateTagEndAttrName;
         }
 
-        
-
         public void StartValue()
         {
             InternalDebug.Assert(this.state == BuildStateTagEndAttrName);
@@ -397,8 +348,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.state = BuildStateTagAttrValue;
         }
 
-        
-
         public void SetValueQuote(char ch)
         {
             InternalDebug.Assert(this.state == BuildStateTagAttrValue);
@@ -407,8 +356,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.htmlToken.attributeList[this.htmlToken.attributeTail].IsAttrValueQuoted = true;
             this.htmlToken.attributeList[this.htmlToken.attributeTail].quoteChar = (byte) ch;
         }
-
-        
 
         public void EndValue()
         {
@@ -426,8 +373,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.state = BuildStateTagEndAttrValue;
         }
 
-        
-
         public void EndAttribute()
         {
             InternalDebug.Assert(this.state == BuildStateTagEndAttrName || this.state == BuildStateTagEndAttrValue);
@@ -438,8 +383,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (this.htmlToken.attributeTail < this.htmlToken.attributeList.Length)
             {
-                
-
                 this.htmlToken.attributeList[this.htmlToken.attributeTail].partMajor = HtmlToken.AttrPartMajor.None;
                 this.htmlToken.attributeList[this.htmlToken.attributeTail].partMinor = HtmlToken.AttrPartMinor.Empty;
             }
@@ -468,14 +411,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.state = BuildStateTagBeforeAttr;
         }
 
-        
-
         public void EndTag(bool complete)
         {
             if (complete)
             {
-                
-
                 if (this.state != BuildStateTagBeforeAttr)
                 {
                     if (this.state == BuildStateTagText)
@@ -504,7 +443,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                 }
 
-                
                 this.AddSentinelRun();
 
                 InternalDebug.Assert(this.state == BuildStateTagBeforeAttr || this.state == BuildStateTagStarted);
@@ -516,25 +454,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (this.state >= BuildStateTagAttrName)
                 {
-                    
-                    
-
                     InternalDebug.Assert(!complete);
 
                     if (0 != this.htmlToken.attributeTail ||
                         this.htmlToken.name.head != -1 ||
                         this.htmlToken.attributeList[this.htmlToken.attributeTail].name.head > 0)
                     {
-                        
-                        
-
                         InternalDebug.Assert(this.htmlToken.attributeList[this.htmlToken.attributeTail].IsAttrBegin);
 
-                        
                         this.AddSentinelRun();
-
-                        
-                        
 
                         this.numCarryOverRuns = this.htmlToken.whole.tail - this.htmlToken.attributeList[this.htmlToken.attributeTail].name.head;
                         this.carryOverRunsHeadOffset = this.htmlToken.attributeList[this.htmlToken.attributeTail].name.headOffset;
@@ -543,15 +471,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         this.htmlToken.whole.tail -= this.numCarryOverRuns;
 
                         InternalDebug.Assert(this.numCarryOverRuns != 0);
-
-                        
                     }
-                    
                     else
                     {
-                        
-                        
-
                          if (this.state == BuildStateTagAttrName)
                         {
                             if (this.htmlToken.attributeList[this.htmlToken.attributeTail].name.head == this.htmlToken.whole.tail)
@@ -567,10 +489,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             }
                         }
 
-                        
                         this.AddSentinelRun();
 
-                        this.htmlToken.attributeTail++;       
+                        this.htmlToken.attributeTail++;
                     }
                 }
                 else
@@ -579,7 +500,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     {
                         if (this.htmlToken.name.head == this.htmlToken.whole.tail)
                         {
-                            
                             this.AddNullRun(HtmlRunKind.Name);
                         }
                     }
@@ -591,7 +511,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                     }
 
-                    
                     this.AddSentinelRun();
                 }
             }
@@ -599,32 +518,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.tokenValid = true;
         }
 
-        
-
         public int RewindTag()
         {
             InternalDebug.Assert(this.IncompleteTag);
             InternalDebug.Assert(this.htmlToken.whole.head == 0);
             InternalDebug.Assert(this.numCarryOverRuns == 0 || this.carryOverRunsHeadOffset + this.carryOverRunsLength == this.tailOffset);
 
-            
-            
-            
-            
-            
-            
-
             if (this.state >= BuildStateTagAttrName)
             {
-                
-
                 if (0 == this.htmlToken.attributeTail ||
                     this.htmlToken.attributeList[this.htmlToken.attributeTail - 1].IsAttrEnd)
                 {
-                    
-                    
-                    
-
                     InternalDebug.Assert(this.numCarryOverRuns != 0);
 
                     int deltaRuns = this.htmlToken.whole.tail;
@@ -641,8 +545,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     this.htmlToken.partMinor = (HtmlToken.TagPartMinor)this.htmlToken.attributeList[0].MajorPart;
 
                     InternalDebug.Assert(this.htmlToken.attributeList[0].IsAttrBegin);
-
-                    
 
                     if (this.htmlToken.attributeList[0].name.head != -1)
                     {
@@ -661,8 +563,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else
                 {
-                    
-
                     InternalDebug.Assert(this.numCarryOverRuns == 0);
 
                     this.htmlToken.whole.Initialize(0, this.tailOffset);
@@ -781,7 +681,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return this.htmlToken.whole.headOffset;
         }
 
-        
 #if false
         public HtmlNameIndex LookupName(int nameLength, ref HtmlToken.Fragment fragment)
         {
@@ -840,16 +739,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 short nameHashValue = (short)(((uint)this.token.CalculateHashLowerCase(unit) ^ HtmlNameData.NAME_HASH_MODIFIER) % HtmlNameData.NAME_HASH_SIZE);
 
-                
-
                 int nameIndex = (int)HtmlNameData.nameHashTable[nameHashValue];
 
                 if (nameIndex > 0)
                 {
                     do
                     {
-                        
-
                         string name = HtmlNameData.names[nameIndex].name;
 
                         if (name.Length == nameLength)
@@ -871,9 +766,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
 
                         nameIndex ++;
-
-                        
-                        
                     }
                     while (HtmlNameData.names[nameIndex].hash == nameHashValue);
                 }
@@ -881,8 +773,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             return HtmlNameIndex.Unknown;
         }
-
-
 
         // Orphaned WPL code.
 #if false
@@ -958,28 +848,18 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             base.AddNullRun((uint)kind);
         }
 
-        
-
         public void AddRun(RunTextType textType, HtmlRunKind kind, int start, int end)
         {
             base.AddRun(RunType.Normal, textType, (uint)kind, start, end, 0);
         }
-
-        
 
         public void AddLiteralRun(RunTextType textType, HtmlRunKind kind, int start, int end, int literal)
         {
             base.AddRun(RunType.Literal, textType, (uint)kind, start, end, literal);
         }
 
-        
-
         protected override void Rebase(int deltaOffset)
         {
-            
-            
-            
-
             this.htmlToken.unstructured.headOffset += deltaOffset;
             this.htmlToken.unstructuredPosition.runOffset += deltaOffset;
 

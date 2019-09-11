@@ -59,7 +59,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(buffer[offset])))
                         {
-                            
                             offset++;
                             continue;
                         }
@@ -68,7 +67,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(buffer[offset])))
                         {
-                            
                             offset++;
                             continue;
                         }
@@ -93,8 +91,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             if (Token.LiteralLength(ucs32Char) != 1)
             {
-                
-                
                 this.urlPosition = -1;
                 return;
             }
@@ -103,7 +99,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass((char)ucs32Char)))
                 {
-                    
                     return;
                 }
             }
@@ -111,7 +106,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass((char)ucs32Char)))
                 {
-                    
                     return;
                 }
 

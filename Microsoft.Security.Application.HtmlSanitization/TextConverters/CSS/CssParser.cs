@@ -48,7 +48,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         private int ruleDepth;
 
-        
         protected CssTokenBuilder tokenBuilder;
         private CssToken token;
 
@@ -56,7 +55,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         private static readonly string[] SafePseudoFunctions = { "lang" };
 
         internal const int MaxCssLength = 512 * 1024;
-        
+
         public CssParser(ConverterInput input, int maxRuns, bool testBoundaryConditions)
         {
             this.input = input;
@@ -66,12 +65,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             this.token = this.tokenBuilder.Token;
         }
 
-        
-        
         public CssToken Token { get { return this.token; } }
 
-        
-        
         void IDisposable.Dispose()
         {
             if (this.input != null /*&& this.input is IDisposable*/)
@@ -86,8 +81,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             GC.SuppressFinalize(this);
         }
 
-        
-        
         public void Reset()
         {
             this.endOfFile = false;
@@ -99,16 +92,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             this.ruleDepth = 0;
         }
 
-        
-        
         public void SetParseMode(CssParseMode parseMode)
         {
             this.parseMode = parseMode;
         }
 
-        
-        
-        
         public CssTokenId Parse()
         {
             if (this.endOfFile)
@@ -133,12 +121,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 if (this.parseEnd == 0)
                 {
-                    
                     return CssTokenId.EndOfFile;
                 }
-
-                
-                
 
                 this.tokenBuilder.BufferChanged(this.parseBuffer, this.parseStart);
 
@@ -149,7 +133,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             InternalDebug.Assert(parseCurrent < parseEnd);
 
-            
             ch = parseBuffer[parseCurrent];
             charClass = ParseSupport.GetCharClass(ch);
 
@@ -160,10 +143,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 this.ScanStyleSheet(ch, ref charClass, ref parseCurrent);
                 if (start >= parseCurrent)
                 {
-                    
                     InternalDebug.Assert(false);
 
-                    
                     this.tokenBuilder.Reset();
 
                     return CssTokenId.EndOfFile;
@@ -181,7 +162,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 this.ScanDeclarations(ch, ref charClass, ref parseCurrent);
                 if (parseCurrent < parseEnd)
                 {
-                    
                     this.endOfFile = true;
 
                     this.tokenBuilder.Reset();
@@ -200,7 +180,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return this.token.TokenId;
         }
 
-        
         private char ScanStyleSheet(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -228,7 +207,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     if (!this.isInvalid)
                     {
-                        
                         return ch;
                     }
                 }
@@ -242,7 +220,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     if (!this.isInvalid)
                     {
-                        
                         return ch;
                     }
                 }
@@ -293,7 +270,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanCdo(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             InternalDebug.Assert(ch == '<');
@@ -317,7 +293,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanCdc(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             InternalDebug.Assert(ch == '-');
@@ -340,7 +315,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanAtRule(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -363,13 +337,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             if (!this.tokenBuilder.CanAddSelector())
             {
-                
                 parseCurrent = parseEnd;
                 return ch;
             }
 
             this.tokenBuilder.StartSelectorName();
-
 
             this.PrepareAndAddRun(CssRunKind.AtRuleName, selectorNameRunStart, ref parseCurrent);
             if (parseCurrent == parseEnd)
@@ -413,7 +385,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanPageSelector(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent, false);
@@ -427,7 +398,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 this.tokenBuilder.EndSimpleSelector();
 
                 this.tokenBuilder.StartSelectorName();
-
 
                 ch = this.ScanName(CssRunKind.PageIdent, ch, ref charClass, ref parseCurrent, out int nameLength);
 
@@ -460,7 +430,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 this.tokenBuilder.StartSelectorClass(CssSelectorClassType.Pseudo);
 
-
                 ch = this.ScanName(CssRunKind.PagePseudo, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                 this.tokenBuilder.EndSelectorClass();
@@ -480,12 +449,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanRuleSet(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             this.tokenBuilder.StartRuleSet(parseCurrent, CssTokenId.RuleSet);
 
-            
             ch = this.ScanSelectors(ch, ref charClass, ref parseCurrent);
             if (parseCurrent == parseEnd || this.isInvalid)
             {
@@ -501,7 +468,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanDeclarationBlock(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent, false);
@@ -545,7 +511,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 return ch;
             }
 
-            
             InternalDebug.Assert(this.ruleDepth > 0);
             this.ruleDepth--;
 
@@ -561,7 +526,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanSelectors(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -589,13 +553,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 }
                 if (start < parseCurrent)
                 {
-                    
                     cleanupSpace = true;
 
                     combinator = CssSelectorCombinator.Descendant;
                 }
 
-                
                 if (ch == '+' || ch == '>' || ch == ',')
                 {
                     combinator = (ch == '+') ? CssSelectorCombinator.Adjacent :
@@ -608,7 +570,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                         return ch;
                     }
 
-                    
                     this.PrepareAndAddRun(CssRunKind.SelectorCombinatorOrComma, parseCurrent - 1, ref parseCurrent);
                     if (parseCurrent == parseEnd)
                     {
@@ -659,7 +620,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanSimpleSelector(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -669,7 +629,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             {
                 if (!this.tokenBuilder.CanAddSelector())
                 {
-                    
                     parseCurrent = parseEnd;
                     return ch;
                 }
@@ -680,7 +639,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             {
                 if (!this.tokenBuilder.CanAddSelector())
                 {
-                    
                     parseCurrent = parseEnd;
                     return ch;
                 }
@@ -720,7 +678,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanSelectorSuffix(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             if (ch == '[')
@@ -771,7 +728,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     this.tokenBuilder.StartSelectorClass(isClass ? CssSelectorClassType.Regular : CssSelectorClassType.Hash);
 
-
                     ch = this.ScanName(isClass ? CssRunKind.SelectorClass : CssRunKind.SelectorHash, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                     this.tokenBuilder.EndSelectorClass();
@@ -790,7 +746,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanSelectorPseudo(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -803,7 +758,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
 
             int constructRunStart = parseCurrent;
-
 
             ch = this.ScanName(CssRunKind.SelectorPseudo, ch, ref charClass, ref parseCurrent, out int nameLength);
 
@@ -823,29 +777,23 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 charClass = ParseSupport.GetCharClass(ch);
                 if (parseCurrent == parseEnd)
                 {
-                    
                     return ch;
                 }
 
-                
                 this.PrepareAndAddRun(CssRunKind.FunctionStart, parseCurrent - 1, ref parseCurrent);
                 if (parseCurrent == parseEnd)
                 {
-                    
                     return ch;
                 }
 
                 ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent, true);
                 if (parseCurrent == parseEnd)
                 {
-                    
                     return ch;
                 }
 
                 if (!this.IsNameStartCharacter(ch, charClass, parseCurrent))
                 {
-                    
-
                     this.isInvalid = true;
                     return ch;
                 }
@@ -854,14 +802,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 if (parseCurrent == parseEnd)
                 {
-                    
                     return ch;
                 }
 
                 ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent, true);
                 if (parseCurrent == parseEnd)
                 {
-                    
                     return ch;
                 }
 
@@ -874,7 +820,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 ch = parseBuffer[++parseCurrent];
                 charClass = ParseSupport.GetCharClass(ch);
 
-                
                 this.PrepareAndAddRun(CssRunKind.FunctionEnd, parseCurrent - 1, ref parseCurrent);
                 if (parseCurrent == parseEnd)
                 {
@@ -885,7 +830,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanSelectorAttrib(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -913,7 +857,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 this.isInvalid = true;
                 return ch;
             }
-
 
             ch = this.ScanName(CssRunKind.SelectorAttribName, ch, ref charClass, ref parseCurrent, out int nameLength);
 
@@ -960,7 +903,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             if (constructRunStart < parseCurrent)
             {
-                
                 ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent, true);
                 if (parseCurrent == parseEnd)
                 {
@@ -982,7 +924,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     constructRunStart = parseCurrent;
                     ch = this.ScanString(ch, ref charClass, ref parseCurrent, false);
 
-                    
                     this.PrepareAndAddRun(CssRunKind.SelectorAttribString, constructRunStart, ref parseCurrent);
 
                     if (parseCurrent == parseEnd)
@@ -1016,7 +957,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanDeclarations(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -1039,13 +979,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 {
                     if (!this.tokenBuilder.CanAddProperty())
                     {
-                        
                         parseCurrent = parseEnd;
                         return ch;
                     }
 
                     this.tokenBuilder.StartPropertyName();
-
 
                     ch = this.ScanName(CssRunKind.PropertyName, ch, ref charClass, ref parseCurrent, out int nameLength);
 
@@ -1121,7 +1059,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanPropertyValue(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -1143,7 +1080,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     return ch;
                 }
 
-                
                 this.PrepareAndAddRun(CssRunKind.ImportantStart, parseCurrent - 1, ref parseCurrent);
                 if (parseCurrent == parseEnd)
                 {
@@ -1184,7 +1120,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanExpr(char ch, ref CharClass charClass, ref int parseCurrent, int level)
         {
             int parseEnd = this.parseEnd;
@@ -1210,11 +1145,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 }
                 if (start < parseCurrent)
                 {
-                    
                     cleanupSpace = true;
                 }
 
-                
                 if (ch == '/' || ch == ',')
                 {
                     ch = parseBuffer[++parseCurrent];
@@ -1224,7 +1157,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                         return ch;
                     }
 
-                    
                     this.PrepareAndAddRun(CssRunKind.Operator, parseCurrent - 1, ref parseCurrent);
                     if (parseCurrent == parseEnd)
                     {
@@ -1268,7 +1200,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanTerm(char ch, ref CharClass charClass, ref int parseCurrent, int level)
         {
             int parseEnd = this.parseEnd;
@@ -1276,7 +1207,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             int start, runStart;
             bool unaryOperator = false;
 
-            
             if (ch == '-' || ch == '+')
             {
                 ch = parseBuffer[++parseCurrent];
@@ -1287,7 +1217,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     return ch;
                 }
 
-                
                 this.PrepareAndAddRun(CssRunKind.UnaryOperator, parseCurrent - 1, ref parseCurrent);
                 if (parseCurrent == parseEnd)
                 {
@@ -1310,7 +1239,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     ch = parseBuffer[++parseCurrent];
                     charClass = ParseSupport.GetCharClass(ch);
 
-                    
                     this.PrepareAndAddRun(CssRunKind.Dot, parseCurrent - 1, ref parseCurrent);
 
                     if (parseCurrent == parseEnd)
@@ -1336,7 +1264,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     ch = parseBuffer[++parseCurrent];
                     charClass = ParseSupport.GetCharClass(ch);
 
-                    
                     this.PrepareAndAddRun(CssRunKind.Percent, parseCurrent - 1, ref parseCurrent);
 
                     if (parseCurrent == parseEnd)
@@ -1346,9 +1273,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 }
                 else if (this.IsNameStartCharacter(ch, charClass, parseCurrent))
                 {
-
-
-
                     ch = this.ScanName(CssRunKind.Metrics, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                     if (parseCurrent == parseEnd)
@@ -1359,10 +1283,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
             else if (this.IsNameStartCharacter(ch, charClass, parseCurrent))
             {
-                
-
                 start = parseCurrent;
-
 
                 ch = this.ScanName(CssRunKind.TermIdentifier, ch, ref charClass, ref parseCurrent, out int nameLength);
 
@@ -1377,7 +1298,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 {
                     ch = this.ScanUnicodeRange(ch, ref charClass, ref parseCurrent);
 
-                    
                     this.PrepareAndAddRun(CssRunKind.UnicodeRange, runStart, ref parseCurrent);
 
                     if (parseCurrent == parseEnd)
@@ -1403,16 +1323,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     charClass = ParseSupport.GetCharClass(ch);
                     if (parseCurrent == parseEnd)
                     {
-                        
                         this.tokenBuilder.MarkPropertyAsDeleted();
                         return ch;
                     }
 
-                    
                     this.PrepareAndAddRun(CssRunKind.FunctionStart, parseCurrent - 1, ref parseCurrent);
                     if (parseCurrent == parseEnd)
                     {
-                        
                         this.tokenBuilder.MarkPropertyAsDeleted();
                         return ch;
                     }
@@ -1420,7 +1337,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent, true);
                     if (parseCurrent == parseEnd)
                     {
-                        
                         this.tokenBuilder.MarkPropertyAsDeleted();
                         return ch;
                     }
@@ -1432,7 +1348,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                             start = parseCurrent;
                             ch = this.ScanString(ch, ref charClass, ref parseCurrent, true);
 
-                            
                             this.PrepareAndAddRun(CssRunKind.String, start, ref parseCurrent);
 
                             if (parseCurrent == parseEnd)
@@ -1442,8 +1357,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                         }
                         else
                         {
-                            
-
                             start = parseCurrent;
                             ch = this.ScanUrl(ch, ref charClass, ref parseCurrent);
 
@@ -1463,14 +1376,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     {
                         if (++level > 16)
                         {
-                            
                             this.tokenBuilder.MarkPropertyAsDeleted();
                             return ch;
                         }
                         ch = this.ScanExpr(ch, ref charClass, ref parseCurrent, level);
                         if (parseCurrent == parseEnd)
                         {
-                            
                             this.tokenBuilder.MarkPropertyAsDeleted();
                             return ch;
                         }
@@ -1484,7 +1395,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     ch = parseBuffer[++parseCurrent];
                     charClass = ParseSupport.GetCharClass(ch);
 
-                    
                     this.PrepareAndAddRun(CssRunKind.FunctionEnd, parseCurrent - 1, ref parseCurrent);
                     if (parseCurrent == parseEnd)
                     {
@@ -1505,7 +1415,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 ch = parseBuffer[++parseCurrent];
                 charClass = ParseSupport.GetCharClass(ch);
 
-                
                 this.PrepareAndAddRun(CssRunKind.HexColorStart, parseCurrent - 1, ref parseCurrent);
 
                 if (parseCurrent == parseEnd)
@@ -1515,9 +1424,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 if (this.IsNameCharacter(ch, charClass, parseCurrent))
                 {
-
-
-
                     ch = this.ScanName(CssRunKind.HexColor, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                     if (parseCurrent == parseEnd)
@@ -1535,7 +1441,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 start = parseCurrent;
                 ch = this.ScanString(ch, ref charClass, ref parseCurrent, true);
 
-                
                 this.PrepareAndAddRun(CssRunKind.String, start, ref parseCurrent);
 
                 if (parseCurrent == parseEnd)
@@ -1547,7 +1452,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanNumeric(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int start = parseCurrent;
@@ -1559,23 +1463,18 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 charClass = ParseSupport.GetCharClass(ch);
             }
 
-            
             this.PrepareAndAddRun(CssRunKind.Numeric, start, ref parseCurrent);
 
             return ch;
         }
 
-        
         private char ScanString(char ch, ref CharClass charClass, ref int parseCurrent, bool inProperty)
         {
             int parseEnd = this.parseEnd;
             char[] parseBuffer = this.parseBuffer;
 
-            
-            
             char term = ch;
-            
-            
+
             char chLast = '\0';
             char ch2ndLast = '\0';
 
@@ -1585,8 +1484,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 if (parseCurrent == parseEnd)
                 {
-                    
-                    
                     if (inProperty)
                     {
                         this.tokenBuilder.MarkPropertyAsDeleted();
@@ -1595,14 +1492,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     return ch;
                 }
 
-                
-                
                 if (CssToken.AttemptUnescape(parseBuffer, parseEnd, ref ch, ref parseCurrent))
                 {
                     if (parseCurrent == parseEnd)
                     {
-                        
-                        
                         if (inProperty)
                         {
                             this.tokenBuilder.MarkPropertyAsDeleted();
@@ -1610,18 +1503,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                         charClass = ParseSupport.GetCharClass(parseBuffer[parseCurrent]);
                         return parseBuffer[parseCurrent];
                     }
-                    
-                    
+
                     chLast = '\0';
                     ch2ndLast = '\0';
                 }
                 else
                 {
-                    
-                    
-                    if (ch == term || 
-                        (ch == '\n' && chLast == '\r' && ch2ndLast != '\\') || 
-                        (((ch == '\n' && chLast != '\r') || ch == '\r' || ch == '\f') && chLast != '\\')) 
+                    if (ch == term ||
+                        (ch == '\n' && chLast == '\r' && ch2ndLast != '\\') ||
+                        (((ch == '\n' && chLast != '\r') || ch == '\r' || ch == '\f') && chLast != '\\'))
                     {
                         break;
                     }
@@ -1636,7 +1526,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanName(CssRunKind runKind, char ch, ref CharClass charClass, ref int parseCurrent, out int nameLength)
         {
             nameLength = 0;
@@ -1671,19 +1560,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     if (!CssToken.AttemptUnescape(this.parseBuffer, this.parseEnd, ref ch, ref parseCurrent))
                     {
-                        
-                        
                         ch = parseBuffer[++parseCurrent];
                         this.PrepareAndAddInvalidRun(runKind, ref parseCurrent);
                         break;
                     }
 
-                    
-                    
-                    
-                    
-                    
-                    
                     ++parseCurrent;
                     if (!IsNameCharacterNoEscape(ch, ParseSupport.GetCharClass(ch)))
                     {
@@ -1694,7 +1575,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                         nameLength = 0;
                         break;
                     }
-                    
 
                     nameLength++;
 
@@ -1717,7 +1597,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanUrl(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             while (true)
@@ -1770,7 +1649,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanUnicodeRange(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             InternalDebug.Assert(ch == '+');
@@ -1798,7 +1676,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 {
                     if (i == specStart)
                     {
-                        
                         return ch;
                     }
                     break;
@@ -1817,7 +1694,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                     {
                         if (i == specStart)
                         {
-                            
                             return ch;
                         }
                         break;
@@ -1825,14 +1701,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 }
             }
 
-            
             chT = parseBuffer[i];
             charClass = ParseSupport.GetCharClass(chT);
             parseCurrent = i;
             return chT;
         }
 
-        
         private char ScanWhitespace(char ch, ref CharClass charClass, ref int parseCurrent, bool ignorable)
         {
             char[] parseBuffer = this.parseBuffer;
@@ -1872,7 +1746,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     if (this.tokenBuilder.IsStarted)
                     {
-                        
                         this.PrepareAndAddRun(ignorable ? CssRunKind.Invalid : CssRunKind.Space, runStart, ref parseCurrent);
                     }
                 }
@@ -1881,7 +1754,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return ch;
         }
 
-        
         private char ScanComment(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             char[] parseBuffer = this.parseBuffer;
@@ -1915,7 +1787,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     if (this.tokenBuilder.IsStarted)
                     {
-                        
                         this.PrepareAndAddRun(CssRunKind.Comment, runStart, ref parseCurrent);
                     }
 
@@ -1926,7 +1797,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
         private void PrepareAndAddRun(CssRunKind runKind, int start, ref int parseCurrent)
         {
             if (!this.tokenBuilder.PrepareAndAddRun(runKind, start, parseCurrent))
@@ -1935,7 +1805,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
         private void PrepareAndAddInvalidRun(CssRunKind runKind, ref int parseCurrent)
         {
             if (!this.tokenBuilder.PrepareAndAddInvalidRun(runKind, parseCurrent))
@@ -1944,7 +1813,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
         private void PrepareAndAddLiteralRun(CssRunKind runKind, int start, ref int parseCurrent, int value)
         {
             if (!this.tokenBuilder.PrepareAndAddLiteralRun(runKind, start, parseCurrent, value))
@@ -1953,7 +1821,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
         private char SkipToNextRule(char ch, ref CharClass charClass, ref int parseCurrent)
         {
             int parseEnd = this.parseEnd;
@@ -2005,7 +1872,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
         }
 
-        
         private bool IsSafeIdentifier(string[] table, int start, int end)
         {
             char[] parseBuffer = this.parseBuffer;
@@ -2022,25 +1888,21 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return false;
         }
 
-        
         private bool IsNameEqual(string name, int start, int length)
         {
             return name.Equals(new string(this.parseBuffer, start, length), StringComparison.OrdinalIgnoreCase);
         }
 
-        
         private bool IsNameCharacter(char ch, CharClass charClass, int parseCurrent)
         {
             return (this.IsNameStartCharacter(ch, charClass, parseCurrent) || ParseSupport.NumericCharacter(charClass) || ch == '-');
         }
 
-        
         private bool IsNameStartCharacter(char ch, CharClass charClass, int parseCurrent)
         {
             if (IsNameStartCharacterNoEscape(ch, charClass))
                 return true;
-            
-            
+
             if (CssToken.AttemptUnescape(this.parseBuffer, this.parseEnd, ref ch, ref parseCurrent))
             {
                 charClass = ParseSupport.GetCharClass(ch);
@@ -2049,36 +1911,26 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             return false;
         }
 
-        
         private static bool IsNameCharacterNoEscape(char ch, CharClass charClass)
         {
             return (IsNameStartCharacterNoEscape(ch, charClass) || ParseSupport.NumericCharacter(charClass) || ch == '-');
         }
 
-        
         private static bool IsNameStartCharacterNoEscape(char ch, CharClass charClass)
         {
             return (ParseSupport.AlphaCharacter(charClass) || ch == '_' || ch > 127);
         }
 
-        
         private bool IsUrlCharacter(char ch, CharClass charClass, int parseCurrent)
         {
-            
-            
-            
-            
-            
             return (IsUrlCharacterNoEscape(ch, charClass) || this.IsEscape(ch, parseCurrent));
         }
 
-        
         private static bool IsUrlCharacterNoEscape(char ch, CharClass charClass)
         {
             return (ch >= '*' && ch != 127) || (ch >= '#' && ch <= '&') || ch == '!';
         }
 
-        
         private bool IsEscape(char ch, int parseCurrent)
         {
             return CssToken.AttemptUnescape(this.parseBuffer, this.parseEnd, ref ch, ref parseCurrent);

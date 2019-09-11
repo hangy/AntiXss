@@ -22,7 +22,7 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System.IO;
     using System.Text;
     using Microsoft.Exchange.Data.Internal;
-    
+
     internal class ConverterUnicodeInput : ConverterInput, IReusable, IDisposable
     {
         private TextReader pullSource;
@@ -36,7 +36,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         private int pushChunkStart;
         private int pushChunkCount;
         private int pushChunkUsed;
-        
+
         public ConverterUnicodeInput(
             object source,
             bool push,
@@ -68,7 +68,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         private void Reinitialize()
         {
             this.parseStart = this.parseEnd = 0;
@@ -79,13 +78,10 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.endOfFile = false;
         }
 
-        
         void IReusable.Initialize(object newSourceOrDestination)
         {
             if (this.pullSource != null)
             {
-                
-
                 if (newSourceOrDestination != null)
                 {
                     TextReader newSource = newSourceOrDestination as TextReader;
@@ -102,7 +98,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.Reinitialize();
         }
 
-        
         public override bool ReadMore(ref char[] buffer, ref int start, ref int current, ref int end)
         {
             InternalDebug.Assert((buffer == null && start == 0 && current == 0 && end == 0) ||
@@ -111,9 +106,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                                 end <= this.parseEnd &&
                                 start <= current));
 
-            int charactersProduced = this.parseEnd - end;   
-                                                            
-                                                            
+            int charactersProduced = this.parseEnd - end;
 
             if (this.parseBuffer.Length - this.parseEnd <= 1 && !this.EnsureFreeSpace() && charactersProduced == 0)
             {
@@ -156,7 +149,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                         this.parseEnd += charactersToAppend;
 
-                        this.parseBuffer[this.parseEnd] = '\0';     
+                        this.parseBuffer[this.parseEnd] = '\0';
 
                         charactersProduced += charactersToAppend;
 
@@ -183,7 +176,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         this.parseEnd += readCharactersCount;
 
-                        this.parseBuffer[this.parseEnd] = '\0';     
+                        this.parseBuffer[this.parseEnd] = '\0';
 
                         charactersProduced += readCharactersCount;
                     }
@@ -215,14 +208,13 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.parseStart += processedSize;
         }
-        
+
         public override int RemoveGap(int gapBegin, int gapEnd)
         {
             InternalDebug.Assert(gapEnd <= this.parseEnd);
 
             if (gapEnd == this.parseEnd)
             {
-                
                 this.parseEnd = gapBegin;
                 this.parseBuffer[gapBegin] = '\0';
                 return gapBegin;
@@ -233,7 +225,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.parseBuffer[this.parseEnd] = '\0';
             return this.parseEnd;
         }
-        
+
         public void GetInputBuffer(out char[] inputBuffer, out int inputOffset, out int inputCount, out int parseCount)
         {
             InternalDebug.Assert(this.parseBuffer.Length - this.parseEnd >= 1);
@@ -243,13 +235,13 @@ namespace Microsoft.Exchange.Data.TextConverters
             inputCount = this.parseBuffer.Length - this.parseEnd - 1;
             parseCount = this.parseEnd - this.parseStart;
         }
-        
+
         public void Commit(int inputCount)
         {
             this.parseEnd += inputCount;
             this.parseBuffer[this.parseEnd] = '\0';
         }
-        
+
         protected override void Dispose()
         {
             this.pullSource = null;
@@ -259,13 +251,13 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             base.Dispose();
         }
-        
+
         private bool EnsureFreeSpace()
         {
             InternalDebug.Assert(this.parseBuffer.Length - this.parseEnd <= 1);
 
             if (this.parseBuffer.Length - (this.parseEnd - this.parseStart) <= 1 ||
-                (this.parseStart < 1 && 
+                (this.parseStart < 1 &&
                 (long)this.parseBuffer.Length < (long)this.maxTokenSize + 1))
             {
                 if ((long)this.parseBuffer.Length >= (long)this.maxTokenSize + 1)
@@ -286,9 +278,9 @@ namespace Microsoft.Exchange.Data.TextConverters
                 }
 
                 char[] newBuffer = new char[(int)newSize];
-                
+
                 Buffer.BlockCopy(this.parseBuffer, this.parseStart * 2, newBuffer, 0, (this.parseEnd - this.parseStart + 1) * 2);
-                
+
                 this.parseBuffer = newBuffer;
 
                 this.parseEnd -= this.parseStart;
@@ -303,7 +295,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
 
             return true;
-        }        
+        }
     }
 }
 

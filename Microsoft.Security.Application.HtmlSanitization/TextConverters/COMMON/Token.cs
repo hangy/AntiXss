@@ -27,24 +27,24 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal enum TokenId : byte
     {
-        None = 0,                
-                                 
-        EndOfFile,               
+        None = 0,
+
+        EndOfFile,
         Text,
         EncodingChange ,
     }
 
     internal enum RunType : uint
     {
-        Invalid = 0,             
+        Invalid = 0,
 
-        Special = (1u << 30),    
+        Special = (1u << 30),
 
-        Normal = (2u << 30),     
+        Normal = (2u << 30),
 
-        Literal = (3u << 30),    
+        Literal = (3u << 30),
 
-        Mask = 0xC0000000u,      
+        Mask = 0xC0000000u,
     }
 
     internal enum RunTextType : uint
@@ -94,7 +94,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 #endif
         }
 
-        
 #if false
         public int Index
         {
@@ -281,20 +280,17 @@ namespace Microsoft.Exchange.Data.TextConverters
     internal class Token
     {
         protected internal TokenId tokenId;
-        protected internal int argument;                         
+        protected internal int argument;
 
-        protected internal char[] buffer;                        
-        protected internal RunEntry[] runList;                   
+        protected internal char[] buffer;
+        protected internal RunEntry[] runList;
 
-        protected internal Fragment whole;                       
-        protected internal FragmentPosition wholePosition;       
+        protected internal Fragment whole;
+        protected internal FragmentPosition wholePosition;
 
-        
         private LowerCaseCompareSink compareSink;
         private LowerCaseSubstringSearchSink searchSink;
         private StringBuildSink stringBuildSink;
-
-        
 
         public Token()
         {
@@ -544,7 +540,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (unit.head != -1)
             {
-                uint kind = this.runList[unit.head].MajorKind;  
+                uint kind = this.runList[unit.head].MajorKind;
 
                 int run = position.run;
 
@@ -612,7 +608,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                             int copyCount = Math.Min(count, runEntry.Length - runDeltaOffset);
 
                             InternalDebug.Assert(copyCount != 0);
-                            
+
                             {
                                 Buffer.BlockCopy(this.buffer, (runOffset + runDeltaOffset) * 2, buffer, offset * 2, copyCount * 2);
 
@@ -704,10 +700,10 @@ namespace Microsoft.Exchange.Data.TextConverters
             int run = unit.head;
             int length = 0;
 
-            if (run != -1)  
+            if (run != -1)
             {
                 RunEntry runEntry = this.runList[run];
-                uint kind = runEntry.MajorKind;  
+                uint kind = runEntry.MajorKind;
 
                 do
                 {
@@ -754,10 +750,10 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             int run = unit.head;
 
-            if (run != -1)  
+            if (run != -1)
             {
                 RunEntry runEntry = this.runList[run];
-                uint kind = runEntry.MajorKind;  
+                uint kind = runEntry.MajorKind;
 
                 do
                 {
@@ -778,13 +774,11 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         protected internal bool IsContiguous(ref Fragment fragment)
         {
-            
             return fragment.head + 1 == fragment.tail && this.runList[fragment.head].Type == RunType.Normal;
         }
 
         protected internal bool IsContiguous(LexicalUnit unit)
         {
-            
             InternalDebug.Assert(unit.head >= 0 && unit.head + 1 <= this.whole.tail && unit.head + 1 < this.runList.Length);
 
             return this.runList[unit.head].Type == RunType.Normal &&
@@ -801,7 +795,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 if (run + 1 == fragment.tail && this.runList[run].Type == RunType.Normal)
                 {
-                    
                     return HashCode.CalculateLowerCase(this.buffer, runOffset, this.runList[run].Length);
                 }
 
@@ -838,12 +831,11 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 int runOffset = unit.headOffset;
                 RunEntry runEntry = this.runList[run];
-                uint kind = runEntry.MajorKind;  
+                uint kind = runEntry.MajorKind;
 
                 if (runEntry.Type == RunType.Normal &&
                     kind != this.runList[run + 1].MajorKindPlusStartFlag)
                 {
-                    
                     return HashCode.CalculateLowerCase(this.buffer, runOffset, runEntry.Length);
                 }
 
@@ -863,10 +855,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     runOffset += runEntry.Length;
 
                     runEntry = this.runList[++run];
-
-                    
-                    
-                    
                 }
                 while (runEntry.MajorKindPlusStartFlag == kind);
 
@@ -987,9 +975,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
-        
-
         protected internal void WriteTo(ref Fragment fragment, ITextSink sink)
         {
             int run = fragment.head;
@@ -1026,7 +1011,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 int runOffset = unit.headOffset;
 
                 RunEntry runEntry = this.runList[run];
-                uint kind = runEntry.MajorKind;  
+                uint kind = runEntry.MajorKind;
 
                 do
                 {
@@ -1042,10 +1027,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     runOffset += runEntry.Length;
 
                     runEntry = this.runList[++run];
-
-                    
-                    
-                    
                 }
                 while (runEntry.MajorKindPlusStartFlag == kind && !sink.IsEnough);
             }
@@ -1133,19 +1114,16 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             if (fragment.head == fragment.tail)
             {
-                
                 return string.Empty;
             }
 
             if (this.IsContiguous(ref fragment))
             {
-                
                 return new string(this.buffer, fragment.headOffset, this.GetLength(ref fragment));
             }
 
             if (this.IsFragmentEmpty(ref fragment))
             {
-                
                 return string.Empty;
             }
 
@@ -1165,13 +1143,11 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             if (this.IsFragmentEmpty(unit))
             {
-                
                 return string.Empty;
             }
 
             if (this.IsContiguous(unit))
             {
-                
                 return new string(this.buffer, unit.headOffset, this.GetLength(unit));
             }
 
@@ -1187,12 +1163,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return this.stringBuildSink.ToString();
         }
 
-        
-        
-        
-        
-        
-        
         
 
         protected internal bool CaseInsensitiveCompareEqual(ref Fragment fragment, string str)
@@ -1223,9 +1193,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return this.compareSink.IsEqual;
         }
 
-        
-        
-
         protected internal virtual bool CaseInsensitiveCompareRunEqual(int runOffset, string str, int strOffset)
         {
             int index = strOffset;
@@ -1242,7 +1209,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             return true;
         }
-
 
         protected internal bool CaseInsensitiveContainsSubstring(ref Fragment fragment, string str)
         {
@@ -1284,7 +1250,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 int runOffset = fragment.headOffset;
                 CharClass charClass;
 
-                
                 if (this.runList[run].Type < RunType.Normal)
                 {
                     this.SkipNonTextRuns(ref run, ref runOffset, fragment.tail);
@@ -1292,7 +1257,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 if (run == fragment.tail)
                 {
-                    
                     return;
                 }
 
@@ -1312,13 +1276,9 @@ namespace Microsoft.Exchange.Data.TextConverters
                         {
                             break;
                         }
-
-                        
                     }
                     else
                     {
-                        
-
                         int offset = runOffset;
                         while (offset < runOffset + this.runList[run].Length)
                         {
@@ -1337,15 +1297,12 @@ namespace Microsoft.Exchange.Data.TextConverters
                             runOffset = offset;
                             break;
                         }
-
-                        
                     }
 
                     runOffset += this.runList[run].Length;
 
                     run ++;
 
-                    
                     if (run != fragment.tail && this.runList[run].Type < RunType.Normal)
                     {
                         this.SkipNonTextRuns(ref run, ref runOffset, fragment.tail);
@@ -1358,18 +1315,17 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
         protected internal bool SkipLeadingWhitespace(LexicalUnit unit, ref FragmentPosition position)
         {
             int run = unit.head;
 
-            if (run != -1)  
+            if (run != -1)
             {
                 int runOffset = unit.headOffset;
                 CharClass charClass;
 
                 RunEntry runEntry = this.runList[run];
-                uint kind = runEntry.MajorKind;  
+                uint kind = runEntry.MajorKind;
                 int deltaOffset = 0;
 
                 do
@@ -1386,8 +1342,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                         {
                             break;
                         }
-
-                        
                     }
                     else if (runEntry.Type == RunType.Normal)
                     {
@@ -1408,17 +1362,11 @@ namespace Microsoft.Exchange.Data.TextConverters
                             deltaOffset = offset - runOffset;
                             break;
                         }
-
-                        
                     }
 
                     runOffset += runEntry.Length;
 
                     runEntry = this.runList[++run];
-
-                    
-                    
-                    
                 }
                 while (runEntry.MajorKindPlusStartFlag == kind);
 
@@ -1428,16 +1376,12 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 if (run == unit.head || runEntry.MajorKindPlusStartFlag == kind)
                 {
-                    
                     return true;
                 }
             }
 
-            
             return false;
         }
-
-        
 
         protected internal bool MoveToNextRun(ref Fragment fragment, ref FragmentPosition position, bool skipInvalid)
         {
@@ -1451,7 +1395,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 if (run >= fragment.head)
                 {
-                    
                     position.runOffset += this.runList[run].Length;
                     position.runDeltaOffset = 0;
                 }
@@ -1564,8 +1507,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             do
             {
-                
-                
                 runOffset += this.runList[run].Length;
                 run ++;
             }
@@ -1581,15 +1522,12 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.wholePosition.Reset();
         }
 
-        
-
         public struct RunEnumerator
         {
             private Token token;
 #if DEBUG
             private int index;
 #endif
-            
 
             internal RunEnumerator(Token token)
             {
@@ -1599,12 +1537,10 @@ namespace Microsoft.Exchange.Data.TextConverters
 #endif
             }
 
-            
-
             public TokenRun Current
             {
                 get
-                { 
+                {
                     InternalDebug.Assert(this.token.wholePosition.run >= this.token.whole.head && this.token.wholePosition.run < this.token.whole.tail);
                     this.AssertCurrent();
 
@@ -1626,8 +1562,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 get { return this.token.wholePosition.runOffset; }
             }
-
-            
 
             public bool MoveNext()
             {
@@ -1669,8 +1603,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return this;
             }
 
-            
-
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
             {
@@ -1680,15 +1612,12 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
-
         public struct TextReader
         {
             private Token token;
 #if DEBUG
             private FragmentPosition position;
 #endif
-            
 
             internal TextReader(Token token)
             {
@@ -1697,8 +1626,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.position = this.token.wholePosition;
 #endif
             }
-
-            
 
             public int Length
             {
@@ -1795,15 +1722,13 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
-
         internal struct RunEntry
         {
             internal const int MaxRunLength = 0x07FFFFFF;
             internal const int MaxRunValue = 0x00FFFFFF;
 
-            private uint lengthAndType;                 
-            private uint valueAndKind;                  
+            private uint lengthAndType;
+            private uint valueAndKind;
 
             public void Initialize(RunType type, RunTextType textType, uint kind, int length, int value)
             {
@@ -1816,7 +1741,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             public void InitializeSentinel()
             {
                 this.valueAndKind = (uint)(RunKind.Invalid | RunKind.StartLexicalUnitFlag);
-                
             }
 
             public RunType Type { get { return (RunType)(this.lengthAndType & (uint)RunType.Mask); } }
@@ -1833,19 +1757,16 @@ namespace Microsoft.Exchange.Data.TextConverters
             public uint MajorKind { get { return (this.valueAndKind & 0x7C000000u); } }
             public int Value { get { return (int)(this.valueAndKind & 0x00FFFFFFu); } }
 
-            
             public override string ToString()
             {
                 return this.Type.ToString() + " - " + this.TextType.ToString() + " - " + ((this.Kind & ~(uint)RunKind.StartLexicalUnitFlag) >> 26).ToString() + "/" + ((this.Kind >> 24)  & 3).ToString() + " (" + this.Length + ") = " + this.Value.ToString("X6");
             }
         }
 
-        
-
         internal struct LexicalUnit
         {
-            public int head;                            
-            public int headOffset;                      
+            public int head;
+            public int headOffset;
 #if false
             public bool IsEmpty
             {
@@ -1864,20 +1785,17 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.headOffset = offset;
             }
 
-            
             public override string ToString()
             {
                 return this.head.ToString("X") + " / " + this.headOffset.ToString("X");
             }
         }
 
-        
-
         internal struct Fragment
         {
-            public int head;                            
-            public int tail;                            
-            public int headOffset;                      
+            public int head;
+            public int tail;
+            public int headOffset;
 
             public bool IsEmpty
             {
@@ -1895,25 +1813,21 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.headOffset = offset;
             }
 
-            
             public override string ToString()
             {
                 return this.head.ToString("X") + " - " + this.tail.ToString("X") + " / " + this.headOffset.ToString("X");
             }
         }
 
-        
-
         internal struct FragmentPosition
         {
-            public int run;                             
-            public int runOffset;                       
-            public int runDeltaOffset;                  
+            public int run;
+            public int runOffset;
+            public int runDeltaOffset;
 
             public void Reset()
             {
-                
-                this.run = -2;      
+                this.run = -2;
                 this.runOffset = 0;
                 this.runDeltaOffset = 0;
             }
@@ -1937,15 +1851,11 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return this.run == pos2.run && this.runOffset == pos2.runOffset && this.runDeltaOffset == pos2.runDeltaOffset;
             }
 
-            
             public override string ToString()
             {
                 return this.run.ToString("X") + " / " + this.runOffset.ToString("X") + " + " + this.runDeltaOffset.ToString("X");
             }
         }
-
-        
-        
 
         private class LowerCaseCompareSink : ITextSink
         {
@@ -1978,7 +1888,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(buffer[offset])))
                         {
-                            
                             offset++;
                             continue;
                         }
@@ -1987,7 +1896,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(buffer[offset])))
                         {
-                            
                             offset++;
                             continue;
                         }
@@ -2011,8 +1919,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (Token.LiteralLength(ucs32Char) != 1)
                 {
-                    
-                    
                     this.definitelyNotEqual = true;
                     return;
                 }
@@ -2021,7 +1927,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 {
                     if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass((char)ucs32Char)))
                     {
-                        
                         return;
                     }
                 }
@@ -2029,7 +1934,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 {
                     if (ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass((char)ucs32Char)))
                     {
-                        
                         return;
                     }
 
@@ -2047,12 +1951,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
-        
-        
-        
-        
-        
         
 
         private class LowerCaseSubstringSearchSink : ITextSink
@@ -2090,7 +1988,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     }
                     else
                     {
-                        
                         this.strIndex = 0;
                     }
 
@@ -2107,10 +2004,9 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 InternalDebug.Assert(!this.found && this.strIndex < this.str.Length);
 
-                if (Token.LiteralLength(ucs32Char) != 1 || 
+                if (Token.LiteralLength(ucs32Char) != 1 ||
                     this.str[this.strIndex] != ParseSupport.ToLowerCase((char)ucs32Char))
                 {
-                    
                     this.strIndex = 0;
                     return;
                 }

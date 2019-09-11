@@ -286,12 +286,12 @@ namespace Microsoft.Exchange.Data.TextConverters
 #if false
             this.writeState = droppedEndTag ? TagWriteState.Deleted : TagWriteState.Undefined;
 #endif
-            
+
             this.invokeCallbackForEndTag = false;
             this.deleteInnerContent = false;
             this.deleteEndTag = !this.isEndTag;
 
-            this.cookie = unchecked((byte)(this.cookie + 1));       
+            this.cookie = unchecked((byte)(this.cookie + 1));
         }
 
         internal void InitializeFragment(bool isEmptyElementTag, int attributeCount, HtmlTagParts tagParts)
@@ -309,7 +309,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.attributeCount = attributeCount;
 #endif
 
-            this.cookie = unchecked((byte)(this.cookie + 1));       
+            this.cookie = unchecked((byte)(this.cookie + 1));
             this.valid = true;
         }
 
@@ -371,7 +371,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         internal void AssertContextValid()
         {
-            
             if (!this.valid)
             {
                 throw new InvalidOperationException(TextConvertersStrings.ContextNotValidInThisState);

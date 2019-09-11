@@ -21,7 +21,7 @@ namespace Microsoft.Exchange.Data.Internal
     using System.Collections.Generic;
     using System.Configuration;
     using System.Xml;
-    
+
     /// <summary>
     /// Provides access to the configuration section.
     /// </summary>
@@ -69,7 +69,7 @@ namespace Microsoft.Exchange.Data.Internal
             IList<CtsConfigurationSetting> unnamedSubSection = new List<CtsConfigurationSetting>();
 
             this.subSections.Add(string.Empty, unnamedSubSection);
-            
+
             if (!reader.Read() || reader.NodeType != XmlNodeType.Element)
             {
                 throw new ConfigurationErrorsException("error", reader);

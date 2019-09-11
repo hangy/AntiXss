@@ -29,11 +29,11 @@ namespace Microsoft.Exchange.Data.TextConverters
         private CacheEntry headEntry;
         private CacheEntry tailEntry;
         private CacheEntry freeList;
-        
+
         public ByteCache()
         {
         }
-        
+
         public int Length
         {
             get
@@ -62,7 +62,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.cachedLength = 0;
         }
-        
+
         public void GetBuffer(int size, out byte[] buffer, out int offset)
         {
             if (this.tailEntry != null)
@@ -81,7 +81,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             InternalDebug.Assert(success);
         }
-        
+
         public void Commit(int count)
         {
             InternalDebug.Assert(this.tailEntry != null);
@@ -90,14 +90,14 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.cachedLength += count;
         }
-        
+
         public void GetData(out byte[] outputBuffer, out int outputOffset, out int outputCount)
         {
             InternalDebug.Assert(this.headEntry != null);
 
             this.headEntry.GetData(out outputBuffer, out outputOffset, out outputCount);
         }
-        
+
         public void ReportRead(int count)
         {
             InternalDebug.Assert(this.headEntry != null);
@@ -122,9 +122,8 @@ namespace Microsoft.Exchange.Data.TextConverters
                 newFree.Next = this.freeList;
                 this.freeList = newFree;
             }
-
         }
-        
+
         public int Read(byte[] buffer, int offset, int count)
         {
             int countCopiedTotal = 0;
@@ -167,7 +166,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             return countCopiedTotal;
         }
-        
+
         private void AllocateTail(int size)
         {
             CacheEntry newEntry = this.freeList;
@@ -195,7 +194,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.tailEntry = newEntry;
         }
-        
+
         internal class CacheEntry
         {
             private const int DefaultMaxLength = 4096;
@@ -209,7 +208,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 this.AllocateBuffer(size);
             }
-            
+
             public int Length
             {
                 get
@@ -217,7 +216,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     return this.count;
                 }
             }
-            
+
             public CacheEntry Next
             {
                 get
@@ -230,12 +229,12 @@ namespace Microsoft.Exchange.Data.TextConverters
                     this.next = value;
                 }
             }
-            
+
             public void Reset()
             {
                 this.count = 0;
             }
-            
+
             public bool GetBuffer(int size, out byte[] buffer, out int offset)
             {
                 if (this.count == 0)
@@ -271,14 +270,14 @@ namespace Microsoft.Exchange.Data.TextConverters
                 offset = 0;
                 return false;
             }
-            
+
             public void Commit(int count)
             {
                 InternalDebug.Assert(this.buffer.Length - (this.offset + this.count) >= count);
 
                 this.count += count;
             }
-            
+
             public void GetData(out byte[] outputBuffer, out int outputOffset, out int outputCount)
             {
                 InternalDebug.Assert(this.count > 0);
@@ -287,7 +286,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 outputOffset = this.offset;
                 outputCount = this.count;
             }
-            
+
             public void ReportRead(int count)
             {
                 InternalDebug.Assert(this.count >= count);
@@ -295,7 +294,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.offset += count;
                 this.count -= count;
             }
-            
+
             public int Read(byte[] buffer, int offset, int count)
             {
                 int countToCopy = Math.Min(count, this.count);
@@ -304,13 +303,13 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 this.count -= countToCopy;
                 this.offset += countToCopy;
-            
+
                 count -= countToCopy;
                 offset += countToCopy;
 
                 return countToCopy;
             }
-            
+
             private void AllocateBuffer(int size)
             {
                 if (size < DefaultMaxLength / 2)

@@ -25,7 +25,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
     using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.Globalization;
     using Microsoft.Exchange.Data.TextConverters.Internal.Text;
-    
+
     using Microsoft.Exchange.Data.TextConverters.Internal.Css;
 
     using Security.Application.TextConverters.HTML;
@@ -39,8 +39,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         private bool filterHtml;
         private bool truncateForCallback;
 
-        private int smallCssBlockThreshold;     
-        private bool preserveDisplayNoneStyle;  
+        private int smallCssBlockThreshold;
+        private bool preserveDisplayNoneStyle;
 
         private bool hasTailInjection;
 
@@ -59,7 +59,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         private bool headDivUnterminated;
 
         private int currentLevel;
-        private int currentLevelDelta;          
+        private int currentLevelDelta;
 
         private bool insideCSS;
 
@@ -111,19 +111,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private static readonly string NamePrefix = "x_";
 
-        
         internal enum CopyPendingState : byte
         {
             NotPending,
-            TagCopyPending,                     
-            TagContentCopyPending,              
-            TagNameCopyPending,                 
-            AttributeCopyPending,               
-            AttributeNameCopyPending,           
-            AttributeValueCopyPending,          
+            TagCopyPending,
+            TagContentCopyPending,
+            TagNameCopyPending,
+            AttributeCopyPending,
+            AttributeNameCopyPending,
+            AttributeValueCopyPending,
         }
 
-        
         [Flags]
         private enum AvailableTagParts : byte
         {
@@ -135,34 +133,30 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             UnstructuredContent = 0x10,
         }
 
-        
         private enum AttributeIndirectKind
         {
-            PassThrough,                
-            EmptyValue,                 
-            FilteredStyle,              
-            Virtual,                    
-            VirtualFilteredStyle,       
-            NameOnlyFragment,           
+            PassThrough,
+            EmptyValue,
+            FilteredStyle,
+            Virtual,
+            VirtualFilteredStyle,
+            NameOnlyFragment,
         }
 
-        
         private struct AttributeIndirectEntry
         {
             public AttributeIndirectKind kind;
-            public short index;         
+            public short index;
         }
 
-        
         private struct AttributeVirtualEntry
         {
-            public short index;         
+            public short index;
             public int offset;
             public int length;
             public int position;
         }
 
-        
         private struct EndTagActionEntry
         {
             public int tagLevel;
@@ -170,7 +164,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             public bool callback;
         }
 
-        
         public HtmlToHtmlConverter(
                     IHtmlParser parser,
                     HtmlWriter writer,
@@ -187,7 +180,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     bool preserveDisplayNoneStyle,
                     IProgressMonitor progressMonitor)
         {
-
             this.writer = writer;
 
             this.normalizedInput = parser is HtmlNormalizingParser;
@@ -195,9 +187,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             InternalDebug.Assert(progressMonitor != null);
             this.progressMonitor = progressMonitor;
 
-            
-            
-            
             InternalDebug.Assert(!(outputFragment && !this.normalizedInput));
 
             this.convertFragment = convertFragment;
@@ -222,7 +211,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.preserveDisplayNoneStyle = preserveDisplayNoneStyle;
         }
 
-        
         void IDisposable.Dispose()
         {
             if (this.parser != null && this.parser is IDisposable)
@@ -263,7 +251,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         public void Run()
         {
-            
             if (!this.endOfFile)
             {
                 HtmlTokenId tokenId = this.parser.Parse();
@@ -275,7 +262,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-
         public bool Flush()
         {
             if (!this.endOfFile)
@@ -285,7 +271,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             return this.endOfFile;
         }
-
 
         // Orphaned WPL code.
 #if false
@@ -305,7 +290,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             ((IRestartable)this).Restart();
         }
 #endif
-        
+
         bool IRestartable.CanRestart()
         {
             if (this.writer is IRestartable restartable)
@@ -316,15 +301,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return false;
         }
 
-        
         void IRestartable.Restart()
         {
             if (this.writer is IRestartable && !this.convertFragment)
             {
                 ((IRestartable)this.writer).Restart();
             }
-
-            
 
             this.endOfFile = false;
 
@@ -354,7 +336,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.insideBody = false;
         }
 
-        
         void IRestartable.DisableRestart()
         {
             if (this.writer is IRestartable restartable)
@@ -363,7 +344,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void Process(HtmlTokenId tokenId)
         {
             this.token = this.parser.Token;
@@ -372,7 +352,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (!this.InjectMetaTagIfNecessary())
                 {
-                    
                     return;
                 }
             }
@@ -422,8 +401,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 case HtmlTokenId.EncodingChange:
 
-                    
-
                     if (this.writer.HasEncoding && this.writer.CodePageSameAsInput)
                     {
                         int codePage = this.token.Argument;
@@ -432,8 +409,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                         InternalDebug.Assert(Charset.TryGetEncoding(codePage, out Encoding newOutputEncoding));
 #endif
-
-
 
                         this.writer.Encoding = Charset.GetEncoding(codePage);
                     }
@@ -446,7 +421,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void ProcessStartTag()
         {
             AvailableTagParts availableParts = 0;
@@ -455,39 +429,27 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 this.token.TagIndex == HtmlTagIndex._COMMENT &&
                 this.filterHtml)
             {
-                
                 this.AppendCssFromTokenText();
 
-                
                 return;
             }
-
-            
 
             if (this.token.IsTagBegin)
             {
                 InternalDebug.Assert(this.CopyPendingStateFlag == CopyPendingState.NotPending);
 
-                
                 this.currentLevel++;
 
                 this.tagIndex = this.token.TagIndex;
 
-                
-                
                 this.tagDropped = false;
                 this.justTruncated = false;
                 this.endTagCallbackRequested = false;
 
-                
-
-                
                 this.PreProcessStartTag();
 
                 if (this.currentLevel >= this.dropLevel)
                 {
-                    
-
                     this.tagDropped = true;
                 }
                 else if (!this.tagDropped)
@@ -505,37 +467,32 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                         if (this.callback != null && 0 != (tagAction & HtmlFilterData.FilterAction.Callback))
                         {
-                            
-                            
-
                             this.tagCallbackRequested = true;
                         }
                         else if (this.filterHtml)
                         {
-                            
-
                             this.ignoreAttrCallback = (0 != (tagAction & HtmlFilterData.FilterAction.IgnoreAttrCallbacks));
 
                             switch (tagAction & HtmlFilterData.FilterAction.ActionMask)
                             {
                                 case HtmlFilterData.FilterAction.Drop:
-                                    
+
                                     this.tagDropped = true;
                                     this.dropLevel = this.currentLevel;
                                     break;
 
                                 case HtmlFilterData.FilterAction.DropKeepContent:
-                                    
+
                                     this.tagDropped = true;
                                     break;
 
                                 case HtmlFilterData.FilterAction.KeepDropContent:
-                                    
+
                                     this.dropLevel = this.currentLevel + 1;
                                     break;
 
                                 case HtmlFilterData.FilterAction.Keep:
-                                    
+
                                     break;
                             }
                         }
@@ -543,8 +500,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     if (!this.tagDropped)
                     {
-                        
-
                         this.attributeTriggeredCallback = false;
                         this.tagHasFilteredStyleAttribute = false;
 
@@ -555,8 +510,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (!this.tagDropped)
             {
-                
-
                 HtmlToken.TagPartMinor tagMinorPart = this.token.MinorPart;
 
                 if (this.token.IsTagEnd)
@@ -578,8 +531,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         availableParts |= AvailableTagParts.TagName;
                     }
 
-                    
-
                     this.ProcessTagAttributes();
 
                     if (this.attributeCount != 0)
@@ -588,15 +539,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                 }
 
-                
-
                 if (availableParts != 0)
                 {
-                    
-
                     if (this.CopyPendingStateFlag != CopyPendingState.NotPending)
                     {
-                        
                         InternalDebug.Assert(!this.token.IsTagBegin);
 
                         switch (this.CopyPendingStateFlag)
@@ -607,26 +553,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                 if (this.tagCallbackRequested && 0 != (availableParts & AvailableTagParts.TagEnd))
                                 {
-                                    
-                                    
-                                    
-
-                                    
-                                    
                                     this.attributeCount = 0;
                                     this.token.Name.MakeEmpty();
 
-                                    
                                     availableParts &= ~AvailableTagParts.TagEnd;
                                     tagMinorPart = 0;
                                 }
                                 else
                                 {
-                                    
-                                    
                                     availableParts = AvailableTagParts.None;
-
-                                    
                                 }
                                 break;
 
@@ -687,7 +622,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 else
                                 {
                                     this.token.Attributes[0].Name.MakeEmpty();
-                                    
+
                                     this.token.Attributes[0].SetMinorPart(this.token.Attributes[0].MinorPart & ~HtmlToken.AttrPartMinor.CompleteName);
                                 }
 
@@ -722,15 +657,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                     }
 
-                    
-                    
-                    
-                    
-
                     if (availableParts != 0)
                     {
-                        
-
                         if (this.tagCallbackRequested)
                         {
                             InternalDebug.Assert(!this.truncateForCallback || this.token.IsTagBegin);
@@ -739,7 +667,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             if (this.callbackContext == null)
                             {
-                                
                                 this.callbackContext = new HtmlToHtmlTagContext(this);
                             }
 
@@ -747,7 +674,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             if (this.token.IsTagBegin || this.attributeTriggeredCallback)
                             {
-                                
                                 this.callbackContext.InitializeTag(false/*this.token.IsEndTag*/, HtmlDtd.tags[(int)this.tagIndex].nameIndex, false);
 
                                 this.attributeTriggeredCallback = false;
@@ -755,19 +681,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             this.callbackContext.InitializeFragment(this.token.IsEmptyScope, this.attributeCount, new HtmlTagParts(this.token.MajorPart, this.token.MinorPart));
 
-                            
                             this.callback(this.callbackContext, this.writer);
 
-                            
                             this.callbackContext.UninitializeFragment();
 
                             if (this.token.IsTagEnd || this.truncateForCallback)
                             {
                                 if (this.callbackContext.IsInvokeCallbackForEndTag)
                                 {
-                                    
-                                    
-
                                     this.endTagCallbackRequested = true;
                                 }
 
@@ -787,7 +708,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                     this.tagDropped = true;
 
-                                    
                                     this.justTruncated = true;
 
                                     this.CopyPendingStateFlag = CopyPendingState.NotPending;
@@ -796,8 +716,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                         else
                         {
-                            
-
                             if (this.token.IsTagBegin)
                             {
                                 this.CopyInputTag(false);
@@ -820,27 +738,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
             }
 
-            
-
             if (this.token.IsTagEnd)
             {
                 InternalDebug.Assert(this.CopyPendingStateFlag == CopyPendingState.NotPending);
-
-                
-                
 
                 if (this.writer.IsTagOpen)
                 {
                     this.writer.WriteTagEnd();
                 }
 
-                
-
                 if (!this.token.IsEmptyScope && this.tagIndex > HtmlTagIndex.Unknown)
                 {
-                    
-                    
-
                     if (this.normalizedInput && this.currentLevel < this.dropLevel &&
                         ((this.tagDropped && !this.justTruncated) || this.endTagCallbackRequested))
                     {
@@ -862,16 +770,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         this.endTagActionStackTop++;
                     }
 
-                    
-
                     this.currentLevel++;
 
                     this.PostProcessStartTag();
                 }
                 else
                 {
-                    
-
                     InternalDebug.Assert(!this.normalizedInput || this.currentLevel > 0);
 
                     this.currentLevel--;
@@ -884,7 +788,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void ProcessEndTag()
         {
             AvailableTagParts availableParts = 0;
@@ -896,7 +799,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 InternalDebug.Assert(this.CopyPendingStateFlag == CopyPendingState.NotPending);
                 InternalDebug.Assert(!this.normalizedInput || this.currentLevel > 0 || this.token.TagIndex == HtmlTagIndex.Unknown);
 
-                
                 if (this.currentLevel > 0)
                 {
                     this.currentLevel--;
@@ -904,46 +806,28 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 this.tagIndex = this.token.TagIndex;
 
-                
-                
                 this.tagDropped = false;
                 this.tagCallbackRequested = false;
                 this.tagHasFilteredStyleAttribute = false;
 
                 availableParts = AvailableTagParts.TagBegin;
 
-                
                 this.PreProcessEndTag();
-
-                
-                
-
-                
-                
 
                 InternalDebug.Assert(this.endTagActionStackTop == 0 || this.endTagActionStack[this.endTagActionStackTop - 1].tagLevel <= this.currentLevel + this.currentLevelDelta);
 
                 if (this.currentLevel >= this.dropLevel)
                 {
-                    
                     this.tagDropped = true;
                 }
                 else
                 {
                     if (this.endTagActionStackTop != 0 && this.tagIndex > HtmlTagIndex.Unknown)
                     {
-                        
-                        
-                        
-
                         if (this.endTagActionStack[this.endTagActionStackTop - 1].tagLevel >= this.currentLevel)
                         {
-                            
-
                             if (this.endTagActionStack[this.endTagActionStackTop - 1].tagLevel == this.currentLevel)
                             {
-                                
-
                                 this.endTagActionStackTop--;
 
                                 this.tagDropped = this.endTagActionStack[this.endTagActionStackTop].drop;
@@ -951,45 +835,26 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             }
                             else
                             {
-                                
                                 InternalDebug.Assert(this.currentLevelDelta != 0);
 
                                 int stackPos;
-
-                                
 
                                 for (stackPos = this.endTagActionStackTop; stackPos > 0 && this.endTagActionStack[stackPos - 1].tagLevel > this.currentLevel; stackPos--)
                                 {
                                 }
 
-                                
-                                
-                                
-                                
-                                
-                                
-
                                 for (int j = stackPos; j < this.endTagActionStackTop; j++)
                                 {
-                                    
-                                    
                                     this.endTagActionStack[j].tagLevel -= 2;
                                 }
 
-                                
-
                                 if (stackPos > 0 && this.endTagActionStack[stackPos - 1].tagLevel == this.currentLevel)
                                 {
-                                    
                                     this.tagDropped = this.endTagActionStack[stackPos - 1].drop;
                                     this.tagCallbackRequested = this.endTagActionStack[stackPos - 1].callback;
 
-                                    
-
                                     for (; stackPos < this.endTagActionStackTop; stackPos++)
                                     {
-                                        
-                                        
                                         this.endTagActionStack[stackPos - 1] = this.endTagActionStack[stackPos];
                                     }
 
@@ -1001,10 +866,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     if (this.token.Argument == 1 && this.tagIndex == HtmlTagIndex.Unknown)
                     {
-                        
-                        
-                        
-
                         this.tagDropped = true;
                     }
                 }
@@ -1030,8 +891,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     InternalDebug.Assert(!this.token.IsTagBegin);
 
-                    
-
                     this.token.Name.WriteTo(this.writer.WriteTagName());
 
                     if (this.token.IsTagNameEnd)
@@ -1055,23 +914,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                         if (this.token.IsTagBegin)
                         {
-                            
                             this.callbackContext.InitializeTag(true/*this.token.IsEndTag*/, HtmlDtd.tags[(int)this.tagIndex].nameIndex, false);
                         }
 
-                        
                         this.callbackContext.InitializeFragment(false, 0, new HtmlTagParts(this.token.MajorPart, tagMinorPart));
 
-                        
                         this.callback(this.callbackContext, this.writer);
 
-                        
                         this.callbackContext.UninitializeFragment();
                     }
                     else
                     {
-                        
-
                         if (this.token.IsTagBegin)
                         {
                             this.CopyInputTag(false);
@@ -1081,8 +934,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
             else if (this.tagCallbackRequested)
             {
-                
-
                 tagMinorPart = this.token.MinorPart & ~(HtmlToken.TagPartMinor.AttributePartMask | HtmlToken.TagPartMinor.Attributes);
 
                 InternalDebug.Assert(this.callback != null && this.callbackContext != null);
@@ -1091,24 +942,18 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 if (this.token.IsTagBegin)
                 {
-                    
                     this.callbackContext.InitializeTag(true/*this.token.IsEndTag*/, HtmlDtd.tags[(int)this.tagIndex].nameIndex, true/*droppedEndTag*/);
                 }
 
                 this.callbackContext.InitializeFragment(false, 0, new HtmlTagParts(this.token.MajorPart, tagMinorPart));
 
-                
                 this.callback(this.callbackContext, this.writer);
 
-                
                 this.callbackContext.UninitializeFragment();
             }
 
             if (this.token.IsTagEnd)
             {
-                
-                
-
                 if (this.writer.IsTagOpen)
                 {
                     this.writer.WriteTagEnd();
@@ -1130,8 +975,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else
                 {
-                    
-
                     if (this.currentLevel > 0)
                     {
                         this.currentLevel++;
@@ -1140,27 +983,22 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void ProcessOverlappedClose()
         {
             InternalDebug.Assert(this.currentLevelDelta == 0);
 
-            
             this.currentLevelDelta = this.token.Argument * 2;
             this.currentLevel -= this.currentLevelDelta;
         }
 
-        
         private void ProcessOverlappedReopen()
         {
             InternalDebug.Assert(this.currentLevelDelta == this.token.Argument * 2);
 
-            
             this.currentLevel += this.token.Argument * 2;
             this.currentLevelDelta = 0;
         }
 
-        
         private void ProcessText()
         {
             if (this.currentLevel >= this.dropLevel)
@@ -1170,35 +1008,24 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (this.insideCSS && this.filterHtml)
             {
-                
                 this.AppendCssFromTokenText();
-
-                
             }
             else if (this.token.Argument == 1)
             {
-                
-
                 InternalDebug.Assert(this.token.Text.Length == 1/* todo: && this.token.Text[0].IsWhitespace*/);
 
                 this.writer.WriteCollapsedWhitespace();
             }
             else if (this.token.Runs.MoveNext(true))
             {
-                
                 this.token.Text.WriteTo(this.writer.WriteText());
             }
         }
 
-        
         private void ProcessInjectionBegin()
         {
-            
-
             if (this.token.Argument == 0)
             {
-                
-
                 if (this.headDivUnterminated)
                 {
                     this.writer.WriteEndTag(HtmlNameIndex.Div);
@@ -1209,41 +1036,28 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void ProcessInjectionEnd()
         {
-            
-
             if (this.token.Argument != 0)
             {
-                
-
                 this.writer.WriteAutoNewLine(true);
                 this.writer.WriteStartTag(HtmlNameIndex.Div);
-
-                
-                
 
                 this.headDivUnterminated = true;
             }
         }
 
-        
         private void ProcessEof()
         {
             this.writer.SetCopyPending(false);
 
             if (this.headDivUnterminated && this.dropLevel != 0)
             {
-                
-
                 this.writer.WriteEndTag(HtmlNameIndex.Div);
                 this.writer.WriteAutoNewLine(true);
 
                 this.headDivUnterminated = false;
             }
-
-            
 
             //if (this.outputFragment && !this.insideBody)
             //{
@@ -1260,45 +1074,25 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.endOfFile = true;
         }
 
-        
         private void PreProcessStartTag()
         {
             InternalDebug.Assert(this.token.IsTagBegin && !this.token.IsEndTag);
 
             if (this.tagIndex > HtmlTagIndex.Unknown)
             {
-                
-
                 if (this.tagIndex == HtmlTagIndex.Body)
                 {
                     if (this.outputFragment)
                     {
                         this.insideBody = true;
 
-                        
                         this.tagIndex = HtmlTagIndex.Div;
                     }
                 }
                 else if (this.tagIndex == HtmlTagIndex.Meta)
                 {
-                    
                     if (!this.filterHtml)
                     {
-                        
-                        
-
-                        
-                        
-                        
-                        
-                        
-                        
-
-                        
-                        
-                        
-                        
-
                         this.token.Attributes.Rewind();
 
                         foreach (HtmlAttribute attribute in this.token.Attributes)
@@ -1330,7 +1124,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     {
 #endif
 
-                    
                     this.styleIsCSS = true;
 
                     if (this.token.Attributes.Find(HtmlNameIndex.Type))
@@ -1339,7 +1132,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                         if (!attribute.Value.CaseInsensitiveCompareEqual("text/css"))
                         {
-                            
                             this.styleIsCSS = false;
                         }
                     }
@@ -1358,16 +1150,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else if (this.tagIndex == HtmlTagIndex.TC)
                 {
-                    
                     this.tagDropped = true;
                 }
                 else if (this.tagIndex == HtmlTagIndex.PlainText || this.tagIndex == HtmlTagIndex.Xmp)
                 {
                     if (this.filterHtml || (this.hasTailInjection && this.tagIndex == HtmlTagIndex.PlainText))
                     {
-                        
-                        
-
                         this.tagDropped = true;
 
                         this.writer.WriteAutoNewLine(true);
@@ -1380,14 +1168,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     if (this.filterHtml)
                     {
-                        
                         this.tagIndex = HtmlTagIndex.Img;
                     }
                 }
             }
         }
 
-        
         private void ProcessTagAttributes()
         {
             this.attributeSkipCount = 0;
@@ -1418,8 +1204,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     if (attribute.IsAttrBegin)
                     {
-                        
-
                         attrAction = this.filterForFragment ?
                                 HtmlFilterData.filterInstructions[(int)attribute.NameIndex].attrFragmentAction :
                                 HtmlFilterData.filterInstructions[(int)attribute.NameIndex].attrAction;
@@ -1427,8 +1211,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         if (0 != (attrAction & HtmlFilterData.FilterAction.HasExceptions) &&
                             0 != (HtmlFilterData.filterInstructions[(int)this.token.NameIndex].tagAction & HtmlFilterData.FilterAction.HasExceptions))
                         {
-                            
-
                             for (int j = 0; j < HtmlFilterData.filterExceptions.Length; j++)
                             {
                                 if (HtmlFilterData.filterExceptions[j].tagNameIndex == this.token.NameIndex &&
@@ -1445,61 +1227,36 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         if (!this.outputFragment &&
                             (attrAction == HtmlFilterData.FilterAction.PrefixName || attrAction == HtmlFilterData.FilterAction.PrefixNameList))
                         {
-                            
-                            
                             attrAction = HtmlFilterData.FilterAction.Keep;
                         }
 
                         if (this.callback != null && !this.ignoreAttrCallback && 0 != (attrAction & HtmlFilterData.FilterAction.Callback))
                         {
-                            
-
                             if (this.token.IsTagBegin || !this.truncateForCallback)
                             {
-                                
-
                                 this.attributeTriggeredCallback = this.attributeTriggeredCallback || !this.tagCallbackRequested;
                                 this.tagCallbackRequested = true;
                             }
                             else
                             {
-                                
-                                
-                                
-
                                 attrAction = HtmlFilterData.FilterAction.KeepDropContent;
                             }
-
-                            
-                            
-                            
-                            
-                            
-                            
                         }
 
-                        
                         attrAction &= HtmlFilterData.FilterAction.ActionMask;
 
                         if (!attribute.IsAttrEnd)
                         {
-                            
                             InternalDebug.Assert(attribute.Index == attributes.Count - 1 && !this.token.IsTagEnd);
-
-                            
-                            
 
                             this.attrContinuationAction = attrAction;
                         }
                     }
                     else
                     {
-                        
                         InternalDebug.Assert(attribute.Index == 0 && !this.token.IsTagBegin);
                         attrAction = this.attrContinuationAction;
                     }
-
-                    
 
                     if (attrAction != HtmlFilterData.FilterAction.Drop)
                     {
@@ -1513,13 +1270,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         {
                             if (attrAction == HtmlFilterData.FilterAction.KeepDropContent)
                             {
-                                
                                 InternalDebug.Assert(attribute.IsAttrBegin);
 
-                                
                                 this.attrContinuationAction = HtmlFilterData.FilterAction.Drop;
 
-                                
                                 this.attributeIndirectIndex[this.attributeCount].index = (short)i;
                                 this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.EmptyValue;
                                 this.attributeCount++;
@@ -1530,17 +1284,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 {
                                     if (this.tagHasFilteredStyleAttribute)
                                     {
-                                        
-                                        
-                                        
-
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-
                                         this.AppendCss(";");
                                     }
 
@@ -1549,7 +1292,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                 this.AppendCssFromAttribute(attribute);
 
-                                
                                 continue;
                             }
                             else if (attrAction == HtmlFilterData.FilterAction.ConvertBgcolorIntoStyle)
@@ -1558,28 +1300,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 {
                                     if (this.tagHasFilteredStyleAttribute)
                                     {
-                                        
-
                                         this.AppendCss(";");
                                     }
 
                                     this.tagHasFilteredStyleAttribute = true;
                                 }
 
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-
                                 this.AppendCss("background-color:");
                                 this.AppendCssFromAttribute(attribute);
 
-                                
                                 continue;
                             }
                             else
@@ -1587,14 +1316,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 int vi;
                                 int offset, length;
 
-                                
                                 InternalDebug.Assert(attrAction == HtmlFilterData.FilterAction.SanitizeUrl ||
                                                     attrAction == HtmlFilterData.FilterAction.PrefixName ||
                                                     attrAction == HtmlFilterData.FilterAction.PrefixNameList);
 
                                 if (attribute.IsAttrBegin)
                                 {
-                                    
                                     this.attributeLeadingSpaces = true;
                                 }
 
@@ -1602,15 +1329,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 {
                                     if (!attribute.Value.SkipLeadingWhitespace() && !attribute.IsAttrEnd)
                                     {
-                                        
-
                                         if (!attribute.IsAttrBegin && !attribute.HasNameFragment)
                                         {
-                                            
                                             continue;
                                         }
 
-                                        
                                         this.attributeIndirectIndex[this.attributeCount].index = (short)i;
                                         this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.NameOnlyFragment;
                                         this.attributeCount++;
@@ -1623,39 +1346,25 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                 bool truncate = false;
 
-                                
-                                
-                                
-                                
                                 if (!this.attributeActionScratch.AppendHtmlAttributeValue(attribute, 4 * 1024))
                                 {
-                                    
                                     truncate = true;
                                 }
 
                                 if (!attribute.IsAttrEnd && !truncate)
                                 {
-                                    
-
                                     if (!attribute.IsAttrBegin && !attribute.HasNameFragment)
                                     {
-                                        
                                         continue;
                                     }
 
-                                    
                                     this.attributeIndirectIndex[this.attributeCount].index = (short)i;
                                     this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.NameOnlyFragment;
                                     this.attributeCount++;
                                     continue;
                                 }
 
-                                
-                                
                                 this.attrContinuationAction = HtmlFilterData.FilterAction.Drop;
-
-                                
-                                
 
                                 if (attrAction == HtmlFilterData.FilterAction.SanitizeUrl)
                                 {
@@ -1674,21 +1383,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                             if (nameLength == 0)
                                             {
-                                                
                                                 goto default;
                                             }
 
-                                            
                                             offset = this.attributeVirtualScratch.Length;
                                             length = 0;
                                             length += this.attributeVirtualScratch.Append('#', int.MaxValue);
                                             length += this.attributeVirtualScratch.Append(NamePrefix, int.MaxValue);
                                             length += this.attributeVirtualScratch.Append(this.attributeActionScratch.Buffer, 1, nameLength, int.MaxValue);
 
-                                            
                                             vi = this.AllocateVirtualEntry(i, offset, length);
 
-                                            
                                             this.attributeIndirectIndex[this.attributeCount].index = (short)vi;
                                             this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.Virtual;
                                             this.attributeCount++;
@@ -1698,24 +1403,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                             if (attribute.IsCompleteAttr)
                                             {
-                                                
                                                 this.attributeIndirectIndex[this.attributeCount].index = (short)i;
                                                 this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.PassThrough;
                                                 this.attributeCount++;
                                                 break;
                                             }
 
-                                            
-                                            
-
-                                            
                                             offset = this.attributeVirtualScratch.Length;
                                             length = this.attributeVirtualScratch.Append(this.attributeActionScratch.Buffer, 0, this.attributeActionScratch.Length, int.MaxValue);
 
-                                            
                                             vi = this.AllocateVirtualEntry(i, offset, length);
 
-                                            
                                             this.attributeIndirectIndex[this.attributeCount].index = (short)vi;
                                             this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.Virtual;
                                             this.attributeCount++;
@@ -1727,19 +1425,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                             {
                                                 InternalDebug.Assert(attribute.IsAttrEnd);
 
-                                                
                                                 goto case CheckUrlResult.Safe;
                                             }
 
-                                            
                                             goto default;
 
-                                        default:    
+                                        default:
 
-                                            
                                             this.attrContinuationAction = HtmlFilterData.FilterAction.Drop;
 
-                                            
                                             this.attributeIndirectIndex[this.attributeCount].index = (short)i;
                                             this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.EmptyValue;
                                             this.attributeCount++;
@@ -1757,15 +1451,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                     if (nameLength != 0)
                                     {
-                                        
                                         length += this.attributeVirtualScratch.Append(NamePrefix, int.MaxValue);
                                         length += this.attributeVirtualScratch.Append(this.attributeActionScratch.Buffer, 0, nameLength, int.MaxValue);
                                     }
 
-                                    
                                     vi = this.AllocateVirtualEntry(i, offset, length);
 
-                                    
                                     this.attributeIndirectIndex[this.attributeCount].index = (short)vi;
                                     this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.Virtual;
                                     this.attributeCount++;
@@ -1774,7 +1465,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 {
                                     InternalDebug.Assert(this.outputFragment);
 
-                                    
                                     offset = this.attributeVirtualScratch.Length;
                                     length = 0;
 
@@ -1801,26 +1491,20 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                         while (nameLength != 0);
                                     }
 
-                                    
                                     vi = this.AllocateVirtualEntry(i, offset, length);
 
-                                    
                                     this.attributeIndirectIndex[this.attributeCount].index = (short)vi;
                                     this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.Virtual;
                                     this.attributeCount++;
                                 }
                                 else
                                 {
-                                    
                                     InternalDebug.Assert(false);
 
-                                    
                                     InternalDebug.Assert((attribute.MinorPart & HtmlToken.AttrPartMinor.BeginValue) == HtmlToken.AttrPartMinor.BeginValue);
 
-                                    
                                     this.attrContinuationAction = HtmlFilterData.FilterAction.Drop;
 
-                                    
                                     this.attributeIndirectIndex[this.attributeCount].index = (short)i;
                                     this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.EmptyValue;
                                     this.attributeCount++;
@@ -1832,7 +1516,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 if (this.tagHasFilteredStyleAttribute && (this.token.IsTagEnd || (this.tagCallbackRequested && this.truncateForCallback)))
                 {
-                    
                     this.attributeIndirectIndex[this.attributeCount].index = -1;
                     this.attributeIndirectIndex[this.attributeCount].kind = AttributeIndirectKind.FilteredStyle;
                     this.attributeCount++;
@@ -1845,24 +1528,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 if (this.callback != null && !this.tagCallbackRequested && !this.ignoreAttrCallback)
                 {
-                    
-                    
-
                     for (int i = 0; i < attributes.Count; i++)
                     {
                         attribute = attributes[i];
 
                         if (attribute.IsAttrBegin)
                         {
-                            
-
                             attrAction = HtmlFilterData.filterInstructions[(int)attribute.NameIndex].attrAction;
 
                             if (0 != (attrAction & HtmlFilterData.FilterAction.HasExceptions) &&
                                 0 != (HtmlFilterData.filterInstructions[(int)this.token.NameIndex].tagAction & HtmlFilterData.FilterAction.HasExceptions))
                             {
-                                
-
                                 for (int j = 0; j < HtmlFilterData.filterExceptions.Length; j++)
                                 {
                                     if (HtmlFilterData.filterExceptions[j].tagNameIndex == this.token.NameIndex &&
@@ -1876,16 +1552,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             if (0 != (attrAction & HtmlFilterData.FilterAction.Callback))
                             {
-                                
-
                                 if (this.token.IsTagBegin || !this.truncateForCallback)
                                 {
-                                    
-
                                     this.attributeTriggeredCallback = this.attributeTriggeredCallback || !this.tagCallbackRequested;
                                     this.tagCallbackRequested = true;
 
-                                    
                                     break;
                                 }
                             }
@@ -1931,7 +1602,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return length;
         }
 
-        
         private void PostProcessStartTag()
         {
             if (this.tagIndex == HtmlTagIndex.Style && this.styleIsCSS)
@@ -1940,7 +1610,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void PreProcessEndTag()
         {
             InternalDebug.Assert(this.token.IsTagBegin && this.token.IsEndTag);
@@ -1949,34 +1618,22 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (0 != (HtmlDtd.tags[(int)this.tagIndex].literal & HtmlDtd.Literal.Entities))
                 {
-                    
-
                     if (this.tagIndex == HtmlTagIndex.Style)
                     {
                         if (this.insideCSS && this.filterHtml)
                         {
-                            
                             this.FlushCssInStyleTag();
                         }
                     }
 
                     this.insideCSS = false;
-                    this.styleIsCSS = true;     
+                    this.styleIsCSS = true;
                 }
 
                 if (this.tagIndex == HtmlTagIndex.PlainText || this.tagIndex == HtmlTagIndex.Xmp)
                 {
-                    
-                    
-                    
-                    
-                    
-
                     if (this.filterHtml || (this.hasTailInjection && this.tagIndex == HtmlTagIndex.PlainText))
                     {
-                        
-                        
-
                         this.tagDropped = true;
                         this.writer.WriteEndTag(HtmlNameIndex.Pre);
                         this.writer.WriteEndTag(HtmlNameIndex.TT);
@@ -1985,12 +1642,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     {
                         if (this.normalizedInput)
                         {
-                            
-                            
-                            
-
                             this.tagDropped = true;
-                            this.dropLevel = 0;                 
+                            this.dropLevel = 0;
                             this.endTagActionStackTop = 0;
                         }
                     }
@@ -1999,8 +1652,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     if (this.headDivUnterminated && this.dropLevel != 0)
                     {
-                        
-
                         this.writer.WriteEndTag(HtmlNameIndex.Div);
                         this.writer.WriteAutoNewLine(true);
 
@@ -2014,26 +1665,22 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else if (this.tagIndex == HtmlTagIndex.TC)
                 {
-                    
                     this.tagDropped = true;
                 }
                 else if (this.tagIndex == HtmlTagIndex.Image)
                 {
                     if (this.filterHtml)
                     {
-                        
                         this.tagIndex = HtmlTagIndex.Img;
                     }
                 }
             }
             else if (this.tagIndex == HtmlTagIndex.Unknown && this.filterHtml)
             {
-                
                 this.tagDropped = true;
             }
         }
 
-        
         internal void CopyInputTag(bool copyTagAttributes)
         {
             if (this.token.IsTagBegin)
@@ -2071,7 +1718,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             if (!copyTagAttributes)
                             {
-                                
                                 this.CopyPendingStateFlag = CopyPendingState.TagNameCopyPending;
                                 return;
                             }
@@ -2101,11 +1747,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void CopyInputTagAttributes()
         {
-            
-
             InternalDebug.Assert(!this.token.IsEndTag);
 
             for (int i = 0; i < this.attributeCount; i++)
@@ -2114,7 +1757,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         internal void CopyInputAttribute(int index)
         {
             AttributeIndirectKind kind = this.GetAttributeIndirectKind(index);
@@ -2123,8 +1765,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (!this.tagCallbackRequested)
                 {
-                    
-
                     this.writer.WriteAttributeName(HtmlNameIndex.Style);
 
                     InternalDebug.Assert(this.cssParserInput != null);
@@ -2139,7 +1779,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     return;
                 }
 
-                
                 this.VirtualizeFilteredStyle(index);
                 kind = AttributeIndirectKind.VirtualFilteredStyle;
             }
@@ -2148,10 +1787,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (kind == AttributeIndirectKind.VirtualFilteredStyle)
             {
-                
                 this.writer.WriteAttributeName(HtmlNameIndex.Style);
 
-                
                 int vi = this.GetAttributeVirtualEntryIndex(index);
 
                 if (this.attributeVirtualList[vi].length != 0)
@@ -2162,7 +1799,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     this.writer.WriteAttributeValueInternal(String.Empty);
                 }
-                
             }
             else
             {
@@ -2191,11 +1827,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 else if (kind == AttributeIndirectKind.EmptyValue)
                 {
                     this.writer.WriteAttributeValueInternal(String.Empty);
-                    
                 }
                 else if (kind == AttributeIndirectKind.Virtual)
                 {
-                    
                     int vi = this.GetAttributeVirtualEntryIndex(index);
 
                     if (this.attributeVirtualList[vi].length != 0)
@@ -2206,7 +1840,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     {
                         this.writer.WriteAttributeValueInternal(String.Empty);
                     }
-                    
                 }
                 else
                 {
@@ -2229,7 +1862,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         internal void CopyInputAttributeName(int index)
         {
             AttributeIndirectKind kind = this.GetAttributeIndirectKind(index);
@@ -2239,8 +1871,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 this.writer.WriteAttributeName(HtmlNameIndex.Style);
                 return;
             }
-
-            
 
             HtmlAttribute attribute = this.GetAttribute(index);
 
@@ -2269,7 +1899,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         internal void CopyInputAttributeValue(int index)
         {
             AttributeIndirectKind kind = this.GetAttributeIndirectKind(index);
@@ -2282,8 +1911,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     if (!this.tagCallbackRequested)
                     {
-                        
-
                         InternalDebug.Assert(this.cssParserInput != null);
                         if (!this.cssParserInput.IsEmpty)
                         {
@@ -2296,14 +1923,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         return;
                     }
 
-                    
                     this.VirtualizeFilteredStyle(index);
                     kind = AttributeIndirectKind.VirtualFilteredStyle;
                 }
 
                 if (kind == AttributeIndirectKind.Virtual || kind == AttributeIndirectKind.VirtualFilteredStyle)
                 {
-                    
                     int vi = this.GetAttributeVirtualEntryIndex(index);
 
                     if (this.attributeVirtualList[vi].length != 0)
@@ -2314,7 +1939,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     {
                         this.writer.WriteAttributeValueInternal(String.Empty);
                     }
-                    
                 }
                 else if (kind == AttributeIndirectKind.NameOnlyFragment)
                 {
@@ -2324,7 +1948,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 else if (kind == AttributeIndirectKind.EmptyValue)
                 {
                     this.writer.WriteAttributeValueInternal(String.Empty);
-                    
                 }
             }
             else
@@ -2351,7 +1974,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private static object lockObject = new object();
         private static bool textConvertersConfigured;
 
@@ -2411,12 +2033,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     if (safeUrlSchemeSetting != null)
                     {
-                        
-
                         if (safeUrlSchemeSetting.Arguments.Count != 1 || (!safeUrlSchemeSetting.Arguments[0].Name.Equals("Add", StringComparison.OrdinalIgnoreCase) &&
                                 !safeUrlSchemeSetting.Arguments[0].Name.Equals("Override", StringComparison.OrdinalIgnoreCase)))
                         {
-                            
                             ApplicationServices.Provider.LogConfigurationErrorEvent();
                         }
                         else
@@ -2453,7 +2072,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             if (badEntries.Length != 0)
                             {
-                                
                                 ApplicationServices.Provider.LogConfigurationErrorEvent();
                             }
 
@@ -2463,11 +2081,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     if (!safeUrlSchemeListSpecified || safeUrlSchemeListAdd)
                     {
-                        
-
-                        
-                        
-
                         safeUrlDictionary["http"] = null;
                         safeUrlDictionary["https"] = null;
                         safeUrlDictionary["ftp"] = null;
@@ -2498,7 +2111,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private static bool SafeUrlSchema(char[] urlBuffer, int schemaLength)
         {
             if (schemaLength < 2 || schemaLength > 20)
@@ -2511,8 +2123,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 ConfigureTextConverters();
             }
 
-            
-
             if (safeUrlDictionary.ContainsKey(new string(urlBuffer, 0, schemaLength)))
             {
                 return true;
@@ -2521,7 +2131,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return false;
         }
 
-        
         private enum CheckUrlResult
         {
             Inconclusive,
@@ -2530,14 +2139,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             LocalHyperlink,
         }
 
-        
         private static CheckUrlResult CheckUrl(char[] urlBuffer, int urlLength, bool callbackRequested)
         {
             int i;
 
             if (urlLength > 0 && urlBuffer[0] == '#')
             {
-                
                 return CheckUrlResult.LocalHyperlink;
             }
 
@@ -2547,16 +2154,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     if (i == 0 && urlLength > 1 && (urlBuffer[1] == '/' || urlBuffer[1] == '\\'))
                     {
-                        
                         return callbackRequested ? CheckUrlResult.Safe : CheckUrlResult.Unsafe;
                     }
 
-                    
                     return CheckUrlResult.Safe;
                 }
                 if (urlBuffer[i] == '?' || urlBuffer[i] == '#' || urlBuffer[i] == ';')
                 {
-                    
                     return CheckUrlResult.Safe;
                 }
                 if (urlBuffer[i] == ':')
@@ -2573,7 +2177,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             ParseSupport.AlphaCharacter(ParseSupport.GetCharClass(urlBuffer[0])) &&
                             (urlBuffer[2] == '/' || urlBuffer[2] == '\\'))
                         {
-                            
                             return CheckUrlResult.Safe;
                         }
                         else
@@ -2588,15 +2191,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                     }
 
-                    
                     return CheckUrlResult.Unsafe;
                 }
             }
 
             InternalDebug.Assert(i == urlLength);
 
-            
-            
             return CheckUrlResult.Inconclusive;
         }
 
@@ -2635,7 +2235,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             int vi = this.attributeVirtualCount++;
 
-            
             this.attributeVirtualList[vi].index = (short)index;
             this.attributeVirtualList[vi].offset = offset;
             this.attributeVirtualList[vi].length = length;
@@ -2644,30 +2243,22 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return vi;
         }
 
-        
         private void VirtualizeFilteredStyle(int index)
         {
-            
             int offset = this.attributeVirtualScratch.Length;
             this.FlushCssInStyleAttributeToVirtualScratch();
             int length = this.attributeVirtualScratch.Length - offset;
 
-            
             int vi = this.AllocateVirtualEntry(this.attributeIndirectIndex[index + this.attributeSkipCount].index, offset, length);
 
-            
             this.attributeIndirectIndex[index + this.attributeSkipCount].index = (short)vi;
             this.attributeIndirectIndex[index + this.attributeSkipCount].kind = AttributeIndirectKind.VirtualFilteredStyle;
         }
 
-        
         private bool InjectMetaTagIfNecessary()
         {
-            
-
             if (this.filterForFragment || !this.writer.HasEncoding)
             {
-                
                 this.metaInjected = true;
             }
             else
@@ -2676,8 +2267,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     if (this.writer.Encoding.CodePage == 65000)
                     {
-                        
-
                         this.OutputMetaTag();
                         this.metaInjected = true;
                     }
@@ -2699,11 +2288,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                         else if (this.token.TagIndex <= HtmlTagIndex._ASP)
                         {
-                            
                         }
                         else
                         {
-                            
                             InternalDebug.Assert(this.token.IsTagBegin);
 
                             if (this.insideHtml && !this.insideHead)
@@ -2733,13 +2320,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     {
                         if (this.token.IsWhitespaceOnly)
                         {
-                            
                             return false;
                         }
 
-                        
-
-                        
                         this.token.Text.StripLeadingWhitespace();
 
                         if (this.insideHtml && !this.insideHead)
@@ -2771,25 +2354,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return true;
         }
 
-        
         private void OutputMetaTag()
         {
             InternalDebug.Assert(this.CopyPendingStateFlag == CopyPendingState.NotPending);
             InternalDebug.Assert(!this.filterForFragment);
 
-            
-            
-            
-
-            
             InternalDebug.Assert(this.writer.HasEncoding);
 
             Encoding encoding = this.writer.Encoding;
 
             if (encoding.CodePage == 65000)
             {
-                
-
                 this.writer.Encoding = Encoding.ASCII;
             }
 
@@ -2804,11 +2379,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 this.writer.WriteTagEnd();
                 this.writer.Encoding = encoding;
             }
-
-            
         }
 
-        
         private AttributeIndirectKind GetAttributeIndirectKind(int index)
         {
             InternalDebug.Assert(index >= 0 && index < this.attributeCount);
@@ -2816,7 +2388,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return this.attributeIndirect ? this.attributeIndirectIndex[index + this.attributeSkipCount].kind : AttributeIndirectKind.PassThrough;
         }
 
-        
         private int GetAttributeVirtualEntryIndex(int index)
         {
             InternalDebug.Assert(index >= 0 && index < this.attributeCount);
@@ -2827,17 +2398,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return this.attributeIndirectIndex[index + this.attributeSkipCount].index;
         }
 
-        
         private HtmlAttribute GetAttribute(int index)
         {
             InternalDebug.Assert(index >= 0 && index < this.attributeCount);
-            
+
             InternalDebug.Assert(this.GetAttributeIndirectKind(index) != AttributeIndirectKind.FilteredStyle &&
                                 this.GetAttributeIndirectKind(index) != AttributeIndirectKind.VirtualFilteredStyle);
 
             if (!this.attributeIndirect)
             {
-                
                 return this.token.Attributes[index + this.attributeSkipCount];
             }
             else if (this.attributeIndirectIndex[index + this.attributeSkipCount].kind != AttributeIndirectKind.Virtual)
@@ -2846,23 +2415,18 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
             else
             {
-                
                 return this.token.Attributes[this.attributeVirtualList[this.attributeIndirectIndex[index + this.attributeSkipCount].index].index];
             }
         }
 
-        
         internal HtmlAttributeId GetAttributeNameId(int index)
         {
             AttributeIndirectKind kind = this.GetAttributeIndirectKind(index);
 
             if (kind == AttributeIndirectKind.FilteredStyle || kind == AttributeIndirectKind.VirtualFilteredStyle)
             {
-                
                 return HtmlAttributeId.Style;
             }
-
-            
 
             HtmlAttribute attribute = this.GetAttribute(index);
             return HtmlNameData.names[(int)attribute.NameIndex].publicAttributeId;
@@ -2870,14 +2434,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private static readonly HtmlAttributeParts CompleteAttributeParts = new HtmlAttributeParts(HtmlToken.AttrPartMajor.Complete, HtmlToken.AttrPartMinor.CompleteNameWithCompleteValue);
 
-        
         internal HtmlAttributeParts GetAttributeParts(int index)
         {
             AttributeIndirectKind kind = this.GetAttributeIndirectKind(index);
 
             if (kind == AttributeIndirectKind.FilteredStyle || kind == AttributeIndirectKind.VirtualFilteredStyle)
             {
-                
                 return CompleteAttributeParts;
             }
 
@@ -2885,39 +2447,30 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (kind == AttributeIndirectKind.NameOnlyFragment)
             {
-                
-
-                
                 InternalDebug.Assert((attribute.MajorPart & HtmlToken.AttrPartMajor.End) != HtmlToken.AttrPartMajor.End);
 
-                
                 InternalDebug.Assert((attribute.MinorPart & HtmlToken.AttrPartMinor.ContinueName) != 0);
 
                 return new HtmlAttributeParts(attribute.MajorPart, attribute.MinorPart & ~HtmlToken.AttrPartMinor.CompleteValue);
             }
             else if (kind == AttributeIndirectKind.EmptyValue || kind == AttributeIndirectKind.Virtual)
             {
-                
                 return new HtmlAttributeParts(attribute.MajorPart | HtmlToken.AttrPartMajor.End, attribute.MinorPart | HtmlToken.AttrPartMinor.CompleteValue);
             }
 
             return new HtmlAttributeParts(attribute.MajorPart, attribute.MinorPart);
         }
 
-        
         internal string GetAttributeName(int index)
         {
             AttributeIndirectKind kind = this.GetAttributeIndirectKind(index);
 
             if (kind == AttributeIndirectKind.FilteredStyle || kind == AttributeIndirectKind.VirtualFilteredStyle)
             {
-                
                 InternalDebug.Assert(this.tagHasFilteredStyleAttribute);
 
                 return HtmlNameData.names[(int)HtmlNameIndex.Style].name;
             }
-
-            
 
             HtmlAttribute attribute = this.GetAttribute(index);
 
@@ -2935,9 +2488,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
-
-        
         internal string GetAttributeValue(int index)
         {
             AttributeIndirectKind kind = this.GetAttributeIndirectKind(index);
@@ -2946,14 +2496,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (kind == AttributeIndirectKind.FilteredStyle)
                 {
-                    
                     this.VirtualizeFilteredStyle(index);
                     kind = AttributeIndirectKind.VirtualFilteredStyle;
                 }
 
                 if (kind == AttributeIndirectKind.Virtual || kind == AttributeIndirectKind.VirtualFilteredStyle)
                 {
-                    
                     int vi = this.GetAttributeVirtualEntryIndex(index);
                     if (this.attributeVirtualList[vi].length != 0)
                     {
@@ -3023,13 +2571,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return attribute.Value.Read(buffer, offset, count);
         }
 #endif
-        
+
         internal void WriteTag(bool copyTagAttributes)
         {
             this.CopyInputTag(copyTagAttributes);
         }
 
-        
         internal void WriteAttribute(int index, bool writeName, bool writeValue)
         {
             if (writeName)
@@ -3049,7 +2596,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void AppendCssFromTokenText()
         {
             if (null == this.cssParserInput)
@@ -3061,7 +2607,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.token.Text.WriteTo(this.cssParserInput);
         }
 
-        
         private void AppendCss(string css)
         {
             if (null == this.cssParserInput)
@@ -3073,7 +2618,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.cssParserInput.Write(css);
         }
 
-        
         private void AppendCssFromAttribute(HtmlAttribute attribute)
         {
             if (null == this.cssParserInput)
@@ -3086,7 +2630,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             attribute.Value.WriteTo(this.cssParserInput);
         }
 
-        
         private void FlushCssInStyleTag()
         {
             if (null != this.cssParserInput)
@@ -3102,7 +2645,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     agressiveFiltering = true;
                 }
 
-                
                 this.cssParser.SetParseMode(CssParseMode.StyleTag);
 
                 CssTokenId tokenId;
@@ -3147,10 +2689,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private void FlushCssInStyleAttributeToVirtualScratch()
         {
-            
             this.cssParser.SetParseMode(CssParseMode.StyleAttribute);
 
             if (this.virtualScratchSink == null)
@@ -3175,10 +2715,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.cssParser.Reset();
         }
 
-        
         private void FlushCssInStyleAttribute(HtmlWriter writer)
         {
-            
             this.cssParser.SetParseMode(CssParseMode.StyleAttribute);
 
             ITextSinkEx sink = writer.WriteAttributeValue();
@@ -3200,13 +2738,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.cssParser.Reset();
         }
 
-        
         private bool CopyInputCssSelectors(CssToken.SelectorEnumerator selectors, ITextSinkEx sink, bool agressiveFiltering)
         {
             bool atLeastOneOk = false;
             bool lastOk = false;
 
-            
             selectors.Rewind();
 
             foreach (CssSelector selector in selectors)
@@ -3245,7 +2781,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             return atLeastOneOk;
         }
 
-        
         private bool CopyInputCssSelector(CssSelector selector, ITextSinkEx sink, bool agressiveFiltering)
         {
             InternalDebug.Assert(!selector.IsDeleted);
@@ -3256,7 +2791,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     (selector.ClassType != CssSelectorClassType.Regular &&
                      selector.ClassType != CssSelectorClassType.Hash))
                 {
-                    
                     return false;
                 }
 #if false
@@ -3275,18 +2809,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (agressiveFiltering)
             {
-                
-
                 if (!selector.HasClassFragment || selector.ClassType != CssSelectorClassType.Regular)
                 {
-                    
                     return false;
                 }
 
-                
                 string className = selector.ClassName.GetString(256);
 
-                
                 InternalDebug.Assert(className.Length > 0);
 
                 if (!className.Equals("MsoNormal", StringComparison.Ordinal))
@@ -3301,7 +2830,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
             else if (selector.HasNameFragment)
             {
-                
                 selector.Name.WriteOriginalTo(sink);
             }
 
@@ -3321,7 +2849,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else
                 {
-                    
                     InternalDebug.Assert(selector.ClassType == CssSelectorClassType.Attrib);
                 }
 
@@ -3332,18 +2859,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     sink.Write(NamePrefix);
                 }
 
-                
                 selector.ClassName.WriteOriginalTo(sink);
             }
 
             return true;
         }
 
-        
         private void CopyInputCssProperties(bool inTag, CssToken.PropertyEnumerator properties, ITextSinkEx sink, ref bool firstProperty)
         {
-            
-
             properties.Rewind();
 
             foreach (CssProperty property in properties)
@@ -3392,7 +2915,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        
         private static void CopyInputCssProperty(CssProperty property, ITextSinkEx sink)
         {
             InternalDebug.Assert(!property.IsDeleted);
@@ -3407,7 +2929,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (property.NameId == CssNameIndex.Unknown && property.HasNameFragment)
             {
-                
                 property.Name.WriteOriginalTo(sink);
             }
 
@@ -3418,12 +2939,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             if (property.HasValueFragment)
             {
-                
                 property.Value.WriteEscapedOriginalTo(sink);
             }
         }
-
-        
 
         internal class VirtualScratchSink : ITextSinkEx
         {
@@ -3466,7 +2984,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 InternalDebug.Assert(!this.IsEnough);
 
-                
                 this.converter.attributeVirtualScratch.Append(value, this.maxLength);
             }
 
@@ -3484,10 +3001,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         }
     }
 
-    
-    
-    
-
     internal class HtmlToHtmlTagContext : HtmlTagContext
     {
         private HtmlToHtmlConverter converter;
@@ -3496,9 +3009,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         {
             this.converter = converter;
         }
-
-        
-        
 
         internal override string GetTagNameImpl()
         {
@@ -3530,8 +3040,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         {
             return this.converter.GetAttributeName(attributeIndex);
         }
-
-        
 
         internal override string GetAttributeValueImpl(int attributeIndex)
         {

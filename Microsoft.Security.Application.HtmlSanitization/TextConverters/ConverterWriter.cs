@@ -126,7 +126,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                 {
                     if (this.madeProgress)
                     {
-
                         loopsWithoutProgress = 0;
                         this.madeProgress = false;
                     }
@@ -266,7 +265,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (!this.boundaryTesting)
             {
-
                 this.sinkInputObject.GetInputBuffer(out char[] inputBuffer, out int inputIndex, out int inputCount, out parseCount);
 
                 if (inputCount >= count)
@@ -297,13 +295,10 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return;
             }
 
-
-
             int parseCount = 10000;
 
             if (!this.boundaryTesting)
             {
-
                 this.sinkInputObject.GetInputBuffer(out char[] inputBuffer, out int inputIndex, out int inputCount, out parseCount);
 
                 if (inputCount >= value.Length)
@@ -313,8 +308,6 @@ namespace Microsoft.Exchange.Data.TextConverters
                     return;
                 }
             }
-
-
 
             char[] buffer = value.ToCharArray();
 
