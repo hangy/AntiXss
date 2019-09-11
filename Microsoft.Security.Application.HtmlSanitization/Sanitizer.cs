@@ -113,7 +113,7 @@ namespace Microsoft.Security.Application
 
                     // stripping <div> tags
                     string output = stringWriter.ToString();
-                    if (output.Substring(0, 5).ToLower() == "<div>")
+                    if (string.Equals(output.Substring(0, 5), "<div>", System.StringComparison.OrdinalIgnoreCase))
                     {
                         output = output.Substring(5);
                         output = output.Substring(0, output.Length - 8);
