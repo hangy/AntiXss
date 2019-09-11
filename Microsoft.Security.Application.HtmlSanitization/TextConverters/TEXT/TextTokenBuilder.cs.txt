@@ -1,0 +1,83 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TextTokenBuilder.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+//
+// </copyright>
+// <summary>
+//    
+// </summary>
+
+namespace Microsoft.Exchange.Data.TextConverters.Internal.Text
+{
+    using System;
+    using System.IO;
+    using System.Text;
+    using Microsoft.Exchange.Data.Internal;
+
+    internal class TextTokenBuilder : TokenBuilder
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextTokenBuilder"/> class.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="maxRuns">The max runs.</param>
+        /// <param name="testBoundaryConditions">if set to <c>true</c> [test boundary conditions].</param>
+        public TextTokenBuilder(char[] buffer, int maxRuns, bool testBoundaryConditions) :
+            this(new TextToken(), buffer, maxRuns, testBoundaryConditions)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextTokenBuilder"/> class.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="maxRuns">The max runs.</param>
+        /// <param name="testBoundaryConditions">if set to <c>true</c> [test boundary conditions].</param>
+        public TextTokenBuilder(TextToken token, char[] buffer, int maxRuns, bool testBoundaryConditions) :
+            base(token, buffer, maxRuns, testBoundaryConditions)
+        {
+        }
+
+        public new TextToken Token
+        {
+            get { return (TextToken)base.Token; }
+        }
+
+        public TextTokenId MakeEmptyToken(TextTokenId tokenId)
+        {
+            return (TextTokenId)base.MakeEmptyToken((TokenId)tokenId);
+        }
+
+        public TextTokenId MakeEmptyToken(TextTokenId tokenId, int argument)
+        {
+            return (TextTokenId)base.MakeEmptyToken((TokenId)tokenId, argument);
+        }
+
+        public void SkipRunIfNecessary(int start, RunKind skippedRunKind)
+        {
+            base.SkipRunIfNecessary(start, (uint)skippedRunKind);
+        }
+
+        public bool PrepareToAddMoreRuns(int numRuns, int start, RunKind skippedRunKind)
+        {
+            return base.PrepareToAddMoreRuns(numRuns, start, (uint)skippedRunKind);
+        }
+
+        public void AddSpecialRun(TextRunKind kind, int startEnd, int value)
+        {
+            InternalDebug.Assert(startEnd == this.tailOffset);
+            this.AddRun(RunType.Special, RunTextType.Unknown, (uint)kind, this.tailOffset, startEnd, value);
+        }
+    }
+}
+

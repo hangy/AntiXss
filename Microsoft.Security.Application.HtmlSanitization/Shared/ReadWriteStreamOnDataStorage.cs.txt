@@ -1,0 +1,454 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ReadWriteStreamOnDataStorage.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+// </copyright>
+// <summary>
+//   A class which wraps a data storage instance in a stream.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Microsoft.Exchange.Data.Internal
+{
+    using System;
+    using System.IO;
+
+    using CtsResources;
+
+    /// <summary>
+    /// A class which wraps a data storage instance in a stream.
+    /// </summary>
+    internal class ReadWriteStreamOnDataStorage : StreamOnDataStorage, ICloneableStream
+    {
+        /// <summary>
+        /// The data storage.
+        /// </summary>
+        private ReadableWritableDataStorage storage;
+        
+        /// <summary>
+        /// The position within the storage.s
+        /// </summary>
+        private long position;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadWriteStreamOnDataStorage"/> class.
+        /// </summary>
+        /// <param name="storage">The original backing storage.</param>
+        internal ReadWriteStreamOnDataStorage(ReadableWritableDataStorage storage)
+        {
+            storage.AddRef();
+
+            this.storage = storage;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadWriteStreamOnDataStorage"/> class.
+        /// </summary>
+        /// <param name="storage">The original backing storage.</param>
+        /// <param name="position">The position from which to start streaming.</param>
+        private ReadWriteStreamOnDataStorage(ReadableWritableDataStorage storage, long position)
+        {
+            storage.AddRef();
+
+            this.storage = storage;
+            this.position = position;
+        }
+
+        /// <summary>
+        /// Gets the storage instance.
+        /// </summary>
+        /// <value>The storage instance.</value>
+        public override DataStorage Storage
+        {
+            get
+            {
+                if (this.storage == null)
+                {
+                    throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+                }
+
+                return this.storage;
+            }
+        }
+
+        /// <summary>
+        /// Gets the start position for the storage.
+        /// </summary>
+        /// <value>The start position for the storage.</value>
+        public override long Start
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Gets the end position for the storage.
+        /// </summary>
+        /// <value>The end position for the storage.</value>
+        public override long End
+        {
+            get
+            {
+                return long.MaxValue;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the current stream supports reading.
+        /// </summary>
+        /// <returns>true if the stream supports reading; otherwise, false.
+        /// </returns>
+        public override bool CanRead
+        {
+            get
+            {
+                return this.storage != null;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the current stream supports writing.
+        /// </summary>
+        /// <returns>true if the stream supports writing; otherwise, false.
+        /// </returns>
+        public override bool CanWrite
+        {
+            get
+            {
+                return this.storage != null;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the current stream supports seeking.
+        /// </summary>
+        /// <returns>true if the stream supports seeking; otherwise, false.
+        /// </returns>
+        public override bool CanSeek
+        {
+            get
+            {
+                return this.storage != null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the length in bytes of the stream.
+        /// </summary>
+        /// <returns>
+        /// A long value representing the length of the stream in bytes.
+        /// </returns>
+        /// <exception cref="T:System.NotSupportedException">
+        /// A class derived from Stream does not support seeking.
+        /// </exception>
+        /// <exception cref="T:System.ObjectDisposedException">
+        /// Methods were called after the stream was closed.
+        /// </exception>
+        public override long Length
+        {
+            get
+            { 
+                if (this.storage == null)
+                {
+                    throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+                }
+
+                return this.storage.Length; 
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the position within the current stream.
+        /// </summary>
+        /// <returns>
+        /// The current position within the stream.
+        /// </returns>
+        /// <exception cref="T:System.IO.IOException">
+        /// An I/O error occurs.
+        /// </exception>
+        /// <exception cref="T:System.NotSupportedException">
+        /// The stream does not support seeking.
+        /// </exception>
+        /// <exception cref="T:System.ObjectDisposedException">
+        /// Methods were called after the stream was closed.
+        /// </exception>
+        public override long Position
+        {
+            get
+            { 
+                if (this.storage == null)
+                {
+                    throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+                }
+
+                return this.position; 
+            }
+
+            set 
+            { 
+                if (this.storage == null)
+                {
+                    throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+                }
+
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("value", SharedStrings.CannotSeekBeforeBeginning);
+                }
+
+                this.position = value; 
+            }
+        }
+
+        /// <summary>
+        /// Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+        /// </summary>
+        /// <param name="buffer">An array of bytes. When this method returns, the buffer contains the specified byte array with the values between <paramref name="offset"/> and (<paramref name="offset"/> + <paramref name="count"/> - 1) replaced by the bytes read from the current source.</param>
+        /// <param name="offset">The zero-based byte offset in <paramref name="buffer"/> at which to begin storing the data read from the current stream.</param>
+        /// <param name="count">The maximum number of bytes to be read from the current stream.</param>
+        /// <returns>
+        /// The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the stream has been reached.
+        /// </returns>
+        /// <exception cref="T:System.ArgumentException">
+        /// The sum of <paramref name="offset"/> and <paramref name="count"/> is larger than the buffer length.
+        /// </exception>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="buffer"/> is null.
+        /// </exception>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="offset"/> or <paramref name="count"/> is negative.
+        /// </exception>
+        /// <exception cref="T:System.IO.IOException">
+        /// An I/O error occurs.
+        /// </exception>
+        /// <exception cref="T:System.NotSupportedException">
+        /// The stream does not support reading.
+        /// </exception>
+        /// <exception cref="T:System.ObjectDisposedException">
+        /// Methods were called after the stream was closed.
+        /// </exception>
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            if (this.storage == null)
+            {
+                throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+            }
+
+            if (null == buffer)
+            {
+                throw new ArgumentNullException("buffer");
+            }
+
+            if (offset > buffer.Length || offset < 0)
+            {
+                throw new ArgumentOutOfRangeException("offset", SharedStrings.OffsetOutOfRange);
+            }
+
+            if (count < 0)
+            {                
+                throw new ArgumentOutOfRangeException("count", SharedStrings.CountOutOfRange);
+            }
+
+            if (count + offset > buffer.Length)
+            {
+                throw new ArgumentOutOfRangeException("count", SharedStrings.CountTooLarge);
+            }
+
+            int bytesRead = this.storage.Read(this.position, buffer, offset, count);
+
+            this.position += bytesRead;
+
+            return bytesRead;
+        }
+
+        /// <summary>
+        /// Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
+        /// </summary>
+        /// <param name="buffer">An array of bytes. This method copies <paramref name="count"/> bytes from <paramref name="buffer"/> to the current stream.</param>
+        /// <param name="offset">The zero-based byte offset in <paramref name="buffer"/> at which to begin copying bytes to the current stream.</param>
+        /// <param name="count">The number of bytes to be written to the current stream.</param>
+        /// <exception cref="T:System.ArgumentException">
+        /// The sum of <paramref name="offset"/> and <paramref name="count"/> is greater than the buffer length.
+        /// </exception>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="buffer"/> is null.
+        /// </exception>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="offset"/> or <paramref name="count"/> is negative.
+        /// </exception>
+        /// <exception cref="T:System.IO.IOException">
+        /// An I/O error occurs.
+        /// </exception>
+        /// <exception cref="T:System.NotSupportedException">
+        /// The stream does not support writing.
+        /// </exception>
+        /// <exception cref="T:System.ObjectDisposedException">
+        /// Methods were called after the stream was closed.
+        /// </exception>
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            if (this.storage == null)
+            {
+                throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+            }
+
+            if (null == buffer)
+            {
+                throw new ArgumentNullException("buffer");
+            }
+
+            if (offset > buffer.Length || offset < 0)
+            {
+                throw new ArgumentOutOfRangeException("offset", SharedStrings.OffsetOutOfRange);
+            }
+
+            if (count > buffer.Length || count < 0)
+            {
+                throw new ArgumentOutOfRangeException("count", SharedStrings.CountOutOfRange);
+            }
+
+            if (count + offset > buffer.Length)
+            {
+                throw new ArgumentOutOfRangeException("count", SharedStrings.CountTooLarge);
+            }
+
+            this.storage.Write(this.position, buffer, offset, count);
+
+            this.position += count;
+        }
+
+        /// <summary>
+        /// Sets the length of the current stream.
+        /// </summary>
+        /// <param name="value">The desired length of the current stream in bytes.</param>
+        /// <exception cref="T:System.IO.IOException">
+        /// An I/O error occurs.
+        /// </exception>
+        /// <exception cref="T:System.NotSupportedException">
+        /// The stream does not support both writing and seeking, such as if the stream is constructed from a pipe or console output.
+        /// </exception>
+        /// <exception cref="T:System.ObjectDisposedException">
+        /// Methods were called after the stream was closed.
+        /// </exception>
+        public override void SetLength(long value)
+        {
+            if (this.storage == null)
+            {
+                throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+            }
+
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException("value", SharedStrings.CannotSetNegativelength);
+            }
+
+            this.storage.SetLength(value);
+        }
+
+        /// <summary>
+        /// Clears all buffers for this stream and causes any buffered data to be written to the underlying device.
+        /// </summary>
+        /// <exception cref="T:System.IO.IOException">
+        /// An I/O error occurs.
+        /// </exception>
+        public override void Flush()
+        {
+            if (this.storage == null)
+            {
+                throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+            }
+        }
+
+        /// <summary>
+        /// Sets the position within the current stream.
+        /// </summary>
+        /// <param name="offset">A byte offset relative to the <paramref name="origin"/> parameter.</param>
+        /// <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain the new position.</param>
+        /// <returns>
+        /// The new position within the current stream.
+        /// </returns>
+        /// <exception cref="T:System.IO.IOException">
+        /// An I/O error occurs.
+        /// </exception>
+        /// <exception cref="T:System.NotSupportedException">
+        /// The stream does not support seeking, such as if the stream is constructed from a pipe or console output.
+        /// </exception>
+        /// <exception cref="T:System.ObjectDisposedException">
+        /// Methods were called after the stream was closed.
+        /// </exception>
+        public override long Seek(long offset, SeekOrigin origin)
+        {
+            if (this.storage == null)
+            {
+                throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+            }
+
+            switch (origin)
+            {
+                case SeekOrigin.Begin:
+                    this.position = offset;
+                    break;
+
+                case SeekOrigin.Current:
+                    offset = this.position + offset;
+                    break;
+
+                case SeekOrigin.End:
+                    offset = this.storage.Length + offset;
+                    break;
+
+                default:
+                    throw new ArgumentException("Invalid Origin enumeration value", "origin");
+            }
+
+            if (offset < 0)
+            {
+                throw new ArgumentOutOfRangeException("offset", SharedStrings.CannotSeekBeforeBeginning);
+            }
+
+            this.position = offset;
+
+            return this.position;
+        }
+
+        /// <summary>
+        /// Closes the current stream and releases any resources (such as sockets and file handles) associated with the current stream.
+        /// </summary>
+        public override void Close()
+        {
+            if (null == this.storage)
+            {
+                return;
+            }
+
+            this.storage.Release();
+            this.storage = null;
+        }
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns>
+        /// A new object that is a copy of this instance.
+        /// </returns>
+        Stream ICloneableStream.Clone()
+        {
+            if (this.storage == null)
+            {
+                throw new ObjectDisposedException("ReadWriteStreamOnDataStorage");
+            }
+
+            return new ReadWriteStreamOnDataStorage(this.storage, this.position);
+        }
+    }
+}

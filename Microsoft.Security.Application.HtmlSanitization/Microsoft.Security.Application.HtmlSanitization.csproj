@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard20</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>Microsoft.Security.Application</RootNamespace>
+    <AssemblyTitle>Html Sanitization Library</AssemblyTitle>
+    <AssemblyDescription>Library for sanitizing inputs to protect from HTML cross site scripting.</AssemblyDescription>
+  </PropertyGroup>
+</Project>

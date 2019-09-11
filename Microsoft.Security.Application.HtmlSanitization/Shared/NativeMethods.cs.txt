@@ -1,0 +1,477 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NativeMethods.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+// </copyright>
+// <summary>
+//   Provides access wrappers for unmanaged native methods.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Microsoft.Exchange.Data.Internal
+{
+    using System;
+    using System.Runtime.InteropServices;
+
+    using Win32.SafeHandles;
+    
+    /// <summary>
+    /// Provides access wrappers for unmanaged native methods.
+    /// </summary>
+    [ComVisible(false), System.Security.SuppressUnmanagedCodeSecurityAttribute]
+    internal class NativeMethods    
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NativeMethods"/> class.
+        /// </summary>
+        private NativeMethods()
+        {
+        }
+
+        /// <summary>
+        /// The right to delete an object.
+        /// </summary>
+        internal const uint DELETE = 0x00010000;
+        
+        /// <summary>
+        /// The right to read the information in the object's security descriptor, not including the information in the system access control list  (SACL).
+        /// </summary>
+        internal const uint READ_CONTROL = 0x00020000;
+
+        /// <summary>
+        /// The right to modify the discretionary access control list  (DACL) in the object's security descriptor.
+        /// </summary>
+        internal const uint WRITE_DAC = 0x00040000;
+
+        /// <summary>
+        /// The right to change the owner in the object's security descriptor.
+        /// </summary>
+        internal const uint WRITE_OWNER = 0x00080000;
+
+        /// <summary>
+        /// The right to use the object for synchronization. This enables a thread to wait until the object is in the signaled state. 
+        /// Some object types do not support this access right.
+        /// </summary>
+        internal const uint SYNCHRONIZE = 0x00100000;
+
+        /// <summary>
+        /// Combines DELETE, READ_CONTROL, WRITE_DAC, and WRITE_OWNER access.
+        /// </summary>
+        internal const uint STANDARD_RIGHTS_REQUIRED = 0x000F0000;
+
+        /// <summary>
+        /// Currently defined to equal READ_CONTROL.
+        /// </summary>
+        internal const uint STANDARD_RIGHTS_READ = READ_CONTROL;
+
+        /// <summary>
+        /// Currently defined to equal READ_CONTROL.
+        /// </summary>
+        internal const uint STANDARD_RIGHTS_WRITE = READ_CONTROL;
+
+        /// <summary>
+        /// Currently defined to equal READ_CONTROL
+        /// </summary>
+        internal const uint STANDARD_RIGHTS_EXECUTE = READ_CONTROL;
+
+        /// <summary>
+        /// Combines DELETE, READ_CONTROL, WRITE_DAC, WRITE_OWNER, and SYNCHRONIZE access.
+        /// </summary>
+        internal const uint STANDARD_RIGHTS_ALL = 0x001F0000;
+
+        /// <summary>
+        /// All specific rights.
+        /// </summary>
+        /// <remarks>
+        /// This value MUST NOT be passed over the wire. It SHOULD only be used locally, as a mask to determine the protocol-specific subset of access values.
+        /// </remarks>
+        internal const uint SPECIFIC_RIGHTS_ALL = 0x0000FFFF;
+
+        /// <summary>
+        /// Subsequent open operations on the object will succeed only if read access is requested.
+        /// </summary>
+        internal const uint FILE_SHARE_READ = 0x00000001;
+
+        /// <summary>
+        /// Subsequent open operations on the object will succeed only if write access is requested.
+        /// </summary>
+        internal const uint FILE_SHARE_WRITE = 0x00000002;
+
+        /// <summary>
+        /// Subsequent open operations on the object will succeed only if delete access is requested.
+        /// </summary>
+        internal const uint FILE_SHARE_DELETE = 0x00000004;
+
+        /// <summary>
+        /// Read from a file or pipe, or list the contents of a directory.
+        /// </summary>
+        internal const uint FILE_READ_DATA = 0x0001;    
+
+        /// <summary>
+        /// Equivalent to FILE_READ_DATA
+        /// </summary>
+        internal const uint FILE_LIST_DIRECTORY = 0x0001;    
+
+        /// <summary>
+        /// Write to a file or pipe, or create a new file inside a directory.
+        /// </summary>
+        internal const uint FILE_WRITE_DATA = 0x0002;  
+  
+        /// <summary>
+        /// Equivalent to FILE_WRITE_DATA
+        /// </summary>
+        internal const uint FILE_ADD_FILE = 0x0002;    
+        
+        /// <summary>
+        /// Append data to a file or pipe, create a new subdirectory inside a directory, or create a pipe instance.
+        /// </summary>
+        internal const uint FILE_APPEND_DATA = 0x0004;    
+
+        /// <summary>
+        /// Equivalent to FILE_APPEND_DATA
+        /// </summary>
+        internal const uint FILE_ADD_SUBDIRECTORY = 0x0004;   
+ 
+        /// <summary>
+        /// Equivalent to FILE_APPEND_DATA
+        /// </summary>
+        internal const uint FILE_CREATE_PIPE_INSTANCE = 0x0004; 
+   
+        /// <summary>
+        /// Read extended attributes.
+        /// </summary>
+        internal const uint FILE_READ_EA = 0x0008;    
+        
+        /// <summary>
+        /// Write extended attributes.
+        /// </summary>
+        internal const uint FILE_WRITE_EA = 0x0010;    
+
+        /// <summary>
+        /// Execute a file or access a directory.
+        /// </summary>
+        internal const uint FILE_EXECUTE = 0x0020;  
+  
+        /// <summary>
+        /// Equivalent to FILE_EXECUTE
+        /// </summary>
+        internal const uint FILE_TRAVERSE = 0x0020;    
+
+        /// <summary>
+        /// Delete a file from a directory.
+        /// </summary>
+        internal const uint FILE_DELETE_CHILD = 0x0040;    
+
+        /// <summary>
+        /// Read attributes
+        /// </summary>
+        internal const uint FILE_READ_ATTRIBUTES = 0x0080;    
+        
+        /// <summary>
+        /// Write attributes
+        /// </summary>
+        internal const uint FILE_WRITE_ATTRIBUTES = 0x0100;
+
+        /// <summary>
+        /// All possible access rights for a file.
+        /// </summary>
+        internal const uint FILE_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED | SYNCHRONIZE | 0x1FF;
+
+        /// <summary>
+        /// FILE_READ_ATTRIBUTES | FILE_READ_DATA | FILE_READ_EA | STANDARD_RIGHTS_READ | SYNCHRONIZE
+        /// </summary>
+        internal const uint FILE_GENERIC_READ = STANDARD_RIGHTS_READ | 
+            FILE_READ_DATA | 
+            FILE_READ_ATTRIBUTES |
+            FILE_READ_EA | 
+            SYNCHRONIZE;
+
+        /// <summary>
+        /// FILE_APPEND_DATA | FILE_WRITE_ATTRIBUTES | FILE_WRITE_DATA | FILE_WRITE_EA | STANDARD_RIGHTS_WRITE | SYNCHRONIZE
+        /// </summary>
+        internal const uint FILE_GENERIC_WRITE = STANDARD_RIGHTS_WRITE |
+            FILE_WRITE_DATA |
+            FILE_WRITE_ATTRIBUTES |
+            FILE_WRITE_EA |
+            FILE_APPEND_DATA |
+            SYNCHRONIZE;
+
+        /// <summary>
+        /// FILE_EXECUTE | FILE_READ_ATTRIBUTES | STANDARD_RIGHTS_EXECUTE |SYNCHRONIZE
+        /// </summary>
+        internal const uint FILE_GENERIC_EXECUTE = STANDARD_RIGHTS_EXECUTE |
+            FILE_READ_ATTRIBUTES |
+            FILE_EXECUTE |
+            SYNCHRONIZE;
+
+        /// <summary>
+        /// Specifies that a new file is to be created; an exception is thrown if the file already exists.
+        /// </summary>
+        internal const uint CREATE_NEW = 1;
+
+        /// <summary>
+        /// Specifies that a new file is to be created; if the file already exists, it is overwritten. 
+        /// </summary>
+        internal const uint CREATE_ALWAYS = 2;
+
+        /// <summary>
+        /// Specifies that an existing file is to be opened; an exception is thrown if the file does not exist. 
+        /// </summary>
+        internal const uint OPEN_EXISTING = 3;
+
+        /// <summary>
+        /// Specifies that an existing file is to be opened; otherwise, a new file is created. 
+        /// </summary>
+        internal const uint OPEN_ALWAYS = 4;
+
+        /// <summary>
+        /// Specifies that an existing file it to be opened and then truncated so that its size is zero bytes. 
+        /// </summary>
+        internal const uint TRUNCATE_EXISTING = 5;
+
+        /// <summary>
+        /// The file is read only. Applications can read the file but cannot write to it or delete it.
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_READONLY = 0x00000001;
+
+        /// <summary>
+        /// The file is hidden. It is not to be included in an ordinary directory listing.
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_HIDDEN = 0x00000002;
+
+        /// <summary>
+        /// The file is part of or is used exclusively by the operating system.
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_SYSTEM = 0x00000004;
+
+        /// <summary>
+        /// The file is a directory.
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_DIRECTORY = 0x00000010;  
+
+        /// <summary>
+        /// The file should be archived. Applications use this attribute to mark files for backup or removal.
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_ARCHIVE = 0x00000020;  
+
+        /// <summary>
+        /// Reserved; do not use.
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_DEVICE = 0x00000040;  
+        
+        /// <summary>
+        /// The file has no other attributes set.
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_NORMAL = 0x00000080;  
+
+        /// <summary>
+        /// The file is being used for temporary storage.
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_TEMPORARY = 0x00000100;  
+
+        /// <summary>
+        /// Marks the indicated file as sparse or not sparse. 
+        /// </summary>
+        /// <remarks>
+        /// In a sparse file, large ranges of zeroes may not require disk allocation. Space for nonzero data will be allocated as needed as the file is written.
+        /// </remarks>
+        internal const uint FILE_ATTRIBUTE_SPARSE_FILE = 0x00000200;  
+
+        /// <summary>
+        /// A file or directory that has an associated reparse point, or a file that is a symbolic link. 
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_REPARSE_POINT = 0x00000400;
+  
+        /// <summary>
+        /// A file or directory that is compressed. For a file, all of the data in the file is compressed. For a directory, compression is the default for newly created files and subdirectories. 
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_COMPRESSED = 0x00000800;  
+        
+        /// <summary>
+        /// The data of a file is not available immediately.
+        /// </summary>
+        /// <remarks>
+        /// This attribute indicates that the file data is physically moved to offline storage. 
+        /// This attribute is used by Remote Storage, which is the hierarchical storage management software. Applications should not arbitrarily change this attribute. 
+        /// </remarks>
+        internal const uint FILE_ATTRIBUTE_OFFLINE = 0x00001000; 
+ 
+        /// <summary>
+        /// The file or directory is not to be indexed by the content indexing service. 
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_NOT_CONTENT_INDEXED = 0x00002000;  
+
+        /// <summary>
+        /// A file or directory that is encrypted. For a file, all data streams in the file are encrypted. For a directory, encryption is the default for newly created files and subdirectories. 
+        /// </summary>
+        internal const uint FILE_ATTRIBUTE_ENCRYPTED = 0x00004000;  
+
+        /// <summary>
+        /// Instructs the system to write through any intermediate cache and go directly to disk. Windows can still cache write operations, but cannot lazily flush them.
+        /// </summary>
+        internal const uint FILE_FLAG_WRITE_THROUGH = 0x80000000;
+
+        /// <summary>
+        /// Instructs the system to initialize the object, so that operations that take a significant amount of time to process return ERROR_IO_PENDING. 
+        /// When the operation is finished, the specified event is set to the signaled state. 
+        /// </summary>
+        internal const uint FILE_FLAG_OVERLAPPED = 0x40000000;
+        
+        /// <summary>
+        /// The file or device is being opened with no system caching for data reads and writes. This flag does not affect hard disk caching or memory mapped files.
+        /// </summary>
+        internal const uint FILE_FLAG_NO_BUFFERING = 0x20000000;
+        
+        /// <summary>
+        /// Access is intended to be random. The system can use this as a hint to optimize file caching.
+        /// </summary>
+        internal const uint FILE_FLAG_RANDOM_ACCESS = 0x10000000;
+
+        /// <summary>
+        /// Access is intended to be sequential from beginning to end. The system can use this as a hint to optimize file caching. 
+        /// </summary>
+        internal const uint FILE_FLAG_SEQUENTIAL_SCAN = 0x08000000;
+
+        /// <summary>
+        /// The file is to be deleted immediately after all of its handles are closed, which includes the specified handle and any other open or duplicated handles.
+        /// </summary>
+        internal const uint FILE_FLAG_DELETE_ON_CLOSE = 0x04000000;
+
+        /// <summary>
+        /// The file is being opened or created for a backup or restore operation. 
+        /// The system ensures that the calling process overrides file security checks when the process has SE_BACKUP_NAME and SE_RESTORE_NAME privileges. 
+        /// </summary>
+        internal const uint FILE_FLAG_BACKUP_SEMANTICS = 0x02000000;
+
+        /// <summary>
+        /// Access will occur according to POSIX rules. This includes allowing multiple files with names, differing only in case, for file systems that support that naming. 
+        /// </summary>
+        internal const uint FILE_FLAG_POSIX_SEMANTICS = 0x01000000;
+        
+        /// <summary>
+        /// Normal reparse point processing will not occur; CreateFile will attempt to open the reparse point. 
+        /// When a file is opened, a file handle is returned, whether or not the filter that controls the reparse point is operational. 
+        /// </summary>
+        /// <remarks>
+        /// This flag cannot be used with the CREATE_ALWAYS flag. 
+        /// </remarks>
+        internal const uint FILE_FLAG_OPEN_REPARSE_POINT = 0x00200000;
+
+        /// <summary>
+        /// The file data is requested, but it should continue to be located in remote storage. It should not be transported back to local storage. This flag is for use by remote storage systems.
+        /// </summary>
+        internal const uint FILE_FLAG_OPEN_NO_RECALL = 0x00100000;
+
+        /// <summary>
+        /// If you attempt to create multiple instances of a pipe with this flag, creation of the first instance succeeds, 
+        /// but creation of the next instance fails with ERROR_ACCESS_DENIED.
+        /// </summary>
+        internal const uint FILE_FLAG_FIRST_PIPE_INSTANCE = 0x00080000;
+
+        /// <summary>
+        /// Access to therequested file or directory was denied.
+        /// </summary>
+        internal const int ERROR_ACCESS_DENIED = 5;
+
+        /// <summary>
+        /// The file or directory already exists.
+        /// </summary>
+        internal const int ERROR_ALREADY_EXISTS = 183;
+
+        /// <summary>
+        /// The file already exists.
+        /// </summary>
+        internal const int ERROR_FILE_EXISTS = 80;
+        
+        /// <summary>
+        /// Maximum length of the file path.
+        /// </summary>
+        internal const int MAX_PATH = 260;
+
+        // Orphaned WPL code.
+#if false
+        /// <summary>
+        /// The CreateFile function creates or opens a file, file stream, directory, physical disk, volume, console buffer, tape drive,
+        /// communications resource, mailslot, or named pipe. The function returns a handle that can be used to access an object.
+        /// </summary>
+        /// <param name="filename">The file or directory name requested.</param>
+        /// <param name="accessMode"> access to the object, which can be read, write, or both</param>
+        /// <param name="shareMode">The sharing mode of an object, which can be read, write, both, or none</param>
+        /// <param name="securityAttributes">A pointer to a SECURITY_ATTRIBUTES structure that determines whether or not the returned handle can
+        /// be inherited by child processes. Can be null</param>
+        /// <param name="creationDisposition">An action to take on files that exist and do not exist</param>
+        /// <param name="flags">The file attributes and flags. </param>
+        /// <param name="templateFileHandle">A handle to a template file with the GENERIC_READ access right. The template file supplies file attributes
+        /// and extended attributes for the file that is being created. This parameter can be null</param>
+        /// <returns>If the function succeeds, the return value is an open handle to a specified file. If a specified file exists before the function
+        /// all and dwCreationDisposition is CREATE_ALWAYS or OPEN_ALWAYS, a call to GetLastError returns ERROR_ALREADY_EXISTS, even when the function
+        /// succeeds. If a file does not exist before the call, GetLastError returns 0 (zero).
+        /// If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport("kernel32.dll", EntryPoint = "CreateFileW", CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern SafeFileHandle CreateFile(
+                                        [In] string filename,
+                                        [In] uint accessMode,
+                                        [In] uint shareMode,
+                                        ref SecurityAttributes securityAttributes,
+                                        [In] uint creationDisposition,
+                                        [In] uint flags,
+                                        [In] IntPtr templateFileHandle);
+#endif
+
+        /// <summary>
+        /// The SECURITY_ATTRIBUTES structure contains the security descriptor for an object and specifies whether the handle retrieved by 
+        /// specifying this structure is inheritable. This structure provides security settings for objects created by various functions, 
+        /// such as CreateFile, CreatePipe, CreateProcess, RegCreateKeyEx, or RegSaveKeyEx.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct SecurityAttributes
+        {
+            /// <summary>
+            /// The size, in bytes, of this structure.
+            /// </summary>
+            internal int length; 
+
+            /// <summary>
+            /// A pointer to a security descriptor for the object that controls the sharing of it. 
+            /// If NULL is specified for this member, the object is assigned the default security descriptor of the calling process. 
+            /// This is not the same as granting access to everyone by assigning a NULL discretionary access control list  (DACL). 
+            /// The default security descriptor is based on the default DACL of the access token belonging to the calling process. 
+            /// By default, the default DACL in the access token of a process allows access only to the user represented by the access token. 
+            /// If other users must access the object, you can either create a security descriptor with the appropriate access, 
+            /// or add ACEs to the DACL that grants access to a group of users. 
+            /// </summary>
+            internal IntPtr securityDescriptor; 
+            
+            /// <summary>
+            /// A boolean value that specifies whether the returned handle is inherited when a new process is created. 
+            /// If this member is <c>true</c>, the new process inherits the handle.
+            /// </summary>
+            [MarshalAs(UnmanagedType.Bool)]
+            internal bool inheritHandle;
+
+            // Orphaned WPL code.
+#if false
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SecurityAttributes"/> struct.
+            /// </summary>
+            /// <param name="inheritHandle">If set to <c>true</c> the handle retrieved by specifying this structure is inheritable.</param>
+            internal SecurityAttributes(bool inheritHandle)
+            {
+                this.length = Marshal.SizeOf(typeof(SecurityAttributes));
+                this.securityDescriptor = IntPtr.Zero;
+                this.inheritHandle = inheritHandle;
+            }
+#endif
+
+        }
+    }
+}

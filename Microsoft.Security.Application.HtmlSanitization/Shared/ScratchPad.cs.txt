@@ -1,0 +1,345 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ScratchPad.cs" company="Microsoft Corporation">
+//   Copyright (c) 2008, 2009, 2010 All Rights Reserved, Microsoft Corporation
+//
+//   This source is subject to the Microsoft Permissive License.
+//   Please see the License.txt file for more information.
+//   All other rights reserved.
+//
+//   THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+//   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+//   PARTICULAR PURPOSE.
+// </copyright>
+// <summary>
+//   A string byte array manipulator which uses thread storage.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Microsoft.Exchange.Data.Internal
+{
+    using System;
+    using System.Diagnostics;
+    using System.Text;
+    using System.Threading;
+
+    /// <summary>
+    /// A string byte array manipulator which uses thread storage.
+    /// </summary>
+    internal static class ScratchPad
+    {
+        /// <summary>
+        /// The local thread storage for the scratchpad.
+        /// </summary>
+        private static readonly LocalDataStoreSlot ScratchPadTlsSlot = Thread.AllocateDataSlot();
+
+        /// <summary>
+        /// Begins using the scratch pad.
+        /// </summary>
+        public static void Begin()
+        {
+            ScratchPadContainer pad = (ScratchPadContainer)Thread.GetData(ScratchPadTlsSlot);
+            if (pad == null)
+            {
+                pad = new ScratchPadContainer();
+
+                Thread.SetData(ScratchPadTlsSlot, pad);
+            }
+            else
+            {
+                pad.AddRef();
+            }
+        }
+
+        /// <summary>
+        /// Releases the scratch pad from the current thread.
+        /// </summary>
+        public static void End()
+        {
+            ScratchPadContainer pad = (ScratchPadContainer)Thread.GetData(ScratchPadTlsSlot);
+
+            InternalDebug.Assert(pad != null);
+
+            if (pad != null)
+            {
+                if (pad.Release())
+                {                    
+                    Thread.SetData(ScratchPadTlsSlot, null);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the scratch pad as a byte array.
+        /// If one does not exist it is created.
+        /// </summary>
+        /// <param name="size">The size for the byte buffer.</param>
+        /// <returns>The scratch pad as a byte array.</returns>
+        public static byte[] GetByteBuffer(int size)
+        {
+            ScratchPadContainer pad = (ScratchPadContainer)Thread.GetData(ScratchPadTlsSlot);
+
+            return pad == null ? new byte[size] : pad.GetScratchPadByteBuffer(size);
+        }
+
+        /// <summary>
+        /// Releases the byte buffer.
+        /// </summary>
+        [Conditional("DEBUG")] 
+        public static void ReleaseByteBuffer()
+        {
+            ScratchPadContainer pad = (ScratchPadContainer)Thread.GetData(ScratchPadTlsSlot);
+
+            if (pad != null)
+            {
+                pad.ReleaseScratchPadByteBuffer();
+            }
+        }
+
+        /// <summary>
+        /// Gets the scratch pad as a character array.
+        /// If one does not exist it is created.
+        /// </summary>
+        /// <param name="size">The size for the byte buffer.</param>
+        /// <returns>The scratch pad as a byte array.</returns>
+        public static char[] GetCharBuffer(int size)
+        {
+            ScratchPadContainer pad = (ScratchPadContainer)Thread.GetData(ScratchPadTlsSlot);
+
+            return pad == null ? new char[size] : pad.GetScratchPadCharBuffer(size);
+        }
+
+        /// <summary>
+        /// Releases the character buffer.
+        /// </summary>
+        [Conditional("DEBUG")] 
+        public static void ReleaseCharBuffer()
+        {
+            ScratchPadContainer pad = (ScratchPadContainer)Thread.GetData(ScratchPadTlsSlot);
+
+            if (pad != null)
+            {
+                pad.ReleaseScratchPadCharBuffer();
+            }
+        }
+
+        /// <summary>
+        /// Gets a string builder for use in the scratch pad.
+        /// If one does not exist a new string builder with an initial size of 16 characters will be created.
+        /// </summary>
+        /// <returns>A string builder for use in the scratch pad.</returns>
+        public static StringBuilder GetStringBuilder()
+        {            
+            return GetStringBuilder(16);
+        }
+
+        /// <summary>
+        /// Gets a string builder for use in the scratch pad.
+        /// If one does not exist a new string builder with the specified initial capacity will be created.
+        /// </summary>
+        /// <param name="initialCapacity">The initial capacity to use if a stringbuilder is created.</param>
+        /// <returns>A string builder for use in the scratch pad.</returns>
+        public static StringBuilder GetStringBuilder(int initialCapacity)
+        {
+            ScratchPadContainer pad = (ScratchPadContainer)Thread.GetData(ScratchPadTlsSlot);
+
+            return pad == null ? new StringBuilder(initialCapacity) : pad.GetScratchPadStringBuilder(initialCapacity);
+        }
+
+        /// <summary>
+        /// Releases the string builder.
+        /// </summary>
+        public static void ReleaseStringBuilder()
+        {
+            ScratchPadContainer pad = (ScratchPadContainer)Thread.GetData(ScratchPadTlsSlot);
+
+            if (pad != null)
+            {
+                pad.ReleaseScratchPadStringBuilder();
+            }
+        }
+
+        /// <summary>
+        /// Encapsulates the functions needed for a scratch pad.
+        /// </summary>
+        private sealed class ScratchPadContainer
+        {
+            /// <summary>
+            /// The initial string builder capacity used if one is not specified.
+            /// </summary>
+            private const int ScratchStringBuilderCapacity = 512;
+
+            /// <summary>
+            /// Reference counter used in debugging.
+            /// </summary>
+            private int refCount;
+
+            /// <summary>
+            /// The byte buffer.
+            /// </summary>
+            private byte[] byteBuffer;
+
+            /// <summary>
+            /// The character buffer.
+            /// </summary>
+            private char[] charBuffer;
+
+            /// <summary>
+            /// The string builder.
+            /// </summary>
+            private StringBuilder stringBuilder;
+
+#if DEBUG
+            /// <summary>
+            /// A flag indicating if the byte buffer is in use.
+            /// </summary>
+            private bool byteBufferUsed;
+
+            /// <summary>
+            /// A flag indicating if the character buffer is in use.
+            /// </summary>
+            private bool charBufferUsed;
+
+            /// <summary>
+            /// A flag indicating if the string builder is in use.
+            /// </summary>
+            private bool stringBuilderUsed;
+#endif
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ScratchPadContainer"/> class.
+            /// </summary>
+            public ScratchPadContainer()
+            {
+                this.refCount = 1;
+            }
+
+            /// <summary>
+            /// Adds a reference to the scratch pad counter.
+            /// </summary>
+            public void AddRef()
+            {
+                InternalDebug.Assert(this.refCount > 0);
+                this.refCount ++;
+            }
+
+            /// <summary>
+            /// Releases the scratch pad and decrements the counter.
+            /// </summary>
+            /// <returns>True if no more references exist</returns>
+            public bool Release()
+            {
+                InternalDebug.Assert(this.refCount > 0);
+
+                this.refCount --;
+                return this.refCount == 0;
+            }
+
+            /// <summary>
+            /// Gets the contents of the byte buffer, creating a new one if necessary.
+            /// </summary>
+            /// <param name="size">The initial buffer capacity.</param>
+            /// <returns>The scratch pad byte array buffer.</returns>
+            public byte[] GetScratchPadByteBuffer(int size)
+            {
+#if DEBUG
+                InternalDebug.Assert(!this.byteBufferUsed);
+                this.byteBufferUsed = true;
+#endif
+                if (this.byteBuffer == null || this.byteBuffer.Length < size)
+                {
+                    this.byteBuffer = new byte[size];
+                }
+
+                return this.byteBuffer;
+            }
+
+            /// <summary>
+            /// Releases the byte buffer.
+            /// </summary>
+            public void ReleaseScratchPadByteBuffer()
+            {
+#if DEBUG
+                InternalDebug.Assert(this.byteBufferUsed);
+                this.byteBufferUsed = false;
+#endif
+            }
+
+            /// <summary>
+            /// Gets the contents of the character buffer, creating a new one if necessary.
+            /// </summary>
+            /// <param name="size">The initial buffer capacity.</param>
+            /// <returns>The scratch pad character buffer.</returns>
+            public char[] GetScratchPadCharBuffer(int size)
+            {
+#if DEBUG
+                InternalDebug.Assert(!this.charBufferUsed);
+                this.charBufferUsed = true;
+#endif
+                if (this.charBuffer == null || this.charBuffer.Length < size)
+                {
+                    this.charBuffer = new char[size];
+                }
+
+                return this.charBuffer;
+            }
+
+            /// <summary>
+            /// Releases the character buffer.
+            /// </summary>
+            public void ReleaseScratchPadCharBuffer()
+            {
+#if DEBUG
+                InternalDebug.Assert(this.charBufferUsed);
+                this.charBufferUsed = false;
+#endif
+            }
+
+            /// <summary>
+            /// Gets the contents of the string builder buffer, creating a new one if necessary.
+            /// </summary>
+            /// <param name="initialCapacity">The initial string builder capacity.</param>
+            /// <returns>The scratch pad string builder.</returns>
+            public StringBuilder GetScratchPadStringBuilder(int initialCapacity)
+            {
+#if DEBUG
+                InternalDebug.Assert(!this.stringBuilderUsed);
+                this.stringBuilderUsed = true;
+#endif
+                if (initialCapacity <= ScratchStringBuilderCapacity)
+                {
+                    if (this.stringBuilder == null)
+                    {
+                        this.stringBuilder = new StringBuilder(ScratchStringBuilderCapacity);
+                    }
+                    else
+                    {
+                        InternalDebug.Assert(this.stringBuilder.Capacity == ScratchStringBuilderCapacity);
+                        this.stringBuilder.Length = 0; 
+                    }
+
+                    return this.stringBuilder;
+                }
+
+                return new StringBuilder(initialCapacity);
+            }
+
+            /// <summary>
+            /// Releases the scratch pad stringbuilder.
+            /// </summary>
+            public void ReleaseScratchPadStringBuilder()
+            {
+#if DEBUG
+                InternalDebug.Assert(this.stringBuilderUsed);
+                this.stringBuilderUsed = false;
+#endif
+                if (this.stringBuilder != null &&
+                    (this.stringBuilder.Capacity > ScratchStringBuilderCapacity ||
+                    this.stringBuilder.Length * 2 >= this.stringBuilder.Capacity + 1))
+                {
+                    this.stringBuilder = null;
+                }
+            }
+        }
+    }
+}
+

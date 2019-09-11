@@ -24,6 +24,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Security.Application.HtmlSanitization\Microsoft.Security.Application.HtmlSanitization.csproj">
+      <PrivateAssets>all</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>
         $(MSBuildProjectName).UnitTests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100bda0eb6cc78de731ac06a7f90a81d02c3a40c51568ba6d1e26c9e9214a4ecba0a2c07182a79ba3daef142d3dbf26dbfe3794ce46c42e0485031fcffbe72c9a58d77a8e8e0b2b2bc3f04ca0d9f375e1714a2389a3e941452448e157edb4842ea47c2bb556a6f0cae1a1907cd58f964ce5c3b4baf278cec2aab410d2a8d41ed3e4
