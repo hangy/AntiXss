@@ -244,7 +244,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
         public override bool Equals(object obj)
         {
-            return (obj is FlagProperties) && this.bits == ((FlagProperties)obj).bits;
+            return obj is FlagProperties flagProperties && this.bits == (flagProperties).bits;
         }
 
         public override int GetHashCode()
@@ -405,7 +405,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
         public override bool Equals(object obj)
         {
-            return (obj is PropertyBitMask) && this.bits1 == ((PropertyBitMask)obj).bits1 && this.bits2 == ((PropertyBitMask)obj).bits2;
+            return obj is PropertyBitMask propertyBitMask && this.bits1 == propertyBitMask.bits1 && this.bits2 == ((PropertyBitMask)obj).bits2;
         }
 
         public override int GetHashCode()

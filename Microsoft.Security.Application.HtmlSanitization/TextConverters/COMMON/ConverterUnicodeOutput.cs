@@ -99,10 +99,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (newSourceOrDestination != null)
                 {
-                    
-                    TextWriter newSink = newSourceOrDestination as TextWriter;
-
-                    if (newSink == null)
+                    if (!(newSourceOrDestination is TextWriter newSink))
                     {
                         throw new InvalidOperationException("cannot reinitialize this converter - new output should be a TextWriter object");
                     }

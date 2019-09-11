@@ -308,9 +308,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         
         bool IRestartable.CanRestart()
         {
-            if (this.writer is IRestartable)
+            if (this.writer is IRestartable restartable)
             {
-                return ((IRestartable)this.writer).CanRestart();
+                return restartable.CanRestart();
             }
 
             return false;
@@ -357,9 +357,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         
         void IRestartable.DisableRestart()
         {
-            if (this.writer is IRestartable)
+            if (this.writer is IRestartable restartable)
             {
-                ((IRestartable)this.writer).DisableRestart();
+                restartable.DisableRestart();
             }
         }
 

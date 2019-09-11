@@ -23,7 +23,7 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System.Text;
     using Microsoft.Exchange.Data.Internal;
     using Strings = Microsoft.Exchange.CtsResources.TextConvertersStrings;
-    
+
     internal class ConverterWriter : TextWriter, IProgressMonitor
     {
         private ConverterUnicodeInput sinkInputObject;
@@ -51,7 +51,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
         }
 
-// Orphaned WPL code.
+        // Orphaned WPL code.
 #if false
         public ConverterWriter(Stream destinationStream, TextConverter converter)
         {
@@ -107,7 +107,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             get { return null; }
         }
 
-        public override void Flush() 
+        public override void Flush()
         {
             if (this.destination == null)
             {
@@ -119,14 +119,14 @@ namespace Microsoft.Exchange.Data.TextConverters
             if (!this.inconsistentState)
             {
                 long loopsWithoutProgress = 0;
-                
+
                 this.inconsistentState = true;
 
                 while (!this.consumer.Flush())
                 {
                     if (this.madeProgress)
                     {
-                        
+
                         loopsWithoutProgress = 0;
                         this.madeProgress = false;
                     }
@@ -136,17 +136,17 @@ namespace Microsoft.Exchange.Data.TextConverters
                         throw new Microsoft.Exchange.Data.TextConverters.TextConvertersException(Strings.TooManyIterationsToFlushConverter);
                     }
                 }
-                
+
                 this.inconsistentState = false;
             }
 
-            if (this.destination is Stream)
+            if (this.destination is Stream stream)
             {
-                ((Stream)this.destination).Flush();
+                stream.Flush();
             }
-            else
+            else if (this.destination is TextWriter textWriter)
             {
-                ((TextWriter)this.destination).Flush();
+                textWriter.Flush();
             }
         }
 
@@ -229,7 +229,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.WriteBig(buffer, 0, buffer.Length, parseCount);
         }
 #endif
-        
+
         public override void Write(char[] buffer, int index, int count)
         {
             if (this.destination == null)
@@ -279,7 +279,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             this.WriteBig(buffer, index, count, parseCount);
         }
-        
+
         public override void Write(string value)
         {
             if (this.destination == null)
@@ -297,7 +297,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return;
             }
 
-            
+
 
             int parseCount = 10000;
 
@@ -314,19 +314,19 @@ namespace Microsoft.Exchange.Data.TextConverters
                 }
             }
 
-            
+
 
             char[] buffer = value.ToCharArray();
 
             this.WriteBig(buffer, 0, value.Length, parseCount);
         }
-        
+
         public override void WriteLine(string value)
         {
             this.Write(value);
             this.WriteLine();
         }
-        
+
         internal void SetSink(ConverterUnicodeInput sinkInputObject)
         {
             this.sinkInputObject = sinkInputObject;
@@ -342,7 +342,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             return 0 != this.chunkToReadCount || this.endOfFile;
         }
-        
+
         internal void ReportRead(int readCount)
         {
             InternalDebug.Assert(readCount <= this.chunkToReadCount);
@@ -361,7 +361,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.madeProgress = true;
             }
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -373,13 +373,13 @@ namespace Microsoft.Exchange.Data.TextConverters
                         this.Flush();
                     }
 
-                    if (this.destination is Stream)
+                    if (this.destination is Stream stream)
                     {
-                        ((Stream)this.destination).Close();
+                        stream.Close();
                     }
-                    else
+                    else if (this.destination is TextWriter textWriter)
                     {
-                        ((TextWriter)this.destination).Close();
+                        textWriter.Close();
                     }
                 }
             }
@@ -395,13 +395,13 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.chunkToReadBuffer = null;
             base.Dispose(disposing);
         }
-        
+
         private void WriteBig(char[] buffer, int index, int count, int parseCount)
         {
             this.chunkToReadBuffer = buffer;
             this.chunkToReadIndex = index;
             this.chunkToReadCount = count;
-            
+
             long loopsWithoutProgress = 0;
 
             this.inconsistentState = true;
@@ -421,16 +421,16 @@ namespace Microsoft.Exchange.Data.TextConverters
                     throw new Microsoft.Exchange.Data.TextConverters.TextConvertersException(Strings.TooManyIterationsToProcessInput);
                 }
             }
-            
+
             this.inconsistentState = false;
         }
-        
+
         void IProgressMonitor.ReportProgress()
         {
             this.madeProgress = true;
         }
 
-// Orphaned WPL code.
+        // Orphaned WPL code.
 #if false
         internal void Reuse(object newSink)
         {
