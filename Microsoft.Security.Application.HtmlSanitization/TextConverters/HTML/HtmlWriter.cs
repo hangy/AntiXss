@@ -1782,9 +1782,9 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         bool IRestartable.CanRestart()
         {
-            if (this.output is IRestartable)
+            if (this.output is IRestartable restartable)
             {
-                return ((IRestartable)this.output).CanRestart();
+                return restartable.CanRestart();
             }
 
             return false;
@@ -1792,9 +1792,9 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         void IRestartable.Restart()
         {
-            if (this.output is IRestartable)
+            if (this.output is IRestartable restartable)
             {
-                ((IRestartable)this.output).Restart();
+                restartable.Restart();
             }
 
             this.allowWspBeforeFollowingTag = false;
@@ -1819,9 +1819,9 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         void IRestartable.DisableRestart()
         {
-            if (this.output is IRestartable)
+            if (this.output is IRestartable restartable)
             {
-                ((IRestartable)this.output).DisableRestart();
+                restartable.DisableRestart();
             }
         }
 
@@ -2029,9 +2029,9 @@ namespace Microsoft.Exchange.Data.TextConverters
                         this.Flush();
                     }
 
-                    if (this.output is IDisposable)
+                    if (this.output is IDisposable disposable)
                     {
-                        ((IDisposable)this.output).Dispose();
+                        disposable.Dispose();
                     }
                 }
 

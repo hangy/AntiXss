@@ -453,13 +453,13 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (this.source != null)
                 {
-                    if (this.source is Stream)
+                    if (this.source is Stream stream)
                     {
-                        ((Stream)this.source).Close();
+                        stream.Close();
                     }
-                    else
+                    else if  (this.source is TextReader textReader)
                     {
-                        ((TextReader)this.source).Close();
+                        textReader.Close();
                     }
                 }
             }

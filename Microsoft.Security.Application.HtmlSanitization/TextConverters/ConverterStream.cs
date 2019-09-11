@@ -517,13 +517,13 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.inconsistentState = false;
             }
 
-            if (this.sourceOrDestination is Stream)
+            if (this.sourceOrDestination is Stream stream)
             {
-                ((Stream)this.sourceOrDestination).Flush();
+                stream.Flush();
             }
-            else if (this.sourceOrDestination is TextWriter)
+            else if (this.sourceOrDestination is TextWriter textWriter)
             {
-                ((TextWriter)this.sourceOrDestination).Flush();
+                textWriter.Flush();
             }
         }
 
@@ -556,17 +556,17 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 if (this.sourceOrDestination != null)
                 {
-                    if (this.sourceOrDestination is Stream)
+                    if (this.sourceOrDestination is Stream stream)
                     {
-                        ((Stream)this.sourceOrDestination).Close();
+                        stream.Close();
                     }
-                    else if (this.sourceOrDestination is TextReader)
+                    else if (this.sourceOrDestination is TextReader textReader)
                     {
-                        ((TextReader)this.sourceOrDestination).Close();
+                        textReader.Close();
                     }
-                    else
+                    else if (this.sourceOrDestination is TextWriter textWriter)
                     {
-                        ((TextWriter)this.sourceOrDestination).Close();
+                        textWriter.Close();
                     }
                 }
 
