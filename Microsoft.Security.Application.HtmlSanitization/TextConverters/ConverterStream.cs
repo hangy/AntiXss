@@ -281,10 +281,10 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <returns>
         /// A long value representing the length of the stream in bytes.
         /// </returns>
-        /// <exception cref="T:System.NotSupportedException">
+        /// <exception cref="NotSupportedException">
         /// A class derived from Stream does not support seeking.
         /// </exception>
-        /// <exception cref="T:System.ObjectDisposedException">
+        /// <exception cref="ObjectDisposedException">
         /// Methods were called after the stream was closed.
         /// </exception>
         public override long Length
@@ -301,13 +301,13 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <returns>
         /// The current position within the stream.
         /// </returns>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="IOException">
         /// An I/O error occurs.
         /// </exception>
-        /// <exception cref="T:System.NotSupportedException">
+        /// <exception cref="NotSupportedException">
         /// The stream does not support seeking.
         /// </exception>
-        /// <exception cref="T:System.ObjectDisposedException">
+        /// <exception cref="ObjectDisposedException">
         /// Methods were called after the stream was closed.
         /// </exception>
         public override long Position
@@ -327,17 +327,17 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// Sets the position within the current stream.
         /// </summary>
         /// <param name="offset">A byte offset relative to the <paramref name="origin"/> parameter.</param>
-        /// <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain the new position.</param>
+        /// <param name="origin">A value of type <see cref="SeekOrigin"/> indicating the reference point used to obtain the new position.</param>
         /// <returns>
         /// The new position within the current stream.
         /// </returns>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="IOException">
         /// An I/O error occurs.
         /// </exception>
-        /// <exception cref="T:System.NotSupportedException">
+        /// <exception cref="NotSupportedException">
         /// The stream does not support seeking, such as if the stream is constructed from a pipe or console output.
         /// </exception>
-        /// <exception cref="T:System.ObjectDisposedException">
+        /// <exception cref="ObjectDisposedException">
         /// Methods were called after the stream was closed.
         /// </exception>
         public override long Seek(long offset, SeekOrigin origin)
@@ -349,13 +349,13 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// Sets the length of the current stream.
         /// </summary>
         /// <param name="value">The desired length of the current stream in bytes.</param>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="IOException">
         /// An I/O error occurs.
         /// </exception>
-        /// <exception cref="T:System.NotSupportedException">
+        /// <exception cref="NotSupportedException">
         /// The stream does not support both writing and seeking, such as if the stream is constructed from a pipe or console output.
         /// </exception>
-        /// <exception cref="T:System.ObjectDisposedException">
+        /// <exception cref="ObjectDisposedException">
         /// Methods were called after the stream was closed.
         /// </exception>
         public override void SetLength(long value)
@@ -369,22 +369,22 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <param name="buffer">An array of bytes. This method copies <paramref name="count"/> bytes from <paramref name="buffer"/> to the current stream.</param>
         /// <param name="offset">The zero-based byte offset in <paramref name="buffer"/> at which to begin copying bytes to the current stream.</param>
         /// <param name="count">The number of bytes to be written to the current stream.</param>
-        /// <exception cref="T:System.ArgumentException">
+        /// <exception cref="ArgumentException">
         /// The sum of <paramref name="offset"/> and <paramref name="count"/> is greater than the buffer length.
         /// </exception>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// <paramref name="buffer"/> is null.
         /// </exception>
-        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="offset"/> or <paramref name="count"/> is negative.
         /// </exception>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="IOException">
         /// An I/O error occurs.
         /// </exception>
-        /// <exception cref="T:System.NotSupportedException">
+        /// <exception cref="NotSupportedException">
         /// The stream does not support writing.
         /// </exception>
-        /// <exception cref="T:System.ObjectDisposedException">
+        /// <exception cref="ObjectDisposedException">
         /// Methods were called after the stream was closed.
         /// </exception>
         /// <exception cref="TextConvertersException">
@@ -466,13 +466,13 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <summary>
         /// Clears all buffers for this stream and causes any buffered data to be written to the underlying device.
         /// </summary>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="IOException">
         /// An I/O error occurs.
         /// </exception>
-        /// <exception cref="T:System.ObjectDisposedException">
+        /// <exception cref="ObjectDisposedException">
         /// Methods were called after the stream was closed.
         /// </exception>
-        /// <exception cref="T:System.InvalidOperationException">
+        /// <exception cref="InvalidOperationException">
         /// Methods were called on a read-only stream.
         /// </exception>
         /// <exception cref="TextConvertersException">
@@ -588,22 +588,22 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <returns>
         /// The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the stream has been reached.
         /// </returns>
-        /// <exception cref="T:System.ArgumentException">
+        /// <exception cref="ArgumentException">
         /// The sum of <paramref name="offset"/> and <paramref name="count"/> is larger than the buffer length.
         /// </exception>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// <paramref name="buffer"/> is null.
         /// </exception>
-        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="offset"/> or <paramref name="count"/> is negative.
         /// </exception>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="IOException">
         /// An I/O error occurs.
         /// </exception>
-        /// <exception cref="T:System.NotSupportedException">
+        /// <exception cref="NotSupportedException">
         /// The stream does not support reading.
         /// </exception>
-        /// <exception cref="T:System.ObjectDisposedException">
+        /// <exception cref="ObjectDisposedException">
         /// Methods were called after the stream was closed.
         /// </exception>
         /// <exception cref="TextConvertersException">

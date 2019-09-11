@@ -140,10 +140,10 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <returns>
         /// An integer representing the next character to be read, or -1 if no more characters are available or the stream does not support seeking.
         /// </returns>
-        /// <exception cref="T:System.ObjectDisposedException">
-        /// The <see cref="T:System.IO.TextReader"/> is closed.
+        /// <exception cref="System.ObjectDisposedException">
+        /// The <see cref="System.IO.TextReader"/> is closed.
         /// </exception>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="System.IO.IOException">
         /// An I/O error occurs.
         /// </exception>
         public override int Peek()
@@ -198,10 +198,10 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <returns>
         /// The next character from the input stream, or -1 if no more characters are available. The default implementation returns -1.
         /// </returns>
-        /// <exception cref="T:System.ObjectDisposedException">
-        /// The <see cref="T:System.IO.TextReader"/> is closed.
+        /// <exception cref="System.ObjectDisposedException">
+        /// The <see cref="System.IO.TextReader"/> is closed.
         /// </exception>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="System.IO.IOException">
         /// An I/O error occurs.
         /// </exception>
         public override int Read()
@@ -261,19 +261,19 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <returns>
         /// The number of characters that have been read. The number will be less than or equal to <paramref name="count"/>, depending on whether the data is available within the stream. This method returns zero if called when no more characters are left to read.
         /// </returns>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="System.ArgumentNullException">
         /// <paramref name="buffer"/> is null.
         /// </exception>
-        /// <exception cref="T:System.ArgumentException">
+        /// <exception cref="System.ArgumentException">
         /// The buffer length minus <paramref name="index"/> is less than <paramref name="count"/>.
         /// </exception>
-        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <exception cref="System.ArgumentOutOfRangeException">
         /// <paramref name="index"/> or <paramref name="count"/> is negative.
         /// </exception>
-        /// <exception cref="T:System.ObjectDisposedException">
-        /// The <see cref="T:System.IO.TextReader"/> is closed.
+        /// <exception cref="System.ObjectDisposedException">
+        /// The <see cref="System.IO.TextReader"/> is closed.
         /// </exception>
-        /// <exception cref="T:System.IO.IOException">
+        /// <exception cref="System.IO.IOException">
         /// An I/O error occurs.
         /// </exception>
         public override int Read(char[] buffer, int index, int count)
@@ -444,7 +444,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 #endif
 
         /// <summary>
-        /// Releases the unmanaged resources used by the <see cref="T:System.IO.TextReader"/> and optionally releases the managed resources.
+        /// Releases the unmanaged resources used by the <see cref="System.IO.TextReader"/> and optionally releases the managed resources.
         /// </summary>
         /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
