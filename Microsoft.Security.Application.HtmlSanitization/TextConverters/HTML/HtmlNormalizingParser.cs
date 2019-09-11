@@ -524,7 +524,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             InternalDebug.Assert(HtmlNameIndex._NOTANAME < tag.NameIndex && tag.NameIndex < HtmlNameIndex.Unknown);
 
             
-            tag.Flags = tag.Flags | HtmlToken.TagFlags.EmptyScope;
+            tag.Flags |= HtmlToken.TagFlags.EmptyScope;
 
             tagIndex = HtmlNameData.names[(int)tag.NameIndex].tagIndex;
 

@@ -878,7 +878,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
                 else if (0 != (parseFlags & NumberParseFlags.Float))
                 {
-                    result = result * 10000;
+                    result *= 10000;
                     if (result > PropertyValue.ValueMax)
                     {
                         result = PropertyValue.ValueMax;

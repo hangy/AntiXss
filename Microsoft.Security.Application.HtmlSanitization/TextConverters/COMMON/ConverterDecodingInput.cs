@@ -345,7 +345,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                                     this.readFileOffset += this.readCurrent;
 
-                                    this.readEnd = this.readEnd - this.readCurrent;
+                                    this.readEnd -= this.readCurrent;
                                     this.readCurrent = 0;
                                 }
 
@@ -471,7 +471,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                             this.readFileOffset += this.readCurrent;
 
-                            this.readEnd = this.readEnd - this.readCurrent;
+                            this.readEnd -= this.readCurrent;
                             this.readCurrent = 0;
                         }
 
