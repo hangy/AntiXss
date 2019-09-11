@@ -279,9 +279,8 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </returns>
         public static bool TryGetEncoding(int codePage, out Encoding encoding)
         {
-            Charset charset;
 
-            if (!TryGetCharset(codePage, out charset))
+            if (!TryGetCharset(codePage, out Charset charset))
             {
                 encoding = null;
                 return false;
@@ -304,8 +303,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </returns>
         public static bool TryGetEncoding(string name, out Encoding encoding)
         {
-            Charset charset;
-            if (!TryGetCharset(name, out charset))
+            if (!TryGetCharset(name, out Charset charset))
             {
                 encoding = null;
                 return false;
@@ -343,9 +341,8 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </exception>
         public static Charset GetCharset(int codePage)
         {
-            Charset cs;
 
-            if (!TryGetCharset(codePage, out cs))
+            if (!TryGetCharset(codePage, out Charset cs))
             {
                 throw new InvalidCharsetException(codePage);
             }
@@ -416,9 +413,8 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </exception>
         public Encoding GetEncoding()
         {
-            Encoding discoveredEncoding;
 
-            if (!this.TryGetEncoding(out discoveredEncoding))
+            if (!this.TryGetEncoding(out Encoding discoveredEncoding))
             {
                 throw new CharsetNotInstalledException(this.CodePage, this.Name);
             }

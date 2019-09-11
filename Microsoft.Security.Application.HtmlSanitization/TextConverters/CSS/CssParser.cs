@@ -370,7 +370,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             this.tokenBuilder.StartSelectorName();
 
-            int nameLength;
 
             this.PrepareAndAddRun(CssRunKind.AtRuleName, selectorNameRunStart, ref parseCurrent);
             if (parseCurrent == parseEnd)
@@ -378,7 +377,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 return ch;
             }
 
-            ch = this.ScanName(CssRunKind.AtRuleName, ch, ref charClass, ref parseCurrent, out nameLength);
+            ch = this.ScanName(CssRunKind.AtRuleName, ch, ref charClass, ref parseCurrent, out int nameLength);
 
             InternalDebug.Assert(parseCurrent > selectorNameRunStart);
 
@@ -429,9 +428,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 this.tokenBuilder.StartSelectorName();
 
-                int nameLength;
 
-                ch = this.ScanName(CssRunKind.PageIdent, ch, ref charClass, ref parseCurrent, out nameLength);
+                ch = this.ScanName(CssRunKind.PageIdent, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                 this.tokenBuilder.EndSelectorName(nameLength);
 
@@ -462,9 +460,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 this.tokenBuilder.StartSelectorClass(CssSelectorClassType.Pseudo);
 
-                int nameLength;
 
-                ch = this.ScanName(CssRunKind.PagePseudo, ch, ref charClass, ref parseCurrent, out nameLength);
+                ch = this.ScanName(CssRunKind.PagePseudo, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                 this.tokenBuilder.EndSelectorClass();
 
@@ -774,9 +771,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     this.tokenBuilder.StartSelectorClass(isClass ? CssSelectorClassType.Regular : CssSelectorClassType.Hash);
 
-                    int nameLength;
 
-                    ch = this.ScanName(isClass ? CssRunKind.SelectorClass : CssRunKind.SelectorHash, ch, ref charClass, ref parseCurrent, out nameLength);
+                    ch = this.ScanName(isClass ? CssRunKind.SelectorClass : CssRunKind.SelectorHash, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                     this.tokenBuilder.EndSelectorClass();
 
@@ -808,9 +804,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             int constructRunStart = parseCurrent;
 
-            int nameLength;
 
-            ch = this.ScanName(CssRunKind.SelectorPseudo, ch, ref charClass, ref parseCurrent, out nameLength);
+            ch = this.ScanName(CssRunKind.SelectorPseudo, ch, ref charClass, ref parseCurrent, out int nameLength);
 
             if (parseCurrent == parseEnd)
             {
@@ -919,9 +914,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 return ch;
             }
 
-            int nameLength;
 
-            ch = this.ScanName(CssRunKind.SelectorAttribName, ch, ref charClass, ref parseCurrent, out nameLength);
+            ch = this.ScanName(CssRunKind.SelectorAttribName, ch, ref charClass, ref parseCurrent, out int nameLength);
 
             if (parseCurrent == parseEnd)
             {
@@ -1052,9 +1046,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     this.tokenBuilder.StartPropertyName();
 
-                    int nameLength;
 
-                    ch = this.ScanName(CssRunKind.PropertyName, ch, ref charClass, ref parseCurrent, out nameLength);
+                    ch = this.ScanName(CssRunKind.PropertyName, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                     this.tokenBuilder.EndPropertyName(nameLength);
 
@@ -1167,9 +1160,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 if (this.IsNameStartCharacter(ch, charClass, parseCurrent))
                 {
                     int identStart = parseCurrent;
-                    int nameLength;
 
-                    ch = this.ScanName(CssRunKind.Important, ch, ref charClass, ref parseCurrent, out nameLength);
+                    ch = this.ScanName(CssRunKind.Important, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                     if (parseCurrent == parseEnd)
                     {
@@ -1354,11 +1346,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 }
                 else if (this.IsNameStartCharacter(ch, charClass, parseCurrent))
                 {
-                    
 
-                    int nameLength;
 
-                    ch = this.ScanName(CssRunKind.Metrics, ch, ref charClass, ref parseCurrent, out nameLength);
+
+                    ch = this.ScanName(CssRunKind.Metrics, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                     if (parseCurrent == parseEnd)
                     {
@@ -1372,9 +1363,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 start = parseCurrent;
 
-                int nameLength;
 
-                ch = this.ScanName(CssRunKind.TermIdentifier, ch, ref charClass, ref parseCurrent, out nameLength);
+                ch = this.ScanName(CssRunKind.TermIdentifier, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                 if (parseCurrent == parseEnd)
                 {
@@ -1525,11 +1515,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                 if (this.IsNameCharacter(ch, charClass, parseCurrent))
                 {
-                    
 
-                    int nameLength;
 
-                    ch = this.ScanName(CssRunKind.HexColor, ch, ref charClass, ref parseCurrent, out nameLength);
+
+                    ch = this.ScanName(CssRunKind.HexColor, ch, ref charClass, ref parseCurrent, out int nameLength);
 
                     if (parseCurrent == parseEnd)
                     {

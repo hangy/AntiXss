@@ -578,7 +578,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             byte[] outputBuffer, directBuffer = null;
             int outputOffset, directOffset = 0;
-            int outputCount, directSpace = 0;
+            int directSpace = 0;
             bool encodingToCache = true;
 
             
@@ -625,7 +625,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                         while (this.cache.Length != 0)
                         {
-                            this.cache.GetData(out outputBuffer, out outputOffset, out outputCount);
+                            this.cache.GetData(out outputBuffer, out outputOffset, out int outputCount);
 
                             this.pushSink.Write(outputBuffer, outputOffset, outputCount);
 
@@ -719,7 +719,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             byte[] outputBuffer;
             int outputOffset;
-            int outputSpace;
             int outputCount;
 
             if (this.pullSink == null)
@@ -739,7 +738,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
             else
             {
-                this.pullSink.GetOutputBuffer(out outputBuffer, out outputOffset, out outputSpace);
+                this.pullSink.GetOutputBuffer(out outputBuffer, out outputOffset, out int outputSpace);
 
                 outputCount = this.cache.Read(outputBuffer, outputOffset, outputSpace);
 

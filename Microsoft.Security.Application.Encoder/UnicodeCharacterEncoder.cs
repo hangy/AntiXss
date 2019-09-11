@@ -407,9 +407,8 @@ namespace Microsoft.Security.Application
                     {
                         // If we reached this point, the code point is within the BMP.
                         char currentCharacter = (char)currentCodePoint;
-                        char[] tweekedValue;
 
-                        if (encoderTweak != null && encoderTweak(currentCharacter, out tweekedValue))
+                        if (encoderTweak != null && encoderTweak(currentCharacter, out char[] tweekedValue))
                         {
                             builder.Append(tweekedValue);
                         }

@@ -90,9 +90,8 @@ namespace Microsoft.Exchange.Data.Internal
                             else
                             {
                                 string subSectionName = reader.Name;
-                                IList<CtsConfigurationSetting> subSection;
 
-                                if (!this.subSections.TryGetValue(subSectionName, out subSection))
+                                if (!this.subSections.TryGetValue(subSectionName, out IList<CtsConfigurationSetting> subSection))
                                 {
                                     subSection = new List<CtsConfigurationSetting>();
                                     this.subSections.Add(subSectionName, subSection);

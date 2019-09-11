@@ -216,13 +216,10 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
             else if (this.pullSink != null)
             {
-                
 
-                char[] pullBuffer;
-                int pullOffset;
-                int pullSpace;
 
-                this.pullSink.GetOutputBuffer(out pullBuffer, out pullOffset, out pullSpace);
+
+                this.pullSink.GetOutputBuffer(out char[] pullBuffer, out int pullOffset, out int pullSpace);
 
                 if (pullSpace != 0)
                 {
@@ -347,16 +344,13 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 while (pullSpace != 0 && this.cache.Length != 0)
                 {
-                    
-                    
-                    
-                    
 
-                    char[] outputBuffer;
-                    int outputOffset;
-                    int outputCount;
 
-                    this.cache.GetData(out outputBuffer, out outputOffset, out outputCount);
+
+
+
+
+                    this.cache.GetData(out char[] outputBuffer, out int outputOffset, out int outputCount);
 
                     int countToCopy = Math.Min(outputCount, pullSpace);
 
@@ -377,13 +371,10 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 if (fallback != null)
                 {
-                    char[] cacheBuffer;
-                    int cacheOffset;
-                    int cacheSpace;
 
-                    
-                    
-                    this.cache.GetBuffer(1024, out cacheBuffer, out cacheOffset, out cacheSpace);
+
+
+                    this.cache.GetBuffer(1024, out char[] cacheBuffer, out int cacheOffset, out int cacheSpace);
 
                     int cacheOffsetStart = cacheOffset;
                     int cacheSpaceStart = cacheSpace;
@@ -508,7 +499,6 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             char[] outputBuffer;
             int outputOffset;
-            int outputSpace;
             int outputCount;
 
             if (this.pullSink == null)
@@ -528,7 +518,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
             else
             {
-                this.pullSink.GetOutputBuffer(out outputBuffer, out outputOffset, out outputSpace);
+                this.pullSink.GetOutputBuffer(out outputBuffer, out outputOffset, out int outputSpace);
 
                 outputCount = this.cache.Read(outputBuffer, outputOffset, outputSpace);
 

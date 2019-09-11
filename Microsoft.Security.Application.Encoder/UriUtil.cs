@@ -83,14 +83,12 @@ namespace Microsoft.Security.Application
         internal static bool TrySplitUriForPathEncode(string input, out string schemeAndAuthority, out string path, out string queryAndFragment)
         {
             // Strip off ?query and #fragment if they exist, since we're not going to look at them
-            string inputWithoutQueryFragment;
-            ExtractQueryAndFragment(input, out inputWithoutQueryFragment, out queryAndFragment);
+            ExtractQueryAndFragment(input, out string inputWithoutQueryFragment, out queryAndFragment);
 
             // Use Uri class to parse the url into authority and path, use that to help decide
             // where to split the string. Do not rebuild the url from the Uri instance, as that
             // might have subtle changes from the original string (for example, see below about "://").
-            Uri uri;
-            if (IsSafeScheme(inputWithoutQueryFragment) && Uri.TryCreate(inputWithoutQueryFragment, UriKind.Absolute, out uri))
+            if (IsSafeScheme(inputWithoutQueryFragment) && Uri.TryCreate(inputWithoutQueryFragment, UriKind.Absolute, out Uri uri))
             {
                 string authority = uri.Authority; // e.g. "foo:81" in "http://foo:81/bar"
                 if (!string.IsNullOrEmpty(authority))

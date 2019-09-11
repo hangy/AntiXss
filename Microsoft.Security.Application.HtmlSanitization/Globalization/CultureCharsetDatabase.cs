@@ -1083,8 +1083,7 @@ namespace Microsoft.Exchange.Data.Globalization
 
                 if (ci.Parent != null)
                 {
-                    Culture parentCulture;
-                    if (newData.LocaleIdToCulture.TryGetValue(ci.Parent.LCID, out parentCulture))
+                    if (newData.LocaleIdToCulture.TryGetValue(ci.Parent.LCID, out Culture parentCulture))
                     {
                         culture.ParentCulture = parentCulture;
                     }
@@ -1108,8 +1107,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 {
                     if (cd.ParentCultureName != null)
                     {
-                        Culture parentCulture;
-                        if (newData.NameToCulture.TryGetValue(cd.ParentCultureName, out parentCulture))
+                        if (newData.NameToCulture.TryGetValue(cd.ParentCultureName, out Culture parentCulture))
                         {
                             culture.ParentCulture = parentCulture;
                         }
@@ -1359,9 +1357,8 @@ namespace Microsoft.Exchange.Data.Globalization
 
                 culture.WindowsCharset = charset;
 
-                Charset otherCharset;
 
-                if (newData.CodePageToCharset.TryGetValue(cd.MimeCodePage, out otherCharset))
+                if (newData.CodePageToCharset.TryGetValue(cd.MimeCodePage, out Charset otherCharset))
                 {
                     culture.MimeCharset = otherCharset;
                 }
@@ -1405,10 +1402,9 @@ namespace Microsoft.Exchange.Data.Globalization
 
                 if (charset.Culture == null)
                 {
-                    Encoding encoding;
                     int windowsCodePage = 1200;
 
-                    if (charset.TryGetEncoding(out encoding))
+                    if (charset.TryGetEncoding(out Encoding encoding))
                     {
                         windowsCodePage = encoding.WindowsCodePage;
                         bool validWindowsCodepage = windowsCodePages.Any(wcp => windowsCodePage == wcp.CodePage);
@@ -1436,8 +1432,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 }
             }
 
-            Culture newCulture;
-            if (!newData.LocaleIdToCulture.TryGetValue(CultureInfo.CurrentUICulture.LCID, out newCulture))
+            if (!newData.LocaleIdToCulture.TryGetValue(CultureInfo.CurrentUICulture.LCID, out Culture newCulture))
             {
                 newData.DefaultCulture = newCulture;
                 if (!newData.LocaleIdToCulture.TryGetValue(CultureInfo.CurrentCulture.LCID, out newCulture))
@@ -1475,7 +1470,6 @@ namespace Microsoft.Exchange.Data.Globalization
             int codePage;
             int lcid;
             Charset charset1;
-            Culture culture1;
 
             foreach (CtsConfigurationSetting setting in settings)
             {
@@ -1712,7 +1706,7 @@ namespace Microsoft.Exchange.Data.Globalization
                             }
                         }
 
-                        if (newData.NameToCulture.TryGetValue(aliasNameArg, out culture1))
+                        if (newData.NameToCulture.TryGetValue(aliasNameArg, out Culture culture1))
                         {
                             if (culture != culture1)
                             {

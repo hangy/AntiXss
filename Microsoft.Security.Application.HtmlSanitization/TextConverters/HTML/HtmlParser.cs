@@ -2090,67 +2090,65 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             }
                             else if (ParseSupport.HtmlSuffixCharacter(charClass))
                             {
-                                int addToTextCnt, tagSuffixCnt;
-                                bool endScan;
 
-                                if (this.CheckSuffix(parseCurrent, ch, out addToTextCnt, out tagSuffixCnt, out endScan))
+                            if (this.CheckSuffix(parseCurrent, ch, out int addToTextCnt, out int tagSuffixCnt, out bool endScan))
+                            {
+                                if (!endScan)
                                 {
-                                    if (!endScan)
-                                    {
-                                        
 
-                                        InternalDebug.Assert(tagSuffixCnt == 0);
 
-                                        parseCurrent += addToTextCnt;
-
-                                        this.lastCharClass = charClass;
-                                        InternalDebug.Assert(!ParseSupport.HtmlScanQuoteSensitiveCharacter(this.lastCharClass));
-
-                                        ch = parseBuffer[parseCurrent];
-                                        charClass = ParseSupport.GetCharClass(ch);
-
-                                        continue;   
-                                    }
-
-                                    this.scanQuote = '\0';
-
-                                    
+                                    InternalDebug.Assert(tagSuffixCnt == 0);
 
                                     parseCurrent += addToTextCnt;
 
-                                    if (parseCurrent != runStart)
-                                    {
-                                        tokenBuilder.AddRun(RunTextType.Unknown, HtmlRunKind.TagText, runStart, parseCurrent);
-                                    }
+                                    this.lastCharClass = charClass;
+                                    InternalDebug.Assert(!ParseSupport.HtmlScanQuoteSensitiveCharacter(this.lastCharClass));
 
-                                    tokenBuilder.EndTagText();
+                                    ch = parseBuffer[parseCurrent];
+                                    charClass = ParseSupport.GetCharClass(ch);
 
-                                    if (tagSuffixCnt != 0)
-                                    {
-                                        runStart = parseCurrent;
-
-                                        parseCurrent += tagSuffixCnt;
-
-                                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, runStart, parseCurrent);
-                                    }
-
-                                    tokenBuilder.EndTag(true);
-
-                                    InternalDebug.Assert(this.scanQuote == '\0' && this.valueQuote == '\0');
-
-                                    this.parseState = ParseState.Text;
-
-                                    this.parseCurrent = parseCurrent;
-
-                                    return true;
+                                    continue;
                                 }
 
-                                
-                                
-                                
-                                
+                                this.scanQuote = '\0';
 
-                                InternalDebug.Assert(tagSuffixCnt >= 1);
+
+
+                                parseCurrent += addToTextCnt;
+
+                                if (parseCurrent != runStart)
+                                {
+                                    tokenBuilder.AddRun(RunTextType.Unknown, HtmlRunKind.TagText, runStart, parseCurrent);
+                                }
+
+                                tokenBuilder.EndTagText();
+
+                                if (tagSuffixCnt != 0)
+                                {
+                                    runStart = parseCurrent;
+
+                                    parseCurrent += tagSuffixCnt;
+
+                                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, runStart, parseCurrent);
+                                }
+
+                                tokenBuilder.EndTag(true);
+
+                                InternalDebug.Assert(this.scanQuote == '\0' && this.valueQuote == '\0');
+
+                                this.parseState = ParseState.Text;
+
+                                this.parseCurrent = parseCurrent;
+
+                                return true;
+                            }
+
+
+
+
+
+
+                            InternalDebug.Assert(tagSuffixCnt >= 1);
 
                                 parseCurrent += addToTextCnt;
                                 this.parseThreshold = tagSuffixCnt + 1;
@@ -2617,67 +2615,65 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         continue;
                     }
 
-                    
 
-                    int literal;
-                    int consume;
 
-                    if (this.DecodeEntity(parseCurrent, false, out literal, out consume))
+
+                    if (this.DecodeEntity(parseCurrent, false, out int literal, out int consume))
                     {
                         InternalDebug.Assert(consume != 0);
 
                         if (consume == 1)
                         {
-                            
-                            
+
+
 
                             ch = parseBuffer[++parseCurrent];
                             charClass = ParseSupport.GetCharClass(ch);
 
-                            
+
                             tokenBuilder.AssertPreparedToAddMoreRuns(3);
                             continue;
                         }
 
-                        
-                        
+
+
 
                         if (parseCurrent != runStart)
                         {
                             tokenBuilder.AddTextRun(RunTextType.NonSpace, runStart, parseCurrent);
                         }
 
-                        
-                        
+
+
 
                         if (literal <= 0xFFFF && ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass((char)literal)))
                         {
-                            
+
 
                             switch ((char)literal)
                             {
                                 case ' ':
-                                        tokenBuilder.AddLiteralTextRun(RunTextType.Space, parseCurrent, parseCurrent + consume, literal);
-                                        break;
+                                    tokenBuilder.AddLiteralTextRun(RunTextType.Space, parseCurrent, parseCurrent + consume, literal);
+                                    break;
 
                                 case '\r':
-                                        
-                                        
-                                        
-                                        tokenBuilder.AddLiteralTextRun(RunTextType.NewLine, parseCurrent, parseCurrent + consume, literal);
-                                        break;
+
+
+
+                                    tokenBuilder.AddLiteralTextRun(RunTextType.NewLine, parseCurrent, parseCurrent + consume, literal);
+                                    break;
 
                                 case '\n':
-                                        tokenBuilder.AddLiteralTextRun(RunTextType.NewLine, parseCurrent, parseCurrent + consume, literal);
-                                        break;
+                                    tokenBuilder.AddLiteralTextRun(RunTextType.NewLine, parseCurrent, parseCurrent + consume, literal);
+                                    break;
 
                                 case '\t':
-                                        tokenBuilder.AddLiteralTextRun(RunTextType.Tabulation, parseCurrent, parseCurrent + consume, literal);
-                                        break;
+                                    tokenBuilder.AddLiteralTextRun(RunTextType.Tabulation, parseCurrent, parseCurrent + consume, literal);
+                                    break;
 
                                 default:
-                                        tokenBuilder.AddLiteralTextRun(RunTextType.UnusualWhitespace, parseCurrent, parseCurrent + consume, literal);
-                                        break;
+                                    tokenBuilder.AddLiteralTextRun(RunTextType.UnusualWhitespace, parseCurrent, parseCurrent + consume, literal);
+                                    break;
                             }
                         }
                         else
@@ -2699,21 +2695,21 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                     else
                     {
-                        
-                        
 
-                        
-                        
+
+
+
+
 
                         if (parseCurrent != runStart)
                         {
                             tokenBuilder.AddTextRun(RunTextType.NonSpace, runStart, parseCurrent);
                         }
 
-                        
+
                         this.parseThreshold = HtmlNameData.MAX_ENTITY_NAME + 2;
-                        
-                        
+
+
                         break;
                     }
                 }
@@ -2775,7 +2771,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             int runStart = parseCurrent;
             char[] parseBuffer = this.parseBuffer;
             HtmlTokenBuilder tokenBuilder = this.tokenBuilder;
-            int consume;
 
             while (true)
             {
@@ -2799,33 +2794,32 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     if (ch == this.valueQuote)
                     {
-                        
+
 
                         break;
                     }
 
-                    
-                    parseCurrent ++;
+
+                    parseCurrent++;
                 }
                 else if (ch == '&')
                 {
-                    
+
 
                     this.lastCharClass = charClass;
 
-                    
-                    
 
-                    int literal;
-                    
-                    if (this.DecodeEntity(parseCurrent, true, out literal, out consume))
+
+
+
+                    if (this.DecodeEntity(parseCurrent, true, out int literal, out int consume))
                     {
                         InternalDebug.Assert(consume != 0);
 
                         if (consume == 1)
                         {
-                            
-                            
+
+
 
                             ch = parseBuffer[++parseCurrent];
                             charClass = ParseSupport.GetCharClass(ch);
@@ -2833,8 +2827,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             continue;
                         }
 
-                        
-                        
+
+
 
                         if (parseCurrent != runStart)
                         {
@@ -2845,7 +2839,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                         parseCurrent += consume;
 
-                        
+
                         if (!tokenBuilder.PrepareToAddMoreRuns(2))
                         {
                             return false;
@@ -2855,10 +2849,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                     else
                     {
-                        
-                        
 
-                        
+
+
+
                         this.parseThreshold = HtmlNameData.MAX_ENTITY_NAME + 2;
 
                         break;
@@ -2875,14 +2869,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     if (this.scanQuote == '\0')
                     {
-                        
+
                         InternalDebug.Assert(this.valueQuote != 0);
 
                         this.valueQuote = '\0';
                         break;
                     }
 
-                    parseCurrent ++;
+                    parseCurrent++;
                 }
                 else if (ParseSupport.WhitespaceCharacter(charClass))
                 {
@@ -2893,7 +2887,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         break;
                     }
 
-                    
+
 #if false
                     if (parseCurrent != runStart)
                     {
@@ -2917,7 +2911,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         return false;
                     }
 #else
-                    parseCurrent ++;
+                    parseCurrent++;
 #endif
                 }
                 else
@@ -3418,14 +3412,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 HashCode hashCode = new HashCode(true);
                 short hashValue;
-                int entityValueT;
 
                 while (ParseSupport.HtmlEntityCharacter(charClassT) && charCount < HtmlNameData.MAX_ENTITY_NAME)
                 {
                     hashValue = (short)(((uint)hashCode.AdvanceAndFinalizeHash(chT) ^ HtmlNameData.ENTITY_HASH_MODIFIER) % HtmlNameData.ENTITY_HASH_SIZE);
                     hashValues[charCount++] = hashValue;
 
-                    entityCurrent ++;
+                    entityCurrent++;
 
                     chT = parseBuffer[entityCurrent];
                     charClassT = ParseSupport.GetCharClass(chT);
@@ -3443,7 +3436,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     if (charCount > 1)      
                     {
-                        if (FindEntityByHashName(hashValues[charCount - 1], parseBuffer, entityStart, charCount, out entityValueT) && 
+                        if (FindEntityByHashName(hashValues[charCount - 1], parseBuffer, entityStart, charCount, out int entityValueT) && 
                             (chT == ';' || entityValueT <= 255))
                         {
                             

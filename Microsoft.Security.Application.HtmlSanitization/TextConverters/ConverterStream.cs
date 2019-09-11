@@ -654,11 +654,8 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (this.byteSource != null)
             {
-                byte[] chunkBuffer;
-                int chunkOffset;
-                int chunkCount;
 
-                while (count != 0 && this.byteSource.GetOutputChunk(out chunkBuffer, out chunkOffset, out chunkCount))
+                while (count != 0 && this.byteSource.GetOutputChunk(out byte[] chunkBuffer, out int chunkOffset, out int chunkCount))
                 {
                     int bytesRead = Math.Min(chunkCount, count);
 

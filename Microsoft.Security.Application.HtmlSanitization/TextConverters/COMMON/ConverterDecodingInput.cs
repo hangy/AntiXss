@@ -249,11 +249,9 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         InternalDebug.Assert(this.readEnd - this.readCurrent == 0);
 
-                        byte[] restartChunk;
-                        int restartStart, restartStartSave;
-                        int restartEnd;
+                        int restartStartSave;
 
-                        if (!this.GetRestartChunk(out restartChunk, out restartStart, out restartEnd))
+                        if (!this.GetRestartChunk(out byte[] restartChunk, out int restartStart, out int restartEnd))
                         {
                             this.restarting = false;
                             continue;
@@ -1009,10 +1007,8 @@ namespace Microsoft.Exchange.Data.TextConverters
                 this.restartCache = new ByteCache();
             }
 
-            byte[] cacheBuffer;
-            int cacheOffset;
 
-            this.restartCache.GetBuffer(count, out cacheBuffer, out cacheOffset);
+            this.restartCache.GetBuffer(count, out byte[] cacheBuffer, out int cacheOffset);
 
             Buffer.BlockCopy(buffer, offset, cacheBuffer, cacheOffset, count);
 
@@ -1033,9 +1029,8 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return false;
             }
 
-            int outputCount;
 
-            this.restartCache.GetData(out restartChunk, out restartStart, out outputCount);
+            this.restartCache.GetData(out restartChunk, out restartStart, out int outputCount);
 
             restartEnd = restartStart + outputCount;
 

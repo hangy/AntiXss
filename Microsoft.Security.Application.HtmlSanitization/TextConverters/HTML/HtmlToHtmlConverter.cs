@@ -429,13 +429,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         int codePage = this.token.Argument;
 
 #if DEBUG
-                        Encoding newOutputEncoding;
-                        
-                        InternalDebug.Assert(Charset.TryGetEncoding(codePage, out newOutputEncoding));
+
+                        InternalDebug.Assert(Charset.TryGetEncoding(codePage, out Encoding newOutputEncoding));
 #endif
 
-                        
-                        
+
+
                         this.writer.Encoding = Charset.GetEncoding(codePage);
                     }
                     break;

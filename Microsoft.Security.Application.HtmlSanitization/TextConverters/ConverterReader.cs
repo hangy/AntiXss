@@ -164,13 +164,10 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             while (!this.endOfFile)
             {
-                char[] chunkBuffer;
-                int chunkIndex;
-                int chunkCount;
-                if (this.sourceOutputObject.GetOutputChunk(out chunkBuffer, out chunkIndex, out chunkCount))
+                if (this.sourceOutputObject.GetOutputChunk(out char[] chunkBuffer, out int chunkIndex, out int chunkCount))
                 {
                     InternalDebug.Assert(chunkCount != 0);
-                    
+
                     this.inconsistentState = false;
 
                     return chunkBuffer[chunkIndex];
@@ -225,15 +222,12 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             while (!this.endOfFile)
             {
-                char[] chunkBuffer;
-                int chunkIndex;
-                int chunkCount;
-                if (this.sourceOutputObject.GetOutputChunk(out chunkBuffer, out chunkIndex, out chunkCount))
+                if (this.sourceOutputObject.GetOutputChunk(out char[] chunkBuffer, out int chunkIndex, out int chunkCount))
                 {
                     InternalDebug.Assert(chunkCount != 0);
 
                     this.sourceOutputObject.ReportOutput(1);
-                    
+
                     this.inconsistentState = false;
 
                     return chunkBuffer[chunkIndex];
@@ -316,11 +310,8 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             int initialCount = count;
 
-            char[] chunkBuffer;
-            int chunkIndex;
-            int chunkCount;
 
-            while (count != 0 && this.sourceOutputObject.GetOutputChunk(out chunkBuffer, out chunkIndex, out chunkCount))
+            while (count != 0 && this.sourceOutputObject.GetOutputChunk(out char[] chunkBuffer, out int chunkIndex, out int chunkCount))
             {
                 int charsRead = Math.Min(chunkCount, count);
 

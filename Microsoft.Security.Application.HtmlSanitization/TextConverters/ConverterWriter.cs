@@ -266,11 +266,8 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (!this.boundaryTesting)
             {
-                char[] inputBuffer;
-                int inputIndex;
-                int inputCount;
 
-                this.sinkInputObject.GetInputBuffer(out inputBuffer, out inputIndex, out inputCount, out parseCount);
+                this.sinkInputObject.GetInputBuffer(out char[] inputBuffer, out int inputIndex, out int inputCount, out parseCount);
 
                 if (inputCount >= count)
                 {
@@ -306,11 +303,8 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             if (!this.boundaryTesting)
             {
-                char[] inputBuffer;
-                int inputIndex;
-                int inputCount;
 
-                this.sinkInputObject.GetInputBuffer(out inputBuffer, out inputIndex, out inputCount, out parseCount);
+                this.sinkInputObject.GetInputBuffer(out char[] inputBuffer, out int inputIndex, out int inputCount, out parseCount);
 
                 if (inputCount >= value.Length)
                 {

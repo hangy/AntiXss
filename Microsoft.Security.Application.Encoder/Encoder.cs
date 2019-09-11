@@ -574,10 +574,7 @@ namespace Microsoft.Security.Application
             }
 
             // DevDiv #211105: We should make the UrlPathEncode method encode only the path portion of URLs. 
-            string schemeAndAuthority;
-            string path;
-            string queryAndFragment;
-            bool validUrl = UriUtil.TrySplitUriForPathEncode(input, out schemeAndAuthority, out path, out queryAndFragment);
+            bool validUrl = UriUtil.TrySplitUriForPathEncode(input, out string schemeAndAuthority, out string path, out string queryAndFragment);
 
             if (!validUrl)
             {
