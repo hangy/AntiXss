@@ -1,10 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard20</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RootNamespace>Microsoft.Security.Application</RootNamespace>
     <AssemblyTitle>Html Sanitization Library</AssemblyTitle>
     <AssemblyDescription>Library for sanitizing inputs to protect from HTML cross site scripting.</AssemblyDescription>
+
+    <Authors>Microsoft; AntiXSS Contributors</Authors>
+    <Owners>AntiXSS Contributors</Owners>
+    <PackageId>AntiXSS.NetStandard.HtmlSanitization</PackageId>
+    <PackageDescription>AntiXSS is an encoding library which uses a safe list approach to encoding. It provides Html, XML, Url, Form, LDAP, CSS, JScript and VBScript encoding methods to allow you to avoid Cross Site Scripting attacks. This library is part of the Microsoft SDL tools.</PackageDescription>
+    <PackageSummary>HtmlSanitization for AntiXSS.NetStandardNET.</PackageSummary>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/hangy/AntiXss</PackageProjectUrl>
+    <Copyright>(c) 2009, 2010, 2011 Microsoft Corporation</Copyright>
+    <Language>en-US</Language>
+    <Tags>AntiXSS, ASP.NET</Tags>
   </PropertyGroup>
 
   <ItemGroup>
