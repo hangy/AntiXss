@@ -17,7 +17,7 @@
             // Arrange
             const string input = "<html><head></head><body><p style=\"\"></p></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -34,7 +34,7 @@
             // Arrange
             const string input = "<p style=\"\"></p>";
             const string expected = "\r\n<p></p>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -51,7 +51,7 @@
             // Arrange
             const string input = "<html><head></head><body><a href=\"\" style=\"\"></a></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<a href=\"\"></a>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -68,7 +68,7 @@
             // Arrange
             const string input = "<a href=\"\" style=\"\"></a>";
             const string expected = "<a href=\"\"></a>";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -85,7 +85,7 @@
             // Arrange
             const string input = "<html><head><style></style></head><body></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -102,7 +102,7 @@
             // Arrange
             const string input = "<html><head><style>* {color:rgb(0,0,0)\\-o-link:'data:text/html,%3c%73%63%72%69%70%74%3e%61%6c%65%72%74%28%31%29%3c%2f%73%63%72%69%70%74%3e';color:rgb(x)\\-o-link-source:current;}</style></head><body></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -119,7 +119,7 @@
             // Arrange
             const string input = "<html><head></head><body><style></style></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -136,7 +136,7 @@
             // Arrange
             const string input = "<html><head></head><body><p onclick=\"\"></p></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -153,7 +153,7 @@
             // Arrange
             const string input = "<p onclick=\"\"></p>";
             const string expected = "\r\n<p></p>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -170,7 +170,7 @@
             // Arrange
             const string input = "<html><head></head><body><p onmouseover=\"\"></p></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -187,7 +187,7 @@
             // Arrange
             const string input = "<p onmouseover=\"\"></p>";
             const string expected = "\r\n<p></p>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -204,7 +204,7 @@
             // Arrange
             const string input = "<html><head></head><body onload=\"\"></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -221,7 +221,7 @@
             // Arrange
             const string input = "<html><head></head><body><img src=\"\" onerror=\"XSS\" /></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -238,7 +238,7 @@
             // Arrange
             const string input = "<img src=\"\" onerror=\"XSS\" />";
             const string expected = "<img src=\"\">";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -253,9 +253,9 @@
         public void GetSafeHtml_ScriptTagInHeaderShouldBeRemoved()
         {
             // Arrange
-            const string input = @"<html><head><script></script></head><body></body></html>";
+            const string input = "<html><head><script></script></head><body></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -270,9 +270,9 @@
         public void GetSafeHtml_ScriptTagInBodyShouldBeRemoved()
         {
             // Arrange
-            const string input = @"<html><head></head><body><script></script></body></html>";
+            const string input = "<html><head></head><body><script></script></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -289,7 +289,7 @@
             // Arrange
             const string input = "<div style=\"font-family:Foo,Bar\\,'a\\a';font-family:';color:expression(alert(1));y'\">aaa</div>";
             const string expected = "<html>\r\n<body>\r\n<div>aaa</div>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -306,7 +306,7 @@
             // Arrange
             const string input = "<div style=\"font-family:Foo,Bar\\,'a\\a';font-family:';color:expression(alert(1));y'\">aaa</div>";
             const string expected = "\r\n<div>aaa</div>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -322,9 +322,9 @@
         public void GetSafeHtml_BreakTagsShouldNotBeRemoved()
         {
             // Arrange
-            const string input = @"<html><head></head><body><br></body></html>";
+            const string input = "<html><head></head><body><br></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<br>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -342,7 +342,7 @@
             // Arrange
             const string input = "<br>";
             const string expected = "<br>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -362,7 +362,7 @@
             // Arrange
             const string input = "<html><head></head><body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.</body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -382,7 +382,7 @@
             // Arrange
             const string input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.";
             const string expected = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nunc tellus, consectetur eget blandit euismod, pharetra a libero. In pretium, sem sed mollis hendrerit, libero metus condimentum tellus, eget adipiscing odio ligula at velit. Nulla luctus nisl quis sem venenatis ut suscipit mauris posuere.";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -400,7 +400,7 @@
             // Arrange
             const string input = "<html><head></head><body><input type=\"text\" /></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<input type=\"text\">\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -418,7 +418,7 @@
             // Arrange
             const string input = "<input type=\"text\" />";
             const string expected = "<input type=\"text\">";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -437,7 +437,7 @@
             const string input = "This brown fox ";
             const string expected = "This brown fox ";
             const string incorrect = "This brown fox\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -456,7 +456,7 @@
             // Arrange
             const string input = "<html><head></head><body><p id=\"\" id=\"\" style=\"\" style=\"\"></p></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p id=\"\" id=\"\"></p>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -474,7 +474,7 @@
             // Arrange
             const string input = "<p id=\"\" id=\"\" style=\"\" style=\"\"></p>";
             const string expected = "\r\n<p id=\"\" id=\"\"></p>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -492,7 +492,7 @@
             // Arrange
             const string input = "<html><head></head><body><script>alert('hi');</script>This text is removed</body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\nThis text is removed\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -510,7 +510,7 @@
             // Arrange
             const string input = "<script>alert('hi');</script>This text is removed";
             const string expected = "This text is removed";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -528,7 +528,7 @@
             // Arrange
             const string input = "<html><head></head><body><a href=\"\" target=\"\"><img src=\"\" /> My Image</a></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<a href=\"\" target=\"\"><img src=\"\"> My Image</a>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -546,7 +546,7 @@
             // Arrange
             const string input = "<a href=\"\" target=\"\"><img src=\"\" /> My Image</a>";
             const string expected = "<a href=\"\" target=\"\"><img src=\"\"> My Image</a>";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -564,7 +564,7 @@
             // Arrange
             const string input = "<html><head></head><body><b>Some text</b><strong>More text</strong></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<b>Some text</b><strong>More text</strong>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -582,7 +582,7 @@
             // Arrange
             const string input = "<b>Some text</b><strong>More text</strong>";
             const string expected = "<b>Some text</b><strong>More text</strong>";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -599,7 +599,7 @@
             // Arrange
             const string input = "<html><head></head><body><img src=\"javascript:alert('XSS');\"></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -616,7 +616,7 @@
             // Arrange
             const string input = "<img src=\"javascript:alert('XSS');\">";
             const string expected = "<img src=\"\">";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -633,7 +633,7 @@
             // Arrange
             const string input = "<html><head></head><body><img src=javascript:alert('XSS');></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -650,7 +650,7 @@
             // Arrange
             const string input = "<img src=javascript:alert('XSS');>";
             const string expected = "<img src=\"\">";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -667,7 +667,7 @@
             // Arrange
             const string input = "<html><head></head><body><img src=jav   ascript:alert('XSS');></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"jav\">\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -684,7 +684,7 @@
             // Arrange
             const string input = "<img src=jav   ascript:alert('XSS');>";
             const string expected = "<img src=\"jav\">";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -701,7 +701,7 @@
             // Arrange
             const string input = "<html><head></head><body><img><script>alert(\"XSS\")</script></img></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -718,7 +718,7 @@
             // Arrange
             const string input = "<img><script>alert(\"XSS\")</script></img>";
             const string expected = "<img>";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -735,7 +735,7 @@
             // Arrange
             const string input = "<html><head></head><body><IMG SRC=\"jav&#x09;ascript:alert('XSS');\"></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<img src=\"\">\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -752,7 +752,7 @@
             // Arrange
             const string input = "<IMG SRC=\"jav&#x09;ascript:alert('XSS');\">";
             const string expected = "<img src=\"\">";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -769,7 +769,7 @@
             // Arrange
             const string input = "<html><head><title></title></head><body></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -786,7 +786,7 @@
             // Arrange
             const string input = "<title></title>";
             const string expected = "";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -803,7 +803,7 @@
             // Arrange
             const string input = "<html><head><link rel=javascript:alert('XSS');></head><body></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -820,7 +820,7 @@
             // Arrange
             const string input = "<link rel=javascript:alert('XSS');>";
             const string expected = "";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -837,7 +837,7 @@
             // Arrange
             const string input = "<html><head><meta http-equiv=\"refresh\" content=\"0;url=javascript:alert('XSS');\"></head><body></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -854,7 +854,7 @@
             // Arrange
             const string input = "<meta http-equiv=\"refresh\" content=\"0;url=javascript:alert('XSS');\">";
             const string expected = "";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -871,7 +871,7 @@
             // Arrange
             const string input = "<html><head></head><body><table background=\"javascript:alert('XSS');\"></table></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<table background=\"\">\r\n</table>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -888,7 +888,7 @@
             // Arrange
             const string input = "<table background=\"javascript:alert('XSS');\"></table>";
             const string expected = "\r\n<table background=\"\">\r\n</table>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -905,7 +905,7 @@
             // Arrange
             const string input = "<html><head></head><body><object classid=clsid:ae24fdae-03c6-11d1-8b76-0080c744f389><param name=url value=javascript:alert('XSS')></object></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -922,7 +922,7 @@
             // Arrange
             const string input = "<object classid=clsid:ae24fdae-03c6-11d1-8b76-0080c744f389><param name=url value=javascript:alert('XSS')></object>";
             const string expected = "";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -939,7 +939,7 @@
             // Arrange
             const string input = "<html><head></head><body><embed src=\"\" AllowScriptAccess=\"always\"></embed></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -956,7 +956,7 @@
             // Arrange
             const string input = "<embed src=\"\" AllowScriptAccess=\"always\"></embed>";
             const string expected = "";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -973,7 +973,7 @@
             // Arrange
             const string input = "<html><head></head><body><xml id=\"xss\"></xml></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -990,7 +990,7 @@
             // Arrange
             const string input = "<xml id=\"xss\"></xml>";
             const string expected = "";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -1007,7 +1007,7 @@
             // Arrange
             const string input = "<html><head></head><body><div><p></div><p><script src=\"\" /></p></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<div>\r\n<p></p>\r\n</div>\r\n<p></p>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -1024,7 +1024,7 @@
             // Arrange
             const string input = "<div><p></div><p><script src=\"\" /></p>";
             const string expected = "\r\n<div>\r\n<p></p>\r\n</div>\r\n<p></p>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
@@ -1041,7 +1041,7 @@
             // Arrange
             const string input = "<html><head></head><body><div><p><div><p><script src=\"\" /></p></body></html>";
             const string expected = "<html>\r\n<head>\r\n</head>\r\n<body>\r\n<div>\r\n<p></p>\r\n<div>\r\n<p></p>\r\n</div>\r\n</div>\r\n</body>\r\n</html>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtml(input);
 
@@ -1058,7 +1058,7 @@
             // Arrange
             const string input = "<div><p><div><p><script src=\"\" /></p>";
             const string expected = "\r\n<div>\r\n<p></p>\r\n<div>\r\n<p></p>\r\n</div>\r\n</div>\r\n";
-            
+
             // Act
             string actual = Sanitizer.GetSafeHtmlFragment(input);
 
