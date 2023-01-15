@@ -1,10 +1,15 @@
 trigger:
   - main
-  - rel/*
+  - 'v*.*'
 
 pr:
   - main
-  - rel/*
+
+parameters:
+  - name: DoRelease
+    displayName: Release
+    type: boolean
+    default: false
 
 pool:
   vmImage: windows-2022
@@ -12,7 +17,6 @@ pool:
 variables:
   BuildConfiguration: Release
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
 
 stages:
   - stage: Build
@@ -62,7 +66,7 @@ stages:
 
   - stage: Release
     dependsOn: Build
-    condition: and(succeeded(), eq(variables.isMain, 'true'))
+    condition: and(succeeded(), ${{ parameters.DoRelease }})
     jobs:
       - job: NuGet
         steps:
