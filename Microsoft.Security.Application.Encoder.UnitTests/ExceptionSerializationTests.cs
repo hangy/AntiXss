@@ -75,11 +75,13 @@ namespace Microsoft.Security.Application.Tests
         /// <returns>A deserialized instance of <paramref name="instance"/>.</returns>
         private static T SerializeAndDeserialize<T>(T instance)
         {
+#pragma warning disable SYSLIB0011 // Type or member is obsolete - BinaryFormatter can be used safely here
             BinaryFormatter formatter = new BinaryFormatter();
             using MemoryStream ms = new MemoryStream();
             formatter.Serialize(ms, instance);
             ms.Position = 0;
             return (T)formatter.Deserialize(ms);
+#pragma warning restore SYSLIB0011 // Type or member is obsolete - BinaryFormatter can be used safely here
         }
     }
 }
