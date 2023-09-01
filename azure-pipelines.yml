@@ -23,7 +23,7 @@ steps:
   inputs:
     command: custom
     custom: tool
-    arguments: install --tool-path . nbgv --version 3.5.119
+    arguments: install --tool-path . nbgv --version 3.4.231
   displayName: Install NBGV tool
 
 - script: nbgv cloud
