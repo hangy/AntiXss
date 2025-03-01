@@ -38,7 +38,7 @@
 
   <!-- Code Analysis -->
   <ItemGroup>
-    <PackageReference Include="Roslynator.Analyzers" Version="4.12.10" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.13.1" PrivateAssets="All" />
     <PackageReference Include="Roslynator.CodeFixes" Version="4.12.11" PrivateAssets="All" />
   </ItemGroup>
 </Project>
