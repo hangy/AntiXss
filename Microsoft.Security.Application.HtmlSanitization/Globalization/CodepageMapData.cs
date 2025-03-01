@@ -139,7 +139,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// An array holding all the known codepages.
         /// </summary>
         private static readonly CodePage[] AllKnownCodePages =
-        {            
+        [            
             new CodePage(
                 37,
                 1252, 
@@ -148,7 +148,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None,
                 28591,
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 437,
                 1252, 
@@ -157,7 +157,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C6, 0x9048, 0x10), new CodePageRange(0x207F, 0x25A0, 0x71F6, 0x08) }),            
+                [new CodePageRange(0x0000, 0x03C6, 0x9048, 0x10), new CodePageRange(0x207F, 0x25A0, 0x71F6, 0x08)]),            
             new CodePage(
                 500,
                 1252, 
@@ -166,7 +166,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 708,
                 1256, 
@@ -175,7 +175,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FB, 0xA43D, 0x20), new CodePageRange(0x060C, 0x0652, 0x5EDD, 0x01), new CodePageRange(0x2500, 0x25A0, 0x76C2, 0x40), new CodePageRange(0xF8C1, 0xF8C7, 0xFFFF, 0x00) }),           
+                [new CodePageRange(0x0000, 0x00FB, 0xA43D, 0x20), new CodePageRange(0x060C, 0x0652, 0x5EDD, 0x01), new CodePageRange(0x2500, 0x25A0, 0x76C2, 0x40), new CodePageRange(0xF8C1, 0xF8C7, 0xFFFF, 0x00)]),           
             new CodePage(
                 720,
                 1256, 
@@ -184,7 +184,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FB, 0xA43C, 0x10), new CodePageRange(0x0621, 0x0652, 0x5EF2, 0x01), new CodePageRange(0x207F, 0x25A0, 0x756F, 0x02) }),
+                [new CodePageRange(0x0000, 0x00FB, 0xA43C, 0x10), new CodePageRange(0x0621, 0x0652, 0x5EF2, 0x01), new CodePageRange(0x207F, 0x25A0, 0x756F, 0x02)]),
             new CodePage(
                 737,
                 1253, 
@@ -193,7 +193,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03CE, 0x8C58, 0x01), new CodePageRange(0x207F, 0x25A0, 0x767A, 0x20) }),
+                [new CodePageRange(0x0000, 0x03CE, 0x8C58, 0x01), new CodePageRange(0x207F, 0x25A0, 0x767A, 0x20)]),
             new CodePage(
                 775,
                 1257, 
@@ -202,7 +202,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x017E, 0x9F52, 0x80), new CodePageRange(0x2019, 0x25A0, 0x71ED, 0x01) }),
+                [new CodePageRange(0x0000, 0x017E, 0x9F52, 0x80), new CodePageRange(0x2019, 0x25A0, 0x71ED, 0x01)]),
             new CodePage(
                 850,
                 1252, 
@@ -211,7 +211,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0192, 0x9F17, 0x40), new CodePageRange(0x2017, 0x2017, 0xFFFF, 0x00), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01) }),
+                [new CodePageRange(0x0000, 0x0192, 0x9F17, 0x40), new CodePageRange(0x2017, 0x2017, 0xFFFF, 0x00), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01)]),
             new CodePage(
                 852,
                 1250, 
@@ -220,7 +220,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02DD, 0x9797, 0x10), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01) }),
+                [new CodePageRange(0x0000, 0x02DD, 0x9797, 0x10), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01)]),
             new CodePage(
                 855,
                 1252, 
@@ -229,7 +229,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x045F, 0x7A91, 0x02), new CodePageRange(0x2116, 0x25A0, 0x7775, 0x01) }),
+                [new CodePageRange(0x0000, 0x045F, 0x7A91, 0x02), new CodePageRange(0x2116, 0x25A0, 0x7775, 0x01)]),
             new CodePage(
                 857,
                 1254, 
@@ -238,7 +238,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x015F, 0xA0BA, 0x20), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01), new CodePageRange(0xF8BB, 0xF8BD, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x015F, 0xA0BA, 0x20), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01), new CodePageRange(0xF8BB, 0xF8BD, 0xFFFF, 0x00)]),
             new CodePage(
                 858,
                 1252, 
@@ -247,7 +247,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0192, 0x9F19, 0x10), new CodePageRange(0x2017, 0x20AC, 0xA618, 0x10), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01) }),
+                [new CodePageRange(0x0000, 0x0192, 0x9F19, 0x10), new CodePageRange(0x2017, 0x20AC, 0xA618, 0x10), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01)]),
             new CodePage(
                 860,
                 1252, 
@@ -256,7 +256,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C6, 0x9027, 0x01), new CodePageRange(0x207F, 0x25A0, 0x73D3, 0x04) }),
+                [new CodePageRange(0x0000, 0x03C6, 0x9027, 0x01), new CodePageRange(0x207F, 0x25A0, 0x73D3, 0x04)]),
             new CodePage(
                 861,
                 1252, 
@@ -265,7 +265,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C6, 0x9045, 0x20), new CodePageRange(0x207F, 0x25A0, 0x71F6, 0x08) }),
+                [new CodePageRange(0x0000, 0x03C6, 0x9045, 0x20), new CodePageRange(0x207F, 0x25A0, 0x71F6, 0x08)]),
             new CodePage(
                 862,
                 1255, 
@@ -274,7 +274,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x05EA, 0x6C0B, 0x08), new CodePageRange(0x207F, 0x25A0, 0x71F6, 0x08) }),
+                [new CodePageRange(0x0000, 0x05EA, 0x6C0B, 0x08), new CodePageRange(0x207F, 0x25A0, 0x71F6, 0x08)]),
             new CodePage(
                 863,
                 1252, 
@@ -283,7 +283,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C6, 0x9045, 0x80), new CodePageRange(0x2017, 0x25A0, 0x71D9, 0x40) }),
+                [new CodePageRange(0x0000, 0x03C6, 0x9045, 0x80), new CodePageRange(0x2017, 0x25A0, 0x71D9, 0x40)]),
             new CodePage(
                 864,
                 1256, 
@@ -292,7 +292,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0669, 0x5E67, 0x80), new CodePageRange(0x2219, 0x25A0, 0x940F, 0x10), new CodePageRange(0xF8BE, 0xF8C0, 0xFFFF, 0x00), new CodePageRange(0xFE7D, 0xFEFC, 0xA61C, 0x40) }),
+                [new CodePageRange(0x0000, 0x0669, 0x5E67, 0x80), new CodePageRange(0x2219, 0x25A0, 0x940F, 0x10), new CodePageRange(0xF8BE, 0xF8C0, 0xFFFF, 0x00), new CodePageRange(0xFE7D, 0xFEFC, 0xA61C, 0x40)]),
             new CodePage(
                 865,
                 1252, 
@@ -301,7 +301,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C6, 0x904B, 0x08), new CodePageRange(0x207F, 0x25A0, 0x71F6, 0x08) }),
+                [new CodePageRange(0x0000, 0x03C6, 0x904B, 0x08), new CodePageRange(0x207F, 0x25A0, 0x71F6, 0x08)]),
             new CodePage(
                 866,
                 1251, 
@@ -310,7 +310,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x045E, 0x7BEE, 0x40), new CodePageRange(0x2116, 0x25A0, 0x7763, 0x40) }),
+                [new CodePageRange(0x0000, 0x045E, 0x7BEE, 0x40), new CodePageRange(0x2116, 0x25A0, 0x7763, 0x40)]),
             new CodePage(
                 869,
                 1253, 
@@ -319,7 +319,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03CE, 0x89E6, 0x04), new CodePageRange(0x2015, 0x2019, 0x5F7D, 0x08), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01) }),
+                [new CodePageRange(0x0000, 0x03CE, 0x89E6, 0x04), new CodePageRange(0x2015, 0x2019, 0x5F7D, 0x08), new CodePageRange(0x2500, 0x25A0, 0x7B5F, 0x01)]),
             new CodePage(
                 870,
                 1250, 
@@ -328,7 +328,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28592, 
-                new[] { new CodePageRange(0x0000, 0x02DD, 0x9794, 0x80) }),
+                [new CodePageRange(0x0000, 0x02DD, 0x9794, 0x80)]),
             new CodePage(
                 874,
                 874, 
@@ -337,7 +337,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00A0, 0xA5F3, 0x02), new CodePageRange(0x0E01, 0x0E5B, 0xA699, 0x80), new CodePageRange(0x2013, 0x20AC, 0xA5F5, 0x20), new CodePageRange(0xF8C1, 0xF8C8, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00A0, 0xA5F3, 0x02), new CodePageRange(0x0E01, 0x0E5B, 0xA699, 0x80), new CodePageRange(0x2013, 0x20AC, 0xA5F5, 0x20), new CodePageRange(0xF8C1, 0xF8C8, 0xFFFF, 0x00)]),
             new CodePage(
                 875,
                 1253, 
@@ -346,7 +346,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03CE, 0x88F1, 0x40), new CodePageRange(0x2015, 0x2019, 0x5F7D, 0x08) }),
+                [new CodePageRange(0x0000, 0x03CE, 0x88F1, 0x40), new CodePageRange(0x2015, 0x2019, 0x5F7D, 0x08)]),
             new CodePage(
                 932,
                 932, 
@@ -355,7 +355,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x804D, 0x40), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0CA, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x804D, 0x40), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0CA, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80)]),
             new CodePage(
                 936,
                 936, 
@@ -364,7 +364,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x800A, 0x08), new CodePageRange(0x2010, 0x2642, 0x65D8, 0x08), new CodePageRange(0x3000, 0x33D5, 0x8795, 0x02), new CodePageRange(0x4E00, 0x9FA5, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE864, 0xFFFF, 0x00), new CodePageRange(0xF8F5, 0xFA29, 0xA208, 0x04), new CodePageRange(0xFE30, 0xFFE5, 0x9D55, 0x01) }),
+                [new CodePageRange(0x0000, 0x0451, 0x800A, 0x08), new CodePageRange(0x2010, 0x2642, 0x65D8, 0x08), new CodePageRange(0x3000, 0x33D5, 0x8795, 0x02), new CodePageRange(0x4E00, 0x9FA5, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE864, 0xFFFF, 0x00), new CodePageRange(0xF8F5, 0xFA29, 0xA208, 0x04), new CodePageRange(0xFE30, 0xFFE5, 0x9D55, 0x01)]),
             new CodePage(
                 949,
                 949, 
@@ -373,7 +373,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x804E, 0x10), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD7A3, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE0BB, 0xFFFF, 0x00), new CodePageRange(0xF8F7, 0xFA0B, 0xA229, 0x40), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x804E, 0x10), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD7A3, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE0BB, 0xFFFF, 0x00), new CodePageRange(0xF8F7, 0xFA0B, 0xA229, 0x40), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80)]),
             new CodePage(
                 950,
                 950, 
@@ -382,7 +382,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C9, 0x8DB5, 0x04), new CodePageRange(0x2013, 0x2642, 0x67EB, 0x04), new CodePageRange(0x3000, 0x33D5, 0x88A4, 0x10), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x04), new CodePageRange(0xE000, 0xFA0D, 0x51A1, 0x10), new CodePageRange(0xFE30, 0xFFE5, 0x9D95, 0x04) }),
+                [new CodePageRange(0x0000, 0x03C9, 0x8DB5, 0x04), new CodePageRange(0x2013, 0x2642, 0x67EB, 0x04), new CodePageRange(0x3000, 0x33D5, 0x88A4, 0x10), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x04), new CodePageRange(0xE000, 0xFA0D, 0x51A1, 0x10), new CodePageRange(0xFE30, 0xFFE5, 0x9D95, 0x04)]),
             new CodePage(
                 1026,
                 1254, 
@@ -391,7 +391,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28599, 
-                new[] { new CodePageRange(0x0000, 0x015F, 0xA0BC, 0x08) }),
+                [new CodePageRange(0x0000, 0x015F, 0xA0BC, 0x08)]),
             new CodePage(
                 1047,
                 1252, 
@@ -400,7 +400,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 1140,
                 1252, 
@@ -409,7 +409,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1141,
                 1252, 
@@ -418,7 +418,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1142,
                 1252, 
@@ -427,7 +427,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1143,
                 1252, 
@@ -436,7 +436,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1144,
                 1252, 
@@ -445,7 +445,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1145,
                 1252, 
@@ -454,7 +454,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1146,
                 1252, 
@@ -463,7 +463,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1147,
                 1252, 
@@ -472,7 +472,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1148,
                 1252, 
@@ -481,7 +481,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1149,
                 1252, 
@@ -490,7 +490,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xA33E, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 1200,
                 1200, 
@@ -517,7 +517,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02DD, 0x979A, 0x08), new CodePageRange(0x2013, 0x2122, 0xA22F, 0x01) }),
+                [new CodePageRange(0x0000, 0x02DD, 0x979A, 0x08), new CodePageRange(0x2013, 0x2122, 0xA22F, 0x01)]),
             new CodePage(
                 1251,
                 1251, 
@@ -526,7 +526,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0491, 0x7718, 0x08), new CodePageRange(0x2013, 0x2122, 0xA33D, 0x04) }),
+                [new CodePageRange(0x0000, 0x0491, 0x7718, 0x08), new CodePageRange(0x2013, 0x2122, 0xA33D, 0x04)]),
             new CodePage(
                 1252,
                 1252, 
@@ -535,7 +535,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02DC, 0x9865, 0x04), new CodePageRange(0x2013, 0x2122, 0xA22F, 0x01) }),
+                [new CodePageRange(0x0000, 0x02DC, 0x9865, 0x04), new CodePageRange(0x2013, 0x2122, 0xA22F, 0x01)]),
             new CodePage(
                 1253,
                 1253, 
@@ -544,7 +544,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03CE, 0x8B6B, 0x02), new CodePageRange(0x2013, 0x2122, 0xA33C, 0x08), new CodePageRange(0xF8F9, 0xF8FB, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x03CE, 0x8B6B, 0x02), new CodePageRange(0x2013, 0x2122, 0xA33C, 0x08), new CodePageRange(0xF8F9, 0xF8FB, 0xFFFF, 0x00)]),
             new CodePage(
                 1254,
                 1254, 
@@ -553,7 +553,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02DC, 0x97CD, 0x20), new CodePageRange(0x2013, 0x2122, 0xA22F, 0x01) }),
+                [new CodePageRange(0x0000, 0x02DC, 0x97CD, 0x20), new CodePageRange(0x2013, 0x2122, 0xA22F, 0x01)]),
             new CodePage(
                 1255,
                 1255, 
@@ -562,7 +562,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x05F4, 0x6BAF, 0x10), new CodePageRange(0x200E, 0x2122, 0xA338, 0x80), new CodePageRange(0xF88D, 0xF896, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x05F4, 0x6BAF, 0x10), new CodePageRange(0x200E, 0x2122, 0xA338, 0x80), new CodePageRange(0xF88D, 0xF896, 0xFFFF, 0x00)]),
             new CodePage(
                 1256,
                 1256, 
@@ -571,7 +571,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x06D2, 0x58D1, 0x01), new CodePageRange(0x200C, 0x2122, 0xA228, 0x01) }),
+                [new CodePageRange(0x0000, 0x06D2, 0x58D1, 0x01), new CodePageRange(0x200C, 0x2122, 0xA228, 0x01)]),
             new CodePage(
                 1257,
                 1257, 
@@ -580,7 +580,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02DB, 0x9A72, 0x80), new CodePageRange(0x2013, 0x2122, 0xA22F, 0x01), new CodePageRange(0xF8FC, 0xF8FD, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x02DB, 0x9A72, 0x80), new CodePageRange(0x2013, 0x2122, 0xA22F, 0x01), new CodePageRange(0xF8FC, 0xF8FD, 0xFFFF, 0x00)]),
             new CodePage(
                 1258,
                 1258, 
@@ -589,7 +589,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0323, 0x96C5, 0x02), new CodePageRange(0x2013, 0x2122, 0xA33C, 0x02) }),
+                [new CodePageRange(0x0000, 0x0323, 0x96C5, 0x02), new CodePageRange(0x2013, 0x2122, 0xA33C, 0x02)]),
             new CodePage(
                 1361,
                 949, 
@@ -598,7 +598,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x849F, 0x40), new CodePageRange(0x1100, 0x11DF, 0xA538, 0x10), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x8608, 0x04), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD7A3, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE0BB, 0xFFFF, 0x00), new CodePageRange(0xF8EC, 0xFA0B, 0xA21C, 0x08), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x849F, 0x40), new CodePageRange(0x1100, 0x11DF, 0xA538, 0x10), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x8608, 0x04), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD7A3, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE0BB, 0xFFFF, 0x00), new CodePageRange(0xF8EC, 0xFA0B, 0xA21C, 0x08), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80)]),
             new CodePage(
                 10000,
                 1252, 
@@ -607,7 +607,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C0, 0x9304, 0x02), new CodePageRange(0x2013, 0x25CA, 0x6C35, 0x01), new CodePageRange(0xF8FF, 0xFB02, 0x9D4E, 0x80) }),
+                [new CodePageRange(0x0000, 0x03C0, 0x9304, 0x02), new CodePageRange(0x2013, 0x25CA, 0x6C35, 0x01), new CodePageRange(0xF8FF, 0xFB02, 0x9D4E, 0x80)]),
             new CodePage(
                 10001,
                 932, 
@@ -616,7 +616,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x8455, 0x80), new CodePageRange(0x2010, 0x266F, 0x5FA4, 0x01), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF929, 0xFA2D, 0xA103, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x8455, 0x80), new CodePageRange(0x2010, 0x266F, 0x5FA4, 0x01), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF929, 0xFA2D, 0xA103, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80)]),
             new CodePage(
                 10002,
                 950, 
@@ -625,7 +625,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C9, 0x8F3A, 0x02), new CodePageRange(0x2013, 0x2642, 0x6A92, 0x20), new CodePageRange(0x3000, 0x33D5, 0x88A4, 0x10), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x04), new CodePageRange(0xE000, 0xFA0D, 0x519D, 0x40), new CodePageRange(0xFE30, 0xFFE5, 0x9D95, 0x04) }),
+                [new CodePageRange(0x0000, 0x03C9, 0x8F3A, 0x02), new CodePageRange(0x2013, 0x2642, 0x6A92, 0x20), new CodePageRange(0x3000, 0x33D5, 0x88A4, 0x10), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x04), new CodePageRange(0xE000, 0xFA0D, 0x519D, 0x40), new CodePageRange(0xFE30, 0xFFE5, 0x9D95, 0x04)]),
             new CodePage(
                 10003,
                 949, 
@@ -634,7 +634,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 51949, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7EF1, 0x02), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD79D, 0x0000, 0x80), new CodePageRange(0xF8E6, 0xFA0B, 0xA21A, 0x20), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7EF1, 0x02), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD79D, 0x0000, 0x80), new CodePageRange(0xF8E6, 0xFA0B, 0xA21A, 0x20), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80)]),
             new CodePage(
                 10004,
                 1256, 
@@ -643,7 +643,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FC, 0xA33F, 0x01), new CodePageRange(0x060C, 0x06D5, 0xA539, 0x01), new CodePageRange(0x2026, 0x2026, 0xFFFF, 0x00), new CodePageRange(0xF827, 0xF840, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FC, 0xA33F, 0x01), new CodePageRange(0x060C, 0x06D5, 0xA539, 0x01), new CodePageRange(0x2026, 0x2026, 0xFFFF, 0x00), new CodePageRange(0xF827, 0xF840, 0xFFFF, 0x00)]),
             new CodePage(
                 10005,
                 1255, 
@@ -652,7 +652,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FC, 0xA340, 0x20), new CodePageRange(0x05B0, 0x05EA, 0xA69E, 0x08), new CodePageRange(0x2013, 0x20AA, 0xA603, 0x01), new CodePageRange(0xF7FC, 0xF826, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FC, 0xA340, 0x20), new CodePageRange(0x05B0, 0x05EA, 0xA69E, 0x08), new CodePageRange(0x2013, 0x20AA, 0xA603, 0x01), new CodePageRange(0xF7FC, 0xF826, 0xFFFF, 0x00)]),
             new CodePage(
                 10006,
                 1253, 
@@ -661,7 +661,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03CE, 0x8C76, 0x20), new CodePageRange(0x2013, 0x2265, 0x9A9A, 0x40), new CodePageRange(0xF8A0, 0xF8A0, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x03CE, 0x8C76, 0x20), new CodePageRange(0x2013, 0x2265, 0x9A9A, 0x40), new CodePageRange(0xF8A0, 0xF8A0, 0xFFFF, 0x00)]),
             new CodePage(
                 10007,
                 1251, 
@@ -670,7 +670,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x045F, 0x7BEE, 0x10), new CodePageRange(0x2013, 0x2265, 0x9AAA, 0x20) }),
+                [new CodePageRange(0x0000, 0x045F, 0x7BEE, 0x10), new CodePageRange(0x2013, 0x2265, 0x9AAA, 0x20)]),
             new CodePage( 
                 10008,
                 936, 
@@ -679,7 +679,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7FFC, 0x20),  new CodePageRange(0x2015, 0x2642, 0x6BAB, 0x40), new CodePageRange(0x3000, 0x3229, 0x9CC5, 0x02), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x10), new CodePageRange(0xF8D8, 0xF8FF, 0xFFFF, 0x00), new CodePageRange(0xFF01, 0xFFE5, 0x9FD5, 0x20) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7FFC, 0x20),  new CodePageRange(0x2015, 0x2642, 0x6BAB, 0x40), new CodePageRange(0x3000, 0x3229, 0x9CC5, 0x02), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x10), new CodePageRange(0xF8D8, 0xF8FF, 0xFFFF, 0x00), new CodePageRange(0xFF01, 0xFFE5, 0x9FD5, 0x20)]),
             new CodePage(
                 10010,
                 1250, 
@@ -688,7 +688,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C0, 0x93EE, 0x01), new CodePageRange(0x2013, 0x25CA, 0x6E1B, 0x04), new CodePageRange(0xF8FF, 0xF8FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x03C0, 0x93EE, 0x01), new CodePageRange(0x2013, 0x25CA, 0x6E1B, 0x04), new CodePageRange(0xF8FF, 0xF8FF, 0xFFFF, 0x00)]),
             new CodePage(
                 10017,
                 1251, 
@@ -697,7 +697,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0491, 0x7711, 0x80), new CodePageRange(0x2013, 0x2265, 0x9B42, 0x04) }),
+                [new CodePageRange(0x0000, 0x0491, 0x7711, 0x80), new CodePageRange(0x2013, 0x2265, 0x9B42, 0x04)]),
             new CodePage(
                 10021,
                 874, 
@@ -706,7 +706,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00BB, 0xA539, 0x20), new CodePageRange(0x0E01, 0x0E59, 0xA69B, 0x01), new CodePageRange(0x200B, 0x2122, 0xA224, 0x02), new CodePageRange(0xFEFF, 0xFEFF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00BB, 0xA539, 0x20), new CodePageRange(0x0E01, 0x0E59, 0xA69B, 0x01), new CodePageRange(0x200B, 0x2122, 0xA224, 0x02), new CodePageRange(0xFEFF, 0xFEFF, 0xFFFF, 0x00)]),
             new CodePage(
                 10029,
                 1250, 
@@ -715,7 +715,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02C7, 0x9A8D, 0x01), new CodePageRange(0x2013, 0x25CA, 0x71A4, 0x10) }),
+                [new CodePageRange(0x0000, 0x02C7, 0x9A8D, 0x01), new CodePageRange(0x2013, 0x25CA, 0x71A4, 0x10)]),
             new CodePage(
                 10079,
                 1252, 
@@ -724,7 +724,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C0, 0x940C, 0x20), new CodePageRange(0x2013, 0x25CA, 0x6FB7, 0x02), new CodePageRange(0xF8FF, 0xF8FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x03C0, 0x940C, 0x20), new CodePageRange(0x2013, 0x25CA, 0x6FB7, 0x02), new CodePageRange(0xF8FF, 0xF8FF, 0xFFFF, 0x00)]),
             new CodePage(
                 10081,
                 1254, 
@@ -733,7 +733,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C0, 0x908A, 0x40), new CodePageRange(0x2013, 0x25CA, 0x70C2, 0x20), new CodePageRange(0xF8A0, 0xF8FF, 0xA694, 0x02) }),
+                [new CodePageRange(0x0000, 0x03C0, 0x908A, 0x40), new CodePageRange(0x2013, 0x25CA, 0x70C2, 0x20), new CodePageRange(0xF8A0, 0xF8FF, 0xA694, 0x02)]),
             new CodePage(
                 10082,
                 1250, 
@@ -742,7 +742,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C0, 0x917F, 0x04), new CodePageRange(0x2013, 0x25CA, 0x7159, 0x80),  new CodePageRange(0xF8FF, 0xF8FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x03C0, 0x917F, 0x04), new CodePageRange(0x2013, 0x25CA, 0x7159, 0x80),  new CodePageRange(0xF8FF, 0xF8FF, 0xFFFF, 0x00)]),
             new CodePage(
                 12000,
                 1200, 
@@ -769,7 +769,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x8003, 0x80), new CodePageRange(0x2013, 0x273D, 0x51A6, 0x01), new CodePageRange(0x3000, 0x33D5, 0x8882, 0x01), new CodePageRange(0x415A, 0x415A, 0xFFFF, 0x00), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x02), new CodePageRange(0xE000, 0xEDD2, 0x51A5, 0x08), new CodePageRange(0xF8F0, 0xF8F1, 0xFFFF, 0x00), new CodePageRange(0xFE30, 0xFFE5, 0x9D52, 0x08) }),
+                [new CodePageRange(0x0000, 0x0451, 0x8003, 0x80), new CodePageRange(0x2013, 0x273D, 0x51A6, 0x01), new CodePageRange(0x3000, 0x33D5, 0x8882, 0x01), new CodePageRange(0x415A, 0x415A, 0xFFFF, 0x00), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x02), new CodePageRange(0xE000, 0xEDD2, 0x51A5, 0x08), new CodePageRange(0xF8F0, 0xF8F1, 0xFFFF, 0x00), new CodePageRange(0xFE30, 0xFFE5, 0x9D52, 0x08)]),
             new CodePage(
                 20001,
                 950, 
@@ -778,7 +778,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x8343, 0x02), new CodePageRange(0x2013, 0x273D, 0x51A6, 0x01), new CodePageRange(0x3000, 0x33D5, 0x8882, 0x01), new CodePageRange(0x415A, 0x415A, 0xFFFF, 0x00), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x02), new CodePageRange(0xE000, 0xF8F0, 0x51A1, 0x20), new CodePageRange(0xFE30, 0xFFE5, 0x9D52, 0x08) }),
+                [new CodePageRange(0x0000, 0x0451, 0x8343, 0x02), new CodePageRange(0x2013, 0x273D, 0x51A6, 0x01), new CodePageRange(0x3000, 0x33D5, 0x8882, 0x01), new CodePageRange(0x415A, 0x415A, 0xFFFF, 0x00), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x02), new CodePageRange(0xE000, 0xF8F0, 0x51A1, 0x20), new CodePageRange(0xFE30, 0xFFE5, 0x9D52, 0x08)]),
             new CodePage(
                 20002,
                 950, 
@@ -787,7 +787,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7C00, 0x01), new CodePageRange(0x2013, 0x273D, 0x51A6, 0x01), new CodePageRange(0x3000, 0x33D5, 0x8882, 0x01), new CodePageRange(0x415A, 0x415A, 0xFFFF, 0x00), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x02), new CodePageRange(0xE000, 0xE401, 0xFFFF, 0x00), new CodePageRange(0xF8BA, 0xF8E7, 0xFFFF, 0x00), new CodePageRange(0xFE30, 0xFFE5, 0x9D52, 0x08) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7C00, 0x01), new CodePageRange(0x2013, 0x273D, 0x51A6, 0x01), new CodePageRange(0x3000, 0x33D5, 0x8882, 0x01), new CodePageRange(0x415A, 0x415A, 0xFFFF, 0x00), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x02), new CodePageRange(0xE000, 0xE401, 0xFFFF, 0x00), new CodePageRange(0xF8BA, 0xF8E7, 0xFFFF, 0x00), new CodePageRange(0xFE30, 0xFFE5, 0x9D52, 0x08)]),
             new CodePage(
                 20003,
                 950, 
@@ -796,7 +796,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7C00, 0x01), new CodePageRange(0x2013, 0x273D, 0x573C, 0x80), new CodePageRange(0x3000, 0x33D5, 0x8882, 0x01), new CodePageRange(0x4E00, 0x5203, 0x84A0, 0x10), new CodePageRange(0x5206, 0x9FA4, 0x0406, 0x02), new CodePageRange(0xE000, 0xF317, 0xFFFF, 0x00), new CodePageRange(0xF8A3, 0xFA0D, 0xA0AC, 0x10), new CodePageRange(0xFE32, 0xFFE5, 0x9F08, 0x08) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7C00, 0x01), new CodePageRange(0x2013, 0x273D, 0x573C, 0x80), new CodePageRange(0x3000, 0x33D5, 0x8882, 0x01), new CodePageRange(0x4E00, 0x5203, 0x84A0, 0x10), new CodePageRange(0x5206, 0x9FA4, 0x0406, 0x02), new CodePageRange(0xE000, 0xF317, 0xFFFF, 0x00), new CodePageRange(0xF8A3, 0xFA0D, 0xA0AC, 0x10), new CodePageRange(0xFE32, 0xFFE5, 0x9F08, 0x08)]),
             new CodePage(
                 20004,
                 950, 
@@ -805,7 +805,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02D9, 0x9A75, 0x10), new CodePageRange(0x2035, 0x223C, 0x9CFD, 0x20), new CodePageRange(0x3002, 0x3129, 0xA217, 0x10), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x08), new CodePageRange(0xE000, 0xE31B, 0x977E, 0x40), new CodePageRange(0xF882, 0xF8A2, 0xFFFF, 0x00), new CodePageRange(0xFE35, 0xFF5D, 0xA20F, 0x80) }),
+                [new CodePageRange(0x0000, 0x02D9, 0x9A75, 0x10), new CodePageRange(0x2035, 0x223C, 0x9CFD, 0x20), new CodePageRange(0x3002, 0x3129, 0xA217, 0x10), new CodePageRange(0x4E00, 0x9FA4, 0x0000, 0x08), new CodePageRange(0xE000, 0xE31B, 0x977E, 0x40), new CodePageRange(0xF882, 0xF8A2, 0xFFFF, 0x00), new CodePageRange(0xFE35, 0xFF5D, 0xA20F, 0x80)]),
             new CodePage(
                 20005,
                 950, 
@@ -814,7 +814,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03C9, 0x8CC0, 0x40), new CodePageRange(0x2013, 0x2642, 0x6987, 0x02), new CodePageRange(0x3000, 0x33D5, 0x88A0, 0x20), new CodePageRange(0x4E00, 0x65E1, 0x51A5, 0x02), new CodePageRange(0x65E2, 0x7591, 0x17E2, 0x02), new CodePageRange(0x7594, 0x7675, 0x2794, 0x02), new CodePageRange(0x7678, 0x8FB4, 0x2878, 0x02), new CodePageRange(0x8FBF, 0x9FA4, 0x51A5, 0x04), new CodePageRange(0xE000, 0xF36D, 0xFFFF, 0x00), new CodePageRange(0xF870, 0xFA0D, 0x9F0B, 0x01), new CodePageRange(0xFE30, 0xFFE5, 0x9EEF, 0x02) }),
+                [new CodePageRange(0x0000, 0x03C9, 0x8CC0, 0x40), new CodePageRange(0x2013, 0x2642, 0x6987, 0x02), new CodePageRange(0x3000, 0x33D5, 0x88A0, 0x20), new CodePageRange(0x4E00, 0x65E1, 0x51A5, 0x02), new CodePageRange(0x65E2, 0x7591, 0x17E2, 0x02), new CodePageRange(0x7594, 0x7675, 0x2794, 0x02), new CodePageRange(0x7678, 0x8FB4, 0x2878, 0x02), new CodePageRange(0x8FBF, 0x9FA4, 0x51A5, 0x04), new CodePageRange(0xE000, 0xF36D, 0xFFFF, 0x00), new CodePageRange(0xF870, 0xFA0D, 0x9F0B, 0x01), new CodePageRange(0xFE30, 0xFFE5, 0x9EEF, 0x02)]),
             new CodePage(
                 20105,
                 1252, 
@@ -823,7 +823,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00A4, 0xA5F2, 0x04), new CodePageRange(0x203E, 0x2207, 0x9D4F, 0x10) }),
+                [new CodePageRange(0x0000, 0x00A4, 0xA5F2, 0x04), new CodePageRange(0x203E, 0x2207, 0x9D4F, 0x10)]),
             new CodePage(
                 20106,
                 1252, 
@@ -832,7 +832,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FC, 0xA33F, 0x10) }),
+                [new CodePageRange(0x0000, 0x00FC, 0xA33F, 0x10)]),
             new CodePage(
                 20107,
                 1252, 
@@ -841,7 +841,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FC, 0xA43C, 0x01) }),
+                [new CodePageRange(0x0000, 0x00FC, 0xA43C, 0x01)]),
             new CodePage(
                 20108,
                 1252, 
@@ -850,7 +850,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00F8, 0xA43E, 0x40) }),
+                [new CodePageRange(0x0000, 0x00F8, 0xA43E, 0x40)]),
             new CodePage(
                 20127,
                 1252, 
@@ -859,7 +859,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable | CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x007F, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x007F, 0xFFFF, 0x00)]),
             new CodePage(
                 20261,
                 1252, 
@@ -868,7 +868,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02DD, 0x97AF, 0x01), new CodePageRange(0x1E02, 0x2126, 0x9540, 0x04), new CodePageRange(0xF8DD, 0xF8FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x02DD, 0x97AF, 0x01), new CodePageRange(0x1E02, 0x2126, 0x9540, 0x04), new CodePageRange(0xF8DD, 0xF8FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20269,
                 1252, 
@@ -877,7 +877,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0332, 0x944B, 0x40), new CodePageRange(0x2015, 0x2193, 0x9F4B, 0x04), new CodePageRange(0x2669, 0x2669, 0xFFFF, 0x00), new CodePageRange(0xF8F6, 0xF8FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x0332, 0x944B, 0x40), new CodePageRange(0x2015, 0x2193, 0x9F4B, 0x04), new CodePageRange(0x2669, 0x2669, 0xFFFF, 0x00), new CodePageRange(0xF8F6, 0xF8FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20273,
                 1252, 
@@ -886,7 +886,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20277,
                 1252, 
@@ -895,7 +895,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20278,
                 1252, 
@@ -904,7 +904,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20280,
                 1252, 
@@ -913,7 +913,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20284,
                 1252, 
@@ -922,7 +922,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20285,
                 1252, 
@@ -931,7 +931,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20290,
                 932, 
@@ -940,7 +940,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00AC, 0xA5F1, 0x08), new CodePageRange(0x203E, 0x203E, 0xFFFF, 0x00), new CodePageRange(0xFF61, 0xFF9F, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00AC, 0xA5F1, 0x08), new CodePageRange(0x203E, 0x203E, 0xFFFF, 0x00), new CodePageRange(0xFF61, 0xFF9F, 0xFFFF, 0x00)]),
             new CodePage(
                 20297,
                 1252, 
@@ -949,7 +949,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20420,
                 1256, 
@@ -958,7 +958,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00F7, 0xA44C, 0x02), new CodePageRange(0x060C, 0x0669, 0xA697, 0x04), new CodePageRange(0x2007, 0x2007, 0xFFFF, 0x00), new CodePageRange(0xF8F4, 0xF8FC, 0xA6D9, 0x08), new CodePageRange(0xFE7C, 0xFEFC, 0xA618, 0x80) }),
+                [new CodePageRange(0x0000, 0x00F7, 0xA44C, 0x02), new CodePageRange(0x060C, 0x0669, 0xA697, 0x04), new CodePageRange(0x2007, 0x2007, 0xFFFF, 0x00), new CodePageRange(0xF8F4, 0xF8FC, 0xA6D9, 0x08), new CodePageRange(0xFE7C, 0xFEFC, 0xA618, 0x80)]),
             new CodePage(
                 20423,
                 1253, 
@@ -967,7 +967,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03CE, 0x88A7, 0x80) }),
+                [new CodePageRange(0x0000, 0x03CE, 0x88A7, 0x80)]),
             new CodePage(
                 20424,
                 1255, 
@@ -976,7 +976,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00F7, 0xA44C, 0x08), new CodePageRange(0x05D0, 0x05EA, 0xFFFF, 0x00), new CodePageRange(0x2017, 0x203E, 0xA6AE, 0x10) }),
+                [new CodePageRange(0x0000, 0x00F7, 0xA44C, 0x08), new CodePageRange(0x05D0, 0x05EA, 0xFFFF, 0x00), new CodePageRange(0x2017, 0x203E, 0xA6AE, 0x10)]),
             new CodePage(
                 20833,
                 949, 
@@ -985,7 +985,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00AC, 0xA544, 0x08), new CodePageRange(0x203E, 0x20A9, 0xA68F, 0x20), new CodePageRange(0xFFA0, 0xFFDC, 0xA69C, 0x40) }),
+                [new CodePageRange(0x0000, 0x00AC, 0xA544, 0x08), new CodePageRange(0x203E, 0x20A9, 0xA68F, 0x20), new CodePageRange(0xFFA0, 0xFFDC, 0xA69C, 0x40)]),
             new CodePage(
                 20838,
                 874, 
@@ -994,7 +994,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00AC, 0xA545, 0x04), new CodePageRange(0x0E01, 0x0E5B, 0xA699, 0x80) }),
+                [new CodePageRange(0x0000, 0x00AC, 0xA545, 0x04), new CodePageRange(0x0E01, 0x0E5B, 0xA699, 0x80)]),
             new CodePage(
                 20866,
                 1251, 
@@ -1003,7 +1003,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x8052, 0x01), new CodePageRange(0x2219, 0x25A0, 0x940C, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x8052, 0x01), new CodePageRange(0x2219, 0x25A0, 0x940C, 0x80)]),
             new CodePage(
                 20871,
                 1252, 
@@ -1012,7 +1012,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28591, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 20880,
                 1251, 
@@ -1021,7 +1021,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x045F, 0x7BA3, 0x80), new CodePageRange(0x2116, 0x2116, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x045F, 0x7BA3, 0x80), new CodePageRange(0x2116, 0x2116, 0xFFFF, 0x00)]),
             new CodePage(
                 20905,
                 1254, 
@@ -1030,7 +1030,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02D9, 0x9A78, 0x08) }),
+                [new CodePageRange(0x0000, 0x02D9, 0x9A78, 0x08)]),
             new CodePage(
                 20924,
                 1252, 
@@ -1039,7 +1039,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x017E, 0xA0A5, 0x02), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x017E, 0xA0A5, 0x02), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
             new CodePage(
                 20932,
                 932, 
@@ -1048,7 +1048,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x045F, 0x7BAA, 0x08), new CodePageRange(0x2010, 0x266F, 0x618B, 0x04), new CodePageRange(0x3000, 0x33CD, 0x8C7D, 0x08), new CodePageRange(0x4E00, 0x9FA5, 0x0000, 0x01), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0D1, 0x80), new CodePageRange(0xFF01, 0xFFE5, 0xA537, 0x40) }),
+                [new CodePageRange(0x0000, 0x045F, 0x7BAA, 0x08), new CodePageRange(0x2010, 0x266F, 0x618B, 0x04), new CodePageRange(0x3000, 0x33CD, 0x8C7D, 0x08), new CodePageRange(0x4E00, 0x9FA5, 0x0000, 0x01), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0D1, 0x80), new CodePageRange(0xFF01, 0xFFE5, 0xA537, 0x40)]),
             new CodePage(
                 20936,
                 936, 
@@ -1057,7 +1057,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7FFC, 0x20), new CodePageRange(0x2015, 0x2642, 0x6BAB, 0x40), new CodePageRange(0x3000, 0x3229, 0x9CC5, 0x02), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x10), new CodePageRange(0xF8D8, 0xF8FF, 0xFFFF, 0x00), new CodePageRange(0xFF01, 0xFFE5, 0x9FD5, 0x20) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7FFC, 0x20), new CodePageRange(0x2015, 0x2642, 0x6BAB, 0x40), new CodePageRange(0x3000, 0x3229, 0x9CC5, 0x02), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x10), new CodePageRange(0xF8D8, 0xF8FF, 0xFFFF, 0x00), new CodePageRange(0xFF01, 0xFFE5, 0x9FD5, 0x20)]),
             new CodePage(
                 20949,
                 949, 
@@ -1066,7 +1066,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 51949, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7EF1, 0x02), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD79D, 0x0000, 0x80), new CodePageRange(0xF8E6, 0xFA0B, 0xA21A, 0x20), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7EF1, 0x02), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD79D, 0x0000, 0x80), new CodePageRange(0xF8E6, 0xFA0B, 0xA21A, 0x20), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80)]),
             new CodePage(
                 21025,
                 1251, 
@@ -1075,7 +1075,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 28595, 
-                new[] { new CodePageRange(0x0000, 0x045F, 0x7B9C, 0x20), new CodePageRange(0x2116, 0x2116, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x045F, 0x7B9C, 0x20), new CodePageRange(0x2116, 0x2116, 0xFFFF, 0x00)]),
             new CodePage(
                 21866,
                 1251, 
@@ -1084,7 +1084,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0491, 0x775C, 0x10), new CodePageRange(0x2219, 0x25A0, 0x9412, 0x08) }),
+                [new CodePageRange(0x0000, 0x0491, 0x775C, 0x10), new CodePageRange(0x2219, 0x25A0, 0x9412, 0x08)]),
             new CodePage(
                 28591,
                 1252, 
@@ -1093,7 +1093,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00FF, 0xFFFF, 0x00)]),
             new CodePage(
                 28592,
                 1250, 
@@ -1102,7 +1102,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02DD, 0x9794, 0x80) }),
+                [new CodePageRange(0x0000, 0x02DD, 0x9794, 0x80)]),
             new CodePage(
                 28593,
                 1254, 
@@ -1111,7 +1111,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02D9, 0x9A78, 0x08), new CodePageRange(0xF7F5, 0xF7FB, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x02D9, 0x9A78, 0x08), new CodePageRange(0xF7F5, 0xF7FB, 0xFFFF, 0x00)]),
             new CodePage(
                 28594,
                 1257, 
@@ -1120,7 +1120,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x02DB, 0x99E9, 0x02) }),
+                [new CodePageRange(0x0000, 0x02DB, 0x99E9, 0x02)]),
             new CodePage(
                 28595,
                 1251, 
@@ -1129,7 +1129,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x045F, 0x7B9C, 0x20), new CodePageRange(0x2116, 0x2116, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x045F, 0x7B9C, 0x20), new CodePageRange(0x2116, 0x2116, 0xFFFF, 0x00)]),
             new CodePage(
                 28596,
                 1256, 
@@ -1138,7 +1138,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00AD, 0x7BA3, 0x80), new CodePageRange(0x060C, 0x0652, 0x5EDD, 0x01),  new CodePageRange(0xF7C8, 0xF7F4, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00AD, 0x7BA3, 0x80), new CodePageRange(0x060C, 0x0652, 0x5EDD, 0x01),  new CodePageRange(0xF7C8, 0xF7F4, 0xFFFF, 0x00)]),
             new CodePage(
                 28597,
                 1253, 
@@ -1147,7 +1147,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x03CE, 0x88AE, 0x08), new CodePageRange(0x2015, 0x2015, 0xFFFF, 0x00), new CodePageRange(0xF7C2, 0xF7C7, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x03CE, 0x88AE, 0x08), new CodePageRange(0x2015, 0x2015, 0xFFFF, 0x00), new CodePageRange(0xF7C2, 0xF7C7, 0xFFFF, 0x00)]),
             new CodePage(
                 28598,
                 1255, 
@@ -1156,7 +1156,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 38598, 
-                new[] { new CodePageRange(0x0000, 0x00F7, 0xA44D, 0x04), new CodePageRange(0x05D0, 0x05EA, 0xFFFF, 0x00), new CodePageRange(0x2017, 0x203E, 0xA6D6, 0x10), new CodePageRange(0xF79C, 0xF7C1, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00F7, 0xA44D, 0x04), new CodePageRange(0x05D0, 0x05EA, 0xFFFF, 0x00), new CodePageRange(0x2017, 0x203E, 0xA6D6, 0x10), new CodePageRange(0xF79C, 0xF7C1, 0xFFFF, 0x00)]),
             new CodePage(
                 28599,
                 1254, 
@@ -1165,7 +1165,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x015F, 0xA0BC, 0x08) }),
+                [new CodePageRange(0x0000, 0x015F, 0xA0BC, 0x08)]),
             new CodePage(
                 28603,
                 1257, 
@@ -1174,7 +1174,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x017E, 0xA0A9, 0x01), new CodePageRange(0x2019, 0x201E, 0x71ED, 0x01) }),
+                [new CodePageRange(0x0000, 0x017E, 0xA0A9, 0x01), new CodePageRange(0x2019, 0x201E, 0x71ED, 0x01)]),
             new CodePage(
                 28605,
                 1252, 
@@ -1183,7 +1183,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x017E, 0xA0AA, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x017E, 0xA0AA, 0x40), new CodePageRange(0x20AC, 0x20AC, 0xFFFF, 0x00)]),
            new CodePage(
                29001,
                1252, 
@@ -1192,7 +1192,7 @@ namespace Microsoft.Exchange.Data.Globalization
                CodePageUnicodeCoverage.Partial,
                CodePageFlags.None, 
                0, 
-               new[] { new CodePageRange(0x0000, 0x03CE, 0x8C76, 0x80), new CodePageRange(0x203C, 0x266C, 0x6604, 0x01), new CodePageRange(0xF8FF, 0xF8FF, 0xFFFF, 0x00) }),
+               [new CodePageRange(0x0000, 0x03CE, 0x8C76, 0x80), new CodePageRange(0x203C, 0x266C, 0x6604, 0x01), new CodePageRange(0xF8FF, 0xF8FF, 0xFFFF, 0x00)]),
             new CodePage(
                 38598,
                 1255, 
@@ -1201,7 +1201,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x00F7, 0xA44D, 0x04), new CodePageRange(0x05D0, 0x05EA, 0xFFFF, 0x00), new CodePageRange(0x2017, 0x203E, 0xA6D6, 0x10), new CodePageRange(0xF79C, 0xF7C1, 0xFFFF, 0x00) }),
+                [new CodePageRange(0x0000, 0x00F7, 0xA44D, 0x04), new CodePageRange(0x05D0, 0x05EA, 0xFFFF, 0x00), new CodePageRange(0x2017, 0x203E, 0xA6D6, 0x10), new CodePageRange(0xF79C, 0xF7C1, 0xFFFF, 0x00)]),
             new CodePage(
                 50220,
                 932, 
@@ -1210,7 +1210,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable | CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x845C, 0x08), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0CA, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0x9E26, 0x01) }),
+                [new CodePageRange(0x0000, 0x0451, 0x845C, 0x08), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0CA, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0x9E26, 0x01)]),
             new CodePage(
                 50221,
                 932, 
@@ -1219,7 +1219,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7D64, 0x04), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0CA, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7D64, 0x04), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0CA, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80)]),
             new CodePage(
                 50222,
                 932, 
@@ -1228,7 +1228,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7D64, 0x04), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0CA, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7D64, 0x04), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xE000, 0xE757, 0xFFFF, 0x00), new CodePageRange(0xF8F0, 0xFA2D, 0xA0CA, 0x04), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80)]),
             new CodePage(
                 50225,
                 949, 
@@ -1237,7 +1237,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable | CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x81B6, 0x04), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD79D, 0x2B9E, 0x80), new CodePageRange(0xE000, 0xE0BB, 0xFFFF, 0x00), new CodePageRange(0xF900, 0xFA0B, 0xFFFF, 0x00), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x81B6, 0x04), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD79D, 0x2B9E, 0x80), new CodePageRange(0xE000, 0xE0BB, 0xFFFF, 0x00), new CodePageRange(0xF900, 0xFA0B, 0xFFFF, 0x00), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80)]),
             new CodePage(
                 50227,
                 936, 
@@ -1246,7 +1246,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 936, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x800A, 0x08), new CodePageRange(0x2010, 0x2642, 0x65D8, 0x08), new CodePageRange(0x3000, 0x33D5, 0x8795, 0x02), new CodePageRange(0x4E00, 0x9FA5, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE864, 0xFFFF, 0x00), new CodePageRange(0xF8F5, 0xFA29, 0xA208, 0x04), new CodePageRange(0xFE30, 0xFFE5, 0x9D55, 0x01) }),
+                [new CodePageRange(0x0000, 0x0451, 0x800A, 0x08), new CodePageRange(0x2010, 0x2642, 0x65D8, 0x08), new CodePageRange(0x3000, 0x33D5, 0x8795, 0x02), new CodePageRange(0x4E00, 0x9FA5, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE864, 0xFFFF, 0x00), new CodePageRange(0xF8F5, 0xFA29, 0xA208, 0x04), new CodePageRange(0xFE30, 0xFFE5, 0x9D55, 0x01)]),
             new CodePage(
                 51932,
                 932, 
@@ -1255,7 +1255,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x804D, 0x40), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xF8F0, 0xFA2D, 0xA0D1, 0x80), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x804D, 0x40), new CodePageRange(0x2010, 0x266F, 0x5F78, 0x08), new CodePageRange(0x3000, 0x33CD, 0x8C7A, 0x10), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x20), new CodePageRange(0xF8F0, 0xFA2D, 0xA0D1, 0x80), new CodePageRange(0xFF01, 0xFFE5, 0xA533, 0x80)]),
             new CodePage(
                 51936,
                 936, 
@@ -1264,7 +1264,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 936, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x800A, 0x08), new CodePageRange(0x2010, 0x2642, 0x65D8, 0x08), new CodePageRange(0x3000, 0x33D5, 0x8795, 0x02), new CodePageRange(0x4E00, 0x9FA5, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE864, 0xFFFF, 0x00), new CodePageRange(0xF8F5, 0xFA29, 0xA208, 0x04), new CodePageRange(0xFE30, 0xFFE5, 0x9D55, 0x01) }),
+                [new CodePageRange(0x0000, 0x0451, 0x800A, 0x08), new CodePageRange(0x2010, 0x2642, 0x65D8, 0x08), new CodePageRange(0x3000, 0x33D5, 0x8795, 0x02), new CodePageRange(0x4E00, 0x9FA5, 0xFFFF, 0x00), new CodePageRange(0xE000, 0xE864, 0xFFFF, 0x00), new CodePageRange(0xF8F5, 0xFA29, 0xA208, 0x04), new CodePageRange(0xFE30, 0xFFE5, 0x9D55, 0x01)]),
             new CodePage(
                 51949,
                 949, 
@@ -1273,7 +1273,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x7EF1, 0x02), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD79D, 0x0000, 0x80), new CodePageRange(0xF8E6, 0xFA0B, 0xA21A, 0x20), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80) }),
+                [new CodePageRange(0x0000, 0x0451, 0x7EF1, 0x02), new CodePageRange(0x2015, 0x266D, 0x64D1, 0x80), new CodePageRange(0x3000, 0x33DD, 0x84A4, 0x01), new CodePageRange(0x4E00, 0x9F9C, 0x0000, 0x40), new CodePageRange(0xAC00, 0xD79D, 0x0000, 0x80), new CodePageRange(0xF8E6, 0xFA0B, 0xA21A, 0x20), new CodePageRange(0xFF01, 0xFFE6, 0xA44D, 0x80)]),
             new CodePage(
                 52936,
                 936, 
@@ -1282,7 +1282,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.Detectable | CodePageFlags.SevenBit, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x0451, 0x844E, 0x20), new CodePageRange(0x2014, 0x2642, 0x6B2A, 0x80), new CodePageRange(0x3000, 0x3229, 0x9CED, 0x40), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x10), new CodePageRange(0xE000, 0xE233, 0xFFFF, 0x00), new CodePageRange(0xE766, 0xE814, 0xA544, 0x02), new CodePageRange(0xF8F5, 0xF8F5, 0xFFFF, 0x00), new CodePageRange(0xFE31, 0xFFE5, 0x9F05, 0x20) }),
+                [new CodePageRange(0x0000, 0x0451, 0x844E, 0x20), new CodePageRange(0x2014, 0x2642, 0x6B2A, 0x80), new CodePageRange(0x3000, 0x3229, 0x9CED, 0x40), new CodePageRange(0x4E00, 0x9FA0, 0x0000, 0x10), new CodePageRange(0xE000, 0xE233, 0xFFFF, 0x00), new CodePageRange(0xE766, 0xE814, 0xA544, 0x02), new CodePageRange(0xF8F5, 0xF8F5, 0xFFFF, 0x00), new CodePageRange(0xFE31, 0xFFE5, 0x9F05, 0x20)]),
             new CodePage(
                 54936,
                 936, 
@@ -1300,7 +1300,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57003,
                 1200, 
@@ -1309,7 +1309,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57004,
                 1200, 
@@ -1318,7 +1318,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57005,
                 1200, 
@@ -1327,7 +1327,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57006,
                 1200, 
@@ -1336,7 +1336,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57007,
                 1200, 
@@ -1345,7 +1345,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57008,
                 1200, 
@@ -1354,7 +1354,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57009,
                 1200, 
@@ -1363,7 +1363,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57010,
                 1200, 
@@ -1372,7 +1372,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 57011,
                 1200, 
@@ -1381,7 +1381,7 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageUnicodeCoverage.Partial,
                 CodePageFlags.None, 
                 0, 
-                new[] { new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04) }),
+                [new CodePageRange(0x0000, 0x009F, 0xFFFF, 0x00), new CodePageRange(0x0901, 0x0D6F, 0x78F5, 0x04)]),
             new CodePage(
                 65000,
                 1200, 
@@ -1400,13 +1400,13 @@ namespace Microsoft.Exchange.Data.Globalization
                 CodePageFlags.None, 
                 0, 
                 null),
-        };
+        ];
 
         /// <summary>
         /// Character bitmaps.
         /// </summary>
         private static readonly byte[] CharacterBitmap =
-        {
+        [
             0xFF, 0xFF, 0x01, 0x7F, 0x81, 0x01, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x1F, 0x7F, 0x3F, 0x0E, 
             0xBF, 0xFF, 0x81, 0x90, 0xFF, 0xFF, 0xFF, 0xA1, 0x7F, 0xFF, 0x90, 0x90, 0x90, 0x90, 0x7F, 0x0F, 
             0x80, 0x21, 0x10, 0x01, 0x91, 0x10, 0x2F, 0x10, 0x31, 0x00, 0x31, 0x1F, 0x90, 0xFF, 0x0F, 0x81, 
@@ -4079,7 +4079,7 @@ namespace Microsoft.Exchange.Data.Globalization
             0xC9, 0xC9, 0xC9, 0x49, 0x09, 0x18, 0x58, 0xC8, 0xC8, 0x89, 0x89, 0x89, 0x89, 0x81, 0x81, 0x81, 
             0x81, 0x89, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x80, 0x81, 0x81, 0x85, 0x85, 0x85, 0x85, 0x85, 
             0x85, 0x85, 0x85, 0x87, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00, 0x10, 
-        };
+        ];
 
         /// <summary>
         /// Gets an array containing all the known code pages.

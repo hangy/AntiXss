@@ -72,7 +72,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         public const int NAME_HASH_MODIFIER = 0xDD;
 
         public static HtmlNameIndex[] nameHashTable =
-        {
+        [
             0,
             HtmlNameIndex.Nofill,
             HtmlNameIndex.Comment,
@@ -674,13 +674,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             HtmlNameIndex.H5,
             HtmlNameIndex.Background,
             0,
-        };
+        ];
 
         public const short ENTITY_HASH_SIZE = 705;
         public const int ENTITY_HASH_MODIFIER = 0xE6;
 
         public static HtmlEntityIndex[] entityHashTable =
-        {
+        [
             0,
             HtmlEntityIndex.omega,
             HtmlEntityIndex.rle,
@@ -1386,10 +1386,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             HtmlEntityIndex.omicron,
             HtmlEntityIndex.hellip,
             0,
-        };
+        ];
 
         public static NameDef[] names =
-        {
+        [
             new NameDef(0, null, HtmlTagId.Unknown, HtmlAttributeId.Unknown),
             new NameDef(0, null, HtmlTagIndex._COMMENT, false, false, HtmlTagId.Unknown, HtmlAttributeId.Unknown),
             new NameDef(0, null, HtmlTagIndex._CONDITIONAL, false, false, HtmlTagId.Unknown, HtmlAttributeId.Unknown),
@@ -1616,10 +1616,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             new NameDef(598, "h5", HtmlTagIndex.H5, false, false, HtmlTagId.H5, HtmlAttributeId.Unknown),
             new NameDef(599, "background", HtmlTagId.Unknown, HtmlAttributeId.Background),
             new NameDef(600, null, HtmlTagId.Unknown, HtmlAttributeId.Unknown),
-        };
+        ];
 
         public static EntityDef[] entities =
-        {
+        [
             new EntityDef(0, 0, null),
             new EntityDef(1, 969, "omega"),
             new EntityDef(1, 8195, "emsp"),
@@ -1893,6 +1893,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             new EntityDef(702, 959, "omicron"),
             new EntityDef(703, 8230, "hellip"),
             new EntityDef(704, 0, null),
-        };
+        ];
     }
 }

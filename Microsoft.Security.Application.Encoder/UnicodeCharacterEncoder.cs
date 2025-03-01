@@ -76,12 +76,12 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for HTML named entities.
         /// </summary>
-        private static Lazy<char[][]> namedEntitiesLazy = new Lazy<char[][]>(InitialiseNamedEntityList);
+        private static Lazy<char[][]> namedEntitiesLazy = new(InitialiseNamedEntityList);
 
         /// <summary>
         /// Lock object
         /// </summary>
-        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
+        private static readonly ReaderWriterLockSlim SyncLock = new();
 
         /// <summary>
         /// Acquires a read lock.
@@ -344,7 +344,7 @@ namespace Microsoft.Security.Application
             AcquireReadLock();
             try
             {
-                Utf16StringReader stringReader = new Utf16StringReader(input);
+                Utf16StringReader stringReader = new(input);
                 while (true)
                 {
                     int currentCodePoint = stringReader.ReadNextScalarValue();

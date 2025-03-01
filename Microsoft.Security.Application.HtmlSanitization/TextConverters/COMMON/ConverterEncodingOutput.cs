@@ -50,14 +50,14 @@ namespace Microsoft.Exchange.Data.TextConverters
         private int lineBufferCount;
         private int lineBufferLastNL;
 
-        private ByteCache cache = new ByteCache();
+        private ByteCache cache = new();
 
         private Encoding originalEncoding;
         private Encoding encoding;
         private Encoder encoder;
         private bool encodingCompleteUnicode;
 
-        private CodePageMap codePageMap = new CodePageMap();
+        private CodePageMap codePageMap = new();
 
         private bool isFirstChar = true;
 

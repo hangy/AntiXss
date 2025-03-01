@@ -29,7 +29,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// Query Fragment separators.
         /// </summary>
-        private static readonly char[] QueryFragmentSeparators = new[] { '?', '#' };
+        private static readonly char[] QueryFragmentSeparators = ['?', '#'];
 
         /// <summary>
         /// Extracts the query string and fragment from the input path by splitting on the separator characters.

@@ -62,7 +62,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Rejang()
         {
-            return CodeChartHelper.GetRange(0xA930, 0xA953).Concat(new[] { 0xA95F });
+            return CodeChartHelper.GetRange(0xA930, 0xA953).Concat([0xA95F]);
         }
 
         /// <summary>

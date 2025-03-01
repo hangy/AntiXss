@@ -521,7 +521,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     return HashCode.CalculateLowerCase(this.buffer, runOffset, this.runList[run].Length);
                 }
 
-                HashCode hashCode = new HashCode(true);
+                HashCode hashCode = new(true);
 
                 do
                 {
@@ -562,7 +562,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     return HashCode.CalculateLowerCase(this.buffer, runOffset, runEntry.Length);
                 }
 
-                HashCode hashCode = new HashCode(true);
+                HashCode hashCode = new(true);
 
                 do
                 {

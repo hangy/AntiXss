@@ -33,7 +33,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         public const int MaxNumberOfNonInlineStyles = 128;
 
         public static readonly byte[] UnsafeAsciiMap =
-        {
+        [
             0x03,
             0x03,
             0x03,
@@ -195,10 +195,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             0x03,
             0x03,
             0x03,
-        };
+        ];
 
         public static readonly HtmlEntityIndex[] EntityMap =
-        {
+        [
 #if false
             0,                                                                      
             0,                                                                      
@@ -457,7 +457,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             HtmlEntityIndex.yacute,
             HtmlEntityIndex.thorn,
             HtmlEntityIndex.yuml,
-        };
+        ];
 
         [Flags]
         public enum NumberParseFlags

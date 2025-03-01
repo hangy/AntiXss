@@ -90,17 +90,17 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         {
             internal readonly byte value;
 
-            public static readonly TagFill PUT_NUL_PUT_NUL = new TagFill(FillCode.PUT, FillCode.NUL, FillCode.PUT, FillCode.NUL);
-            public static readonly TagFill NUL_NUL_NUL_NUL = new TagFill(FillCode.NUL, FillCode.NUL, FillCode.NUL, FillCode.NUL);
-            public static readonly TagFill NUL_EAT_EAT_NUL = new TagFill(FillCode.NUL, FillCode.EAT, FillCode.EAT, FillCode.NUL);
-            public static readonly TagFill PUT_EAT_PUT_EAT = new TagFill(FillCode.PUT, FillCode.EAT, FillCode.PUT, FillCode.EAT);
-            public static readonly TagFill PUT_PUT_PUT_PUT = new TagFill(FillCode.PUT, FillCode.PUT, FillCode.PUT, FillCode.PUT);
-            public static readonly TagFill EAT_EAT_EAT_PUT = new TagFill(FillCode.EAT, FillCode.EAT, FillCode.EAT, FillCode.PUT);
-            public static readonly TagFill PUT_PUT_PUT_EAT = new TagFill(FillCode.PUT, FillCode.PUT, FillCode.PUT, FillCode.EAT);
-            public static readonly TagFill PUT_EAT_PUT_PUT = new TagFill(FillCode.PUT, FillCode.EAT, FillCode.PUT, FillCode.PUT);
-            public static readonly TagFill PUT_EAT_EAT_EAT = new TagFill(FillCode.PUT, FillCode.EAT, FillCode.EAT, FillCode.EAT);
-            public static readonly TagFill EAT_EAT_EAT_EAT = new TagFill(FillCode.EAT, FillCode.EAT, FillCode.EAT, FillCode.EAT);
-            public static readonly TagFill PUT_EAT_EAT_PUT = new TagFill(FillCode.PUT, FillCode.EAT, FillCode.EAT, FillCode.PUT);
+            public static readonly TagFill PUT_NUL_PUT_NUL = new(FillCode.PUT, FillCode.NUL, FillCode.PUT, FillCode.NUL);
+            public static readonly TagFill NUL_NUL_NUL_NUL = new(FillCode.NUL, FillCode.NUL, FillCode.NUL, FillCode.NUL);
+            public static readonly TagFill NUL_EAT_EAT_NUL = new(FillCode.NUL, FillCode.EAT, FillCode.EAT, FillCode.NUL);
+            public static readonly TagFill PUT_EAT_PUT_EAT = new(FillCode.PUT, FillCode.EAT, FillCode.PUT, FillCode.EAT);
+            public static readonly TagFill PUT_PUT_PUT_PUT = new(FillCode.PUT, FillCode.PUT, FillCode.PUT, FillCode.PUT);
+            public static readonly TagFill EAT_EAT_EAT_PUT = new(FillCode.EAT, FillCode.EAT, FillCode.EAT, FillCode.PUT);
+            public static readonly TagFill PUT_PUT_PUT_EAT = new(FillCode.PUT, FillCode.PUT, FillCode.PUT, FillCode.EAT);
+            public static readonly TagFill PUT_EAT_PUT_PUT = new(FillCode.PUT, FillCode.EAT, FillCode.PUT, FillCode.PUT);
+            public static readonly TagFill PUT_EAT_EAT_EAT = new(FillCode.PUT, FillCode.EAT, FillCode.EAT, FillCode.EAT);
+            public static readonly TagFill EAT_EAT_EAT_EAT = new(FillCode.EAT, FillCode.EAT, FillCode.EAT, FillCode.EAT);
+            public static readonly TagFill PUT_EAT_EAT_PUT = new(FillCode.PUT, FillCode.EAT, FillCode.EAT, FillCode.PUT);
 
             public FillCode LB { get { return (FillCode)(this.value >> 6); } }
             public FillCode RB { get { return (FillCode)((this.value >> 4) & 3); } }
@@ -124,12 +124,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         {
             internal readonly byte value;
 
-            public static readonly TagFmt BRK_BRK_BRK_BRK = new TagFmt(FmtCode.BRK, FmtCode.BRK, FmtCode.BRK, FmtCode.BRK);
-            public static readonly TagFmt AUT_AUT_AUT_AUT = new TagFmt(FmtCode.AUT, FmtCode.AUT, FmtCode.AUT, FmtCode.AUT);
-            public static readonly TagFmt NBR_BRK_NBR_BRK = new TagFmt(FmtCode.NBR, FmtCode.BRK, FmtCode.NBR, FmtCode.BRK);
-            public static readonly TagFmt BRK_NBR_NBR_BRK = new TagFmt(FmtCode.BRK, FmtCode.NBR, FmtCode.NBR, FmtCode.BRK);
-            public static readonly TagFmt BRK_BRK_NBR_BRK = new TagFmt(FmtCode.BRK, FmtCode.BRK, FmtCode.NBR, FmtCode.BRK);
-            public static readonly TagFmt BRK_NBR_NBR_NBR = new TagFmt(FmtCode.BRK, FmtCode.NBR, FmtCode.NBR, FmtCode.NBR);
+            public static readonly TagFmt BRK_BRK_BRK_BRK = new(FmtCode.BRK, FmtCode.BRK, FmtCode.BRK, FmtCode.BRK);
+            public static readonly TagFmt AUT_AUT_AUT_AUT = new(FmtCode.AUT, FmtCode.AUT, FmtCode.AUT, FmtCode.AUT);
+            public static readonly TagFmt NBR_BRK_NBR_BRK = new(FmtCode.NBR, FmtCode.BRK, FmtCode.NBR, FmtCode.BRK);
+            public static readonly TagFmt BRK_NBR_NBR_BRK = new(FmtCode.BRK, FmtCode.NBR, FmtCode.NBR, FmtCode.BRK);
+            public static readonly TagFmt BRK_BRK_NBR_BRK = new(FmtCode.BRK, FmtCode.BRK, FmtCode.NBR, FmtCode.BRK);
+            public static readonly TagFmt BRK_NBR_NBR_NBR = new(FmtCode.BRK, FmtCode.NBR, FmtCode.NBR, FmtCode.NBR);
 
             public FmtCode LB { get { return (FmtCode)(this.value >> 6); } }
             public FmtCode RB { get { return (FmtCode)((this.value >> 4) & 3); } }
@@ -229,7 +229,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         }
 
         public static TagDefinition[] tags =
-        {
+        [
             new TagDefinition(
                     HtmlTagIndex._NULL,
                     HtmlNameIndex._NOTANAME,
@@ -3349,10 +3349,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     SetId.Null,
                     SetId.Null,
                     SetId.Null),
-        };
+        ];
 
         public static byte[] sets =
-        {
+        [
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -3458,7 +3458,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             0x00, 0x01, 0x00, 0x46, 0x00, 0xC8, 0x0F, 0x00, 0x10, 0x80, 0x01, 0x10, 0x40, 0x20, 0x00,
 
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x0A, 0x00,
-        };
+        ];
 
         public static bool IsTagInSet(HtmlTagIndex tag, SetId set)
         {

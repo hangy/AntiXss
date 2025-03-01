@@ -30,7 +30,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for each character.
         /// </summary>
-        private static Lazy<char[][]> characterValuesLazy = new Lazy<char[][]>(InitialiseSafeList);
+        private static Lazy<char[][]> characterValuesLazy = new(InitialiseSafeList);
 
         /// <summary>
         /// Encodes according to the CSS encoding rules.
@@ -50,7 +50,7 @@ namespace Microsoft.Security.Application
             // Worse case scenario - CSS encoding wants \XXXXXX for encoded characters.
             StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input.Length, 7);
 
-            Utf16StringReader stringReader = new Utf16StringReader(input);
+            Utf16StringReader stringReader = new(input);
             while (true)
             {
                 int currentCodePoint = stringReader.ReadNextScalarValue();

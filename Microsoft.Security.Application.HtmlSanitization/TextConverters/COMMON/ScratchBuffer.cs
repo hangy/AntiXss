@@ -31,7 +31,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         private int offset;
         private int count;
 
-        public static readonly BufferString Null = new BufferString();
+        public static readonly BufferString Null = new();
 
         public BufferString(char[] buffer, int offset, int count)
         {

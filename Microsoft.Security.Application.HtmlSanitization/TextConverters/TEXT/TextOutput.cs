@@ -43,7 +43,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Text
         /// <summary>
         /// Array of white space characters.
         /// </summary>
-        private static readonly char[] Whitespaces = { ' ', '\t', '\r', '\n', '\f' };
+        private static readonly char[] Whitespaces = [' ', '\t', '\r', '\n', '\f'];
 
         #region Private Variables
         /// <summary>

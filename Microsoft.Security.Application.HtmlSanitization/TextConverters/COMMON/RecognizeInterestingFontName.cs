@@ -23,8 +23,8 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal struct RecognizeInterestingFontName
     {
-        private static byte[] CharMapToClass = new byte[]
-        {
+        private static byte[] CharMapToClass =
+        [
           0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   0,   0,   1,   0,   0,
           0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
           1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
@@ -38,7 +38,7 @@ namespace Microsoft.Exchange.Data.TextConverters
           0,   0,  11,   0,   7,   0,   0,   6,   0,   4,   0,   0,  13,  10,   5,  12,
           
           0,   0,   0,   8,   0,   0,   0,   3,   0,   9,   0,   0,   0,   0,   0,   0,
-        };
+        ];
 
         private static sbyte[,] StateTransitionTable = new sbyte[,]
         {

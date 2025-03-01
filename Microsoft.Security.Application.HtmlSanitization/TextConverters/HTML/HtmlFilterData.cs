@@ -74,7 +74,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         }
 
         public static FilterActionEntry[] filterInstructions =
-        {
+        [
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.Drop, FilterAction.Drop),
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.Drop, FilterAction.Drop),
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.Drop, FilterAction.Drop),
@@ -301,10 +301,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             new FilterActionEntry(FilterAction.Keep, FilterAction.Keep, FilterAction.Drop, FilterAction.Drop),
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.SanitizeUrl | FilterAction.Callback, FilterAction.SanitizeUrl | FilterAction.Callback),
             new FilterActionEntry(FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.DropKeepContent | FilterAction.IgnoreAttrCallbacks, FilterAction.Drop, FilterAction.Drop),
-        };
+        ];
 
         public static FilterAttributeExceptionEntry[] filterExceptions =
-        {
+        [
             new FilterAttributeExceptionEntry(HtmlNameIndex.A, HtmlNameIndex.Href, FilterAction.SanitizeUrl, FilterAction.SanitizeUrl),
             new FilterAttributeExceptionEntry(HtmlNameIndex.A, HtmlNameIndex.Target, FilterAction.Keep, FilterAction.Keep),
             new FilterAttributeExceptionEntry(HtmlNameIndex.Area, HtmlNameIndex.Href, FilterAction.SanitizeUrl, FilterAction.SanitizeUrl),
@@ -329,6 +329,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             new FilterAttributeExceptionEntry(HtmlNameIndex.Input, HtmlNameIndex.Src, FilterAction.SanitizeUrl, FilterAction.SanitizeUrl),
             new FilterAttributeExceptionEntry(HtmlNameIndex.Input, HtmlNameIndex.UseMap, FilterAction.SanitizeUrl, FilterAction.SanitizeUrl),
             new FilterAttributeExceptionEntry(HtmlNameIndex.Link, HtmlNameIndex.Href, FilterAction.SanitizeUrl, FilterAction.SanitizeUrl),
-        };
+        ];
     }
 }

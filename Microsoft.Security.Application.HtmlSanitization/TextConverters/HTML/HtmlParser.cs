@@ -2747,7 +2747,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     hashValues = this.hashValuesTable = new short[HtmlNameData.MAX_ENTITY_NAME];
                 }
 
-                HashCode hashCode = new HashCode(true);
+                HashCode hashCode = new(true);
                 short hashValue;
 
                 while (ParseSupport.HtmlEntityCharacter(charClassT) && charCount < HtmlNameData.MAX_ENTITY_NAME)

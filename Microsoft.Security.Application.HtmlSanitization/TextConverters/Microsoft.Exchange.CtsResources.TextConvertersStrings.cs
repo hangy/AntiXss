@@ -24,7 +24,7 @@ namespace Microsoft.Exchange.CtsResources
 
     static class TextConvertersStrings
 	{
-        private static ResourceManager ResourceManager = new ResourceManager("Microsoft.Exchange.CtsResources.TextConvertersStrings", typeof(Microsoft.Exchange.CtsResources.TextConvertersStrings).Assembly);
+        private static ResourceManager ResourceManager = new("Microsoft.Exchange.CtsResources.TextConvertersStrings", typeof(Microsoft.Exchange.CtsResources.TextConvertersStrings).Assembly);
 
 		public enum IDs
 		{

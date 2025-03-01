@@ -387,7 +387,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                 if (this.normalizeInputHtml)
                 {
-                    HtmlParser preParser = new HtmlParser(
+                    HtmlParser preParser = new(
                                             input,
                                             this.detectEncodingFromMetaTag,
                                             false,
@@ -416,7 +416,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                                             this.TestBoundaryConditions);
                 }
 
-                HtmlWriter writer = new HtmlWriter(
+                HtmlWriter writer = new(
                                         output,
                                         this.filterHtml,
                                         this.normalizeInputHtml);

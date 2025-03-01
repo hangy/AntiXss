@@ -1995,7 +1995,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         {
                             safeUrlSchemeListAdd = safeUrlSchemeSetting.Arguments[0].Name.Equals("Add", StringComparison.OrdinalIgnoreCase);
 
-                            string[] entries = safeUrlSchemeSetting.Arguments[0].Value.Split(new char[] { ',', ' ', ';', ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] entries = safeUrlSchemeSetting.Arguments[0].Value.Split([',', ' ', ';', ':'], StringSplitOptions.RemoveEmptyEntries);
                             string badEntries = "";
 
                             foreach (string entry in entries)

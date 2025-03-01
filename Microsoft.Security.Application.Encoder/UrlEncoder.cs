@@ -31,7 +31,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// A lock object to use when performing safe listing for parameter encoding.
         /// </summary>
-        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
+        private static readonly ReaderWriterLockSlim SyncLock = new();
 
         /// <summary>
         /// The values to output for each character.

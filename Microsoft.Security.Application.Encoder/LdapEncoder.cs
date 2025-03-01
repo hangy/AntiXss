@@ -31,12 +31,12 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for each character when filter encoding.
         /// </summary>
-        private static Lazy<char[][]> filterCharacterValuesLazy = new Lazy<char[][]>(InitialiseFilterSafeList);
+        private static Lazy<char[][]> filterCharacterValuesLazy = new(InitialiseFilterSafeList);
 
         /// <summary>
         /// The values to output for each character when DN encoding.
         /// </summary>
-        private static Lazy<char[][]> distinguishedNameCharacterValuesLazy = new Lazy<char[][]>(InitialiseDistinguishedNameSafeList);
+        private static Lazy<char[][]> distinguishedNameCharacterValuesLazy = new(InitialiseDistinguishedNameSafeList);
 
         /// <summary>
         /// Encodes the input string for use in LDAP filters.
@@ -246,7 +246,7 @@ namespace Microsoft.Security.Application
         /// <param name="c">The character to escape.</param>
         private static void EscapeDistinguisedNameCharacter(ref char[][] safeList, char c)
         {
-            safeList[c] = new[] { '\\', c };
+            safeList[c] = ['\\', c];
         }
     }
 }

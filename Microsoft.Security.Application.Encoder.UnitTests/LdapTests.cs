@@ -103,8 +103,8 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void FilterEncodingShouldEncodeBinary()
         {
-            char[] binaryData = new[] { '\u0000', '\u0000', '\u0000', '\u0004' };
-            string target = new string(binaryData);
+            char[] binaryData = ['\u0000', '\u0000', '\u0000', '\u0004'];
+            string target = new(binaryData);
             const string Expected = @"\00\00\00\04";
 
             string actual = Encoder.LdapFilterEncode(target);
@@ -160,7 +160,7 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingAnUnsafeCharacterToFilterEncodeShouldNotReturnTheCharacter()
         {
-            string[] targetArray = new[] { "\u0000", "(", ")", "\\", "*", "/" };
+            string[] targetArray = ["\u0000", "(", ")", "\\", "*", "/"];
 
             foreach (string target in targetArray)
             {
@@ -218,7 +218,7 @@ namespace Microsoft.Security.Application.Tests
         [TestMethod]
         public void PassingAnUnsafeCharacterToDistinguishedNameEncodeShouldNotReturnTheCharacter()
         {
-            string[] targetArray = new[] { "&", "!", "|", "=", "<", ">", ",", "+", "-", "\"", "'", ";" };
+            string[] targetArray = ["&", "!", "|", "=", "<", ">", ",", "+", "-", "\"", "'", ";"];
 
             foreach (string target in targetArray)
             {

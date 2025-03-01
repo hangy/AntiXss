@@ -42,7 +42,7 @@ namespace Microsoft.Exchange.Data.Internal
         internal CtsConfigurationSetting(string name)
         {
             this.configurationName = name;
-            this.arguments = new List<CtsConfigurationArgument>();
+            this.arguments = [];
         }
 
         /// <summary>

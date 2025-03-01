@@ -678,7 +678,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 this.scratch.Reset();
                                 this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
 
-                                RecognizeInterestingFontName fontRecognizer = new RecognizeInterestingFontName();
+                                RecognizeInterestingFontName fontRecognizer = new();
 
                                 for (int i = 0; i < this.scratch.Length && !fontRecognizer.IsRejected; i++)
                                 {
@@ -701,7 +701,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                 this.scratch.Reset();
                                 this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
 
-                                RecognizeInterestingFontNameInInlineStyle fontRecognizer = new RecognizeInterestingFontNameInInlineStyle();
+                                RecognizeInterestingFontNameInInlineStyle fontRecognizer = new();
 
                                 for (int i = 0; i < this.scratch.Length && !fontRecognizer.IsFinished; i++)
                                 {

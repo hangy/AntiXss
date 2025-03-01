@@ -197,12 +197,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
         private uint        rawValue;
 
-        public static readonly PropertyValue Null = new PropertyValue();
-        public static readonly PropertyValue True = new PropertyValue(true);
-        public static readonly PropertyValue False = new PropertyValue(false);
+        public static readonly PropertyValue Null = new();
+        public static readonly PropertyValue True = new(true);
+        public static readonly PropertyValue False = new(false);
 
-        internal static readonly int[] sizesInTwips = { 151, 200, 240, 271, 360, 480, 720 };
-        internal static readonly int[] maxSizesInTwips = { 160, 220, 260, 320, 420, 620 };
+        internal static readonly int[] sizesInTwips = [151, 200, 240, 271, 360, 480, 720];
+        internal static readonly int[] maxSizesInTwips = [160, 220, 260, 320, 420, 620];
 
         public PropertyValue(bool value)
         {
@@ -324,7 +324,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         private PropertyId id;
         private PropertyValue value;
 
-        public static readonly Property Null = new Property();
+        public static readonly Property Null = new();
 
         public override string ToString()
         {

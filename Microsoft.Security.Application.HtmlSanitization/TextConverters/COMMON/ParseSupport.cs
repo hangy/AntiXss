@@ -99,7 +99,7 @@ namespace Microsoft.Exchange.Data.TextConverters
     internal static class ParseSupport
     {
         private static readonly char[] latin1MappingInUnicodeControlArea =
-        {
+        [
             (char) 0x20ac,
             (char) 0x0081,
             (char) 0x201a,
@@ -132,16 +132,16 @@ namespace Microsoft.Exchange.Data.TextConverters
             (char) 0x009d,
             (char) 0x017e,
             (char) 0x0178
-        };
+        ];
 
         private static readonly byte[] charToHexTable =
-        {
+        [
             0xFF, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-        };
+        ];
 
         private static readonly CharClass[] lowCharClass =
-        {
+        [
             CharClass.Invalid | CharClass.RtfInteresting,
             CharClass.Control,
             CharClass.Control,
@@ -400,7 +400,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             CharClass.NotInterestingText,
             CharClass.NotInterestingText,
             CharClass.NotInterestingText,
-        };
+        ];
 
         public static int CharToDecimal(char ch)
         {

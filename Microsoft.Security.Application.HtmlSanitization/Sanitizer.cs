@@ -59,7 +59,7 @@ namespace Microsoft.Security.Application
 
             using TextReader stringReader = new StringReader(input);
             using TextWriter stringWriter = new StringWriter();
-            HtmlToHtml htmlObject = new HtmlToHtml
+            HtmlToHtml htmlObject = new()
             {
                 FilterHtml = true,
                 OutputHtmlFragment = false,
@@ -91,7 +91,7 @@ namespace Microsoft.Security.Application
 
             using TextReader stringReader = new StringReader(input);
             using TextWriter stringWriter = new StringWriter();
-            HtmlToHtml htmlObject = new HtmlToHtml
+            HtmlToHtml htmlObject = new()
             {
                 FilterHtml = true,
                 OutputHtmlFragment = true,
@@ -129,8 +129,8 @@ namespace Microsoft.Security.Application
         /// </remarks>
         public static void GetSafeHtml(TextReader sourceReader, TextWriter destinationWriter)
         {
-            HtmlToHtml htmlObject = new HtmlToHtml
-                                        {
+            HtmlToHtml htmlObject = new()
+            {
                                             FilterHtml = true,
                                             OutputHtmlFragment = false,
                                             NormalizeHtml = true
@@ -152,8 +152,8 @@ namespace Microsoft.Security.Application
         /// </remarks>
         public static void GetSafeHtml(TextReader sourceReader, Stream destinationStream)
         {
-            HtmlToHtml htmlObject = new HtmlToHtml
-                                        {
+            HtmlToHtml htmlObject = new()
+            {
                                             FilterHtml = true,
                                             OutputHtmlFragment = false,
                                             NormalizeHtml = true
@@ -175,8 +175,8 @@ namespace Microsoft.Security.Application
         /// </remarks>
         public static void GetSafeHtmlFragment(TextReader sourceReader, TextWriter destinationWriter)
         {
-            HtmlToHtml htmlObject = new HtmlToHtml
-                                        {
+            HtmlToHtml htmlObject = new()
+            {
                                             FilterHtml = true,
                                             OutputHtmlFragment = true,
                                             NormalizeHtml = true
@@ -198,8 +198,8 @@ namespace Microsoft.Security.Application
         /// </remarks>
         public static void GetSafeHtmlFragment(TextReader sourceReader, Stream destinationStream)
         {
-            HtmlToHtml htmlObject = new HtmlToHtml
-                                        {
+            HtmlToHtml htmlObject = new()
+            {
                                             FilterHtml = true,
                                             OutputHtmlFragment = true,
                                             NormalizeHtml = true
