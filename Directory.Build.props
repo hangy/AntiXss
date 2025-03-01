@@ -24,15 +24,20 @@
     <Compile Include="..\CommonAssemblyInfo.cs" />
   </ItemGroup>
 
-  <!-- GitVersioning and SourceLink -->
   <PropertyGroup>
+    <Authors>Microsoft Corporation</Authors>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
+    <PackageReleaseNotes>https://github.com/hangy/AntiXss/blob/main/CHANGELOG.md</PackageReleaseNotes>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryUrl>https://github.com/hangy/AntiXss.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryBranch>main</RepositoryBranch>
+    <RepositoryCommit>9f31d7eebd79805e6ff546035acc60b5ff37f989</RepositoryCommit>
+    <Version>0.1.125</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.7.115" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
   </ItemGroup>
 
