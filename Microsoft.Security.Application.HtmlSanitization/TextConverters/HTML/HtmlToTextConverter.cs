@@ -31,7 +31,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
     internal class HtmlToTextConverter : IProducerConsumer, IRestartable, IReusable, IDisposable
     {
-        private bool convertFragment;
+        private readonly bool convertFragment;
 
         private IHtmlParser parser;
         private bool endOfFile;
@@ -40,9 +40,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private HtmlToken token;
 
-        private bool treatNbspAsBreakable;
-        private bool outputImageLinks = true;
-        private bool outputAnchorLinks = true;
+        private readonly bool treatNbspAsBreakable;
+        private readonly bool outputImageLinks = true;
+        private readonly bool outputAnchorLinks = true;
 
         protected bool normalizedInput;
 
@@ -79,7 +79,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private ScratchBuffer scratch;
 
-        private Injection injection;
+        private readonly Injection injection;
 
         private UrlCompareSink urlCompareSink;
 

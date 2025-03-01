@@ -30,7 +30,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         private IProducerConsumer consumer;
 
         private bool madeProgress;
-        private int maxLoopsWithoutProgress;
+        private readonly int maxLoopsWithoutProgress;
 
         private char[] chunkToReadBuffer;
         private int chunkToReadIndex;
@@ -42,7 +42,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         private bool inconsistentState;
 
-        private bool boundaryTesting;
+        private readonly bool boundaryTesting;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConverterWriter"/> class.

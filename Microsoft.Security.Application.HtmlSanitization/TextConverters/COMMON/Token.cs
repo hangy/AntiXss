@@ -81,9 +81,9 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal struct TokenRun
     {
-        private Token token;
+        private readonly Token token;
 #if DEBUG
-        private int index;
+        private readonly int index;
 #endif
 
         internal TokenRun(Token token)
@@ -981,7 +981,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         public struct RunEnumerator
         {
-            private Token token;
+            private readonly Token token;
 #if DEBUG
             private int index;
 #endif
@@ -1058,7 +1058,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         public struct TextReader
         {
-            private Token token;
+            private readonly Token token;
 #if DEBUG
             private FragmentPosition position;
 #endif

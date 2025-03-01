@@ -26,8 +26,8 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal struct HtmlTagParts
     {
-        private HtmlToken.TagPartMajor major;
-        private HtmlToken.TagPartMinor minor;
+        private readonly HtmlToken.TagPartMajor major;
+        private readonly HtmlToken.TagPartMinor minor;
 
         internal HtmlTagParts(HtmlToken.TagPartMajor major, HtmlToken.TagPartMinor minor)
         {

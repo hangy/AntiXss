@@ -38,13 +38,13 @@ namespace Microsoft.Exchange.Data.TextConverters
         private bool restartablePushSink;
         private long restartPosition;
 
-        private bool encodingSameAsInput;
+        private readonly bool encodingSameAsInput;
 
-        private bool restartable;
+        private readonly bool restartable;
         private bool canRestart;
         private bool lineModeEncoding;
 
-        private int minCharsEncode;
+        private readonly int minCharsEncode;
 
         private char[] lineBuffer;
         private int lineBufferCount;
@@ -52,7 +52,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         private ByteCache cache = new();
 
-        private Encoding originalEncoding;
+        private readonly Encoding originalEncoding;
         private Encoding encoding;
         private Encoder encoder;
         private bool encodingCompleteUnicode;

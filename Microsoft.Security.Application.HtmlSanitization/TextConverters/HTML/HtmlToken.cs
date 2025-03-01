@@ -302,7 +302,7 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 
         public struct AttributeEnumerator
         {
-            private HtmlToken token;
+            private readonly HtmlToken token;
 #if DEBUG
             private int index;
 #endif
@@ -418,7 +418,7 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 
         public struct TagUnstructuredContentTextReader
         {
-            private HtmlToken token;
+            private readonly HtmlToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -472,7 +472,7 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 
         public struct TagNameTextReader
         {
-            private HtmlToken token;
+            private readonly HtmlToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -519,7 +519,7 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 
         public struct AttributeNameTextReader
         {
-            private HtmlToken token;
+            private readonly HtmlToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -561,7 +561,7 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 
         public struct AttributeValueTextReader
         {
-            private HtmlToken token;
+            private readonly HtmlToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -701,9 +701,9 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 
     internal struct HtmlAttribute
     {
-        private HtmlToken token;
+        private readonly HtmlToken token;
 #if DEBUG
-        private int index;
+        private readonly int index;
 #endif
 
         internal HtmlAttribute(HtmlToken token)

@@ -49,7 +49,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         private bool literalEntities;
         private bool plaintext;
 
-        private bool parseConditionals = false;
+        private readonly bool parseConditionals = false;
 
         private ParseState parseState = ParseState.Text;
 
@@ -70,7 +70,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         private HtmlToken token;
 
         private IRestartable restartConsumer;
-        private bool detectEncodingFromMetaTag;
+        private readonly bool detectEncodingFromMetaTag;
 
         private short[] hashValuesTable;
 

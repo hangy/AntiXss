@@ -165,7 +165,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
     internal struct RGBT
     {
-        private uint        rawValue;
+        private readonly uint        rawValue;
 
         public RGBT(uint rawValue)
         {
@@ -195,7 +195,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         public const int    ValueMax = 0x03FFFFFF;
         public const int    ValueMin = -ValueMax;
 
-        private uint        rawValue;
+        private readonly uint        rawValue;
 
         public static readonly PropertyValue Null = new();
         public static readonly PropertyValue True = new(true);
@@ -321,7 +321,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
     [StructLayout(LayoutKind.Sequential, Pack=2)]
     internal struct Property
     {
-        private PropertyId id;
+        private readonly PropertyId id;
         private PropertyValue value;
 
         public static readonly Property Null = new();

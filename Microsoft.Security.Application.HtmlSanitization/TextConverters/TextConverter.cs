@@ -69,17 +69,17 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <summary>
         /// Value indicating if boundary conditions are to be tested.
         /// </summary>
-        private bool testBoundaryConditions = false;
+        private readonly bool testBoundaryConditions = false;
 
         /// <summary>
         /// The input buffer size.
         /// </summary>
-        private int inputBufferSize = 4096;
+        private readonly int inputBufferSize = 4096;
 
         /// <summary>
         /// The output buffer size.
         /// </summary>
-        private int outputBufferSize = 4096;
+        private readonly int outputBufferSize = 4096;
 
         /// <summary>
         /// Gets or sets the size of the input stream buffer.

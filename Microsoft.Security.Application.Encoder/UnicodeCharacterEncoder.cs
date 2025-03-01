@@ -76,7 +76,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for HTML named entities.
         /// </summary>
-        private static Lazy<char[][]> namedEntitiesLazy = new(InitialiseNamedEntityList);
+        private static readonly Lazy<char[][]> namedEntitiesLazy = new(InitialiseNamedEntityList);
 
         /// <summary>
         /// Lock object

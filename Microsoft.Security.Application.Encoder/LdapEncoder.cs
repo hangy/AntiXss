@@ -31,19 +31,19 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for each character when filter encoding.
         /// </summary>
-        private static Lazy<char[][]> filterCharacterValuesLazy = new(InitialiseFilterSafeList);
+        private static readonly Lazy<char[][]> filterCharacterValuesLazy = new(InitialiseFilterSafeList);
 
         /// <summary>
         /// The values to output for each character when DN encoding.
         /// </summary>
-        private static Lazy<char[][]> distinguishedNameCharacterValuesLazy = new(InitialiseDistinguishedNameSafeList);
+        private static readonly Lazy<char[][]> distinguishedNameCharacterValuesLazy = new(InitialiseDistinguishedNameSafeList);
 
         /// <summary>
         /// Encodes the input string for use in LDAP filters.
         /// </summary>
         /// <param name="input">The string to encode.</param>
         /// <returns>An encoded version of the input string suitable for use in LDAP filters.</returns>
-        internal static string FilterEncode(string input)
+        internal static string? FilterEncode(string? input)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -55,7 +55,7 @@ namespace Microsoft.Security.Application
             // RFC 4515 states strings must be converted to their UTF8 value before search filter encoding.
             // See http://tools.ietf.org/html/rfc4515
             // Conversion to char[] keeps null characters inline.
-            byte[] utf8Bytes = Encoding.UTF8.GetBytes(input.ToCharArray());
+            byte[] utf8Bytes = Encoding.UTF8.GetBytes(input!.ToCharArray());
             char[] encodedInput = new char[utf8Bytes.Length * 3]; // Each byte can potentially be encoded as %xx
             int outputLength = 0;
 

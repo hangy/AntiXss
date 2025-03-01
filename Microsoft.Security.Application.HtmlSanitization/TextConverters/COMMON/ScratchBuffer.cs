@@ -27,7 +27,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal struct BufferString
     {
-        private char[] buffer;
+        private readonly char[] buffer;
         private int offset;
         private int count;
 

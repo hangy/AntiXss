@@ -23,8 +23,8 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal struct HtmlAttributeParts
     {
-        private HtmlToken.AttrPartMajor major;
-        private HtmlToken.AttrPartMinor minor;
+        private readonly HtmlToken.AttrPartMajor major;
+        private readonly HtmlToken.AttrPartMinor minor;
 
         internal HtmlAttributeParts(HtmlToken.AttrPartMajor major, HtmlToken.AttrPartMinor minor)
         {

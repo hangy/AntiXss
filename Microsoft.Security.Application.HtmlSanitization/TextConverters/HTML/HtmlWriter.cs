@@ -39,9 +39,9 @@ namespace Microsoft.Exchange.Data.TextConverters
         private ConverterOutput output;
         private OutputState outputState;
 
-        private bool filterHtml;
+        private readonly bool filterHtml;
 
-        private bool autoNewLines;
+        private readonly bool autoNewLines;
 
         private bool allowWspBeforeFollowingTag;
         private bool lastWhitespace;

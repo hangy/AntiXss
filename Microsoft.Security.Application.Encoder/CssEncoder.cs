@@ -30,7 +30,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for each character.
         /// </summary>
-        private static Lazy<char[][]> characterValuesLazy = new(InitialiseSafeList);
+        private static readonly Lazy<char[][]> characterValuesLazy = new(InitialiseSafeList);
 
         /// <summary>
         /// Encodes according to the CSS encoding rules.

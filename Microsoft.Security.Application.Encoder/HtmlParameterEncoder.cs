@@ -57,12 +57,12 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for each character during parameter encoding.
         /// </summary>
-        private static Lazy<char[][]> characterValuesLazy = new(InitialiseSafeList);
+        private static readonly Lazy<char[][]> characterValuesLazy = new(InitialiseSafeList);
 
         /// <summary>
         /// The path character safe list.
         /// </summary>
-        private static Lazy<char[][]> pathCharacterValuesLazy = new(InitialisePathSafeList);
+        private static readonly Lazy<char[][]> pathCharacterValuesLazy = new(InitialisePathSafeList);
 
         /// <summary>
         /// Encodes a string for query string encoding and returns the encoded string.

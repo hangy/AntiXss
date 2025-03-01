@@ -33,7 +33,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         private HtmlParser parser;
         private IRestartable restartConsumer;
 
-        private int maxElementStack;
+        private readonly int maxElementStack;
 
         private Context context;
         private Context[] contextStack;
@@ -70,8 +70,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private SmallTokenBuilder tokenBuilder;
 
-        private HtmlInjection injection;
-        private DocumentState saveState;
+        private readonly HtmlInjection injection;
+        private readonly DocumentState saveState;
 
         public HtmlNormalizingParser(
                     HtmlParser parser,
@@ -1715,7 +1715,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             private int currentRun;
             private int currentRunOffset;
             private int numRuns;
-            private HtmlTagIndex[] savedElementStackEntries = new HtmlTagIndex[5];
+            private readonly HtmlTagIndex[] savedElementStackEntries = new HtmlTagIndex[5];
             private int savedElementStackEntriesCount;
             private bool hasSpace;
             private bool eatSpace;
@@ -1786,8 +1786,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private class SmallTokenBuilder : HtmlToken
         {
-            private char[] spareBuffer = new char[1];
-            private RunEntry[] spareRuns = new RunEntry[1];
+            private readonly char[] spareBuffer = new char[1];
+            private readonly RunEntry[] spareRuns = new RunEntry[1];
 
             public SmallTokenBuilder()
             {

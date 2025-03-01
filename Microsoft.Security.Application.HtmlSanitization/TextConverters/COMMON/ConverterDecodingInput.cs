@@ -27,18 +27,18 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal class ConverterDecodingInput : ConverterInput, IReusable
     {
-        private IResultsFeedback resultFeedback;
+        private readonly IResultsFeedback resultFeedback;
 
         private Stream pullSource;
         private ConverterStream pushSource;
         private bool rawEndOfFile;
 
-        private Encoding originalEncoding;
+        private readonly Encoding originalEncoding;
         private Encoding encoding;
         private Decoder decoder;
         private bool encodingChanged;
 
-        private int minDecodeBytes;
+        private readonly int minDecodeBytes;
         private int minDecodeChars;
 
         private char[] parseBuffer;
@@ -55,11 +55,11 @@ namespace Microsoft.Exchange.Data.TextConverters
         private int pushChunkCount;
         private int pushChunkUsed;
 
-        private bool detectEncodingFromByteOrderMark;
+        private readonly bool detectEncodingFromByteOrderMark;
         private byte[] preamble;
 
         private IRestartable restartConsumer;
-        private int restartMax;
+        private readonly int restartMax;
         private ByteCache restartCache;
         private bool restarting;
 

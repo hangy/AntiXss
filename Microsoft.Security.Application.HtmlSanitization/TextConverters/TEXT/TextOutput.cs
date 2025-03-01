@@ -54,37 +54,37 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Text
         /// <summary>
         /// Use line wrapping.
         /// </summary>
-        private bool lineWrapping;
+        private readonly bool lineWrapping;
 
         /// <summary>
         /// Use the text-plain format parameter.
         /// </summary>
-        private bool rfc2646;
+        private readonly bool rfc2646;
 
         /// <summary>
         /// The offset of the longest non wrapped paragraph found.
         /// </summary>
-        private int longestNonWrappedParagraph;
+        private readonly int longestNonWrappedParagraph;
 
         /// <summary>
         /// The offset before the wrap.
         /// </summary>
-        private int wrapBeforePosition;
+        private readonly int wrapBeforePosition;
 
         /// <summary>
         /// Preserve trailing spaces.
         /// </summary>
-        private bool preserveTrailingSpace;
+        private readonly bool preserveTrailingSpace;
 
         /// <summary>
         /// Preserve the tabs.
         /// </summary>
-        private bool preserveTabulation;
+        private readonly bool preserveTabulation;
 
         /// <summary>
         /// Preserve the non break spaces.
         /// </summary>
-        private bool preserveNbsp;
+        private readonly bool preserveNbsp;
 
         /// <summary>
         /// The length of the line.
@@ -149,12 +149,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Text
         /// <summary>
         /// When <c>true</c> write this object; otherwise, write null.
         /// </summary>
-        private bool fallbacks;
+        private readonly bool fallbacks;
 
         /// <summary>
         /// True if escaping html.
         /// </summary>
-        private bool htmlEscape;
+        private readonly bool htmlEscape;
 
         /// <summary>
         /// The anchor URL.
@@ -169,7 +169,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Text
         /// <summary>
         /// The image rendering callback delegate.
         /// </summary>
-        private ImageRenderingCallbackInternal imageRenderingCallback;
+        private readonly ImageRenderingCallbackInternal imageRenderingCallback;
 
         #endregion
 

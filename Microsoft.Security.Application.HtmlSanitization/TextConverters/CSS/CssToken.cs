@@ -361,7 +361,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct PropertyEnumerator
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private int index;
 #endif
@@ -449,7 +449,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct PropertyNameTextReader
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -478,7 +478,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct PropertyValueTextReader
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -539,7 +539,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct SelectorEnumerator
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private int index;
 #endif
@@ -627,7 +627,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct SelectorNameTextReader
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -656,7 +656,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct SelectorClassTextReader
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -708,9 +708,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
     internal struct CssSelector
     {
-        private CssToken token;
+        private readonly CssToken token;
 #if DEBUG
-        private int index;
+        private readonly int index;
 #endif
 
         internal CssSelector(CssToken token)
@@ -784,9 +784,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
     internal struct CssProperty
     {
-        private CssToken token;
+        private readonly CssToken token;
 #if DEBUG
-        private int index;
+        private readonly int index;
 #endif
 
         internal CssProperty(CssToken token)

@@ -39,12 +39,12 @@ namespace Microsoft.Exchange.Data.TextConverters
             /// <summary>
             /// Value indicating whether encoding should be detected from the BOM
             /// </summary>
-            private bool detectEncodingFromByteOrderMark = true;
+            private readonly bool detectEncodingFromByteOrderMark = true;
 
             /// <summary>
             /// Value indicating whether encoding should be detected from the charset meta tag/
             /// </summary>
-            private bool detectEncodingFromMetaTag = true;
+            private readonly bool detectEncodingFromMetaTag = true;
 
             /// <summary>
             /// The output encoding.
@@ -54,7 +54,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             /// <summary>
             /// Value indicating if the output encoding should be the same as the input encoding.
             /// </summary>
-            private bool outputEncodingSameAsInput = true;
+            private readonly bool outputEncodingSameAsInput = true;
 
             /// <summary>
             /// Value indicating if the HTML input should be normalized.
@@ -64,17 +64,17 @@ namespace Microsoft.Exchange.Data.TextConverters
             /// <summary>
             /// The format to use for header and footer injection.
             /// </summary>
-            private HeaderFooterFormat injectionFormat = HeaderFooterFormat.Text;
+            private readonly HeaderFooterFormat injectionFormat = HeaderFooterFormat.Text;
 
             /// <summary>
             /// The header to inject.
             /// </summary>
-            private string injectHead;
+            private readonly string injectHead;
 
             /// <summary>
             /// The tail to inject.
             /// </summary>
-            private string injectTail;
+            private readonly string injectTail;
 
             /// <summary>
             /// Value indicating if HTML should be filtered.
@@ -84,12 +84,12 @@ namespace Microsoft.Exchange.Data.TextConverters
             /// <summary>
             /// The call back to use when parsing HTML
             /// </summary>
-            private HtmlTagCallback htmlCallback;
+            private readonly HtmlTagCallback htmlCallback;
 
             /// <summary>
             /// Value indicating if truncation should be tested for when a callback is performed.
             /// </summary>
-            private bool testTruncateForCallback = true;
+            private readonly bool testTruncateForCallback = true;
 
             /// <summary>
             /// Value indicating fragmented output can be generated.
@@ -99,56 +99,56 @@ namespace Microsoft.Exchange.Data.TextConverters
             /// <summary>
             /// The maximum number of tokenisation runs to perform.
             /// </summary>
-            private int testMaxTokenRuns = 512;
+            private readonly int testMaxTokenRuns = 512;
 
             /// <summary>
             /// The trace stream for tokenisation
             /// </summary>
-            private Stream testTraceStream;
+            private readonly Stream testTraceStream;
 
             /// <summary>
             /// Value indicating if the test traces should show the token number.
             /// </summary>
-            private bool testTraceShowTokenNum = true;
+            private readonly bool testTraceShowTokenNum = true;
 
             /// <summary>
             /// The token number at which test tracing should stop.
             /// </summary>
-            private int testTraceStopOnTokenNum;
+            private readonly int testTraceStopOnTokenNum;
 
-            private Stream testNormalizerTraceStream;
-            private bool testNormalizerTraceShowTokenNum = true;
-            private int testNormalizerTraceStopOnTokenNum;
+            private readonly Stream testNormalizerTraceStream;
+            private readonly bool testNormalizerTraceShowTokenNum = true;
+            private readonly int testNormalizerTraceStopOnTokenNum;
 
             /// <summary>
             /// The maximum size of an HTML tag.
             /// </summary>
-            private int maxHtmlTagSize = 32768;
+            private readonly int maxHtmlTagSize = 32768;
 
             /// <summary>
             /// The maximum number of attributes for an HTML tag
             /// </summary>
-            private int testMaxHtmlTagAttributes = 64;
+            private readonly int testMaxHtmlTagAttributes = 64;
 
             /// <summary>
             /// The maximum offset for parsing restarting.
             /// </summary>
-            private int testMaxHtmlRestartOffset = 4096;
+            private readonly int testMaxHtmlRestartOffset = 4096;
 
             /// <summary>
             /// The limit for nested tags.
             /// </summary>
-            private int testMaxHtmlNormalizerNesting = HtmlSupport.HtmlNestingLimit;
+            private readonly int testMaxHtmlNormalizerNesting = HtmlSupport.HtmlNestingLimit;
 
             /// <summary>
             /// The threshold for small CSS blocks.
             /// </summary>
-            private int smallCssBlockThreshold = -1;
+            private readonly int smallCssBlockThreshold = -1;
 
             /// <summary>
             /// Value indicating whether display styles should be reserved.
             /// </summary>
-            private bool preserveDisplayNoneStyle;
+            private readonly bool preserveDisplayNoneStyle;
 
             internal bool NormalizeHtml
             {
