@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
 
-permissions: 
+permissions:
   id-token: write
   contents: write
 
@@ -13,5 +13,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Component detection 
+      - name: Component detection
         uses: advanced-security/component-detection-dependency-submission-action@v0.0.4
