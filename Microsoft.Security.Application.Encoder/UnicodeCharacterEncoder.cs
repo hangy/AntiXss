@@ -71,7 +71,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The values to output for each character.
         /// </summary>
-        private static char[][] characterValues;
+        private static char[][]? characterValues;
 
         /// <summary>
         /// The values to output for HTML named entities.
@@ -121,7 +121,7 @@ namespace Microsoft.Security.Application
         /// <param name="input">The character to encode</param>
         /// <param name="output">The encoded character, if it has been encoded.</param>
         /// <returns>True if the character has been encoded, otherwise false.</returns>
-        private delegate bool MethodSpecificEncoder(char input, out char[] output);
+        private delegate bool MethodSpecificEncoder(char input, out char[]? output);
 
         /// <summary>
         /// Marks characters from the specified languages as safe.
@@ -183,7 +183,7 @@ namespace Microsoft.Security.Application
         /// <returns>
         /// Encoded string for use in XML.
         /// </returns>
-        internal static string XmlEncode(string input)
+        internal static string? XmlEncode(string? input)
         {
             return HtmlEncode(input, false, XmlTweak);
         }
@@ -195,7 +195,7 @@ namespace Microsoft.Security.Application
         /// <returns>
         /// Encoded string for use in XML.
         /// </returns>
-        internal static string XmlAttributeEncode(string input)
+        internal static string? XmlAttributeEncode(string? input)
         {
             return HtmlEncode(input, false, XmlAttributeTweak);
         }
@@ -207,7 +207,7 @@ namespace Microsoft.Security.Application
         /// <returns>
         /// Encoded string for use in HTML attributes.
         /// </returns>
-        internal static string HtmlAttributeEncode(string input)
+        internal static string? HtmlAttributeEncode(string? input)
         {
             return HtmlEncode(input, false, HtmlAttributeTweak);
         }
@@ -220,7 +220,7 @@ namespace Microsoft.Security.Application
         /// <returns>
         /// Encoded string for use in HTML.
         /// </returns>
-        internal static string HtmlEncode(string input, bool useNamedEntities)
+        internal static string? HtmlEncode(string? input, bool useNamedEntities)
         {
             return HtmlEncode(input, useNamedEntities, null);
         }
@@ -237,7 +237,12 @@ namespace Microsoft.Security.Application
         /// </remarks>
         private static void ApplyHtmlSpecificValues()
         {
-            characterValues['<'] = "lt".ToCharArray();
+            if (characterValues == null)
+            {
+                InitialiseSafeList();
+            }
+
+            characterValues!['<'] = "lt".ToCharArray();
             characterValues['>'] = "gt".ToCharArray();
             characterValues['&'] = "amp".ToCharArray();
             characterValues['"'] = "quot".ToCharArray();
@@ -250,7 +255,7 @@ namespace Microsoft.Security.Application
         /// <param name="input">The character to potentially encode.</param>
         /// <param name="output">The encoded character, if any.</param>
         /// <returns>True if encoding took place, otherwise false.</returns>
-        private static bool HtmlAttributeTweak(char input, out char[] output)
+        private static bool HtmlAttributeTweak(char input, out char[]? output)
         {
             if (input == '\'')
             {
@@ -274,7 +279,7 @@ namespace Microsoft.Security.Application
         /// <param name="input">The character to potentially encode.</param>
         /// <param name="output">The encoded character, if any.</param>
         /// <returns>True if encoding took place, otherwise false.</returns>
-        private static bool XmlTweak(char input, out char[] output)
+        private static bool XmlTweak(char input, out char[]? output)
         {
             if (input == '\'')
             {
@@ -292,7 +297,7 @@ namespace Microsoft.Security.Application
         /// <param name="input">The character to potentially encode.</param>
         /// <param name="output">The encoded character, if any.</param>
         /// <returns>True if encoding took place, otherwise false.</returns>
-        private static bool XmlAttributeTweak(char input, out char[] output)
+        private static bool XmlAttributeTweak(char input, out char[]? output)
         {
             if (input == '\'')
             {
@@ -319,7 +324,7 @@ namespace Microsoft.Security.Application
         /// <returns>
         /// Encoded string for use in HTML.
         /// </returns>
-        private static string HtmlEncode(string input, bool useNamedEntities, MethodSpecificEncoder encoderTweak)
+        private static string? HtmlEncode(string? input, bool useNamedEntities, MethodSpecificEncoder? encoderTweak)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -331,7 +336,7 @@ namespace Microsoft.Security.Application
                 InitialiseSafeList();
             }
 
-            char[][] namedEntities = null;
+            char[][]? namedEntities = null;
             if (useNamedEntities)
             {
                 namedEntities = namedEntitiesLazy.Value;
@@ -339,7 +344,7 @@ namespace Microsoft.Security.Application
 
             // Setup a new StringBuilder for output.
             // Worse case scenario - the longest entity name, thetasym is 10 characters, including the & and ;.
-            StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input.Length, 10);
+            StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input!.Length, 10);
 
             AcquireReadLock();
             try
@@ -369,18 +374,18 @@ namespace Microsoft.Security.Application
                         // If we reached this point, the code point is within the BMP.
                         char currentCharacter = (char)currentCodePoint;
 
-                        if (encoderTweak != null && encoderTweak(currentCharacter, out char[] tweekedValue))
+                        if (encoderTweak != null && encoderTweak(currentCharacter, out char[]? tweekedValue))
                         {
                             builder.Append(tweekedValue);
                         }
-                        else if (useNamedEntities && namedEntities[currentCodePoint] != null)
+                        else if (useNamedEntities && namedEntities![currentCodePoint] != null)
                         {
                             char[] encodedCharacter = namedEntities[currentCodePoint];
                             builder.Append('&');
                             builder.Append(encodedCharacter);
                             builder.Append(';');
                         }
-                        else if (characterValues[currentCodePoint] != null)
+                        else if (characterValues![currentCodePoint] != null)
                         {
                             // character needs to be encoded
                             char[] encodedCharacter = characterValues[currentCodePoint];

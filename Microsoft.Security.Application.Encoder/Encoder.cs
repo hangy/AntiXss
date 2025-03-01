@@ -55,7 +55,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// Initializes character Html encoding array
         /// </summary>
-        private static readonly char[][] SafeListCodes = InitializeSafeList();
+        private static readonly char[]?[] SafeListCodes = InitializeSafeList();
 
         /// <summary>
         /// Encodes input strings for use as a value  in Lightweight Directory Access Protocol (LDAP) filter queries.
@@ -78,7 +78,7 @@ namespace Microsoft.Security.Application
         /// <item><term>Lučić</term><description>Lu\C4\8Di\C4\87</description></item>
         /// </list>
         /// </remarks>
-        public static string LdapFilterEncode(string input)
+        public static string? LdapFilterEncode(string? input)
         {
             return LdapEncoder.FilterEncode(input);
         }
@@ -104,7 +104,7 @@ namespace Microsoft.Security.Application
         /// <item><term>Lučić</term><description>Lu#C4#8Di#C4#87</description></item>
         /// </list>
         /// </remarks>
-        public static string LdapDistinguishedNameEncode(string input)
+        public static string? LdapDistinguishedNameEncode(string? input)
         {
             return LdapDistinguishedNameEncode(input, true, true);
         }
@@ -148,7 +148,7 @@ namespace Microsoft.Security.Application
         /// <item><term>Lučić</term><description>Lu#C4#8Di#C4#87</description></item>
         /// </list>
         /// </remarks>
-        public static string LdapDistinguishedNameEncode(string input, bool useInitialCharacterRules, bool useFinalCharacterRule)
+        public static string? LdapDistinguishedNameEncode(string? input, bool useInitialCharacterRules, bool useFinalCharacterRule)
         {
             return LdapEncoder.DistinguishedNameEncode(input, useInitialCharacterRules, useFinalCharacterRule);
         }
@@ -174,7 +174,7 @@ namespace Microsoft.Security.Application
         /// </list>
         /// </remarks>
         [Obsolete("This method has been deprecated. Please use Encoder.LdapFilterEncode() instead.")]
-        public static string LdapEncode(string input)
+        public static string? LdapEncode(string? input)
         {
             return LdapFilterEncode(input);
         }
@@ -200,7 +200,7 @@ namespace Microsoft.Security.Application
         /// escape sequence is also a valid hexadecimal digit, it must either include six digits in the escape sequence or use a whitespace character to terminate the escape sequence. 
         /// For example, \000020 denotes a space.
         /// </remarks>
-        public static string CssEncode(string input)
+        public static string? CssEncode(string? input)
         {
             return CssEncoder.Encode(input);
         }
@@ -236,7 +236,7 @@ namespace Microsoft.Security.Application
         /// <item><term>"Anti-Cross Site Scripting Library"</term><description>&amp;quote;Anti-Cross Site Scripting Library&amp;quote;</description></item>
         /// </list>
         /// </remarks>
-        public static string HtmlEncode(string input)
+        public static string? HtmlEncode(string? input)
         {
             return HtmlEncode(input, false);
         }
@@ -274,7 +274,7 @@ namespace Microsoft.Security.Application
         /// <item><term>"Anti-Cross Site Scripting Library"</term><description>&amp;quote;Anti-Cross Site Scripting Library&amp;quote;</description></item>
         /// </list>
         /// </remarks>
-        public static string HtmlEncode(string input, bool useNamedEntities)
+        public static string? HtmlEncode(string? input, bool useNamedEntities)
         {
             return UnicodeCharacterEncoder.HtmlEncode(input, useNamedEntities);
         }
@@ -306,7 +306,7 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>Anti-Cross&amp;#32;Site&amp;#32;Scripting&amp;#32;Library</description></item>
         /// </list>
         /// </remarks>
-        public static string HtmlAttributeEncode(string input)
+        public static string? HtmlAttributeEncode(string? input)
         {
             return UnicodeCharacterEncoder.HtmlAttributeEncode(input);
         }
@@ -344,7 +344,7 @@ namespace Microsoft.Security.Application
             "Microsoft.Design",
             "CA1055:UriReturnValuesShouldNotBeStrings",
             Justification = "As this is meant as a replacement for HttpUility.Encode we must keep the same return type.")]
-        public static string UrlEncode(string input)
+        public static string? UrlEncode(string? input)
         {
             return UrlEncode(input, Encoding.UTF8);
         }
@@ -382,7 +382,7 @@ namespace Microsoft.Security.Application
             "Microsoft.Design",
             "CA1055:UriReturnValuesShouldNotBeStrings",
             Justification = "This does not return a URL so the return type can be a string.")]
-        public static string HtmlFormUrlEncode(string input)
+        public static string? HtmlFormUrlEncode(string? input)
         {
             return HtmlFormUrlEncode(input, Encoding.UTF8);
         }
@@ -421,7 +421,7 @@ namespace Microsoft.Security.Application
             "Microsoft.Design",
             "CA1055:UriReturnValuesShouldNotBeStrings",
             Justification = "This does not return a URL so the return type can be a string.")]
-        public static string UrlEncode(string input, int codePage)
+        public static string? UrlEncode(string? input, int codePage)
         {
             return UrlEncode(input, Encoding.GetEncoding(codePage));
         }
@@ -460,7 +460,7 @@ namespace Microsoft.Security.Application
             "Microsoft.Design",
             "CA1055:UriReturnValuesShouldNotBeStrings",
             Justification = "This not not return a URL, so the return type can be a string.")]
-        public static string HtmlFormUrlEncode(string input, int codePage)
+        public static string? HtmlFormUrlEncode(string? input, int codePage)
         {
             return HtmlFormUrlEncode(input, Encoding.GetEncoding(codePage));
         }
@@ -500,7 +500,7 @@ namespace Microsoft.Security.Application
             "Microsoft.Design",
             "CA1055:UriReturnValuesShouldNotBeStrings",
             Justification = "This does not return a URL so the return type can be a string.")]
-        public static string UrlEncode(string input, Encoding inputEncoding)
+        public static string? UrlEncode(string? input, Encoding? inputEncoding)
         {
             // Assuming the default to be UTF-8
             if (inputEncoding == null)
@@ -546,7 +546,7 @@ namespace Microsoft.Security.Application
             "Microsoft.Design",
             "CA1055:UriReturnValuesShouldNotBeStrings",
             Justification = "This does not return a URL so the return type can be a string.")]
-        public static string HtmlFormUrlEncode(string input, Encoding inputEncoding)
+        public static string? HtmlFormUrlEncode(string? input, Encoding? inputEncoding)
         {
             // Assuming the default to be UTF-8
             if (inputEncoding == null)
@@ -566,7 +566,7 @@ namespace Microsoft.Security.Application
             "Microsoft.Design",
             "CA1055:UriReturnValuesShouldNotBeStrings",
             Justification = "This does not return a full URL so the return type can be a string.")]
-        public static string UrlPathEncode(string input)
+        public static string? UrlPathEncode(string? input)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -574,14 +574,14 @@ namespace Microsoft.Security.Application
             }
 
             // DevDiv #211105: We should make the UrlPathEncode method encode only the path portion of URLs. 
-            bool validUrl = UriUtil.TrySplitUriForPathEncode(input, out string schemeAndAuthority, out string path, out string queryAndFragment);
+            bool validUrl = UriUtil.TrySplitUriForPathEncode(input!, out string? schemeAndAuthority, out string path, out string queryAndFragment);
 
             if (!validUrl)
             {
                 // treat as a relative URL, so we might still need to chop off the query / fragment components 
                 schemeAndAuthority = null;
 #pragma warning disable CA1062 // Validate arguments of public methods - Is validated above
-                UriUtil.ExtractQueryAndFragment(input, out path, out queryAndFragment);
+                UriUtil.ExtractQueryAndFragment(input!, out path, out queryAndFragment);
 #pragma warning restore CA1062 // Validate arguments of public methods - Is validated above
             }
 
@@ -618,7 +618,7 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>Anti-Cross Site Scripting Library</description></item>
         /// </list>
         /// </remarks>
-        public static string XmlEncode(string input)
+        public static string? XmlEncode(string? input)
         {
             return UnicodeCharacterEncoder.XmlEncode(input);
         }
@@ -652,7 +652,7 @@ namespace Microsoft.Security.Application
         /// <item><term>Anti-Cross Site Scripting Library</term><description>Anti-Cross&amp;#32;Site&amp;#32;Scripting&amp;#32;Library</description></item>
         /// </list>
         /// </remarks>
-        public static string XmlAttributeEncode(string input)
+        public static string? XmlAttributeEncode(string? input)
         {
             // HtmlEncodeAttribute will handle input
             return UnicodeCharacterEncoder.XmlAttributeEncode(input);
@@ -814,7 +814,7 @@ namespace Microsoft.Security.Application
         /// <item><term>user@contoso.com</term><description>"user"&#38;chrw(64)&#38;"contoso.com"</description></item>
         /// <item><term>Anti-Cross Site Scripting Library</term><description>"Anti-Cross Site Scripting Library"</description></item>
         /// </list></remarks>
-        public static string VisualBasicScriptEncode(string input)
+        public static string? VisualBasicScriptEncode(string? input)
         {
             // Input validation: empty or null string condition
             if (string.IsNullOrEmpty(input))
@@ -824,7 +824,7 @@ namespace Microsoft.Security.Application
 
             // Use a new char array.
             int outputLength = 0;
-            int inputLength = input.Length;
+            int inputLength = input!.Length;
             char[] encodedInput = new char[inputLength * 12]; // worst case length scenario
 
             // flag to surround double quotes around safe characters
@@ -889,9 +889,9 @@ namespace Microsoft.Security.Application
         /// </summary>
         /// <returns>A two dimensional character array containing characters and their encoded values.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "This is necessary complexity.")]
-        private static char[][] InitializeSafeList()
+        private static char[]?[] InitializeSafeList()
         {
-            char[][] allCharacters = new char[65536][];
+            char[]?[] allCharacters = new char[65536][];
             for (int i = 0; i < allCharacters.Length; i++)
             {
                 if (

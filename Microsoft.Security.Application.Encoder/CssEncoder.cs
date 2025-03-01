@@ -37,7 +37,7 @@ namespace Microsoft.Security.Application
         /// </summary>
         /// <param name="input">The string to encode.</param>
         /// <returns>The encoded string.</returns>
-        internal static string Encode(string input)
+        internal static string? Encode(string? input)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -48,7 +48,7 @@ namespace Microsoft.Security.Application
 
             // Setup a new StringBuilder for output.
             // Worse case scenario - CSS encoding wants \XXXXXX for encoded characters.
-            StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input.Length, 7);
+            StringBuilder builder = EncoderUtil.GetOutputStringBuilder(input!.Length, 7);
 
             Utf16StringReader stringReader = new(input);
             while (true)

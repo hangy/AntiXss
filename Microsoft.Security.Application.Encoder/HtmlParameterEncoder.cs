@@ -75,7 +75,7 @@ namespace Microsoft.Security.Application
         /// As a result, these characters must be encoded in &lt;a&gt; tags or in query strings where the strings can be re-sent by a browser 
         /// in a request string.</remarks>
         /// <exception cref="ArgumentNullException">Thrown if the encoding is null.</exception>
-        internal static string QueryStringParameterEncode(string s, Encoding encoding)
+        internal static string? QueryStringParameterEncode(string? s, Encoding encoding)
         {
             return FormQueryEncode(s, encoding, EncodingType.QueryString);
         }
@@ -91,7 +91,7 @@ namespace Microsoft.Security.Application
         /// As a result, these characters must be encoded in &lt;a&gt; tags or in query strings where the strings can be re-sent by a browser 
         /// in a request string.</remarks>
         /// <exception cref="ArgumentNullException">Thrown if the encoding is null.</exception>
-        internal static string FormStringParameterEncode(string s, Encoding encoding)
+        internal static string? FormStringParameterEncode(string? s, Encoding encoding)
         {
             return FormQueryEncode(s, encoding, EncodingType.HtmlForm);
         }
@@ -102,7 +102,7 @@ namespace Microsoft.Security.Application
         /// <param name="s">The string to encode.</param>
         /// <param name="encoding">The encoding context to use.</param>
         /// <returns>The encoded string.</returns>
-        internal static string UrlPathEncode(string s, Encoding encoding)
+        internal static string? UrlPathEncode(string? s, Encoding encoding)
         {
             return FormQueryEncode(s, encoding, EncodingType.QueryString, pathCharacterValuesLazy);
         }
@@ -114,7 +114,7 @@ namespace Microsoft.Security.Application
         /// <param name="encoding">The encoding for the text parameter.</param>
         /// <param name="encodingType">The encoding type to use.</param>
         /// <returns>The encoded text.</returns>
-        private static string FormQueryEncode(string s, Encoding encoding, EncodingType encodingType)
+        private static string? FormQueryEncode(string? s, Encoding encoding, EncodingType encodingType)
         {
             return FormQueryEncode(s, encoding, encodingType, characterValuesLazy);
         }
@@ -127,7 +127,7 @@ namespace Microsoft.Security.Application
         /// <param name="encodingType">The encoding type to use.</param>
         /// <param name="characterValues">A lazy loaded safelist to use.</param>
         /// <returns>The encoded text.</returns>
-        private static string FormQueryEncode(string s, Encoding encoding, EncodingType encodingType, Lazy<char[][]> characterValues)
+        private static string? FormQueryEncode(string? s, Encoding encoding, EncodingType encodingType, Lazy<char[][]> characterValues)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -142,7 +142,7 @@ namespace Microsoft.Security.Application
             // RFC 3986 states strings must be converted to their UTF8 value before URL encoding.
             // See http://tools.ietf.org/html/rfc3986
             // Conversion to char[] keeps null characters inline.
-            byte[] utf8Bytes = encoding.GetBytes(s.ToCharArray());
+            byte[] utf8Bytes = encoding.GetBytes(s!.ToCharArray());
             char[] encodedInput = new char[utf8Bytes.Length * 3]; // Each byte can potentially be encoded as %xx
             int outputLength = 0;
 

@@ -90,7 +90,7 @@ namespace Microsoft.Security.Application
         /// <param name="useInitialCharacterRules">Value indicating whether the special case rules for encoding of spaces and octothorpes at the start of a string are used.</param>
         /// <param name="useFinalCharacterRule">Value indicating whether the special case for encoding of final character spaces is used.</param>
         /// <returns>An encoded version of the input string suitable for use in LDAP DNs.</returns>
-        internal static string DistinguishedNameEncode(string input, bool useInitialCharacterRules, bool useFinalCharacterRule)
+        internal static string? DistinguishedNameEncode(string? input, bool useInitialCharacterRules, bool useFinalCharacterRule)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -99,7 +99,7 @@ namespace Microsoft.Security.Application
 
             char[][] distinguishedNameCharacterValues = distinguishedNameCharacterValuesLazy.Value;
 
-            byte[] utf8Bytes = Encoding.UTF8.GetBytes(input.ToCharArray());
+            byte[] utf8Bytes = Encoding.UTF8.GetBytes(input!.ToCharArray());
             char[] encodedInput = new char[utf8Bytes.Length * 3]; // Each byte can potentially be encoded as #xx
             int outputLength = 0;
 

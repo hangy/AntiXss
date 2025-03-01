@@ -26,9 +26,9 @@ namespace Microsoft.Exchange.Data.TextConverters
     {
         private int cachedLength;
 
-        private CacheEntry headEntry;
-        private CacheEntry tailEntry;
-        private CacheEntry freeList;
+        private CacheEntry? headEntry;
+        private CacheEntry? tailEntry;
+        private CacheEntry? freeList;
 
         public ByteCache()
         {
@@ -63,14 +63,11 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.cachedLength = 0;
         }
 
-        public void GetBuffer(int size, out byte[] buffer, out int offset)
+        public void GetBuffer(int size, out byte[]? buffer, out int offset)
         {
-            if (this.tailEntry != null)
+            if (this.tailEntry != null && this.tailEntry.GetBuffer(size, out buffer, out offset))
             {
-                if (this.tailEntry.GetBuffer(size, out buffer, out offset))
-                {
-                    return;
-                }
+                return;
             }
 
             this.AllocateTail(size);
@@ -200,44 +197,24 @@ namespace Microsoft.Exchange.Data.TextConverters
             private const int DefaultMaxLength = 4096;
 
             private byte[] buffer;
-            private int count;
             private int offset;
-
-            private CacheEntry next;
             public CacheEntry(int size)
             {
                 this.AllocateBuffer(size);
             }
 
-            public int Length
-            {
-                get
-                {
-                    return this.count;
-                }
-            }
+            public int Length { get; private set; }
 
-            public CacheEntry Next
-            {
-                get
-                {
-                    return this.next;
-                }
-
-                set
-                {
-                    this.next = value;
-                }
-            }
+            public CacheEntry? Next { get; set; }
 
             public void Reset()
             {
-                this.count = 0;
+                this.Length = 0;
             }
 
-            public bool GetBuffer(int size, out byte[] buffer, out int offset)
+            public bool GetBuffer(int size, out byte[]? buffer, out int offset)
             {
-                if (this.count == 0)
+                if (this.Length == 0)
                 {
                     this.offset = 0;
 
@@ -247,22 +224,22 @@ namespace Microsoft.Exchange.Data.TextConverters
                     }
                 }
 
-                if (this.buffer.Length - (this.offset + this.count) >= size)
+                if (this.buffer.Length - (this.offset + this.Length) >= size)
                 {
                     buffer = this.buffer;
-                    offset = this.offset + this.count;
+                    offset = this.offset + this.Length;
                     return true;
                 }
 
-                InternalDebug.Assert(this.count != 0);
+                InternalDebug.Assert(this.Length != 0);
 
-                if (this.count < 64 && this.buffer.Length - this.count >= size)
+                if (this.Length < 64 && this.buffer.Length - this.Length >= size)
                 {
-                    Buffer.BlockCopy(this.buffer, this.offset, this.buffer, 0, this.count);
+                    Buffer.BlockCopy(this.buffer, this.offset, this.buffer, 0, this.Length);
                     this.offset = 0;
 
                     buffer = this.buffer;
-                    offset = this.offset + this.count;
+                    offset = this.offset + this.Length;
                     return true;
                 }
 
@@ -273,35 +250,35 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             public void Commit(int count)
             {
-                InternalDebug.Assert(this.buffer.Length - (this.offset + this.count) >= count);
+                InternalDebug.Assert(this.buffer.Length - (this.offset + this.Length) >= count);
 
-                this.count += count;
+                this.Length += count;
             }
 
             public void GetData(out byte[] outputBuffer, out int outputOffset, out int outputCount)
             {
-                InternalDebug.Assert(this.count > 0);
+                InternalDebug.Assert(this.Length > 0);
 
                 outputBuffer = this.buffer;
                 outputOffset = this.offset;
-                outputCount = this.count;
+                outputCount = this.Length;
             }
 
             public void ReportRead(int count)
             {
-                InternalDebug.Assert(this.count >= count);
+                InternalDebug.Assert(this.Length >= count);
 
                 this.offset += count;
-                this.count -= count;
+                this.Length -= count;
             }
 
             public int Read(byte[] buffer, int offset, int count)
             {
-                int countToCopy = Math.Min(count, this.count);
+                int countToCopy = Math.Min(count, this.Length);
 
                 Buffer.BlockCopy(this.buffer, this.offset, buffer, offset, countToCopy);
 
-                this.count -= countToCopy;
+                this.Length -= countToCopy;
                 this.offset += countToCopy;
 
                 count -= countToCopy;

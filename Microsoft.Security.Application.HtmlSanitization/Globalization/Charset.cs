@@ -35,7 +35,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <summary>
         /// The character set encoding.
         /// </summary>
-        private Encoding encoding;
+        private Encoding? encoding;
 
         /// <summary>
         /// The character set map index.
@@ -82,7 +82,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <summary>
         /// Gets or sets  the character set culture.
         /// </summary>
-        public Culture Culture
+        public Culture? Culture
         {
             get;
             set;
@@ -142,7 +142,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <returns>
         /// True if the character set is found, otherwise false.
         /// </returns>
-        public static bool TryGetCharset(string name, out Charset charset)
+        public static bool TryGetCharset(string? name, out Charset? charset)
         {
             if (name == null)
             {
@@ -194,7 +194,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <returns>
         /// True if a character set for the key is found, otherwise false.
         /// </returns>
-        public static bool TryGetCharset(int codePage, out Charset charset)
+        public static bool TryGetCharset(int codePage, out Charset? charset)
         {
             return CultureCharsetDatabase.InternalGlobalizationData.CodePageToCharset.TryGetValue(codePage, out charset);
         }
@@ -211,15 +211,15 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <returns>
         /// True if a character set for the key is found, otherwise false.
         /// </returns>
-        public static bool TryGetEncoding(int codePage, out Encoding encoding)
+        public static bool TryGetEncoding(int codePage, out Encoding? encoding)
         {
-            if (!TryGetCharset(codePage, out Charset charset))
+            if (!TryGetCharset(codePage, out Charset? charset))
             {
                 encoding = null;
                 return false;
             }
 
-            return charset.TryGetEncoding(out encoding);
+            return charset!.TryGetEncoding(out encoding);
         }
 
         /// <summary>
@@ -234,15 +234,15 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <returns>
         /// True if a character set for the key is found, otherwise false.
         /// </returns>
-        public static bool TryGetEncoding(string name, out Encoding encoding)
+        public static bool TryGetEncoding(string? name, out Encoding? encoding)
         {
-            if (!TryGetCharset(name, out Charset charset))
+            if (!TryGetCharset(name, out Charset? charset))
             {
                 encoding = null;
                 return false;
             }
 
-            return charset.TryGetEncoding(out encoding);
+            return charset!.TryGetEncoding(out encoding);
         }
 
         /// <summary>
@@ -254,10 +254,10 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <returns>
         /// The <see cref="Encoding"/> for the specified code page.
         /// </returns>
-        public static Encoding GetEncoding(int codePage)
+        public static Encoding? GetEncoding(int codePage)
         {
-            Charset charset = GetCharset(codePage);
-            return charset.GetEncoding();
+            Charset? charset = GetCharset(codePage);
+            return charset?.GetEncoding();
         }
 
         /// <summary>
@@ -272,14 +272,14 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <exception cref="InvalidCharsetException">
         /// Thrown if the character set is not found.
         /// </exception>
-        public static Charset GetCharset(int codePage)
+        public static Charset? GetCharset(int codePage)
         {
-            if (!TryGetCharset(codePage, out Charset cs))
+            if (!TryGetCharset(codePage, out Charset? charset))
             {
                 throw new InvalidCharsetException(codePage);
             }
 
-            return cs;
+            return charset;
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <returns>
         /// True if encoding is available, otherwise false.
         /// </returns>
-        public bool TryGetEncoding(out Encoding attemptedEncoding)
+        public bool TryGetEncoding(out Encoding? attemptedEncoding)
         {
             if (this.encoding == null &&
                 this.available)
@@ -343,9 +343,9 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <exception cref="CharsetNotInstalledException">
         /// Thrown if an encoding class cannot be found for this character set.
         /// </exception>
-        public Encoding GetEncoding()
+        public Encoding? GetEncoding()
         {
-            if (!this.TryGetEncoding(out Encoding discoveredEncoding))
+            if (!this.TryGetEncoding(out Encoding? discoveredEncoding))
             {
                 throw new CharsetNotInstalledException(this.CodePage, this.Name);
             }
