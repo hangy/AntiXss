@@ -93,7 +93,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             /// <summary>
             /// Value indicating fragmented output can be generated.
-            /// </summary>        
+            /// </summary>
             private bool outputFragment;
 
             /// <summary>

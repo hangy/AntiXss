@@ -288,9 +288,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             base.Dispose(disposing);
         }
 
-        
 
-        
 
         public override void InjectRtfFonts(int firstAvailableFontHandle)
         {
@@ -299,9 +297,8 @@ namespace Microsoft.Exchange.Data.TextConverters
         public override void InjectRtfColors(int nextColorIndex)
         {
         }
-        
 
-        
+
 
     }
 

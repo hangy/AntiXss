@@ -71,7 +71,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             InternalDebug.Assert(!this.IsEnough);
 
-            
             this.sb.Append(value);
         }
 

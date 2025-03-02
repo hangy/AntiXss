@@ -22,7 +22,7 @@ namespace Microsoft.Security.Application
     using System;
 
     /// <summary>
-    /// Contains helpers for URI parsing 
+    /// Contains helpers for URI parsing
     /// </summary>
     internal static class UriUtil
     {

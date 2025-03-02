@@ -561,7 +561,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Text
             this.breakOpportunity = 0;
             this.nextBreakOpportunity = 0;
             this.wrapped = false;
-            
+
             this.signaturePossible = true;
         }
 

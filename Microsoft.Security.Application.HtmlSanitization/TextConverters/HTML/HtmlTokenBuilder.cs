@@ -211,7 +211,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
 
             this.state = BuildStateTagBeforeAttr;
-        }     
+        }
 
         public bool CanAddAttribute()
         {

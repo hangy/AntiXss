@@ -64,8 +64,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.tailInjected = false;
         }
 
-        
-        
+
         public abstract void InjectRtfFonts(int firstAvailableFontHandle);
         public abstract void InjectRtfColors(int nextColorIndex);
     }

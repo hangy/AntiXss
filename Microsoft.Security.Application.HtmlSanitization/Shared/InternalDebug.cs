@@ -132,7 +132,7 @@ namespace Microsoft.Exchange.Data.Internal
             /// <exception cref="System.Runtime.Serialization.SerializationException">
             /// The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0).
             /// </exception>
-            protected DebugAssertionViolationException(SerializationInfo info, 
+            protected DebugAssertionViolationException(SerializationInfo info,
                  StreamingContext context) : base(info, context)
             {
             }

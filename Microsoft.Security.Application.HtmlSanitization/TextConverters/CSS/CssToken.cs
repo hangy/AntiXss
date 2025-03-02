@@ -399,7 +399,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     return new CssProperty(this.token);
                 }
-            }     
+            }
 
             public bool MoveNext()
             {
@@ -436,7 +436,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public PropertyEnumerator GetEnumerator()
             {
                 return this;
-            }     
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -465,7 +465,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public void WriteOriginalTo(ITextSink sink)
             {
                 this.token.WriteOriginalTo(ref this.token.propertyList[this.token.currentProperty].name, sink);
-            }     
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -500,7 +500,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             {
                 return this.token.CaseInsensitiveContainsSubstring(ref this.token.propertyList[this.token.currentProperty].value, str);
             }
-            
+
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
             {
@@ -643,7 +643,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public void WriteOriginalTo(ITextSink sink)
             {
                 this.token.WriteOriginalTo(ref this.token.selectorList[this.token.currentSelector].name, sink);
-            }     
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()

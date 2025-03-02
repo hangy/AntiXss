@@ -179,7 +179,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             this.token.wholePosition.Rewind(this.token.whole);
 
             this.AddSentinelRun();
-        }     
+        }
 
         public bool PrepareToAddMoreRuns(int numRuns, int start, uint skippedRunKind)
         {
@@ -264,7 +264,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
         {
             InternalDebug.Assert(start == this.tailOffset);
             this.AddRun(RunType.Literal, textType, (uint)RunKind.Text, start, end, literal);
-        }     
+        }
 
         internal void AddRun(RunType type, RunTextType textType, uint kind, int start, int end, int value)
         {

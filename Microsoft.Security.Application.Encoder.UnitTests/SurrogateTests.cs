@@ -56,7 +56,7 @@ namespace Microsoft.Security.Application.Tests
         }
 
         /// <summary>
-        /// Test that a high surrogate character which is not followed by a low surrogate character 
+        /// Test that a high surrogate character which is not followed by a low surrogate character
         /// returns the substitution character.
         /// </summary>
         [TestMethod]

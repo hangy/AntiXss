@@ -632,7 +632,7 @@ namespace Microsoft.Security.Application.TextConverters.HTML
             public bool SkipLeadingWhitespace()
             {
                 return this.token.SkipLeadingWhitespace(this.token.attributeList[this.token.currentAttribute].value, ref this.token.attrValuePosition);
-            }     
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()

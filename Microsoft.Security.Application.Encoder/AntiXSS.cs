@@ -27,11 +27,11 @@ namespace Microsoft.Security.Application
     /// Cross-Site Scripting (XSS) attacks in various contexts.
     /// </summary>
     /// <remarks>
-    /// The Anti-Cross Site Scripting Library uses the Principle 
-    /// of Inclusions, sometimes referred to as "safe listing" to 
+    /// The Anti-Cross Site Scripting Library uses the Principle
+    /// of Inclusions, sometimes referred to as "safe listing" to
     /// provide protection against Cross-Site Scripting attacks.  With
-    /// safe listing protection, algorithms look for valid inputs and 
-    /// automatically treat everything outside that set as a 
+    /// safe listing protection, algorithms look for valid inputs and
+    /// automatically treat everything outside that set as a
     /// potential attack.  This library can be used as a defense in
     /// depth approach with other mitigation techniques. It is suitable
     /// for applications with high security requirements.
@@ -118,7 +118,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function encodes all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX 
+        /// This function encodes all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX
         /// and %uDOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
@@ -155,7 +155,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes 
+        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes
         /// all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX and %DOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
@@ -337,7 +337,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in Visual Basic Script.
         /// </returns>
         /// <remarks>
-        /// This function encodes all but known safe characters.  Characters are 
+        /// This function encodes all but known safe characters.  Characters are
         /// encoded using &amp;chrw(DECIMAL) notation.
         /// <newpara/>
         /// Safe characters include:

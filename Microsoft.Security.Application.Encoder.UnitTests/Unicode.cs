@@ -28,7 +28,7 @@ namespace Microsoft.Security.Application.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Unicode test cases for AntiXss library. 
+    /// Unicode test cases for AntiXss library.
     /// Following Test cases shall provide testing coverage of each Unicode
     /// code page version 5.2 as defined in http://www.Unicode.org.
     /// </summary>

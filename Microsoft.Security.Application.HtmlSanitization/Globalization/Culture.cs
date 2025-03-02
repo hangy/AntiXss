@@ -22,7 +22,7 @@ namespace Microsoft.Exchange.Data.Globalization
     using System.Globalization;
 
     /// <summary>
-    /// Represents a culture 
+    /// Represents a culture
     /// </summary>
     [Serializable]
     internal class Culture

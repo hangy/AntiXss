@@ -585,7 +585,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
 
             return HashCode.CalculateEmptyHash();
-        }     
+        }
 
         protected internal void WriteOriginalTo(ref Fragment fragment, ITextSink sink)
         {
@@ -665,7 +665,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 }
                 while (runEntry.MajorKindPlusStartFlag == kind && !sink.IsEnough);
             }
-        }     
+        }
 
         protected internal string GetString(ref Fragment fragment, int maxLength)
         {
@@ -720,7 +720,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return this.stringBuildSink.ToString();
         }
 
-        
 
         protected internal bool CaseInsensitiveCompareEqual(ref Fragment fragment, string str)
         {
@@ -779,7 +778,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.WriteTo(ref fragment, this.searchSink);
 
             return this.searchSink.IsFound;
-        }     
+        }
 
         protected internal void StripLeadingWhitespace(ref Fragment fragment)
         {
@@ -1101,7 +1100,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 this.token.StripLeadingWhitespace(ref this.token.whole);
                 this.Rewind();
-            }  
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -1341,7 +1340,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
 
         private class LowerCaseSubstringSearchSink : ITextSink
         {

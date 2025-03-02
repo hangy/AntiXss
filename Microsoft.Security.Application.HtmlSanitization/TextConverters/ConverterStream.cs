@@ -30,7 +30,7 @@ namespace Microsoft.Exchange.Data.TextConverters
     {
         /// <summary>
         /// Read access.
-        /// </summary>        
+        /// </summary>
         Read,
 
         /// <summary>

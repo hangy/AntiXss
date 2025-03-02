@@ -774,7 +774,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         {
                             if (chT == '!')
                             {
-                                
+
 
                                 this.parseState = ParseState.CommentStart;
                                 goto case ParseState.CommentStart;

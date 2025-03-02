@@ -26,91 +26,91 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
     {
         Null = 0,
         FirstFlag = 1,
-        Bold = FirstFlag,       
-        Italic,                 
-        Underline,              
-        Subscript,              
-        Superscript,            
-        Strikethrough,          
-        SmallCaps,              
-        Capitalize,             
-        RightToLeft,            
-        Preformatted,           
-        NoBreak,                
-        Visible,                
-        Overloaded1,            
-        Overloaded2,            
-        Overloaded3,            
-        MergedCell,             
-        TableLayoutFixed = Overloaded1,     
-        SelectMultiple = Overloaded1,       
-        OptionSelected = Overloaded1,       
-        ReadOnly = Overloaded1,             
-        TableBorderCollapse = Overloaded2,  
-        Disabled = Overloaded2,             
-        Checked = Overloaded3,              
+        Bold = FirstFlag,
+        Italic,
+        Underline,
+        Subscript,
+        Superscript,
+        Strikethrough,
+        SmallCaps,
+        Capitalize,
+        RightToLeft,
+        Preformatted,
+        NoBreak,
+        Visible,
+        Overloaded1,
+        Overloaded2,
+        Overloaded3,
+        MergedCell,
+        TableLayoutFixed = Overloaded1,
+        SelectMultiple = Overloaded1,
+        OptionSelected = Overloaded1,
+        ReadOnly = Overloaded1,
+        TableBorderCollapse = Overloaded2,
+        Disabled = Overloaded2,
+        Checked = Overloaded3,
         LastFlag = 16,
-        FontColor,              
-        FontSize,               
-        FontFace,               
-        TextAlignment,          
-        FirstLineIndent,        
-        BlockAlignment,         
-        HorizontalAlignment = BlockAlignment, 
-        VerticalAlignment = BlockAlignment, 
-        BackColor,              
-        Display,                
-        Language,               
-        UnicodeBiDi,            
-        Width,                  
-        Height,                 
-        Margins,                
-        TopMargin = Margins,    
-        RightMargin,            
-        BottomMargin,           
-        LeftMargin,             
-        Paddings,               
-        TopPadding = Paddings,  
-        RightPadding,           
-        BottomPadding,          
-        LeftPadding,            
-        BorderWidths,           
-        TopBorderWidth = BorderWidths, 
-        RightBorderWidth,       
-        BottomBorderWidth,      
-        LeftBorderWidth,        
-        BorderStyles,           
-        TopBorderStyle = BorderStyles, 
-        RightBorderStyle,       
-        BottomBorderStyle,      
-        LeftBorderStyle,        
-        BorderColors,           
-        TopBorderColor = BorderColors, 
-        RightBorderColor,       
-        BottomBorderColor,      
-        LeftBorderColor,        
-        ListLevel,              
-        ListStyle,              
-        ListStart,              
-        NumColumns,             
-        NumRows,                
-        TableShowEmptyCells,    
-        TableCaptionSideTop,    
-        TableCellNoWrap,        
-        TableBorderSpacingVertical, 
-        TableBorderSpacingHorizontal, 
-        TableBorder,            
-        TableFrame,             
-        TableRules,             
-        TableCellSpacing,       
-        TableCellPadding,       
-        BookmarkName,           
-        HyperlinkUrl,           
-        HyperlinkTarget,        
-        ImageUrl,               
-        ImageAltText,           
-        QuotingLevelDelta,      
-        MaxValue,    
+        FontColor,
+        FontSize,
+        FontFace,
+        TextAlignment,
+        FirstLineIndent,
+        BlockAlignment,
+        HorizontalAlignment = BlockAlignment,
+        VerticalAlignment = BlockAlignment,
+        BackColor,
+        Display,
+        Language,
+        UnicodeBiDi,
+        Width,
+        Height,
+        Margins,
+        TopMargin = Margins,
+        RightMargin,
+        BottomMargin,
+        LeftMargin,
+        Paddings,
+        TopPadding = Paddings,
+        RightPadding,
+        BottomPadding,
+        LeftPadding,
+        BorderWidths,
+        TopBorderWidth = BorderWidths,
+        RightBorderWidth,
+        BottomBorderWidth,
+        LeftBorderWidth,
+        BorderStyles,
+        TopBorderStyle = BorderStyles,
+        RightBorderStyle,
+        BottomBorderStyle,
+        LeftBorderStyle,
+        BorderColors,
+        TopBorderColor = BorderColors,
+        RightBorderColor,
+        BottomBorderColor,
+        LeftBorderColor,
+        ListLevel,
+        ListStyle,
+        ListStart,
+        NumColumns,
+        NumRows,
+        TableShowEmptyCells,
+        TableCaptionSideTop,
+        TableCellNoWrap,
+        TableBorderSpacingVertical,
+        TableBorderSpacingHorizontal,
+        TableBorder,
+        TableFrame,
+        TableRules,
+        TableCellSpacing,
+        TableCellPadding,
+        BookmarkName,
+        HyperlinkUrl,
+        HyperlinkTarget,
+        ImageUrl,
+        ImageAltText,
+        QuotingLevelDelta,
+        MaxValue,
         ImageBorder = TableBorder,
         IFrameUrl = ImageUrl,
         FormAction = HyperlinkUrl,
@@ -138,27 +138,27 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
     internal enum PropertyType : byte
     {
-        Null,                       
-        Calculated,                 
-        Bool,                       
-        String,                     
-        MultiValue,                 
-        Enum,                       
-        Color,                      
-        Integer,                    
-        Fractional,                 
-        Percentage,                 
-        AbsLength,                  
-        RelLength,                  
-        Pixels,                     
-        Ems,                        
-        Exs,                        
-        HtmlFontUnits,              
-        RelHtmlFontUnits,           
-        Multiple,                   
-        Milliseconds,               
-        kHz,                        
-        Degrees,                    
+        Null,
+        Calculated,
+        Bool,
+        String,
+        MultiValue,
+        Enum,
+        Color,
+        Integer,
+        Fractional,
+        Percentage,
+        AbsLength,
+        RelLength,
+        Pixels,
+        Ems,
+        Exs,
+        HtmlFontUnits,
+        RelHtmlFontUnits,
+        Multiple,
+        Milliseconds,
+        kHz,
+        Degrees,
         FirstLength = AbsLength,
         LastLength = Multiple,
     }
@@ -209,12 +209,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
             this.rawValue = ComposeRawValue(value);
         }
 
-        
 
         public PropertyValue(PropertyType type, int value)
         {
             this.rawValue = ComposeRawValue(type, value);
-        }     
+        }
 
         private static uint ComposeRawValue(bool value)
         {
@@ -230,12 +229,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         public uint             RawType         { get { return (this.rawValue & TypeMask); } }
 
         public static uint GetRawType(PropertyType type)
-        { 
-            return ((uint)type << TypeShift); 
+        {
+            return ((uint)type << TypeShift);
         }
 
         public PropertyType     Type            { get { return (PropertyType) ((this.rawValue & TypeMask) >> TypeShift); } }
-        public int              Value           { get { return ((int)((this.rawValue & ValueMask) << ValueShift) >> ValueShift); } }     
+        public int              Value           { get { return ((int)((this.rawValue & ValueMask) << ValueShift) >> ValueShift); } }
         public uint             UnsignedValue   { get { return this.rawValue & ValueMask; } }
 
         public bool             IsAbsRelLength  { get { return this.RawType == GetRawType(PropertyType.AbsLength) ||
@@ -293,14 +292,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
             return "unknown value type";
         }
 
-        
-        public static bool operator ==(PropertyValue x, PropertyValue y) 
+        public static bool operator ==(PropertyValue x, PropertyValue y)
         {
             return x.rawValue == y.rawValue;
         }
 
-        
-        public static bool operator !=(PropertyValue x, PropertyValue y) 
+        public static bool operator !=(PropertyValue x, PropertyValue y)
         {
             return x.rawValue != y.rawValue;
         }
@@ -316,7 +313,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         }
     }
 
-    
 
     [StructLayout(LayoutKind.Sequential, Pack=2)]
     internal struct Property
@@ -332,7 +328,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         }
     }
 
-    
 
     internal enum ListStyle
     {

@@ -27,17 +27,17 @@ namespace Microsoft.Security.Application
 
     /// <summary>
     /// Performs encoding of input strings to provide protection against
-    /// Cross-Site Scripting (XSS) attacks and LDAP injection attacks in 
+    /// Cross-Site Scripting (XSS) attacks and LDAP injection attacks in
     /// various contexts.
     /// </summary>
     /// <remarks>
-    /// This encoding library uses the Principle of Inclusions, 
-    /// sometimes referred to as "safe-listing" to provide protection 
-    /// against injection attacks.  With safe-listing protection, 
-    /// algorithms look for valid inputs and automatically treat 
-    /// everything outside that set as a potential attack.  This library 
-    /// can be used as a defense in depth approach with other mitigation 
-    /// techniques. It is suitable for applications with high security 
+    /// This encoding library uses the Principle of Inclusions,
+    /// sometimes referred to as "safe-listing" to provide protection
+    /// against injection attacks.  With safe-listing protection,
+    /// algorithms look for valid inputs and automatically treat
+    /// everything outside that set as a potential attack.  This library
+    /// can be used as a defense in depth approach with other mitigation
+    /// techniques. It is suitable for applications with high security
     /// requirements.
     /// </remarks>
     public static class Encoder
@@ -65,8 +65,8 @@ namespace Microsoft.Security.Application
         /// <remarks>
         /// This method encodes all but known safe characters defined in the safe list.
         /// <newpara/>
-        /// RFC 4515 defines the format in which special characters need to be 
-        /// escaped to be used inside a search filter. Special characters need to be 
+        /// RFC 4515 defines the format in which special characters need to be
+        /// escaped to be used inside a search filter. Special characters need to be
         /// encoded in \XX format where XX is the hex representation of the character.
         /// <newpara/>
         /// The following examples illustrate the use of the escaping mechanism.
@@ -90,9 +90,9 @@ namespace Microsoft.Security.Application
         /// <returns>Encoded string for use as a value in LDAP DNs.</returns>
         /// <remarks>This method encodes all but known safe characters defined in the safe list.
         /// <newpara/>
-        /// RFC 2253 defines the format in which special characters need to be 
-        /// escaped to be used inside a search filter. Special characters need to be 
-        /// encoded in #XX format where XX is the hex representation of the character or a 
+        /// RFC 2253 defines the format in which special characters need to be
+        /// escaped to be used inside a search filter. Special characters need to be
+        /// encoded in #XX format where XX is the hex representation of the character or a
         /// specific \ escape format.
         /// <newpara/>
         /// The following examples illustrate the use of the escaping mechanism.
@@ -118,9 +118,9 @@ namespace Microsoft.Security.Application
         /// <returns>Encoded string for use as a value in LDAP DNs.</returns>\
         /// <remarks>This method encodes all but known safe characters defined in the safe list.
         /// <newpara/>
-        /// RFC 2253 defines the format in which special characters need to be 
-        /// escaped to be used inside a search filter. Special characters need to be 
-        /// encoded in #XX format where XX is the hex representation of the character or a 
+        /// RFC 2253 defines the format in which special characters need to be
+        /// escaped to be used inside a search filter. Special characters need to be
+        /// encoded in #XX format where XX is the hex representation of the character or a
         /// specific \ escape format.
         /// <newpara/>
         /// The following examples illustrate the use of the escaping mechanism.
@@ -160,8 +160,8 @@ namespace Microsoft.Security.Application
         /// <returns>Encoded string for use in LDAP search queries.</returns>
         /// <remarks>This method encodes all but known safe characters defined in the safe list.
         /// <newpara/>
-        /// RFC 4515 defines the format in which special characters need to be 
-        /// escaped to be used inside a search filter. Special characters need to be 
+        /// RFC 4515 defines the format in which special characters need to be
+        /// escaped to be used inside a search filter. Special characters need to be
         /// encoded in \XX format where XX is the hex representation of the character.
         /// <newpara/>
         /// The following examples illustrate the use of the escaping mechanism.
@@ -195,9 +195,9 @@ namespace Microsoft.Security.Application
         /// <item><term>C0 Controls and Basic Latin</term><term>0-9</term><description>Numbers</description>></item>
         /// </list>
         /// <newpara />
-        /// The CSS character escape sequence consists of a backslash character (\) followed by up to six hexadecimal digits that represent a character code from the ISO 10646 standard. 
-        /// (The ISO 10646 standard is effectively equivalent to Unicode.) Any character other than a hexadecimal digit terminates the escape sequence. If a character that follows the 
-        /// escape sequence is also a valid hexadecimal digit, it must either include six digits in the escape sequence or use a whitespace character to terminate the escape sequence. 
+        /// The CSS character escape sequence consists of a backslash character (\) followed by up to six hexadecimal digits that represent a character code from the ISO 10646 standard.
+        /// (The ISO 10646 standard is effectively equivalent to Unicode.) Any character other than a hexadecimal digit terminates the escape sequence. If a character that follows the
+        /// escape sequence is also a valid hexadecimal digit, it must either include six digits in the escape sequence or use a whitespace character to terminate the escape sequence.
         /// For example, \000020 denotes a space.
         /// </remarks>
         public static string? CssEncode(string? input)
@@ -319,7 +319,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function encodes all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX 
+        /// This function encodes all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX
         /// and %DOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
@@ -357,7 +357,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function encodes all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX 
+        /// This function encodes all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX
         /// and %DOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
@@ -396,7 +396,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes 
+        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes
         /// all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX and %DOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
@@ -435,7 +435,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes 
+        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes
         /// all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX and %DOUBLE_BYTE_HEX notation.
         /// <newpara/>
         /// Safe characters include:
@@ -474,7 +474,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes 
+        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes
         /// all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX and %DOUBLE_BYTE_HEX notation.
         /// If the inputEncoding is null then UTF-8 is assumed by default.
         /// <newpara/>
@@ -520,7 +520,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in URLs.
         /// </returns>
         /// <remarks>
-        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes 
+        /// This function encodes the output as per the encoding parameter (codepage) passed to it. It encodes
         /// all but known safe characters.  Characters are encoded using %SINGLE_BYTE_HEX and %DOUBLE_BYTE_HEX notation.
         /// If the inputEncoding is null then UTF-8 is assumed by default.
         /// <newpara/>
@@ -793,7 +793,7 @@ namespace Microsoft.Security.Application
         /// Encoded string for use in Visual Basic Script.
         /// </returns>
         /// <remarks>
-        /// This function encodes all but known safe characters.  Characters are 
+        /// This function encodes all but known safe characters.  Characters are
         /// encoded using &#38;chrw(DECIMAL) notation.
         /// <newpara/>
         /// Safe characters include:

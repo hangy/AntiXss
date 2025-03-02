@@ -133,7 +133,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Armenian code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>        
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Armenian()
         {
             return CodeChartHelper.GetRange(
@@ -421,7 +421,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Kannada code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>        
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Kannada()
         {
             return CodeChartHelper.GetRange(
