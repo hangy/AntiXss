@@ -2445,7 +2445,7 @@ namespace Microsoft.Exchange.Data.Globalization
             /// <summary>
             /// Gets or sets the name to culture map.
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="Uses dictionary syntax to set value.  FXCop misses this.")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Uses dictionary syntax to set value.  FXCop misses this.")]
             internal Dictionary<string, Culture> NameToCulture
             {
                 get
@@ -2462,7 +2462,7 @@ namespace Microsoft.Exchange.Data.Globalization
             /// <summary>
             /// Gets or sets the ascii charset.
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="Uses default get/set syntax.")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Uses default get/set syntax.")]
             internal Charset AsciiCharset
             {
                 get;

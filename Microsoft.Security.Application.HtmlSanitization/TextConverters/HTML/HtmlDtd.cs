@@ -164,7 +164,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             public SetId prohibitedContainers;
             public SetId requiredContainers;
             public HtmlTagIndex defaultContainer;
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification="Set by method call.  Not changing API at this time.")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "Set by method call.  Not changing API at this time.")]
             public bool queueForRequired;
             public TagTextScope textScope;
             public HtmlTagIndex textSubcontainer;

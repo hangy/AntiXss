@@ -47,7 +47,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <summary>
         /// The culture info.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification="Set in CultureCharsetDatabase.cs.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "Set in CultureCharsetDatabase.cs.")]
         private CultureInfo cultureInfo;
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <summary>
         /// Gets or sets the native description.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="Using default get/set syntax.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Using default get/set syntax.")]
         public string NativeDescription
         {
             get;

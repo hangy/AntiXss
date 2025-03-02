@@ -19,15 +19,13 @@
 namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using System.Collections.Generic;
-    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.Globalization;
-    using Microsoft.Exchange.Data.TextConverters.Internal.Text;
-
+    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.TextConverters.Internal.Css;
-
+    using Microsoft.Exchange.Data.TextConverters.Internal.Text;
     using Security.Application.TextConverters.HTML;
 
     internal class HtmlToHtmlConverter : IProducerConsumer, IRestartable, IDisposable

@@ -31,7 +31,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         EndOfFile,
         Text,
-        EncodingChange ,
+        EncodingChange,
     }
 
     internal enum RunType : uint
@@ -259,7 +259,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     }
                 }
 
-                run ++;
+                run++;
             }
 
             return result;
@@ -318,8 +318,8 @@ namespace Microsoft.Exchange.Data.TextConverters
                                 {
                                     InternalDebug.Assert(runDeltaOffset == 0);
 
-                                    buffer[offset++] = (char) runEntry.Value;
-                                    count --;
+                                    buffer[offset++] = (char)runEntry.Value;
+                                    count--;
                                 }
                                 else
                                 {
@@ -330,12 +330,12 @@ namespace Microsoft.Exchange.Data.TextConverters
                                         InternalDebug.Assert(runDeltaOffset == 1);
 
                                         buffer[offset++] = Token.LiteralLastChar(runEntry.Value);
-                                        count --;
+                                        count--;
                                     }
                                     else
                                     {
                                         buffer[offset++] = Token.LiteralFirstChar(runEntry.Value);
-                                        count --;
+                                        count--;
 
                                         if (count == 0)
                                         {
@@ -344,7 +344,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                                         }
 
                                         buffer[offset++] = Token.LiteralLastChar(runEntry.Value);
-                                        count --;
+                                        count--;
                                     }
                                 }
                             }
@@ -827,7 +827,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                                 break;
                             }
 
-                            offset ++;
+                            offset++;
                         }
 
                         if (offset < runOffset + this.runList[run].Length)
@@ -840,7 +840,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                     runOffset += this.runList[run].Length;
 
-                    run ++;
+                    run++;
 
                     if (run != fragment.tail && this.runList[run].Type < RunType.Normal)
                     {
@@ -893,7 +893,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                                 break;
                             }
 
-                            offset ++;
+                            offset++;
                         }
 
                         if (offset < runOffset + runEntry.Length)
@@ -938,14 +938,14 @@ namespace Microsoft.Exchange.Data.TextConverters
                     position.runDeltaOffset = 0;
                 }
 
-                run ++;
+                run++;
 
                 if (skipInvalid)
                 {
                     while (run != fragment.tail && this.runList[run].Type == RunType.Invalid)
                     {
                         position.runOffset += this.runList[run].Length;
-                        run ++;
+                        run++;
                     }
                 }
 
@@ -964,7 +964,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             do
             {
                 runOffset += this.runList[run].Length;
-                run ++;
+                run++;
             }
             while (run != tail && this.runList[run].Type < RunType.Normal);
         }
@@ -1148,7 +1148,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             public override string ToString()
             {
-                return this.Type.ToString() + " - " + this.TextType.ToString() + " - " + ((this.Kind & ~(uint)RunKind.StartLexicalUnitFlag) >> 26).ToString() + "/" + ((this.Kind >> 24)  & 3).ToString() + " (" + this.Length + ") = " + this.Value.ToString("X6");
+                return this.Type.ToString() + " - " + this.TextType.ToString() + " - " + ((this.Kind & ~(uint)RunKind.StartLexicalUnitFlag) >> 26).ToString() + "/" + ((this.Kind >> 24) & 3).ToString() + " (" + this.Length + ") = " + this.Value.ToString("X6");
             }
         }
 
@@ -1372,14 +1372,14 @@ namespace Microsoft.Exchange.Data.TextConverters
                 {
                     if (ParseSupport.ToLowerCase(buffer[offset]) == this.str[this.strIndex])
                     {
-                        this.strIndex ++;
+                        this.strIndex++;
                     }
                     else
                     {
                         this.strIndex = 0;
                     }
 
-                    offset ++;
+                    offset++;
                 }
 
                 if (this.strIndex == this.str.Length)
@@ -1399,7 +1399,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     return;
                 }
 
-                this.strIndex ++;
+                this.strIndex++;
 
                 if (this.strIndex == this.str.Length)
                 {

@@ -131,10 +131,10 @@ namespace Microsoft.Security.Application
         {
             HtmlToHtml htmlObject = new()
             {
-                                            FilterHtml = true,
-                                            OutputHtmlFragment = false,
-                                            NormalizeHtml = true
-                                        };
+                FilterHtml = true,
+                OutputHtmlFragment = false,
+                NormalizeHtml = true
+            };
 
             htmlObject.Convert(sourceReader, destinationWriter);
         }
@@ -154,10 +154,10 @@ namespace Microsoft.Security.Application
         {
             HtmlToHtml htmlObject = new()
             {
-                                            FilterHtml = true,
-                                            OutputHtmlFragment = false,
-                                            NormalizeHtml = true
-                                        };
+                FilterHtml = true,
+                OutputHtmlFragment = false,
+                NormalizeHtml = true
+            };
 
             htmlObject.Convert(sourceReader, destinationStream);
         }
@@ -177,10 +177,10 @@ namespace Microsoft.Security.Application
         {
             HtmlToHtml htmlObject = new()
             {
-                                            FilterHtml = true,
-                                            OutputHtmlFragment = true,
-                                            NormalizeHtml = true
-                                        };
+                FilterHtml = true,
+                OutputHtmlFragment = true,
+                NormalizeHtml = true
+            };
 
             htmlObject.Convert(sourceReader, destinationWriter);
         }
@@ -200,10 +200,10 @@ namespace Microsoft.Security.Application
         {
             HtmlToHtml htmlObject = new()
             {
-                                            FilterHtml = true,
-                                            OutputHtmlFragment = true,
-                                            NormalizeHtml = true
-                                        };
+                FilterHtml = true,
+                OutputHtmlFragment = true,
+                NormalizeHtml = true
+            };
 
             htmlObject.Convert(sourceReader, destinationStream);
         }
