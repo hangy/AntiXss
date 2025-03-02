@@ -31,12 +31,12 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Test
-        run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"
+        run: dotnet test --no-build --verbosity normal -p:TestingPlatformCommandLineArguments="--report-trx --coverage"
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5.1.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: hangy/AntiXss/hangy/AntiXss
+          slug: hangy/AntiXss
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
         uses: codecov/test-results-action@v1
