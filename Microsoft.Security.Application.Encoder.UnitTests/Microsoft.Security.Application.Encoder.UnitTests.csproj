@@ -1,19 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="MSTest.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>Microsoft.Security.Application.Tests</RootNamespace>
     <AssemblyTitle>AntiXSS Unit Tests</AssemblyTitle>
     <AssemblyDescription>Unit Tests for the AntiXSS Library</AssemblyDescription>
-    <IsTestProject>true</IsTestProject>
+    <TestingExtensionsProfile>AllMicrosoft</TestingExtensionsProfile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.Security.Application.Encoder\Microsoft.Security.Application.Encoder.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.8.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.8.2" />
   </ItemGroup>
 </Project>
