@@ -20,8 +20,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Runtime.InteropServices;
+    using System.Text;
     using Microsoft.Exchange.Data.Internal;
 
     internal struct FlagProperties
@@ -225,14 +225,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         private PropertyBitMask propertyMask;
         private PropertyBitMask distinctPropertyMask;
 
-        [StructLayout(LayoutKind.Sequential, Pack=2)]
+        [StructLayout(LayoutKind.Sequential, Pack = 2)]
         private struct FlagPropertiesUndo
         {
             public PropertyId fakeId;
             public FlagProperties flags;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack=2)]
+        [StructLayout(LayoutKind.Sequential, Pack = 2)]
         private struct BitsUndo
         {
             public PropertyId fakeId;

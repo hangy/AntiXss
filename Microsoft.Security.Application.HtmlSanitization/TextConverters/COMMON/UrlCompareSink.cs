@@ -82,7 +82,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     }
 
                     offset++;
-                    this.urlPosition ++;
+                    this.urlPosition++;
                 }
             }
         }
@@ -119,7 +119,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 return;
             }
 
-            this.urlPosition ++;
+            this.urlPosition++;
         }
     }
 }

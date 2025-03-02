@@ -96,7 +96,7 @@ namespace Microsoft.Exchange.Data.Internal
             }
             else
             {
-               Debug.Assert(condition, string.Empty);
+                Debug.Assert(condition, string.Empty);
             }
 #endif
         }

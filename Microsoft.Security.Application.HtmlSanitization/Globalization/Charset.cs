@@ -112,7 +112,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <summary>
         /// Gets or sets the description for the character set.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="Using default get/set syntax.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Using default get/set syntax.")]
         public string Description
         {
             get;

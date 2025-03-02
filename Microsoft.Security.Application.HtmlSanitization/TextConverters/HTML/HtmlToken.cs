@@ -359,7 +359,7 @@ namespace Microsoft.Security.Application.TextConverters.HTML
 
                 if (this.token.currentAttribute != this.token.attributeTail)
                 {
-                    this.token.currentAttribute ++;
+                    this.token.currentAttribute++;
 
                     if (this.token.currentAttribute != this.token.attributeTail)
                     {

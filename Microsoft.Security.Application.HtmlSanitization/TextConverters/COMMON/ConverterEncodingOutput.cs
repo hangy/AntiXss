@@ -21,8 +21,8 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System;
     using System.IO;
     using System.Text;
-    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.Globalization;
+    using Microsoft.Exchange.Data.Internal;
 
     internal class ConverterEncodingOutput : ConverterOutput, IByteSource, IRestartable, IReusable
     {

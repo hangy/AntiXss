@@ -165,7 +165,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
     internal struct RGBT
     {
-        private readonly uint        rawValue;
+        private readonly uint rawValue;
 
         public RGBT(uint rawValue)
         {
@@ -173,11 +173,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
             this.rawValue = rawValue;
         }
 
-        public bool     IsTransparent { get { return this.Transparency == 7; } }
-        public uint     Transparency { get { return (rawValue >> 24) & 0x07; } }
-        public uint     Red { get { return (rawValue >> 16) & 0xFF; } }
-        public uint     Green { get { return (rawValue >> 8) & 0xFF; } }
-        public uint     Blue { get { return rawValue & 0xFF; } }
+        public bool IsTransparent { get { return this.Transparency == 7; } }
+        public uint Transparency { get { return (rawValue >> 24) & 0x07; } }
+        public uint Red { get { return (rawValue >> 16) & 0xFF; } }
+        public uint Green { get { return (rawValue >> 8) & 0xFF; } }
+        public uint Blue { get { return rawValue & 0xFF; } }
         public override string ToString()
         {
             return this.IsTransparent ? "transparent" :
@@ -187,15 +187,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
     internal struct PropertyValue
     {
-        private const uint  TypeMask = 0xF8000000;
-        private const int   TypeShift = 27;
-        private const uint  ValueMask = 0x07FFFFFF;
-        private const int   ValueShift = 5;
+        private const uint TypeMask = 0xF8000000;
+        private const int TypeShift = 27;
+        private const uint ValueMask = 0x07FFFFFF;
+        private const int ValueShift = 5;
 
-        public const int    ValueMax = 0x03FFFFFF;
-        public const int    ValueMin = -ValueMax;
+        public const int ValueMax = 0x03FFFFFF;
+        public const int ValueMin = -ValueMax;
 
-        private readonly uint        rawValue;
+        private readonly uint rawValue;
 
         public static readonly PropertyValue Null = new();
         public static readonly PropertyValue True = new(true);
@@ -223,70 +223,76 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         private static uint ComposeRawValue(PropertyType type, int value)
         {
             InternalDebug.Assert(ValueMin <= value && value <= ValueMax);
-            return (((uint)type<<TypeShift) | ((uint)value & ValueMask));
+            return (((uint)type << TypeShift) | ((uint)value & ValueMask));
         }
 
-        public uint             RawType         { get { return (this.rawValue & TypeMask); } }
+        public uint RawType { get { return (this.rawValue & TypeMask); } }
 
         public static uint GetRawType(PropertyType type)
         {
             return ((uint)type << TypeShift);
         }
 
-        public PropertyType     Type            { get { return (PropertyType) ((this.rawValue & TypeMask) >> TypeShift); } }
-        public int              Value           { get { return ((int)((this.rawValue & ValueMask) << ValueShift) >> ValueShift); } }
-        public uint             UnsignedValue   { get { return this.rawValue & ValueMask; } }
+        public PropertyType Type { get { return (PropertyType)((this.rawValue & TypeMask) >> TypeShift); } }
+        public int Value { get { return ((int)((this.rawValue & ValueMask) << ValueShift) >> ValueShift); } }
+        public uint UnsignedValue { get { return this.rawValue & ValueMask; } }
 
-        public bool             IsAbsRelLength  { get { return this.RawType == GetRawType(PropertyType.AbsLength) ||
+        public bool IsAbsRelLength
+        {
+            get
+            {
+                return this.RawType == GetRawType(PropertyType.AbsLength) ||
                                                             this.RawType == GetRawType(PropertyType.RelLength) ||
-                                                            this.RawType == GetRawType(PropertyType.Pixels); } }
+                                                            this.RawType == GetRawType(PropertyType.Pixels);
+            }
+        }
 
-        public int              StringHandle    { get { InternalDebug.Assert(this.Type == PropertyType.String); return this.Value; } }
-        public int              MultiValueHandle { get { InternalDebug.Assert(this.Type == PropertyType.MultiValue); return this.Value; } }
-        public bool             Bool            { get { InternalDebug.Assert(this.Type == PropertyType.Bool); return this.UnsignedValue != 0; } }
-        public int              Enum            { get { InternalDebug.Assert(this.Type == PropertyType.Enum); return (int)this.UnsignedValue; } }
-        public RGBT             Color           { get { InternalDebug.Assert(this.Type == PropertyType.Color); return new RGBT(this.UnsignedValue); } }
-        public float            Percentage      { get { InternalDebug.Assert(this.Type == PropertyType.Percentage); return (float) this.Value / (10000.0f); } }
-        public float            Fractional      { get { InternalDebug.Assert(this.Type == PropertyType.Fractional); return (float) this.Value / (10000.0f); } }
-        public int              Integer         { get { InternalDebug.Assert(this.Type == PropertyType.Integer); return this.Value; } }
-        public int              Milliseconds    { get { InternalDebug.Assert(this.Type == PropertyType.Milliseconds); return this.Value; } }
-        public int              kHz             { get { InternalDebug.Assert(this.Type == PropertyType.kHz); return this.Value; } }
-        public int              Degrees         { get { InternalDebug.Assert(this.Type == PropertyType.Degrees); return this.Value; } }
-        public float            Points          { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / (8.0f * 20.0f) ; } }
-        public float            Inches          { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / (8.0f * 20.0f * 72.0f); } }
-        public float            Millimeters     { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / ((8.0f * 20.0f * 72.0f) / 25.4f); } }
-        public int              HtmlFontUnits   { get { InternalDebug.Assert(this.Type == PropertyType.HtmlFontUnits); return this.Value; } }
-        public float            Pixels          { get { InternalDebug.Assert(this.IsAbsRelLength); return (float) this.Value / ((8.0f * 20.0f * 72.0f) / 120.0f); } }
-        public int              PixelsInteger   { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value / 96; } }
-        public float            Ems             { get { InternalDebug.Assert(this.Type == PropertyType.Ems); return (float) this.Value / (8.0f * 20.0f); } }
-        public float            Exs             { get { InternalDebug.Assert(this.Type == PropertyType.Exs); return (float) this.Value / (8.0f * 20.0f); } }
-        public int              RelativeHtmlFontUnits { get { InternalDebug.Assert(this.Type == PropertyType.RelHtmlFontUnits); return this.Value; } }
+        public int StringHandle { get { InternalDebug.Assert(this.Type == PropertyType.String); return this.Value; } }
+        public int MultiValueHandle { get { InternalDebug.Assert(this.Type == PropertyType.MultiValue); return this.Value; } }
+        public bool Bool { get { InternalDebug.Assert(this.Type == PropertyType.Bool); return this.UnsignedValue != 0; } }
+        public int Enum { get { InternalDebug.Assert(this.Type == PropertyType.Enum); return (int)this.UnsignedValue; } }
+        public RGBT Color { get { InternalDebug.Assert(this.Type == PropertyType.Color); return new RGBT(this.UnsignedValue); } }
+        public float Percentage { get { InternalDebug.Assert(this.Type == PropertyType.Percentage); return (float)this.Value / (10000.0f); } }
+        public float Fractional { get { InternalDebug.Assert(this.Type == PropertyType.Fractional); return (float)this.Value / (10000.0f); } }
+        public int Integer { get { InternalDebug.Assert(this.Type == PropertyType.Integer); return this.Value; } }
+        public int Milliseconds { get { InternalDebug.Assert(this.Type == PropertyType.Milliseconds); return this.Value; } }
+        public int kHz { get { InternalDebug.Assert(this.Type == PropertyType.kHz); return this.Value; } }
+        public int Degrees { get { InternalDebug.Assert(this.Type == PropertyType.Degrees); return this.Value; } }
+        public float Points { get { InternalDebug.Assert(this.IsAbsRelLength); return (float)this.Value / (8.0f * 20.0f); } }
+        public float Inches { get { InternalDebug.Assert(this.IsAbsRelLength); return (float)this.Value / (8.0f * 20.0f * 72.0f); } }
+        public float Millimeters { get { InternalDebug.Assert(this.IsAbsRelLength); return (float)this.Value / ((8.0f * 20.0f * 72.0f) / 25.4f); } }
+        public int HtmlFontUnits { get { InternalDebug.Assert(this.Type == PropertyType.HtmlFontUnits); return this.Value; } }
+        public float Pixels { get { InternalDebug.Assert(this.IsAbsRelLength); return (float)this.Value / ((8.0f * 20.0f * 72.0f) / 120.0f); } }
+        public int PixelsInteger { get { InternalDebug.Assert(this.IsAbsRelLength); return this.Value / 96; } }
+        public float Ems { get { InternalDebug.Assert(this.Type == PropertyType.Ems); return (float)this.Value / (8.0f * 20.0f); } }
+        public float Exs { get { InternalDebug.Assert(this.Type == PropertyType.Exs); return (float)this.Value / (8.0f * 20.0f); } }
+        public int RelativeHtmlFontUnits { get { InternalDebug.Assert(this.Type == PropertyType.RelHtmlFontUnits); return this.Value; } }
 
         public override string ToString()
         {
             switch (this.Type)
             {
-                case PropertyType.Null:                 return "null";
-                case PropertyType.Calculated:           return "calculated";
-                case PropertyType.Bool:                 return this.Bool.ToString();
-                case PropertyType.String:               return "string: " + this.StringHandle.ToString();
-                case PropertyType.MultiValue:           return "multi: " + this.MultiValueHandle.ToString();
-                case PropertyType.Enum:                 return "enum: " + this.Enum.ToString();
-                case PropertyType.Color:                return "color: " + this.Color.ToString();
-                case PropertyType.Integer:              return this.Integer.ToString() + " (integer)";
-                case PropertyType.Fractional:           return this.Fractional.ToString() + " (fractional)";
-                case PropertyType.Percentage:           return this.Percentage.ToString() + "%";
-                case PropertyType.AbsLength:            return this.Points.ToString() + "pt (" + this.Inches.ToString() + "in, " + this.Millimeters.ToString() + "mm) (abs)";
-                case PropertyType.RelLength:            return this.Points.ToString() + "pt (" + this.Inches.ToString() + "in, " + this.Millimeters.ToString() + "mm) (rel)";
-                case PropertyType.HtmlFontUnits:        return this.HtmlFontUnits.ToString() + " (html font units)";
-                case PropertyType.RelHtmlFontUnits:     return this.RelativeHtmlFontUnits.ToString() + " (relative html font units)";
-                case PropertyType.Multiple:             return this.Integer.ToString() + "*";
-                case PropertyType.Pixels:               return this.Pixels.ToString() + "px";
-                case PropertyType.Ems:                  return this.Ems.ToString() + "em";
-                case PropertyType.Exs:                  return this.Exs.ToString() + "ex";
-                case PropertyType.Milliseconds:         return this.Milliseconds.ToString() + "ms";
-                case PropertyType.kHz:                  return this.kHz.ToString() + "kHz";
-                case PropertyType.Degrees:              return this.Degrees.ToString() + "deg";
+                case PropertyType.Null: return "null";
+                case PropertyType.Calculated: return "calculated";
+                case PropertyType.Bool: return this.Bool.ToString();
+                case PropertyType.String: return "string: " + this.StringHandle.ToString();
+                case PropertyType.MultiValue: return "multi: " + this.MultiValueHandle.ToString();
+                case PropertyType.Enum: return "enum: " + this.Enum.ToString();
+                case PropertyType.Color: return "color: " + this.Color.ToString();
+                case PropertyType.Integer: return this.Integer.ToString() + " (integer)";
+                case PropertyType.Fractional: return this.Fractional.ToString() + " (fractional)";
+                case PropertyType.Percentage: return this.Percentage.ToString() + "%";
+                case PropertyType.AbsLength: return this.Points.ToString() + "pt (" + this.Inches.ToString() + "in, " + this.Millimeters.ToString() + "mm) (abs)";
+                case PropertyType.RelLength: return this.Points.ToString() + "pt (" + this.Inches.ToString() + "in, " + this.Millimeters.ToString() + "mm) (rel)";
+                case PropertyType.HtmlFontUnits: return this.HtmlFontUnits.ToString() + " (html font units)";
+                case PropertyType.RelHtmlFontUnits: return this.RelativeHtmlFontUnits.ToString() + " (relative html font units)";
+                case PropertyType.Multiple: return this.Integer.ToString() + "*";
+                case PropertyType.Pixels: return this.Pixels.ToString() + "px";
+                case PropertyType.Ems: return this.Ems.ToString() + "em";
+                case PropertyType.Exs: return this.Exs.ToString() + "ex";
+                case PropertyType.Milliseconds: return this.Milliseconds.ToString() + "ms";
+                case PropertyType.kHz: return this.kHz.ToString() + "kHz";
+                case PropertyType.Degrees: return this.Degrees.ToString() + "deg";
             }
 
             return "unknown value type";
@@ -314,7 +320,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
     }
 
 
-    [StructLayout(LayoutKind.Sequential, Pack=2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     internal struct Property
     {
         private readonly PropertyId id;

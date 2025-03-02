@@ -260,7 +260,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             ITextSink sink)
         {
             int lastIdx = offset;
-            for (int idx = offset; idx < offset + length; )
+            for (int idx = offset; idx < offset + length;)
             {
                 char ch = buffer[idx];
 

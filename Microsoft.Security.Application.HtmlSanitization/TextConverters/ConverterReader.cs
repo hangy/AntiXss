@@ -399,7 +399,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     {
                         stream.Close();
                     }
-                    else if  (this.source is TextReader textReader)
+                    else if (this.source is TextReader textReader)
                     {
                         textReader.Close();
                     }

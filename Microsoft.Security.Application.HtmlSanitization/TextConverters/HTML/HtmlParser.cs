@@ -21,10 +21,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
     using System;
     using System.IO;
     using System.Text;
-    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.Globalization;
+    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.TextConverters.Internal.Text;
-
     using Security.Application.TextConverters.HTML;
 
     internal interface IHtmlParser
@@ -37,9 +36,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
     internal class HtmlParser : IHtmlParser, IRestartable, IReusable, IDisposable
     {
-        #pragma warning disable 0429 
+#pragma warning disable 0429
         private const int ParseThresholdMax = (HtmlNameData.MAX_ENTITY_NAME > HtmlNameData.MAX_NAME ? HtmlNameData.MAX_ENTITY_NAME : HtmlNameData.MAX_NAME) + 2;
-        #pragma warning restore 0429
+#pragma warning restore 0429
 
         private ConverterInput input;
         private bool endOfFile;
@@ -326,7 +325,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             this.tokenBuilder.EndTagName(nameLength);
 
-    ScanNextAttributeOrEnd:
+        ScanNextAttributeOrEnd:
 
             this.tokenBuilder.AssertPreparedToAddMoreRuns(2);
 
@@ -344,7 +343,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 this.tokenBuilder.AddRun(RunTextType.Space, HtmlRunKind.TagWhitespace, runStart, parseCurrent);
             }
 
-    CheckEndOfTag:
+        CheckEndOfTag:
 
             this.tokenBuilder.AssertPreparedToAddMoreRuns(1);
 
@@ -354,10 +353,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 if (ch == '/')
                 {
-                    parseCurrent ++;
+                    parseCurrent++;
                     this.tokenBuilder.SetEmptyScope();
                 }
-                parseCurrent ++;
+                parseCurrent++;
 
                 this.tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, runStart, parseCurrent);
                 this.tokenBuilder.EndTag(true);
@@ -567,13 +566,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             this.parseState = ParseState.AttrValueWsp;
 
-    ContinueSlowly:
+        ContinueSlowly:
 
             this.parseCurrent = parseCurrent;
             this.lastCharClass = ParseSupport.GetCharClass(parseBuffer[parseCurrent - 1]);
             this.nameLength = nameLength;
 
-    StartSlowly:
+        StartSlowly:
 
             this.slowParse = true;
             return this.ParseSlow();
@@ -708,534 +707,404 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 case ParseState.Text:
 
-                        InternalDebug.Assert(!tokenBuilder.IsStarted);
+                    InternalDebug.Assert(!tokenBuilder.IsStarted);
 
-                        if (ch == '<' && !this.plaintext)
-                        {
-                            this.parseState = ParseState.TagStart;
-                            goto case ParseState.TagStart;
-                        }
+                    if (ch == '<' && !this.plaintext)
+                    {
+                        this.parseState = ParseState.TagStart;
+                        goto case ParseState.TagStart;
+                    }
 
-                    ContinueText:
+                ContinueText:
 
-                        tokenBuilder.StartText(runStart);
+                    tokenBuilder.StartText(runStart);
 
-                        tokenBuilder.DebugPrepareToAddMoreRuns(3);
+                    tokenBuilder.DebugPrepareToAddMoreRuns(3);
 
-                        this.ParseText(ch, charClass, ref parseCurrent);
+                    this.ParseText(ch, charClass, ref parseCurrent);
 
-                        if (this.token.IsEmpty && !forceFlushToken)
-                        {
-                            InternalDebug.Assert(parseCurrent == runStart);
-                            InternalDebug.Assert(this.parseState != ParseState.Text || this.parseThreshold > 1);
+                    if (this.token.IsEmpty && !forceFlushToken)
+                    {
+                        InternalDebug.Assert(parseCurrent == runStart);
+                        InternalDebug.Assert(this.parseState != ParseState.Text || this.parseThreshold > 1);
 
-                            tokenBuilder.Reset();
-                            this.slowParse = true;
-                            break;
-                        }
+                        tokenBuilder.Reset();
+                        this.slowParse = true;
+                        break;
+                    }
 
-                        tokenBuilder.EndText();
+                    tokenBuilder.EndText();
 
-                        this.parseCurrent = parseCurrent;
+                    this.parseCurrent = parseCurrent;
 
-                        return true;
+                    return true;
 
                 case ParseState.TagStart:
 
-                        InternalDebug.Assert(ch == '<');
-                        InternalDebug.Assert(!tokenBuilder.IsStarted);
+                    InternalDebug.Assert(ch == '<');
+                    InternalDebug.Assert(!tokenBuilder.IsStarted);
 
-                        tokenBuilder.DebugPrepareToAddMoreRuns(4);
+                    tokenBuilder.DebugPrepareToAddMoreRuns(4);
 
-                        chT = parseBuffer[parseCurrent + 1];
+                    chT = parseBuffer[parseCurrent + 1];
+                    charClassT = ParseSupport.GetCharClass(chT);
+
+                    bool endTag = false;
+
+                    if (chT == '/')
+                    {
+                        chT = parseBuffer[parseCurrent + 2];
                         charClassT = ParseSupport.GetCharClass(chT);
 
-                        bool endTag = false;
-
-                        if (chT == '/')
+                        if (ParseSupport.InvalidUnicodeCharacter(charClassT))
                         {
-                            chT = parseBuffer[parseCurrent + 2];
-                            charClassT = ParseSupport.GetCharClass(chT);
-
-                            if (ParseSupport.InvalidUnicodeCharacter(charClassT))
+                            if (!this.endOfFile || parseCurrent + 2 < parseEnd)
                             {
-                                if (!this.endOfFile || parseCurrent + 2 < parseEnd)
-                                {
-                                    this.parseThreshold = 3;
-                                    break;
-                                }
+                                this.parseThreshold = 3;
+                                break;
                             }
-
-                            parseCurrent ++;
-
-                            endTag = true;
-                        }
-                        else if (!ParseSupport.AlphaCharacter(charClassT) || this.literalTags)
-                        {
-                            if (chT == '!')
-                            {
-
-
-                                this.parseState = ParseState.CommentStart;
-                                goto case ParseState.CommentStart;
-                            }
-                            else if (chT == '?' && !this.literalTags)
-                            {
-                                parseCurrent += 2;
-
-                                tokenBuilder.StartTag(HtmlNameIndex._DTD, runStart);
-
-                                tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
-
-                                tokenBuilder.StartTagText();
-
-                                this.lastCharClass = charClassT;
-
-                                ch = parseBuffer[parseCurrent];
-                                charClass = ParseSupport.GetCharClass(ch);
-
-                                runStart = parseCurrent;
-
-                                this.parseState = ParseState.Dtd;
-                                goto case ParseState.Dtd;
-                            }
-                            else if (chT == '%')
-                            {
-                                parseCurrent += 2;
-
-                                tokenBuilder.StartTag(HtmlNameIndex._ASP, runStart);
-
-                                tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
-
-                                tokenBuilder.StartTagText();
-
-                                ch = parseBuffer[parseCurrent];
-                                charClass = ParseSupport.GetCharClass(ch);
-
-                                runStart = parseCurrent;
-
-                                this.parseState = ParseState.Asp;
-                                goto case ParseState.Asp;
-                            }
-                            else if (ParseSupport.InvalidUnicodeCharacter(charClassT))
-                            {
-                                if (!this.endOfFile || parseCurrent + 1 < parseEnd)
-                                {
-                                    this.parseThreshold = 2;
-                                    break;
-                                }
-                            }
-
-                            this.parseState = ParseState.Text;
-                            goto ContinueText;
                         }
 
-                        parseCurrent ++;
+                        parseCurrent++;
 
-                        this.lastCharClass = charClass;
-
-                        ch = chT;
-                        charClass = charClassT;
-
-                        tokenBuilder.StartTag(HtmlNameIndex.Unknown, runStart);
-                        if (endTag)
+                        endTag = true;
+                    }
+                    else if (!ParseSupport.AlphaCharacter(charClassT) || this.literalTags)
+                    {
+                        if (chT == '!')
                         {
-                            tokenBuilder.SetEndTag();
+
+
+                            this.parseState = ParseState.CommentStart;
+                            goto case ParseState.CommentStart;
+                        }
+                        else if (chT == '?' && !this.literalTags)
+                        {
+                            parseCurrent += 2;
+
+                            tokenBuilder.StartTag(HtmlNameIndex._DTD, runStart);
+
+                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
+
+                            tokenBuilder.StartTagText();
+
+                            this.lastCharClass = charClassT;
+
+                            ch = parseBuffer[parseCurrent];
+                            charClass = ParseSupport.GetCharClass(ch);
+
+                            runStart = parseCurrent;
+
+                            this.parseState = ParseState.Dtd;
+                            goto case ParseState.Dtd;
+                        }
+                        else if (chT == '%')
+                        {
+                            parseCurrent += 2;
+
+                            tokenBuilder.StartTag(HtmlNameIndex._ASP, runStart);
+
+                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
+
+                            tokenBuilder.StartTagText();
+
+                            ch = parseBuffer[parseCurrent];
+                            charClass = ParseSupport.GetCharClass(ch);
+
+                            runStart = parseCurrent;
+
+                            this.parseState = ParseState.Asp;
+                            goto case ParseState.Asp;
+                        }
+                        else if (ParseSupport.InvalidUnicodeCharacter(charClassT))
+                        {
+                            if (!this.endOfFile || parseCurrent + 1 < parseEnd)
+                            {
+                                this.parseThreshold = 2;
+                                break;
+                            }
                         }
 
-                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
+                        this.parseState = ParseState.Text;
+                        goto ContinueText;
+                    }
 
-                        this.nameLength = 0;
-                        tokenBuilder.StartTagName();
+                    parseCurrent++;
 
-                        runStart = parseCurrent;
+                    this.lastCharClass = charClass;
 
-                        this.parseState = ParseState.TagNamePrefix;
-                        goto case ParseState.TagNamePrefix;
+                    ch = chT;
+                    charClass = charClassT;
+
+                    tokenBuilder.StartTag(HtmlNameIndex.Unknown, runStart);
+                    if (endTag)
+                    {
+                        tokenBuilder.SetEndTag();
+                    }
+
+                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
+
+                    this.nameLength = 0;
+                    tokenBuilder.StartTagName();
+
+                    runStart = parseCurrent;
+
+                    this.parseState = ParseState.TagNamePrefix;
+                    goto case ParseState.TagNamePrefix;
 
                 case ParseState.TagNamePrefix:
 
-                        if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.Name))
-                        {
-                            goto SplitTag;
-                        }
+                    if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.Name))
+                    {
+                        goto SplitTag;
+                    }
 
-                        ch = this.ScanTagName(ch, ref charClass, ref parseCurrent, CharClass.HtmlTagNamePrefix);
+                    ch = this.ScanTagName(ch, ref charClass, ref parseCurrent, CharClass.HtmlTagNamePrefix);
 
-                        if (parseCurrent != runStart)
-                        {
-                            this.nameLength += (parseCurrent - runStart);
+                    if (parseCurrent != runStart)
+                    {
+                        this.nameLength += (parseCurrent - runStart);
 
-                            if (this.literalTags && (this.nameLength > HtmlNameData.MAX_TAG_NAME || ch == '<'))
-                            {
-                                goto RejectTag;
-                            }
-
-                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.Name, runStart, parseCurrent);
-                        }
-
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass))
-                        {
-                            goto HandleTagEOB;
-                        }
-
-                        if (ch != ':')
-                        {
-                            goto EndTagName;
-                        }
-
-                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.NamePrefixDelimiter, parseCurrent, parseCurrent + 1);
-                        this.nameLength ++;
-
-                        this.tokenBuilder.EndTagNamePrefix();
-
-                        ch = parseBuffer[++parseCurrent];
-                        charClass = ParseSupport.GetCharClass(ch);
-
-                        runStart = parseCurrent;
-
-                        this.parseState = ParseState.TagName;
-                        goto case ParseState.TagName;
-
-                case ParseState.TagName:
-
-                        if (!tokenBuilder.PrepareToAddMoreRuns(1, runStart, HtmlRunKind.Name))
-                        {
-                            goto SplitTag;
-                        }
-
-                        ch = this.ScanTagName(ch, ref charClass, ref parseCurrent, CharClass.HtmlTagName);
-
-                        if (parseCurrent != runStart)
-                        {
-                            this.nameLength += (parseCurrent - runStart);
-
-                            if (this.literalTags && (this.nameLength > HtmlNameData.MAX_TAG_NAME || ch == '<'))
-                            {
-                                goto RejectTag;
-                            }
-
-                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.Name, runStart, parseCurrent);
-                        }
-
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass))
-                        {
-                            goto HandleTagEOB;
-                        }
-
-                EndTagName:
-
-                        tokenBuilder.EndTagName(this.nameLength);
-
-                        InternalDebug.Assert(!this.literalTags || this.token.IsEndTag);
-
-                        if (this.literalTags && this.token.NameIndex != this.literalTagNameId)
+                        if (this.literalTags && (this.nameLength > HtmlNameData.MAX_TAG_NAME || ch == '<'))
                         {
                             goto RejectTag;
                         }
 
-                        runStart = parseCurrent;
+                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.Name, runStart, parseCurrent);
+                    }
 
-                        if (ch == '>')
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        goto HandleTagEOB;
+                    }
+
+                    if (ch != ':')
+                    {
+                        goto EndTagName;
+                    }
+
+                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.NamePrefixDelimiter, parseCurrent, parseCurrent + 1);
+                    this.nameLength++;
+
+                    this.tokenBuilder.EndTagNamePrefix();
+
+                    ch = parseBuffer[++parseCurrent];
+                    charClass = ParseSupport.GetCharClass(ch);
+
+                    runStart = parseCurrent;
+
+                    this.parseState = ParseState.TagName;
+                    goto case ParseState.TagName;
+
+                case ParseState.TagName:
+
+                    if (!tokenBuilder.PrepareToAddMoreRuns(1, runStart, HtmlRunKind.Name))
+                    {
+                        goto SplitTag;
+                    }
+
+                    ch = this.ScanTagName(ch, ref charClass, ref parseCurrent, CharClass.HtmlTagName);
+
+                    if (parseCurrent != runStart)
+                    {
+                        this.nameLength += (parseCurrent - runStart);
+
+                        if (this.literalTags && (this.nameLength > HtmlNameData.MAX_TAG_NAME || ch == '<'))
                         {
-                            this.parseState = ParseState.TagEnd;
-                            goto case ParseState.TagEnd;
-                        }
-                        else if (ch == '/')
-                        {
-                            this.parseState = ParseState.EmptyTagEnd;
-                            goto case ParseState.EmptyTagEnd;
+                            goto RejectTag;
                         }
 
-                        this.lastCharClass = charClass;
+                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.Name, runStart, parseCurrent);
+                    }
 
-                        this.parseState = ParseState.TagWsp;
-                        goto case ParseState.TagWsp;
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        goto HandleTagEOB;
+                    }
+
+                EndTagName:
+
+                    tokenBuilder.EndTagName(this.nameLength);
+
+                    InternalDebug.Assert(!this.literalTags || this.token.IsEndTag);
+
+                    if (this.literalTags && this.token.NameIndex != this.literalTagNameId)
+                    {
+                        goto RejectTag;
+                    }
+
+                    runStart = parseCurrent;
+
+                    if (ch == '>')
+                    {
+                        this.parseState = ParseState.TagEnd;
+                        goto case ParseState.TagEnd;
+                    }
+                    else if (ch == '/')
+                    {
+                        this.parseState = ParseState.EmptyTagEnd;
+                        goto case ParseState.EmptyTagEnd;
+                    }
+
+                    this.lastCharClass = charClass;
+
+                    this.parseState = ParseState.TagWsp;
+                    goto case ParseState.TagWsp;
 
                 case ParseState.TagWsp:
 
-                        if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.TagWhitespace))
-                        {
-                            goto SplitTag;
-                        }
+                    if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.TagWhitespace))
+                    {
+                        goto SplitTag;
+                    }
 
-                        ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent);
+                    ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent);
 
-                        if (parseCurrent != runStart)
-                        {
-                            tokenBuilder.AddRun(RunTextType.Space, HtmlRunKind.TagWhitespace, runStart, parseCurrent);
-                        }
+                    if (parseCurrent != runStart)
+                    {
+                        tokenBuilder.AddRun(RunTextType.Space, HtmlRunKind.TagWhitespace, runStart, parseCurrent);
+                    }
 
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass))
-                        {
-                            goto HandleTagEOB;
-                        }
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        goto HandleTagEOB;
+                    }
 
-                        runStart = parseCurrent;
+                    runStart = parseCurrent;
 
-                        if (ch == '>')
-                        {
-                            this.parseState = ParseState.TagEnd;
-                            goto case ParseState.TagEnd;
-                        }
-                        else if (ch == '/')
-                        {
-                            this.parseState = ParseState.EmptyTagEnd;
-                            goto case ParseState.EmptyTagEnd;
-                        }
+                    if (ch == '>')
+                    {
+                        this.parseState = ParseState.TagEnd;
+                        goto case ParseState.TagEnd;
+                    }
+                    else if (ch == '/')
+                    {
+                        this.parseState = ParseState.EmptyTagEnd;
+                        goto case ParseState.EmptyTagEnd;
+                    }
 
-                        this.parseState = ParseState.AttrNameStart;
-                        goto case ParseState.AttrNameStart;
+                    this.parseState = ParseState.AttrNameStart;
+                    goto case ParseState.AttrNameStart;
 
                 case ParseState.AttrNameStart:
 
-                        if (!tokenBuilder.CanAddAttribute() || !tokenBuilder.PrepareToAddMoreRuns(3, runStart, HtmlRunKind.Name))
-                        {
-                            goto SplitTag;
-                        }
+                    if (!tokenBuilder.CanAddAttribute() || !tokenBuilder.PrepareToAddMoreRuns(3, runStart, HtmlRunKind.Name))
+                    {
+                        goto SplitTag;
+                    }
 
-                        this.nameLength = 0;
+                    this.nameLength = 0;
 
-                        tokenBuilder.StartAttribute();
+                    tokenBuilder.StartAttribute();
 
-                        this.parseState = ParseState.AttrNamePrefix;
-                        goto case ParseState.AttrNamePrefix;
+                    this.parseState = ParseState.AttrNamePrefix;
+                    goto case ParseState.AttrNamePrefix;
 
                 case ParseState.AttrNamePrefix:
 
-                        InternalDebug.Assert(this.valueQuote == '\0');
+                    InternalDebug.Assert(this.valueQuote == '\0');
 
-                        if (!tokenBuilder.PrepareToAddMoreRuns(3, runStart, HtmlRunKind.Name))
-                        {
-                            goto SplitTag;
-                        }
+                    if (!tokenBuilder.PrepareToAddMoreRuns(3, runStart, HtmlRunKind.Name))
+                    {
+                        goto SplitTag;
+                    }
 
-                        ch = this.ScanAttrName(ch, ref charClass, ref parseCurrent, CharClass.HtmlAttrNamePrefix);
+                    ch = this.ScanAttrName(ch, ref charClass, ref parseCurrent, CharClass.HtmlAttrNamePrefix);
 
-                        if (parseCurrent != runStart)
-                        {
-                            this.nameLength += (parseCurrent - runStart);
+                    if (parseCurrent != runStart)
+                    {
+                        this.nameLength += (parseCurrent - runStart);
 
-                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.Name, runStart, parseCurrent);
-                        }
+                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.Name, runStart, parseCurrent);
+                    }
 
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass))
-                        {
-                            goto HandleTagEOB;
-                        }
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        goto HandleTagEOB;
+                    }
 
-                        if (ch != ':')
-                        {
-                            goto EndAttributeName;
-                        }
+                    if (ch != ':')
+                    {
+                        goto EndAttributeName;
+                    }
 
-                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.NamePrefixDelimiter, parseCurrent, parseCurrent + 1);
-                        this.nameLength ++;
+                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.NamePrefixDelimiter, parseCurrent, parseCurrent + 1);
+                    this.nameLength++;
 
-                        this.tokenBuilder.EndAttributeNamePrefix();
+                    this.tokenBuilder.EndAttributeNamePrefix();
 
-                        ch = parseBuffer[++parseCurrent];
-                        charClass = ParseSupport.GetCharClass(ch);
+                    ch = parseBuffer[++parseCurrent];
+                    charClass = ParseSupport.GetCharClass(ch);
 
-                        runStart = parseCurrent;
+                    runStart = parseCurrent;
 
-                        this.parseState = ParseState.AttrName;
-                        goto case ParseState.AttrName;
+                    this.parseState = ParseState.AttrName;
+                    goto case ParseState.AttrName;
 
                 case ParseState.AttrName:
 
-                        InternalDebug.Assert(this.valueQuote == '\0');
+                    InternalDebug.Assert(this.valueQuote == '\0');
 
-                        if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.Name))
-                        {
-                            goto SplitTag;
-                        }
+                    if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.Name))
+                    {
+                        goto SplitTag;
+                    }
 
-                        ch = this.ScanAttrName(ch, ref charClass, ref parseCurrent, CharClass.HtmlAttrName);
+                    ch = this.ScanAttrName(ch, ref charClass, ref parseCurrent, CharClass.HtmlAttrName);
 
-                        if (parseCurrent != runStart)
-                        {
-                            this.nameLength += (parseCurrent - runStart);
+                    if (parseCurrent != runStart)
+                    {
+                        this.nameLength += (parseCurrent - runStart);
 
-                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.Name, runStart, parseCurrent);
-                        }
+                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.Name, runStart, parseCurrent);
+                    }
 
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass))
-                        {
-                            goto HandleTagEOB;
-                        }
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        goto HandleTagEOB;
+                    }
 
                 EndAttributeName:
 
-                        tokenBuilder.EndAttributeName(this.nameLength);
+                    tokenBuilder.EndAttributeName(this.nameLength);
 
-                        runStart = parseCurrent;
+                    runStart = parseCurrent;
 
-                         if (ch == '=')
-                        {
-                            goto HandleAttrEqual;
-                        }
+                    if (ch == '=')
+                    {
+                        goto HandleAttrEqual;
+                    }
 
-                        InternalDebug.Assert(ch == '>' || ch == '/' || ParseSupport.WhitespaceCharacter(charClass));
+                    InternalDebug.Assert(ch == '>' || ch == '/' || ParseSupport.WhitespaceCharacter(charClass));
 
-                        this.lastCharClass = charClass;
+                    this.lastCharClass = charClass;
 
-                        this.parseState = ParseState.AttrWsp;
-                        goto case ParseState.AttrWsp;
+                    this.parseState = ParseState.AttrWsp;
+                    goto case ParseState.AttrWsp;
 
                 case ParseState.AttrWsp:
 
-                        if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.TagWhitespace))
-                        {
-                            goto SplitTag;
-                        }
+                    if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.TagWhitespace))
+                    {
+                        goto SplitTag;
+                    }
 
-                        ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent);
+                    ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent);
 
-                        if (parseCurrent != runStart)
-                        {
-                            tokenBuilder.AddRun(RunTextType.Space, HtmlRunKind.TagWhitespace, runStart, parseCurrent);
-                        }
+                    if (parseCurrent != runStart)
+                    {
+                        tokenBuilder.AddRun(RunTextType.Space, HtmlRunKind.TagWhitespace, runStart, parseCurrent);
+                    }
 
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass))
-                        {
-                            goto HandleTagEOB;
-                        }
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        goto HandleTagEOB;
+                    }
 
-                        runStart = parseCurrent;
+                    runStart = parseCurrent;
 
-                        if (ch != '=')
-                        {
-                            tokenBuilder.EndAttribute();
-
-                            InternalDebug.Assert(this.valueQuote == '\0');
-
-                            if (ch == '>')
-                            {
-                                this.parseState = ParseState.TagEnd;
-                                goto case ParseState.TagEnd;
-                            }
-                            else if (ch == '/')
-                            {
-                                this.parseState = ParseState.EmptyTagEnd;
-                                goto case ParseState.EmptyTagEnd;
-                            }
-
-                            this.parseState = ParseState.AttrNameStart;
-                            goto case ParseState.AttrNameStart;
-                        }
-
-                HandleAttrEqual:
-
-                        InternalDebug.Assert(ch == '=');
-
-                        this.lastCharClass = charClass;
-
-                        ch = parseBuffer[++parseCurrent];
-                        charClass = ParseSupport.GetCharClass(ch);
-
-                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.AttrEqual, runStart, parseCurrent);
-
-                        runStart = parseCurrent;
-
-                        this.parseState = ParseState.AttrValueWsp;
-                        goto case ParseState.AttrValueWsp;
-
-                case ParseState.AttrValueWsp:
-
-                        if (!tokenBuilder.PrepareToAddMoreRuns(3, runStart, HtmlRunKind.TagWhitespace))
-                        {
-                            goto SplitTag;
-                        }
-
-                        ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent);
-
-                        if (parseCurrent != runStart)
-                        {
-                            tokenBuilder.AddRun(RunTextType.Space, HtmlRunKind.TagWhitespace, runStart, parseCurrent);
-                        }
-
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass))
-                        {
-                            goto HandleTagEOB;
-                        }
-
-                        runStart = parseCurrent;
-
-                        InternalDebug.Assert(this.valueQuote == '\0');
-
-                        if (ParseSupport.QuoteCharacter(charClass))
-                        {
-                            if (ch == this.scanQuote)
-                            {
-                                this.scanQuote = '\0';
-                            }
-                            else if (this.scanQuote == '\0')
-                            {
-                                InternalDebug.Assert(ParseSupport.HtmlScanQuoteSensitiveCharacter(this.lastCharClass));
-                                this.scanQuote = ch;
-                            }
-
-                            this.valueQuote = ch;
-
-                            this.lastCharClass = charClass;
-
-                            ch = parseBuffer[++parseCurrent];
-                            charClass = ParseSupport.GetCharClass(ch);
-
-                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.AttrQuote, runStart, parseCurrent);
-
-                            runStart = parseCurrent;
-                        }
-
-                        tokenBuilder.StartValue();
-
-                        if (this.valueQuote != '\0')
-                        {
-                            tokenBuilder.SetValueQuote(this.valueQuote);
-                        }
-
-                        this.parseState = ParseState.AttrValue;
-                        goto case ParseState.AttrValue;
-
-                case ParseState.AttrValue:
-
-                        if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.AttrValue))
-                        {
-                            goto SplitTag;
-                        }
-
-                        if (!this.ParseAttributeText(ch, charClass, ref parseCurrent))
-                        {
-                            goto SplitTag;
-                        }
-
-                        ch = parseBuffer[parseCurrent];
-                        charClass = ParseSupport.GetCharClass(ch);
-
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass) || this.parseThreshold > 1)
-                        {
-                            goto HandleTagEOB;
-                        }
-
-                        tokenBuilder.EndValue();
-
-                        runStart = parseCurrent;
-
-                        if (ch == this.valueQuote)
-                        {
-                            this.lastCharClass = charClass;
-
-                            ch = parseBuffer[++parseCurrent];
-                            charClass = ParseSupport.GetCharClass(ch);
-
-                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.AttrQuote, runStart, parseCurrent);
-
-                            this.valueQuote = '\0';
-
-                            runStart = parseCurrent;
-                        }
-
+                    if (ch != '=')
+                    {
                         tokenBuilder.EndAttribute();
 
                         InternalDebug.Assert(this.valueQuote == '\0');
@@ -1251,266 +1120,423 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             goto case ParseState.EmptyTagEnd;
                         }
 
-                        this.parseState = ParseState.TagWsp;
-                        goto case ParseState.TagWsp;
+                        this.parseState = ParseState.AttrNameStart;
+                        goto case ParseState.AttrNameStart;
+                    }
 
-                case ParseState.EmptyTagEnd:
+                HandleAttrEqual:
 
-                        InternalDebug.Assert(ch == '/');
+                    InternalDebug.Assert(ch == '=');
 
-                        if (!tokenBuilder.PrepareToAddMoreRuns(1, runStart, HtmlRunKind.TagWhitespace))
+                    this.lastCharClass = charClass;
+
+                    ch = parseBuffer[++parseCurrent];
+                    charClass = ParseSupport.GetCharClass(ch);
+
+                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.AttrEqual, runStart, parseCurrent);
+
+                    runStart = parseCurrent;
+
+                    this.parseState = ParseState.AttrValueWsp;
+                    goto case ParseState.AttrValueWsp;
+
+                case ParseState.AttrValueWsp:
+
+                    if (!tokenBuilder.PrepareToAddMoreRuns(3, runStart, HtmlRunKind.TagWhitespace))
+                    {
+                        goto SplitTag;
+                    }
+
+                    ch = this.ScanWhitespace(ch, ref charClass, ref parseCurrent);
+
+                    if (parseCurrent != runStart)
+                    {
+                        tokenBuilder.AddRun(RunTextType.Space, HtmlRunKind.TagWhitespace, runStart, parseCurrent);
+                    }
+
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        goto HandleTagEOB;
+                    }
+
+                    runStart = parseCurrent;
+
+                    InternalDebug.Assert(this.valueQuote == '\0');
+
+                    if (ParseSupport.QuoteCharacter(charClass))
+                    {
+                        if (ch == this.scanQuote)
                         {
-                            goto SplitTag;
+                            this.scanQuote = '\0';
+                        }
+                        else if (this.scanQuote == '\0')
+                        {
+                            InternalDebug.Assert(ParseSupport.HtmlScanQuoteSensitiveCharacter(this.lastCharClass));
+                            this.scanQuote = ch;
                         }
 
-                        chT = parseBuffer[parseCurrent + 1];
-                        charClassT = ParseSupport.GetCharClass(chT);
-
-                        if (chT == '>')
-                        {
-                            tokenBuilder.SetEmptyScope();
-
-                            parseCurrent ++;
-
-                            this.lastCharClass = charClass;
-
-                            ch = chT;
-                            charClass = charClassT;
-
-                            this.parseState = ParseState.TagEnd;
-                            goto case ParseState.TagEnd;
-                        }
-
-                        if (ParseSupport.InvalidUnicodeCharacter(charClassT) && (!this.endOfFile || parseCurrent + 1 < parseEnd))
-                        {
-                            this.parseThreshold = 2;
-                            goto HandleTagEOB;
-                        }
+                        this.valueQuote = ch;
 
                         this.lastCharClass = charClass;
 
-                        parseCurrent ++;
+                        ch = parseBuffer[++parseCurrent];
+                        charClass = ParseSupport.GetCharClass(ch);
+
+                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.AttrQuote, runStart, parseCurrent);
+
+                        runStart = parseCurrent;
+                    }
+
+                    tokenBuilder.StartValue();
+
+                    if (this.valueQuote != '\0')
+                    {
+                        tokenBuilder.SetValueQuote(this.valueQuote);
+                    }
+
+                    this.parseState = ParseState.AttrValue;
+                    goto case ParseState.AttrValue;
+
+                case ParseState.AttrValue:
+
+                    if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.AttrValue))
+                    {
+                        goto SplitTag;
+                    }
+
+                    if (!this.ParseAttributeText(ch, charClass, ref parseCurrent))
+                    {
+                        goto SplitTag;
+                    }
+
+                    ch = parseBuffer[parseCurrent];
+                    charClass = ParseSupport.GetCharClass(ch);
+
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass) || this.parseThreshold > 1)
+                    {
+                        goto HandleTagEOB;
+                    }
+
+                    tokenBuilder.EndValue();
+
+                    runStart = parseCurrent;
+
+                    if (ch == this.valueQuote)
+                    {
+                        this.lastCharClass = charClass;
+
+                        ch = parseBuffer[++parseCurrent];
+                        charClass = ParseSupport.GetCharClass(ch);
+
+                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.AttrQuote, runStart, parseCurrent);
+
+                        this.valueQuote = '\0';
+
+                        runStart = parseCurrent;
+                    }
+
+                    tokenBuilder.EndAttribute();
+
+                    InternalDebug.Assert(this.valueQuote == '\0');
+
+                    if (ch == '>')
+                    {
+                        this.parseState = ParseState.TagEnd;
+                        goto case ParseState.TagEnd;
+                    }
+                    else if (ch == '/')
+                    {
+                        this.parseState = ParseState.EmptyTagEnd;
+                        goto case ParseState.EmptyTagEnd;
+                    }
+
+                    this.parseState = ParseState.TagWsp;
+                    goto case ParseState.TagWsp;
+
+                case ParseState.EmptyTagEnd:
+
+                    InternalDebug.Assert(ch == '/');
+
+                    if (!tokenBuilder.PrepareToAddMoreRuns(1, runStart, HtmlRunKind.TagWhitespace))
+                    {
+                        goto SplitTag;
+                    }
+
+                    chT = parseBuffer[parseCurrent + 1];
+                    charClassT = ParseSupport.GetCharClass(chT);
+
+                    if (chT == '>')
+                    {
+                        tokenBuilder.SetEmptyScope();
+
+                        parseCurrent++;
+
+                        this.lastCharClass = charClass;
 
                         ch = chT;
                         charClass = charClassT;
 
-                        runStart = parseCurrent;
+                        this.parseState = ParseState.TagEnd;
+                        goto case ParseState.TagEnd;
+                    }
 
-                        this.parseState = ParseState.TagWsp;
-                        goto case ParseState.TagWsp;
+                    if (ParseSupport.InvalidUnicodeCharacter(charClassT) && (!this.endOfFile || parseCurrent + 1 < parseEnd))
+                    {
+                        this.parseThreshold = 2;
+                        goto HandleTagEOB;
+                    }
+
+                    this.lastCharClass = charClass;
+
+                    parseCurrent++;
+
+                    ch = chT;
+                    charClass = charClassT;
+
+                    runStart = parseCurrent;
+
+                    this.parseState = ParseState.TagWsp;
+                    goto case ParseState.TagWsp;
 
                 case ParseState.TagEnd:
 
-                        InternalDebug.Assert(ch == '>');
+                    InternalDebug.Assert(ch == '>');
 
-                        if (!tokenBuilder.PrepareToAddMoreRuns(1, runStart, HtmlRunKind.TagSuffix))
-                        {
-                            goto SplitTag;
-                        }
+                    if (!tokenBuilder.PrepareToAddMoreRuns(1, runStart, HtmlRunKind.TagSuffix))
+                    {
+                        goto SplitTag;
+                    }
 
-                        this.lastCharClass = charClass;
+                    this.lastCharClass = charClass;
 
-                        parseCurrent ++;
+                    parseCurrent++;
 
-                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, runStart, parseCurrent);
+                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, runStart, parseCurrent);
 
-                        if (this.scanQuote != '\0')
-                        {
-                            runStart = parseCurrent;
-
-                            ch = parseBuffer[parseCurrent];
-                            charClass = ParseSupport.GetCharClass(ch);
-
-                            this.parseState = ParseState.TagSkip;
-                            goto case ParseState.TagSkip;
-                        }
-
-                        tokenBuilder.EndTag(true);
-
-                        InternalDebug.Assert(this.scanQuote == '\0' && this.valueQuote == '\0');
-
-                        if (parseBuffer[parseCurrent] == '<')
-                        {
-                            this.parseState = ParseState.TagStart;
-                            this.slowParse = false;
-                        }
-                        else
-                        {
-                            this.parseState = ParseState.Text;
-                        }
-
-                        this.parseCurrent = parseCurrent;
-
-                        this.HandleSpecialTag();
-
-                        return true;
-
-                case ParseState.TagSkip:
-
-                        if (!tokenBuilder.PrepareToAddMoreRuns(1, runStart, HtmlRunKind.TagText))
-                        {
-                            goto SplitTag;
-                        }
-
-                        ch = this.ScanSkipTag(ch, ref charClass, ref parseCurrent);
-
-                        if (parseCurrent != runStart)
-                        {
-                            tokenBuilder.AddRun(RunTextType.Unknown, HtmlRunKind.TagText, runStart, parseCurrent);
-                        }
-
-                        if (ParseSupport.InvalidUnicodeCharacter(charClass))
-                        {
-                            goto HandleTagEOB;
-                        }
-
-                        InternalDebug.Assert(ch == '>' && this.scanQuote == '\0');
-
-                        parseCurrent ++;
-
-                        tokenBuilder.EndTag(true);
-
-                        InternalDebug.Assert(this.scanQuote == '\0' && this.valueQuote == '\0');
-
-                        if (parseBuffer[parseCurrent] == '<')
-                        {
-                            this.parseState = ParseState.TagStart;
-                            this.slowParse = false;
-                        }
-                        else
-                        {
-                            this.parseState = ParseState.Text;
-                        }
-
-                        this.parseCurrent = parseCurrent;
-
-                        this.HandleSpecialTag();
-
-                        return true;
-
-                HandleTagEOB:
-
-                        if (!forceFlushToken || parseCurrent + this.parseThreshold < parseEnd)
-                        {
-                            break;
-                        }
-
-                        if (this.endOfFile)
-                        {
-                            if (parseCurrent < parseEnd)
-                            {
-                                if (this.ScanForInternalInvalidCharacters(parseCurrent))
-                                {
-                                    break;
-                                }
-
-                                parseCurrent = parseEnd;
-                            }
-
-                            if (this.token.IsTagBegin)
-                            {
-                                goto RejectTag;
-                            }
-
-                            tokenBuilder.EndTag(true);
-
-                            this.parseCurrent = parseCurrent;
-
-                            this.HandleSpecialTag();
-
-                            this.parseState = ParseState.Text;
-
-                            return true;
-                        }
-
-                SplitTag:
-
-                        if (this.literalTags && this.token.NameIndex == HtmlNameIndex.Unknown)
-                        {
-                            InternalDebug.Assert(this.token.IsTagBegin);
-                            goto RejectTag;
-                        }
-
-                        tokenBuilder.EndTag(false);
-
-                        this.parseCurrent = parseCurrent;
-
-                        this.HandleSpecialTag();
-
-                        return true;
-
-                RejectTag:
-
-                        InternalDebug.Assert(this.token.IsTagBegin);
-
-                        parseCurrent = this.parseStart;
-
-                        this.scanQuote = this.valueQuote = '\0';
-
-                        tokenBuilder.Reset();
-
+                    if (this.scanQuote != '\0')
+                    {
                         runStart = parseCurrent;
 
                         ch = parseBuffer[parseCurrent];
                         charClass = ParseSupport.GetCharClass(ch);
 
-                        InternalDebug.Assert(ch == '<');
+                        this.parseState = ParseState.TagSkip;
+                        goto case ParseState.TagSkip;
+                    }
+
+                    tokenBuilder.EndTag(true);
+
+                    InternalDebug.Assert(this.scanQuote == '\0' && this.valueQuote == '\0');
+
+                    if (parseBuffer[parseCurrent] == '<')
+                    {
+                        this.parseState = ParseState.TagStart;
+                        this.slowParse = false;
+                    }
+                    else
+                    {
+                        this.parseState = ParseState.Text;
+                    }
+
+                    this.parseCurrent = parseCurrent;
+
+                    this.HandleSpecialTag();
+
+                    return true;
+
+                case ParseState.TagSkip:
+
+                    if (!tokenBuilder.PrepareToAddMoreRuns(1, runStart, HtmlRunKind.TagText))
+                    {
+                        goto SplitTag;
+                    }
+
+                    ch = this.ScanSkipTag(ch, ref charClass, ref parseCurrent);
+
+                    if (parseCurrent != runStart)
+                    {
+                        tokenBuilder.AddRun(RunTextType.Unknown, HtmlRunKind.TagText, runStart, parseCurrent);
+                    }
+
+                    if (ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        goto HandleTagEOB;
+                    }
+
+                    InternalDebug.Assert(ch == '>' && this.scanQuote == '\0');
+
+                    parseCurrent++;
+
+                    tokenBuilder.EndTag(true);
+
+                    InternalDebug.Assert(this.scanQuote == '\0' && this.valueQuote == '\0');
+
+                    if (parseBuffer[parseCurrent] == '<')
+                    {
+                        this.parseState = ParseState.TagStart;
+                        this.slowParse = false;
+                    }
+                    else
+                    {
+                        this.parseState = ParseState.Text;
+                    }
+
+                    this.parseCurrent = parseCurrent;
+
+                    this.HandleSpecialTag();
+
+                    return true;
+
+                HandleTagEOB:
+
+                    if (!forceFlushToken || parseCurrent + this.parseThreshold < parseEnd)
+                    {
+                        break;
+                    }
+
+                    if (this.endOfFile)
+                    {
+                        if (parseCurrent < parseEnd)
+                        {
+                            if (this.ScanForInternalInvalidCharacters(parseCurrent))
+                            {
+                                break;
+                            }
+
+                            parseCurrent = parseEnd;
+                        }
+
+                        if (this.token.IsTagBegin)
+                        {
+                            goto RejectTag;
+                        }
+
+                        tokenBuilder.EndTag(true);
+
+                        this.parseCurrent = parseCurrent;
+
+                        this.HandleSpecialTag();
 
                         this.parseState = ParseState.Text;
-                        goto ContinueText;
+
+                        return true;
+                    }
+
+                SplitTag:
+
+                    if (this.literalTags && this.token.NameIndex == HtmlNameIndex.Unknown)
+                    {
+                        InternalDebug.Assert(this.token.IsTagBegin);
+                        goto RejectTag;
+                    }
+
+                    tokenBuilder.EndTag(false);
+
+                    this.parseCurrent = parseCurrent;
+
+                    this.HandleSpecialTag();
+
+                    return true;
+
+                RejectTag:
+
+                    InternalDebug.Assert(this.token.IsTagBegin);
+
+                    parseCurrent = this.parseStart;
+
+                    this.scanQuote = this.valueQuote = '\0';
+
+                    tokenBuilder.Reset();
+
+                    runStart = parseCurrent;
+
+                    ch = parseBuffer[parseCurrent];
+                    charClass = ParseSupport.GetCharClass(ch);
+
+                    InternalDebug.Assert(ch == '<');
+
+                    this.parseState = ParseState.Text;
+                    goto ContinueText;
 
                 case ParseState.CommentStart:
 
-                        tokenBuilder.DebugPrepareToAddMoreRuns(3);
+                    tokenBuilder.DebugPrepareToAddMoreRuns(3);
 
-                        InternalDebug.Assert(ch == '<');
-                        InternalDebug.Assert(parseBuffer[parseCurrent + 1] == '!');
-                        InternalDebug.Assert(!tokenBuilder.IsStarted);
+                    InternalDebug.Assert(ch == '<');
+                    InternalDebug.Assert(parseBuffer[parseCurrent + 1] == '!');
+                    InternalDebug.Assert(!tokenBuilder.IsStarted);
 
-                        int pos = 2;
+                    int pos = 2;
+
+                    chT = parseBuffer[parseCurrent + pos];
+
+                    if (chT == '-')
+                    {
+                        pos++;
 
                         chT = parseBuffer[parseCurrent + pos];
 
                         if (chT == '-')
                         {
-                            pos ++;
+                            pos++;
 
                             chT = parseBuffer[parseCurrent + pos];
 
-                            if (chT == '-')
+                            if (chT == '[' && this.parseConditionals)
                             {
-                                pos ++;
+                                parseCurrent += 5;
+
+                                tokenBuilder.StartTag(HtmlNameIndex._CONDITIONAL, runStart);
+
+                                tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
+
+                                tokenBuilder.StartTagText();
+
+                                ch = parseBuffer[parseCurrent];
+                                charClass = ParseSupport.GetCharClass(ch);
+
+                                runStart = parseCurrent;
+
+                                this.parseState = ParseState.CommentConditional;
+                                goto case ParseState.CommentConditional;
+                            }
+                            else if (chT == '>')
+                            {
+                                parseCurrent += 5;
+
+                                tokenBuilder.StartTag(HtmlNameIndex._COMMENT, runStart);
+
+                                tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent - 1);
+                                tokenBuilder.StartTagText();
+                                tokenBuilder.EndTagText();
+                                tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, parseCurrent - 1, parseCurrent);
+
+                                tokenBuilder.EndTag(true);
+
+                                InternalDebug.Assert(this.scanQuote == '\0' && this.valueQuote == '\0');
+
+                                this.parseState = ParseState.Text;
+
+                                this.parseCurrent = parseCurrent;
+
+                                return true;
+                            }
+                            else if (chT == '-')
+                            {
+                                pos++;
 
                                 chT = parseBuffer[parseCurrent + pos];
 
-                                if (chT == '[' && this.parseConditionals)
+                                if (chT == '>')
                                 {
-                                    parseCurrent += 5;
-
-                                    tokenBuilder.StartTag(HtmlNameIndex._CONDITIONAL, runStart);
-
-                                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
-
-                                    tokenBuilder.StartTagText();
-
-                                    ch = parseBuffer[parseCurrent];
-                                    charClass = ParseSupport.GetCharClass(ch);
-
-                                    runStart = parseCurrent;
-
-                                    this.parseState = ParseState.CommentConditional;
-                                    goto case ParseState.CommentConditional;
-                                }
-                                else if (chT == '>')
-                                {
-                                    parseCurrent += 5;
+                                    parseCurrent += 6;
 
                                     tokenBuilder.StartTag(HtmlNameIndex._COMMENT, runStart);
 
-                                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent - 1);
+                                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent - 2);
                                     tokenBuilder.StartTagText();
                                     tokenBuilder.EndTagText();
-                                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, parseCurrent - 1, parseCurrent);
+                                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, parseCurrent - 2, parseCurrent);
 
                                     tokenBuilder.EndTag(true);
 
@@ -1522,115 +1548,88 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                     return true;
                                 }
-                                else if (chT == '-')
-                                {
-                                    pos ++;
-
-                                    chT = parseBuffer[parseCurrent + pos];
-
-                                    if (chT == '>')
-                                    {
-                                        parseCurrent += 6;
-
-                                        tokenBuilder.StartTag(HtmlNameIndex._COMMENT, runStart);
-
-                                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent - 2);
-                                        tokenBuilder.StartTagText();
-                                        tokenBuilder.EndTagText();
-                                        tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagSuffix, parseCurrent - 2, parseCurrent);
-
-                                        tokenBuilder.EndTag(true);
-
-                                        InternalDebug.Assert(this.scanQuote == '\0' && this.valueQuote == '\0');
-
-                                        this.parseState = ParseState.Text;
-
-                                        this.parseCurrent = parseCurrent;
-
-                                        return true;
-                                    }
-                                }
-
-                                charClassT = ParseSupport.GetCharClass(chT);
-
-                                if (!ParseSupport.InvalidUnicodeCharacter(charClassT))
-                                {
-                                    parseCurrent += 4;
-
-                                    tokenBuilder.StartTag(HtmlNameIndex._COMMENT, runStart);
-
-                                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
-
-                                    tokenBuilder.StartTagText();
-
-                                    ch = parseBuffer[parseCurrent];
-                                    charClass = ParseSupport.GetCharClass(ch);
-
-                                    runStart = parseCurrent;
-
-                                    this.parseState = ParseState.Comment;
-                                    goto case ParseState.Comment;
-                                }
                             }
-                        }
-                        else if (chT == '[' && this.parseConditionals)
-                        {
-                            parseCurrent += 3;
 
-                            tokenBuilder.StartTag(HtmlNameIndex._CONDITIONAL, runStart);
+                            charClassT = ParseSupport.GetCharClass(chT);
 
-                            tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
-
-                            tokenBuilder.StartTagText();
-
-                            ch = parseBuffer[parseCurrent];
-                            charClass = ParseSupport.GetCharClass(ch);
-
-                            runStart = parseCurrent;
-
-                            this.parseState = ParseState.Conditional;
-                            goto case ParseState.Conditional;
-                        }
-
-                        charClassT = ParseSupport.GetCharClass(chT);
-
-                        if (ParseSupport.InvalidUnicodeCharacter(charClassT))
-                        {
-                            if (!this.endOfFile || parseCurrent + pos < parseEnd)
+                            if (!ParseSupport.InvalidUnicodeCharacter(charClassT))
                             {
-                                this.parseThreshold = pos + 1;
-                                break;
+                                parseCurrent += 4;
+
+                                tokenBuilder.StartTag(HtmlNameIndex._COMMENT, runStart);
+
+                                tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
+
+                                tokenBuilder.StartTagText();
+
+                                ch = parseBuffer[parseCurrent];
+                                charClass = ParseSupport.GetCharClass(ch);
+
+                                runStart = parseCurrent;
+
+                                this.parseState = ParseState.Comment;
+                                goto case ParseState.Comment;
                             }
-
-                            InternalDebug.Assert(ch == '<');
-
-                            this.parseState = ParseState.Text;
-                            goto ContinueText;
                         }
+                    }
+                    else if (chT == '[' && this.parseConditionals)
+                    {
+                        parseCurrent += 3;
 
-                        if (this.literalTags)
-                        {
-                            this.parseState = ParseState.Text;
-                            goto ContinueText;
-                        }
-
-                        parseCurrent += 2;
-
-                        tokenBuilder.StartTag(HtmlNameIndex._BANG, runStart);
+                        tokenBuilder.StartTag(HtmlNameIndex._CONDITIONAL, runStart);
 
                         tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
 
                         tokenBuilder.StartTagText();
-
-                        this.lastCharClass = ParseSupport.GetCharClass('!');
 
                         ch = parseBuffer[parseCurrent];
                         charClass = ParseSupport.GetCharClass(ch);
 
                         runStart = parseCurrent;
 
-                        this.parseState = ParseState.Bang;
-                        goto case ParseState.Bang;
+                        this.parseState = ParseState.Conditional;
+                        goto case ParseState.Conditional;
+                    }
+
+                    charClassT = ParseSupport.GetCharClass(chT);
+
+                    if (ParseSupport.InvalidUnicodeCharacter(charClassT))
+                    {
+                        if (!this.endOfFile || parseCurrent + pos < parseEnd)
+                        {
+                            this.parseThreshold = pos + 1;
+                            break;
+                        }
+
+                        InternalDebug.Assert(ch == '<');
+
+                        this.parseState = ParseState.Text;
+                        goto ContinueText;
+                    }
+
+                    if (this.literalTags)
+                    {
+                        this.parseState = ParseState.Text;
+                        goto ContinueText;
+                    }
+
+                    parseCurrent += 2;
+
+                    tokenBuilder.StartTag(HtmlNameIndex._BANG, runStart);
+
+                    tokenBuilder.AddRun(RunTextType.NonSpace, HtmlRunKind.TagPrefix, runStart, parseCurrent);
+
+                    tokenBuilder.StartTagText();
+
+                    this.lastCharClass = ParseSupport.GetCharClass('!');
+
+                    ch = parseBuffer[parseCurrent];
+                    charClass = ParseSupport.GetCharClass(ch);
+
+                    runStart = parseCurrent;
+
+                    this.parseState = ParseState.Bang;
+                    goto case ParseState.Bang;
 
                 case ParseState.CommentConditional:
                 case ParseState.Conditional:
@@ -1639,26 +1638,26 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 case ParseState.Asp:
                 case ParseState.Dtd:
 
-                        if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.TagText))
-                        {
-                            goto SplitTag;
-                        }
+                    if (!tokenBuilder.PrepareToAddMoreRuns(2, runStart, HtmlRunKind.TagText))
+                    {
+                        goto SplitTag;
+                    }
 
-                        while (!ParseSupport.InvalidUnicodeCharacter(charClass))
+                    while (!ParseSupport.InvalidUnicodeCharacter(charClass))
+                    {
+                        if (ParseSupport.QuoteCharacter(charClass))
                         {
-                            if (ParseSupport.QuoteCharacter(charClass))
+                            if (ch == this.scanQuote)
                             {
-                                if (ch == this.scanQuote)
-                                {
-                                    this.scanQuote = '\0';
-                                }
-                                else if (this.scanQuote == '\0' && ParseSupport.HtmlScanQuoteSensitiveCharacter(this.lastCharClass))
-                                {
-                                    this.scanQuote = ch;
-                                }
+                                this.scanQuote = '\0';
                             }
-                            else if (ParseSupport.HtmlSuffixCharacter(charClass))
+                            else if (this.scanQuote == '\0' && ParseSupport.HtmlScanQuoteSensitiveCharacter(this.lastCharClass))
                             {
+                                this.scanQuote = ch;
+                            }
+                        }
+                        else if (ParseSupport.HtmlSuffixCharacter(charClass))
+                        {
                             if (this.CheckSuffix(parseCurrent, ch, out int addToTextCnt, out int tagSuffixCnt, out bool endScan))
                             {
                                 if (!endScan)
@@ -1709,52 +1708,52 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             InternalDebug.Assert(tagSuffixCnt >= 1);
 
-                                parseCurrent += addToTextCnt;
-                                this.parseThreshold = tagSuffixCnt + 1;
+                            parseCurrent += addToTextCnt;
+                            this.parseThreshold = tagSuffixCnt + 1;
 
-                                break;
-                            }
-
-                            this.lastCharClass = charClass;
-
-                            ch = parseBuffer[++parseCurrent];
-                            charClass = ParseSupport.GetCharClass(ch);
+                            break;
                         }
 
-                        if (parseCurrent != runStart)
+                        this.lastCharClass = charClass;
+
+                        ch = parseBuffer[++parseCurrent];
+                        charClass = ParseSupport.GetCharClass(ch);
+                    }
+
+                    if (parseCurrent != runStart)
+                    {
+                        tokenBuilder.AddRun(RunTextType.Unknown, HtmlRunKind.TagText, runStart, parseCurrent);
+
+                        if (!tokenBuilder.PrepareToAddMoreRuns(2))
                         {
-                            tokenBuilder.AddRun(RunTextType.Unknown, HtmlRunKind.TagText, runStart, parseCurrent);
-
-                            if (!tokenBuilder.PrepareToAddMoreRuns(2))
-                            {
-                                goto SplitTag;
-                            }
+                            goto SplitTag;
                         }
+                    }
 
-                        InternalDebug.Assert(ParseSupport.InvalidUnicodeCharacter(ParseSupport.GetCharClass(parseBuffer[parseCurrent + this.parseThreshold - 1])));
+                    InternalDebug.Assert(ParseSupport.InvalidUnicodeCharacter(ParseSupport.GetCharClass(parseBuffer[parseCurrent + this.parseThreshold - 1])));
 
-                        if (forceFlushToken && parseCurrent + this.parseThreshold > parseEnd)
+                    if (forceFlushToken && parseCurrent + this.parseThreshold > parseEnd)
+                    {
+                        if (this.endOfFile && parseCurrent < parseEnd)
                         {
-                            if (this.endOfFile && parseCurrent < parseEnd)
-                            {
-                                tokenBuilder.AddRun(RunTextType.Unknown, HtmlRunKind.TagText, parseCurrent, parseEnd);
+                            tokenBuilder.AddRun(RunTextType.Unknown, HtmlRunKind.TagText, parseCurrent, parseEnd);
 
-                                parseCurrent = parseEnd;
-                            }
-
-                            tokenBuilder.EndTag(this.endOfFile);
-
-                            this.parseCurrent = parseCurrent;
-
-                            return true;
+                            parseCurrent = parseEnd;
                         }
 
-                        break;
+                        tokenBuilder.EndTag(this.endOfFile);
+
+                        this.parseCurrent = parseCurrent;
+
+                        return true;
+                    }
+
+                    break;
 
                 default:
-                        InternalDebug.Assert(false);
-                        this.parseCurrent = parseCurrent;
-                        throw new Microsoft.Exchange.Data.TextConverters.TextConvertersException("internal error: invalid parse state");
+                    InternalDebug.Assert(false);
+                    this.parseCurrent = parseCurrent;
+                    throw new Microsoft.Exchange.Data.TextConverters.TextConvertersException("internal error: invalid parse state");
             }
 
             this.parseCurrent = parseCurrent;
@@ -1819,7 +1818,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         }
                     }
 
-                    nameIndex ++;
+                    nameIndex++;
                 }
                 while (HtmlNameData.entities[(int)nameIndex].hash == hash);
             }
@@ -1860,10 +1859,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             this.parseBuffer[src] = '\0';
                         }
 
-                        dst ++;
+                        dst++;
                     }
 
-                    src ++;
+                    src++;
                 }
 
                 if (src == end)
@@ -2062,7 +2061,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             ch = chT;
                             charClass = charClassT;
 
-                            parseCurrent ++;
+                            parseCurrent++;
 
                             tokenBuilder.AddTextRun(RunTextType.Space, runStart, parseCurrent);
                             runStart = parseCurrent;
@@ -2392,70 +2391,70 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 switch (ch)
                 {
                     case ' ':
-                            do
-                            {
-                                ch = parseBuffer[++parseCurrent];
-                            }
-                            while (ch == ' ');
+                        do
+                        {
+                            ch = parseBuffer[++parseCurrent];
+                        }
+                        while (ch == ' ');
 
-                            tokenBuilder.AddTextRun(RunTextType.Space, runStart, parseCurrent);
-                            break;
+                        tokenBuilder.AddTextRun(RunTextType.Space, runStart, parseCurrent);
+                        break;
 
                     case '\r':
 
-                            if (parseBuffer[parseCurrent + 1] != '\n')
-                            {
-                                charClassT = ParseSupport.GetCharClass(parseBuffer[parseCurrent + 1]);
+                        if (parseBuffer[parseCurrent + 1] != '\n')
+                        {
+                            charClassT = ParseSupport.GetCharClass(parseBuffer[parseCurrent + 1]);
 
-                                if (ParseSupport.InvalidUnicodeCharacter(charClassT))
+                            if (ParseSupport.InvalidUnicodeCharacter(charClassT))
+                            {
+                                if (!this.endOfFile || parseCurrent + 1 < this.parseEnd)
                                 {
-                                    if (!this.endOfFile || parseCurrent + 1 < this.parseEnd)
-                                    {
-                                        this.parseThreshold = 2;
-                                        break;
-                                    }
+                                    this.parseThreshold = 2;
+                                    break;
                                 }
                             }
-                            else
-                            {
-                                parseCurrent ++;
-                            }
+                        }
+                        else
+                        {
+                            parseCurrent++;
+                        }
 
-                            ch = parseBuffer[++parseCurrent];
+                        ch = parseBuffer[++parseCurrent];
 
-                            tokenBuilder.AddTextRun(RunTextType.NewLine, runStart, parseCurrent);
-                            break;
+                        tokenBuilder.AddTextRun(RunTextType.NewLine, runStart, parseCurrent);
+                        break;
 
                     case '\n':
 
-                            ch = parseBuffer[++parseCurrent];
+                        ch = parseBuffer[++parseCurrent];
 
-                            tokenBuilder.AddTextRun(RunTextType.NewLine, runStart, parseCurrent);
-                            break;
+                        tokenBuilder.AddTextRun(RunTextType.NewLine, runStart, parseCurrent);
+                        break;
 
                     case '\t':
 
-                            do
-                            {
-                                ch = parseBuffer[++parseCurrent];
-                            }
-                            while (ch == '\t');
+                        do
+                        {
+                            ch = parseBuffer[++parseCurrent];
+                        }
+                        while (ch == '\t');
 
-                            tokenBuilder.AddTextRun(RunTextType.Tabulation, runStart, parseCurrent);
-                            break;
+                        tokenBuilder.AddTextRun(RunTextType.Tabulation, runStart, parseCurrent);
+                        break;
 
                     default:
 
-                            InternalDebug.Assert(ch == '\f' || ch == '\v');
+                        InternalDebug.Assert(ch == '\f' || ch == '\v');
 
-                            do
-                            {
-                                ch = parseBuffer[++parseCurrent];
-                            }
-                            while (ch == '\f' || ch == '\v');
+                        do
+                        {
+                            ch = parseBuffer[++parseCurrent];
+                        }
+                        while (ch == '\f' || ch == '\v');
 
-                            tokenBuilder.AddTextRun(RunTextType.UnusualWhitespace, runStart, parseCurrent);
-                            break;
+                        tokenBuilder.AddTextRun(RunTextType.UnusualWhitespace, runStart, parseCurrent);
+                        break;
                 }
 
                 charClass = ParseSupport.GetCharClass(ch);
@@ -2479,160 +2478,160 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 case ParseState.Asp:
 
-                        if (ch != '%')
-                        {
-                            return true;
-                        }
+                    if (ch != '%')
+                    {
+                        return true;
+                    }
 
-                        chT = this.parseBuffer[parseCurrent + 1];
+                    chT = this.parseBuffer[parseCurrent + 1];
 
-                        if (chT == '>')
-                        {
-                            addToTextCnt = 0;
-                            tagSuffixCnt = 2;
-                            endScan = true;
-
-                            return true;
-                        }
-
-                        if (!ParseSupport.InvalidUnicodeCharacter(ParseSupport.GetCharClass(chT)))
-                        {
-                            return true;
-                        }
-
+                    if (chT == '>')
+                    {
                         addToTextCnt = 0;
-                        tagSuffixCnt = 1;
+                        tagSuffixCnt = 2;
+                        endScan = true;
 
-                        return false;
+                        return true;
+                    }
+
+                    if (!ParseSupport.InvalidUnicodeCharacter(ParseSupport.GetCharClass(chT)))
+                    {
+                        return true;
+                    }
+
+                    addToTextCnt = 0;
+                    tagSuffixCnt = 1;
+
+                    return false;
 
                 case ParseState.Bang:
                 case ParseState.Dtd:
 
-                        if (ch == '>' && this.scanQuote == '\0')
-                        {
-                            addToTextCnt = 0;
-                            tagSuffixCnt = 1;
-                            endScan = true;
-                        }
+                    if (ch == '>' && this.scanQuote == '\0')
+                    {
+                        addToTextCnt = 0;
+                        tagSuffixCnt = 1;
+                        endScan = true;
+                    }
 
-                        return true;
+                    return true;
 
                 case ParseState.Comment:
 
-                        if (ch != '-')
+                    if (ch != '-')
+                    {
+                        return true;
+                    }
+
+                    int nonDash = parseCurrent;
+
+                    do
+                    {
+                        chT = this.parseBuffer[++nonDash];
+                    }
+                    while (chT == '-');
+
+                    if (chT == '>' && nonDash - parseCurrent >= 2)
+                    {
+                        if (this.parseState == ParseState.CommentConditional)
                         {
-                            return true;
+                            this.parseState = ParseState.Comment;
+
+                            this.tokenBuilder.AbortConditional(true);
                         }
 
-                        int nonDash = parseCurrent;
+                        addToTextCnt = nonDash - parseCurrent - 2;
+                        tagSuffixCnt = 3;
+                        endScan = true;
 
-                        do
-                        {
-                            chT = this.parseBuffer[++nonDash];
-                        }
-                        while (chT == '-');
+                        return true;
+                    }
 
-                        if (chT == '>' && nonDash - parseCurrent >= 2)
-                        {
-                            if (this.parseState == ParseState.CommentConditional)
-                            {
-                                this.parseState = ParseState.Comment;
+                    if (!ParseSupport.InvalidUnicodeCharacter(ParseSupport.GetCharClass(chT)))
+                    {
+                        addToTextCnt = nonDash - parseCurrent;
 
-                                this.tokenBuilder.AbortConditional(true);
-                            }
+                        return true;
+                    }
 
-                            addToTextCnt = nonDash - parseCurrent - 2;
-                            tagSuffixCnt = 3;
-                            endScan = true;
+                    addToTextCnt = (nonDash - parseCurrent > 2) ? (nonDash - parseCurrent - 2) : 0;
+                    tagSuffixCnt = nonDash - parseCurrent - addToTextCnt;
 
-                            return true;
-                        }
-
-                        if (!ParseSupport.InvalidUnicodeCharacter(ParseSupport.GetCharClass(chT)))
-                        {
-                            addToTextCnt = nonDash - parseCurrent;
-
-                            return true;
-                        }
-
-                        addToTextCnt = (nonDash - parseCurrent > 2) ? (nonDash - parseCurrent - 2) : 0;
-                        tagSuffixCnt = nonDash - parseCurrent - addToTextCnt;
-
-                        return false;
+                    return false;
 
                 case ParseState.Conditional:
                 case ParseState.CommentConditional:
 
-                        if (ch == '>')
-                        {
-                            this.parseState = (this.parseState == ParseState.CommentConditional) ? ParseState.Comment : ParseState.Bang;
+                    if (ch == '>')
+                    {
+                        this.parseState = (this.parseState == ParseState.CommentConditional) ? ParseState.Comment : ParseState.Bang;
 
-                            this.tokenBuilder.AbortConditional(this.parseState == ParseState.Comment);
+                        this.tokenBuilder.AbortConditional(this.parseState == ParseState.Comment);
 
-                            return this.CheckSuffix(parseCurrent, ch, out addToTextCnt, out tagSuffixCnt, out endScan);
-                        }
+                        return this.CheckSuffix(parseCurrent, ch, out addToTextCnt, out tagSuffixCnt, out endScan);
+                    }
 
-                        if (ch == '-' && this.parseState == ParseState.CommentConditional)
-                        {
-                            goto case ParseState.Comment;
-                        }
+                    if (ch == '-' && this.parseState == ParseState.CommentConditional)
+                    {
+                        goto case ParseState.Comment;
+                    }
 
-                        if (ch != ']')
-                        {
-                            return true;
-                        }
+                    if (ch != ']')
+                    {
+                        return true;
+                    }
 
-                        chT = this.parseBuffer[parseCurrent + 1];
+                    chT = this.parseBuffer[parseCurrent + 1];
 
-                        if (chT == '>')
-                        {
-                            addToTextCnt = 0;
-                            tagSuffixCnt = 2;
-                            endScan = true;
+                    if (chT == '>')
+                    {
+                        addToTextCnt = 0;
+                        tagSuffixCnt = 2;
+                        endScan = true;
 
-                            return true;
-                        }
+                        return true;
+                    }
 
-                        int numOkChars = 1;
+                    int numOkChars = 1;
+
+                    if (chT == '-')
+                    {
+                        numOkChars++;
+
+                        chT = this.parseBuffer[parseCurrent + 2];
 
                         if (chT == '-')
                         {
-                            numOkChars ++;
+                            numOkChars++;
 
-                            chT = this.parseBuffer[parseCurrent + 2];
+                            chT = this.parseBuffer[parseCurrent + 3];
 
-                            if (chT == '-')
+                            if (chT == '>')
                             {
-                                numOkChars ++;
+                                addToTextCnt = 0;
+                                tagSuffixCnt = 4;
+                                endScan = true;
 
-                                chT = this.parseBuffer[parseCurrent + 3];
-
-                                if (chT == '>')
-                                {
-                                    addToTextCnt = 0;
-                                    tagSuffixCnt = 4;
-                                    endScan = true;
-
-                                    return true;
-                                }
+                                return true;
                             }
                         }
+                    }
 
-                        if (!ParseSupport.InvalidUnicodeCharacter(ParseSupport.GetCharClass(chT)))
-                        {
-                            addToTextCnt = numOkChars;
+                    if (!ParseSupport.InvalidUnicodeCharacter(ParseSupport.GetCharClass(chT)))
+                    {
+                        addToTextCnt = numOkChars;
 
-                            return true;
-                        }
+                        return true;
+                    }
 
-                        addToTextCnt = 0;
-                        tagSuffixCnt = numOkChars;
+                    addToTextCnt = 0;
+                    tagSuffixCnt = numOkChars;
 
-                        return false;
+                    return false;
 
                 default:
-                        InternalDebug.Assert(false);
-                        break;
+                    InternalDebug.Assert(false);
+                    break;
             }
 
             return true;
@@ -2666,7 +2665,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     while (ParseSupport.HexCharacter(charClassT))
                     {
-                        charCount ++;
+                        charCount++;
                         entityValue = (entityValue << 4) + ParseSupport.CharToHex(chT);
 
                         chT = parseBuffer[++entityCurrent];
@@ -2685,7 +2684,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             if (chT == ';')
                             {
-                                consume ++;
+                                consume++;
                             }
 
                             return true;
@@ -2703,10 +2702,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 {
                     while (ParseSupport.NumericCharacter(charClassT))
                     {
-                        charCount ++;
+                        charCount++;
                         entityValue = (entityValue * 10) + ParseSupport.CharToDecimal(chT);
 
-                        entityCurrent ++;
+                        entityCurrent++;
 
                         chT = parseBuffer[entityCurrent];
                         charClassT = ParseSupport.GetCharClass(chT);
@@ -2724,7 +2723,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             if (chT == ';')
                             {
-                                consume ++;
+                                consume++;
                             }
 
                             return true;
@@ -2793,7 +2792,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                             if (parseBuffer[entityStart + charCount] == ';')
                             {
-                                consume ++;
+                                consume++;
                             }
 
                             return true;
@@ -2832,89 +2831,89 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 case HtmlNameIndex.Meta:
 
-                        if (this.input is ConverterDecodingInput && this.detectEncodingFromMetaTag && ((IRestartable)this).CanRestart())
+                    if (this.input is ConverterDecodingInput && this.detectEncodingFromMetaTag && ((IRestartable)this).CanRestart())
+                    {
+                        if (this.token.IsTagBegin)
                         {
-                            if (this.token.IsTagBegin)
+                            this.rightMeta = false;
+                            this.newEncoding = null;
+                        }
+
+                        this.token.Attributes.Rewind();
+
+                        int attrToParse = -1;
+                        bool isHttpEquivContent = false;
+
+                        foreach (HtmlAttribute attr in this.token.Attributes)
+                        {
+                            if (attr.NameIndex == HtmlNameIndex.HttpEquiv)
                             {
-                                this.rightMeta = false;
-                                this.newEncoding = null;
-                            }
-
-                            this.token.Attributes.Rewind();
-
-                            int attrToParse = -1;
-                            bool isHttpEquivContent = false;
-
-                            foreach (HtmlAttribute attr in this.token.Attributes)
-                            {
-                                if (attr.NameIndex == HtmlNameIndex.HttpEquiv)
+                                if (attr.Value.CaseInsensitiveCompareEqual("content-type") ||
+                                    attr.Value.CaseInsensitiveCompareEqual("charset"))
                                 {
-                                    if (attr.Value.CaseInsensitiveCompareEqual("content-type") ||
-                                        attr.Value.CaseInsensitiveCompareEqual("charset"))
-                                    {
-                                        this.rightMeta = true;
-                                        if (attrToParse != -1)
-                                        {
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-                                else if (attr.NameIndex == HtmlNameIndex.Content)
-                                {
-                                    attrToParse = attr.Index;
-                                    isHttpEquivContent = true;
-                                    if (this.rightMeta)
-                                    {
-                                        break;
-                                    }
-                                }
-                                else if (attr.NameIndex == HtmlNameIndex.Charset)
-                                {
-                                    attrToParse = attr.Index;
-                                    isHttpEquivContent = false;
                                     this.rightMeta = true;
+                                    if (attrToParse != -1)
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
                                     break;
                                 }
                             }
-
-                            if (attrToParse != -1)
+                            else if (attr.NameIndex == HtmlNameIndex.Content)
                             {
-                                string strToParse = this.token.Attributes[attrToParse].Value.GetString(100);
-                                string charset = CharsetFromString(strToParse, isHttpEquivContent);
-
-                                if (charset != null)
+                                attrToParse = attr.Index;
+                                isHttpEquivContent = true;
+                                if (this.rightMeta)
                                 {
-                                    Charset.TryGetEncoding(charset, out this.newEncoding);
+                                    break;
                                 }
                             }
-
-                            if (this.rightMeta && this.newEncoding != null)
+                            else if (attr.NameIndex == HtmlNameIndex.Charset)
                             {
-                                (this.input as ConverterDecodingInput).RestartWithNewEncoding(this.newEncoding);
+                                attrToParse = attr.Index;
+                                isHttpEquivContent = false;
+                                this.rightMeta = true;
+                                break;
                             }
-
-                            this.token.Attributes.Rewind();
                         }
-                        break;
 
-                    case HtmlNameIndex.PlainText:
-
-                        if (!this.token.IsEndTag)
+                        if (attrToParse != -1)
                         {
-                            this.plaintext = true;
-                            this.literalEntities = true;
+                            string strToParse = this.token.Attributes[attrToParse].Value.GetString(100);
+                            string charset = CharsetFromString(strToParse, isHttpEquivContent);
 
-                            if (this.token.IsTagEnd)
+                            if (charset != null)
                             {
-                                this.parseState = ParseState.Text;
+                                Charset.TryGetEncoding(charset, out this.newEncoding);
                             }
                         }
 
-                        break;
+                        if (this.rightMeta && this.newEncoding != null)
+                        {
+                            (this.input as ConverterDecodingInput).RestartWithNewEncoding(this.newEncoding);
+                        }
+
+                        this.token.Attributes.Rewind();
+                    }
+                    break;
+
+                case HtmlNameIndex.PlainText:
+
+                    if (!this.token.IsEndTag)
+                    {
+                        this.plaintext = true;
+                        this.literalEntities = true;
+
+                        if (this.token.IsTagEnd)
+                        {
+                            this.parseState = ParseState.Text;
+                        }
+                    }
+
+                    break;
             }
         }
 
@@ -2926,7 +2925,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 while (i < arg.Length && ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(arg[i])))
                 {
-                    i ++;
+                    i++;
                 }
 
                 if (i == arg.Length)
@@ -2946,11 +2945,11 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             break;
                         }
 
-                        i ++;
+                        i++;
 
                         while (i < arg.Length && ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(arg[i])))
                         {
-                            i ++;
+                            i++;
                         }
 
                         if (i == arg.Length)
@@ -2963,7 +2962,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                     while (j < arg.Length && arg[j] != ';' && !ParseSupport.WhitespaceCharacter(ParseSupport.GetCharClass(arg[j])))
                     {
-                        j ++;
+                        j++;
                     }
 
                     return arg.Substring(i, j - i);
@@ -2976,7 +2975,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     break;
                 }
 
-                i ++;
+                i++;
             }
 
             return null;

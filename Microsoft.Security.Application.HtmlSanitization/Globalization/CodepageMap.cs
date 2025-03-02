@@ -131,7 +131,7 @@ namespace Microsoft.Exchange.Data.Globalization
             {
                 int i = this.lastRangeIndex;
 
-                while (++ i < this.ranges.Length)
+                while (++i < this.ranges.Length)
                 {
                     if (ch > this.ranges[i].Last)
                     {

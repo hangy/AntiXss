@@ -19,9 +19,9 @@
 namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using System.Collections.Generic;
     using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.TextConverters.Internal.Format;
 
@@ -505,7 +505,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 isSigned = true;
                 isNegative = (value[offset] == '-');
-                offset ++;
+                offset++;
             }
 
             while (offset < end && ParseSupport.NumericCharacter(ParseSupport.GetCharClass(value[offset])))
@@ -561,14 +561,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 if (offset + 1 < end && (value[offset + 1] == '-' || value[offset + 1] == '+' || ParseSupport.NumericCharacter(ParseSupport.GetCharClass(value[offset + 1]))))
                 {
                     floatNumber = true;
-                    offset ++;
+                    offset++;
 
                     bool isNegativeScientificExponent = false;
 
                     if (value[offset] == '-' || value[offset] == '+')
                     {
                         isNegativeScientificExponent = (value[offset] == '-');
-                        offset ++;
+                        offset++;
                     }
 
                     while (offset < end && ParseSupport.NumericCharacter(ParseSupport.GetCharClass(value[offset])))
@@ -740,7 +740,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             {
                                 result = unchecked(result * 10);
                             }
-                            actualExponent --;
+                            actualExponent--;
                         }
                     }
                 }
@@ -756,7 +756,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         while (actualExponent != -10)
                         {
                             result /= 10;
-                            actualExponent ++;
+                            actualExponent++;
                         }
                     }
                 }
@@ -767,7 +767,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 while (actualExponent != 0)
                 {
                     result /= 10;
-                    actualExponent ++;
+                    actualExponent++;
                 }
 
                 if (result > PropertyValue.ValueMax)
