@@ -56,7 +56,7 @@ namespace Microsoft.Security.Application
             }
 
             // Check for query strings - we shouldn't get them, but just in case
-            string[] parts = s.Split("?".ToCharArray());
+            string[] parts = s.Split('?');
             string actualPath = parts[0];
 
             string originalQueryString = string.Empty;
