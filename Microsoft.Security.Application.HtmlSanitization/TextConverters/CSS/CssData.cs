@@ -203,7 +203,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         public const int NAME_HASH_MODIFIER = 0x2;
 
         public static CssNameIndex[] nameHashTable =
-        {
+        [
             CssNameIndex.ScrollbarArrowColor,
             0,
             CssNameIndex.WhiteSpace,
@@ -533,10 +533,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             0,
             0,
             CssNameIndex.BorderTop,
-        };
+        ];
 
         public static NameDef[] names =
-        {
+        [
             new NameDef(0, null, CssNameIndex.Unknown),
             new NameDef(0, "scrollbar-arrow-color", CssNameIndex.ScrollbarArrowColor),
             new NameDef(2, "white-space", CssNameIndex.WhiteSpace),
@@ -674,10 +674,10 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             new NameDef(323, "letter-spacing", CssNameIndex.LetterSpacing),
             new NameDef(328, "border-top", CssNameIndex.BorderTop),
             new NameDef(329, null, CssNameIndex.Unknown),
-        };
+        ];
 
         public static FilterActionEntry[] filterInstructions =
-        {
+        [
             new FilterActionEntry(FilterAction.Drop),
             new FilterActionEntry(FilterAction.Keep),
             new FilterActionEntry(FilterAction.Keep),
@@ -815,6 +815,6 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             new FilterActionEntry(FilterAction.Keep),
             new FilterActionEntry(FilterAction.Keep),
             new FilterActionEntry(FilterAction.Drop),
-        };
+        ];
     }
 }

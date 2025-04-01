@@ -29,7 +29,7 @@ namespace Microsoft.Exchange.CtsResources
         /// The resource manager for the globalization strings resources.
         /// </summary>
         private static readonly ResourceManager ResourceManager =
-            new ResourceManager("Microsoft.Exchange.CtsResources.GlobalizationStrings", typeof(GlobalizationStrings).Assembly);
+            new("Microsoft.Exchange.CtsResources.GlobalizationStrings", typeof(GlobalizationStrings).Assembly);
 
         /// <summary>
         /// Resource identifiers

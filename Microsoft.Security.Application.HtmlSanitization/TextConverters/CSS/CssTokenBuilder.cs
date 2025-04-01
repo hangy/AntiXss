@@ -49,7 +49,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         public CssTokenBuilder(char[] buffer, int maxProperties, int maxSelectors, int maxRuns, bool testBoundaryConditions) :
             base(new CssToken(), buffer, maxRuns, testBoundaryConditions)
         {
-            this.cssToken = (CssToken) base.Token;
+            this.cssToken = (CssToken)base.Token;
 
             int initialProperties = 16;
             int initialSelectors = 16;
@@ -122,7 +122,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         {
             InternalDebug.Assert(this.state == BuildStateBeforeSelector ||
                 this.state == BuildStateEndSelectorName ||
-                this.state == BuildStateEndSelectorClass );
+                this.state == BuildStateEndSelectorClass);
 
             return this.cssToken.selectorTail - this.cssToken.selectorHead < this.maxSelectors;
         }
@@ -153,7 +153,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             InternalDebug.Assert(this.state == BuildStateBeforeSelector ||
                 this.state == BuildStateEndSelectorName ||
-                this.state == BuildStateEndSelectorClass );
+                this.state == BuildStateEndSelectorClass);
 
             this.cssToken.selectorList[this.cssToken.selectorTail].nameId = HtmlNameIndex.Unknown;
             this.cssToken.selectorList[this.cssToken.selectorTail].name.Initialize(this.cssToken.whole.tail, this.tailOffset);
@@ -214,7 +214,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                 this.state == BuildStateSelectorClass ||
                 this.state == BuildStateEndSelectorClass);
 
-            this.cssToken.selectorTail ++;
+            this.cssToken.selectorTail++;
         }
 
         public void StartDeclarations(int baseOffset)
@@ -335,7 +335,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
             this.cssToken.propertyList[this.cssToken.propertyTail].partMajor |= CssToken.PropertyPartMajor.End;
 
-            this.cssToken.propertyTail ++;
+            this.cssToken.propertyTail++;
 
             if (this.cssToken.propertyTail < this.cssToken.propertyList.Length)
             {
@@ -488,7 +488,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             }
 
             short nameHashValue = (short)(((uint)this.token.CalculateHashLowerCase(fragment) ^ CssData.NAME_HASH_MODIFIER) % CssData.NAME_HASH_SIZE);
-            int nameIndex = (int) CssData.nameHashTable[nameHashValue];
+            int nameIndex = (int)CssData.nameHashTable[nameHashValue];
 
             if (nameIndex > 0)
             {
@@ -514,7 +514,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                         }
                     }
 
-                    nameIndex ++;
+                    nameIndex++;
                 }
                 while (CssData.names[nameIndex].hash == nameHashValue);
             }
@@ -557,7 +557,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
                         }
                     }
 
-                    nameIndex ++;
+                    nameIndex++;
                 }
                 while (HtmlNameData.names[nameIndex].hash == nameHashValue);
             }

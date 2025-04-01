@@ -21,17 +21,15 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
     using System;
     using System.IO;
     using System.Text;
-    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.Globalization;
-    using Microsoft.Exchange.Data.TextConverters.Internal.Text;
-
+    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.TextConverters.Internal.Format;
-
+    using Microsoft.Exchange.Data.TextConverters.Internal.Text;
     using Security.Application.TextConverters.HTML;
 
     internal class HtmlToTextConverter : IProducerConsumer, IRestartable, IReusable, IDisposable
     {
-        private bool convertFragment;
+        private readonly bool convertFragment;
 
         private IHtmlParser parser;
         private bool endOfFile;
@@ -40,9 +38,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private HtmlToken token;
 
-        private bool treatNbspAsBreakable;
-        private bool outputImageLinks = true;
-        private bool outputAnchorLinks = true;
+        private readonly bool treatNbspAsBreakable;
+        private readonly bool outputImageLinks = true;
+        private readonly bool outputAnchorLinks = true;
 
         protected bool normalizedInput;
 
@@ -79,7 +77,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private ScratchBuffer scratch;
 
-        private Injection injection;
+        private readonly Injection injection;
 
         private UrlCompareSink urlCompareSink;
 
@@ -142,7 +140,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
 
             this.listLevel = 0;
-            this.listIndex= 0;
+            this.listIndex = 0;
             this.listOrdered = false;
 
             if (!this.convertFragment)
@@ -334,142 +332,142 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 case HtmlTagIndex.NoEmbed:
                 case HtmlTagIndex.NoFrames:
 
-                        this.insideComment = true;
-                        break;
+                    this.insideComment = true;
+                    break;
 
                 case HtmlTagIndex.A:
 
-                        if (this.insideAnchor)
-                        {
-                            this.EndAnchor();
-                        }
-                        break;
+                    if (this.insideAnchor)
+                    {
+                        this.EndAnchor();
+                    }
+                    break;
 
                 case HtmlTagIndex.Image:
                 case HtmlTagIndex.Img:
 
-                        break;
+                    break;
 
                 case HtmlTagIndex.TD:
                 case HtmlTagIndex.TH:
 
-                        if (this.lineStarted)
-                        {
-                            this.output.OutputTabulation(1);
-                        }
-                        break;
+                    if (this.lineStarted)
+                    {
+                        this.output.OutputTabulation(1);
+                    }
+                    break;
 
                 case HtmlTagIndex.P:
 
-                        if (!this.ignoreNextP)
-                        {
-                            this.EndParagraph(true);
-                        }
-                        this.nextParagraphCloseWideGap = true;
-                        break;
+                    if (!this.ignoreNextP)
+                    {
+                        this.EndParagraph(true);
+                    }
+                    this.nextParagraphCloseWideGap = true;
+                    break;
 
                 case HtmlTagIndex.BR:
                 case HtmlTagIndex.Option:
 
-                        this.EndLine();
-                        break;
+                    this.EndLine();
+                    break;
 
                 case HtmlTagIndex.HR:
 
-                        this.EndParagraph(false);
-                        this.OutputText("________________________________");
-                        this.EndParagraph(false);
-                        break;
+                    this.EndParagraph(false);
+                    this.OutputText("________________________________");
+                    this.EndParagraph(false);
+                    break;
 
                 case HtmlTagIndex.OL:
                 case HtmlTagIndex.UL:
                 case HtmlTagIndex.Dir:
                 case HtmlTagIndex.Menu:
 
-                        this.EndParagraph(this.listLevel == 0);
+                    this.EndParagraph(this.listLevel == 0);
 
-                        if (this.listLevel < 10)
+                    if (this.listLevel < 10)
+                    {
+                        this.listLevel++;
+
+                        if (this.listLevel == 1)
                         {
-                            this.listLevel ++;
-
-                            if (this.listLevel == 1)
-                            {
-                                this.listIndex = 1;
-                                this.listOrdered = (this.token.TagIndex == HtmlTagIndex.OL);
-                            }
+                            this.listIndex = 1;
+                            this.listOrdered = (this.token.TagIndex == HtmlTagIndex.OL);
                         }
-                        this.nextParagraphCloseWideGap = false;
-                        break;
+                    }
+                    this.nextParagraphCloseWideGap = false;
+                    break;
 
                 case HtmlTagIndex.LI:
 
-                        this.EndParagraph(false);
+                    this.EndParagraph(false);
 
-                        this.OutputText("  ");
+                    this.OutputText("  ");
 
-                        for (int i = 0; i < this.listLevel - 1; i++)
-                        {
-                            this.OutputText("   ");
-                        }
+                    for (int i = 0; i < this.listLevel - 1; i++)
+                    {
+                        this.OutputText("   ");
+                    }
 
-                        if (this.listLevel > 1 || !this.listOrdered)
-                        {
-                            this.OutputText("*");
-                            this.output.OutputSpace(3);
-                        }
-                        else
-                        {
-                            string num = this.listIndex.ToString();
+                    if (this.listLevel > 1 || !this.listOrdered)
+                    {
+                        this.OutputText("*");
+                        this.output.OutputSpace(3);
+                    }
+                    else
+                    {
+                        string num = this.listIndex.ToString();
 
-                            this.OutputText(num);
+                        this.OutputText(num);
 
-                            this.OutputText(".");
-                            this.output.OutputSpace(num.Length == 1 ? 2 : 1);
-                            this.listIndex ++;
-                        }
-                        break;
+                        this.OutputText(".");
+                        this.output.OutputSpace(num.Length == 1 ? 2 : 1);
+                        this.listIndex++;
+                    }
+                    break;
 
                 case HtmlTagIndex.DL:
 
-                        this.EndParagraph(true);
-                        break;
+                    this.EndParagraph(true);
+                    break;
 
                 case HtmlTagIndex.DT:
 
-                        if (this.lineStarted)
-                        {
-                            this.EndLine();
-                        }
-                        break;
+                    if (this.lineStarted)
+                    {
+                        this.EndLine();
+                    }
+                    break;
 
                 case HtmlTagIndex.DD:
 
-                        if (this.lineStarted)
-                        {
-                            this.EndLine();
-                        }
-                        break;
+                    if (this.lineStarted)
+                    {
+                        this.EndLine();
+                    }
+                    break;
 
                 case HtmlTagIndex.Pre:
                 case HtmlTagIndex.PlainText:
                 case HtmlTagIndex.Listing:
                 case HtmlTagIndex.Xmp:
 
-                        this.EndParagraph(true);
-                        this.insidePre = true;
-                        break;
+                    this.EndParagraph(true);
+                    this.insidePre = true;
+                    break;
 
                 case HtmlTagIndex.Font:
                 case HtmlTagIndex.Span:
 
-                        break;
+                    break;
 
                 default:
-                        if (tagDef.blockElement)
-                        {
-                            this.EndParagraph(false);
-                        }
-                        break;
+                    if (tagDef.blockElement)
+                    {
+                        this.EndParagraph(false);
+                    }
+                    break;
             }
 
             this.ignoreNextP = false;
@@ -486,234 +484,234 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 case HtmlTagIndex.A:
 
-                        if (this.outputAnchorLinks)
+                    if (this.outputAnchorLinks)
+                    {
+                        foreach (HtmlAttribute attr in this.token.Attributes)
                         {
-                            foreach (HtmlAttribute attr in this.token.Attributes)
+                            if (attr.NameIndex == HtmlNameIndex.Href)
                             {
-                                if (attr.NameIndex == HtmlNameIndex.Href)
+                                if (attr.IsAttrBegin)
                                 {
-                                    if (attr.IsAttrBegin)
-                                    {
-                                        this.urlScratch.Reset();
-                                    }
-
-                                    this.urlScratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
-                                    break;
-                                }
-                            }
-
-                            if (this.token.IsTagEnd)
-                            {
-                                BufferString url = this.urlScratch.BufferString;
-
-                                url.TrimWhitespace();
-
-                                if (url.Length != 0 && url[0] != '#' && url[0] != '?' && url[0] != ';')
-                                {
-                                    if (!this.lineStarted)
-                                    {
-                                        this.StartParagraphOrLine();
-                                    }
-
-                                    string urlString = url.ToString();
-
-                                    if (urlString.IndexOf(' ') != -1)
-                                    {
-                                        urlString = urlString.Replace(" ", "%20");
-                                    }
-
-                                    this.output.AnchorUrl = urlString;
-                                    this.insideAnchor = true;
-
-                                    if (this.urlCompareSink == null)
-                                    {
-                                        this.urlCompareSink = new UrlCompareSink();
-                                    }
-
-                                    this.urlCompareSink.Initialize(urlString);
+                                    this.urlScratch.Reset();
                                 }
 
-                                this.urlScratch.Reset();
+                                this.urlScratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
+                                break;
                             }
                         }
-                        break;
 
-                case HtmlTagIndex.Image:
-                case HtmlTagIndex.Img:
-
-                        if (this.outputImageLinks)
+                        if (this.token.IsTagEnd)
                         {
-                            foreach (HtmlAttribute attr in this.token.Attributes)
+                            BufferString url = this.urlScratch.BufferString;
+
+                            url.TrimWhitespace();
+
+                            if (url.Length != 0 && url[0] != '#' && url[0] != '?' && url[0] != ';')
                             {
-                                if (attr.NameIndex == HtmlNameIndex.Src)
-                                {
-                                    if (attr.IsAttrBegin)
-                                    {
-                                        this.urlScratch.Reset();
-                                    }
-
-                                    this.urlScratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
-                                }
-                                else if (attr.NameIndex == HtmlNameIndex.Alt)
-                                {
-                                    if (attr.IsAttrBegin)
-                                    {
-                                        this.imageAltText.Reset();
-                                    }
-
-                                    this.imageAltText.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
-                                }
-                                else if (attr.NameIndex == HtmlNameIndex.Height)
-                                {
-                                    if (!attr.Value.IsEmpty)
-                                    {
-                                        PropertyValue value;
-
-                                        if (attr.Value.IsContiguous)
-                                        {
-                                            value = HtmlSupport.ParseNumber(attr.Value.ContiguousBufferString, HtmlSupport.NumberParseFlags.Length);
-                                        }
-                                        else
-                                        {
-                                            this.scratch.Reset();
-                                            this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
-                                            value = HtmlSupport.ParseNumber(this.scratch.BufferString, HtmlSupport.NumberParseFlags.Length);
-                                        }
-
-                                        if (value.IsAbsRelLength)
-                                        {
-                                            this.imageHeightPixels = value.PixelsInteger;
-                                            if (this.imageHeightPixels == 0)
-                                            {
-                                                this.imageHeightPixels = 1;
-                                            }
-                                        }
-                                    }
-                                }
-                                else if (attr.NameIndex == HtmlNameIndex.Width)
-                                {
-                                    if (!attr.Value.IsEmpty)
-                                    {
-                                        PropertyValue value;
-
-                                        if (attr.Value.IsContiguous)
-                                        {
-                                            value = HtmlSupport.ParseNumber(attr.Value.ContiguousBufferString, HtmlSupport.NumberParseFlags.Length);
-                                        }
-                                        else
-                                        {
-                                            this.scratch.Reset();
-                                            this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
-                                            value = HtmlSupport.ParseNumber(this.scratch.BufferString, HtmlSupport.NumberParseFlags.Length);
-                                        }
-
-                                        if (value.IsAbsRelLength)
-                                        {
-                                            this.imageWidthPixels = value.PixelsInteger;
-                                            if (this.imageWidthPixels == 0)
-                                            {
-                                                this.imageWidthPixels = 1;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (this.token.IsTagEnd)
-                            {
-                                string urlString = null;
-                                string altString = null;
-
-                                BufferString alt = this.imageAltText.BufferString;
-
-                                alt.TrimWhitespace();
-
-                                if (alt.Length != 0)
-                                {
-                                    altString = alt.ToString();
-                                }
-
-                                if (altString == null || this.output.ImageRenderingCallbackDefined)
-                                {
-                                    BufferString url = this.urlScratch.BufferString;
-
-                                    url.TrimWhitespace();
-
-                                    if (url.Length != 0)
-                                    {
-                                        urlString = url.ToString();
-                                    }
-                                }
-
                                 if (!this.lineStarted)
                                 {
                                     this.StartParagraphOrLine();
                                 }
 
-                                this.output.OutputImage(urlString, altString, this.imageWidthPixels, this.imageHeightPixels);
+                                string urlString = url.ToString();
 
-                                this.urlScratch.Reset();
-                                this.imageAltText.Reset();
-                                this.imageHeightPixels = 0;
-                                this.imageWidthPixels = 0;
+                                if (urlString.IndexOf(' ') != -1)
+                                {
+                                    urlString = urlString.Replace(" ", "%20");
+                                }
+
+                                this.output.AnchorUrl = urlString;
+                                this.insideAnchor = true;
+
+                                if (this.urlCompareSink == null)
+                                {
+                                    this.urlCompareSink = new UrlCompareSink();
+                                }
+
+                                this.urlCompareSink.Initialize(urlString);
+                            }
+
+                            this.urlScratch.Reset();
+                        }
+                    }
+                    break;
+
+                case HtmlTagIndex.Image:
+                case HtmlTagIndex.Img:
+
+                    if (this.outputImageLinks)
+                    {
+                        foreach (HtmlAttribute attr in this.token.Attributes)
+                        {
+                            if (attr.NameIndex == HtmlNameIndex.Src)
+                            {
+                                if (attr.IsAttrBegin)
+                                {
+                                    this.urlScratch.Reset();
+                                }
+
+                                this.urlScratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
+                            }
+                            else if (attr.NameIndex == HtmlNameIndex.Alt)
+                            {
+                                if (attr.IsAttrBegin)
+                                {
+                                    this.imageAltText.Reset();
+                                }
+
+                                this.imageAltText.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
+                            }
+                            else if (attr.NameIndex == HtmlNameIndex.Height)
+                            {
+                                if (!attr.Value.IsEmpty)
+                                {
+                                    PropertyValue value;
+
+                                    if (attr.Value.IsContiguous)
+                                    {
+                                        value = HtmlSupport.ParseNumber(attr.Value.ContiguousBufferString, HtmlSupport.NumberParseFlags.Length);
+                                    }
+                                    else
+                                    {
+                                        this.scratch.Reset();
+                                        this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
+                                        value = HtmlSupport.ParseNumber(this.scratch.BufferString, HtmlSupport.NumberParseFlags.Length);
+                                    }
+
+                                    if (value.IsAbsRelLength)
+                                    {
+                                        this.imageHeightPixels = value.PixelsInteger;
+                                        if (this.imageHeightPixels == 0)
+                                        {
+                                            this.imageHeightPixels = 1;
+                                        }
+                                    }
+                                }
+                            }
+                            else if (attr.NameIndex == HtmlNameIndex.Width)
+                            {
+                                if (!attr.Value.IsEmpty)
+                                {
+                                    PropertyValue value;
+
+                                    if (attr.Value.IsContiguous)
+                                    {
+                                        value = HtmlSupport.ParseNumber(attr.Value.ContiguousBufferString, HtmlSupport.NumberParseFlags.Length);
+                                    }
+                                    else
+                                    {
+                                        this.scratch.Reset();
+                                        this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
+                                        value = HtmlSupport.ParseNumber(this.scratch.BufferString, HtmlSupport.NumberParseFlags.Length);
+                                    }
+
+                                    if (value.IsAbsRelLength)
+                                    {
+                                        this.imageWidthPixels = value.PixelsInteger;
+                                        if (this.imageWidthPixels == 0)
+                                        {
+                                            this.imageWidthPixels = 1;
+                                        }
+                                    }
+                                }
                             }
                         }
-                        break;
+
+                        if (this.token.IsTagEnd)
+                        {
+                            string urlString = null;
+                            string altString = null;
+
+                            BufferString alt = this.imageAltText.BufferString;
+
+                            alt.TrimWhitespace();
+
+                            if (alt.Length != 0)
+                            {
+                                altString = alt.ToString();
+                            }
+
+                            if (altString == null || this.output.ImageRenderingCallbackDefined)
+                            {
+                                BufferString url = this.urlScratch.BufferString;
+
+                                url.TrimWhitespace();
+
+                                if (url.Length != 0)
+                                {
+                                    urlString = url.ToString();
+                                }
+                            }
+
+                            if (!this.lineStarted)
+                            {
+                                this.StartParagraphOrLine();
+                            }
+
+                            this.output.OutputImage(urlString, altString, this.imageWidthPixels, this.imageHeightPixels);
+
+                            this.urlScratch.Reset();
+                            this.imageAltText.Reset();
+                            this.imageHeightPixels = 0;
+                            this.imageWidthPixels = 0;
+                        }
+                    }
+                    break;
 
                 case HtmlTagIndex.P:
 
-                        if (this.token.Attributes.Find(HtmlNameIndex.Class) && this.token.Attributes.Current.Value.CaseInsensitiveCompareEqual("msonormal"))
-                        {
-                            this.wideGap = false;
-                            this.nextParagraphCloseWideGap = false;
-                        }
-                        break;
+                    if (this.token.Attributes.Find(HtmlNameIndex.Class) && this.token.Attributes.Current.Value.CaseInsensitiveCompareEqual("msonormal"))
+                    {
+                        this.wideGap = false;
+                        this.nextParagraphCloseWideGap = false;
+                    }
+                    break;
 
                 case HtmlTagIndex.Font:
 
-                        foreach (HtmlAttribute attr in this.token.Attributes)
+                    foreach (HtmlAttribute attr in this.token.Attributes)
+                    {
+                        if (attr.NameIndex == HtmlNameIndex.Face)
                         {
-                            if (attr.NameIndex == HtmlNameIndex.Face)
+                            this.scratch.Reset();
+                            this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
+
+                            RecognizeInterestingFontName fontRecognizer = new();
+
+                            for (int i = 0; i < this.scratch.Length && !fontRecognizer.IsRejected; i++)
                             {
-                                this.scratch.Reset();
-                                this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
-
-                                RecognizeInterestingFontName fontRecognizer = new RecognizeInterestingFontName();
-
-                                for (int i = 0; i < this.scratch.Length && !fontRecognizer.IsRejected; i++)
-                                {
-                                    fontRecognizer.AddCharacter(this.scratch.Buffer[i]);
-                                }
-
-                                this.textMapping = fontRecognizer.TextMapping;
-                                break;
+                                fontRecognizer.AddCharacter(this.scratch.Buffer[i]);
                             }
-                        }
 
-                        break;
+                            this.textMapping = fontRecognizer.TextMapping;
+                            break;
+                        }
+                    }
+
+                    break;
 
                 case HtmlTagIndex.Span:
 
-                        foreach (HtmlAttribute attr in this.token.Attributes)
+                    foreach (HtmlAttribute attr in this.token.Attributes)
+                    {
+                        if (attr.NameIndex == HtmlNameIndex.Style)
                         {
-                            if (attr.NameIndex == HtmlNameIndex.Style)
+                            this.scratch.Reset();
+                            this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
+
+                            RecognizeInterestingFontNameInInlineStyle fontRecognizer = new();
+
+                            for (int i = 0; i < this.scratch.Length && !fontRecognizer.IsFinished; i++)
                             {
-                                this.scratch.Reset();
-                                this.scratch.AppendHtmlAttributeValue(attr, HtmlSupport.MaxAttributeSize);
-
-                                RecognizeInterestingFontNameInInlineStyle fontRecognizer = new RecognizeInterestingFontNameInInlineStyle();
-
-                                for (int i = 0; i < this.scratch.Length && !fontRecognizer.IsFinished; i++)
-                                {
-                                    fontRecognizer.AddCharacter(this.scratch.Buffer[i]);
-                                }
-
-                                this.textMapping = fontRecognizer.TextMapping;
-                                break;
+                                fontRecognizer.AddCharacter(this.scratch.Buffer[i]);
                             }
-                        }
 
-                        break;
+                            this.textMapping = fontRecognizer.TextMapping;
+                            break;
+                        }
+                    }
+
+                    break;
             }
         }
 
@@ -729,89 +727,89 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 case HtmlTagIndex.NoEmbed:
                 case HtmlTagIndex.NoFrames:
 
-                        this.insideComment = false;
-                        break;
+                    this.insideComment = false;
+                    break;
 
                 case HtmlTagIndex.A:
 
-                        if (this.insideAnchor)
-                        {
-                            this.EndAnchor();
-                        }
-                        break;
+                    if (this.insideAnchor)
+                    {
+                        this.EndAnchor();
+                    }
+                    break;
 
                 case HtmlTagIndex.Image:
                 case HtmlTagIndex.Img:
 
-                        break;
+                    break;
 
                 case HtmlTagIndex.TD:
                 case HtmlTagIndex.TH:
 
-                        this.lineStarted = true;
-                        break;
+                    this.lineStarted = true;
+                    break;
 
                 case HtmlTagIndex.P:
 
-                        this.EndParagraph(this.nextParagraphCloseWideGap);
-                        this.nextParagraphCloseWideGap = true;
-                        break;
+                    this.EndParagraph(this.nextParagraphCloseWideGap);
+                    this.nextParagraphCloseWideGap = true;
+                    break;
 
                 case HtmlTagIndex.BR:
                 case HtmlTagIndex.Option:
 
-                        this.EndLine();
-                        break;
+                    this.EndLine();
+                    break;
 
                 case HtmlTagIndex.HR:
 
-                        this.EndParagraph(false);
-                        this.OutputText("________________________________");
-                        this.EndParagraph(false);
-                        break;
+                    this.EndParagraph(false);
+                    this.OutputText("________________________________");
+                    this.EndParagraph(false);
+                    break;
 
                 case HtmlTagIndex.OL:
                 case HtmlTagIndex.UL:
                 case HtmlTagIndex.Dir:
                 case HtmlTagIndex.Menu:
 
-                        if (this.listLevel != 0)
-                        {
-                            this.listLevel --;
-                        }
+                    if (this.listLevel != 0)
+                    {
+                        this.listLevel--;
+                    }
 
-                        this.EndParagraph(this.listLevel == 0);
-                        break;
+                    this.EndParagraph(this.listLevel == 0);
+                    break;
 
                 case HtmlTagIndex.DT:
 
-                        break;
+                    break;
 
                 case HtmlTagIndex.DD:
 
-                        break;
+                    break;
 
                 case HtmlTagIndex.Pre:
                 case HtmlTagIndex.PlainText:
                 case HtmlTagIndex.Listing:
                 case HtmlTagIndex.Xmp:
 
-                        this.EndParagraph(true);
-                        this.insidePre = false;
-                        break;
+                    this.EndParagraph(true);
+                    this.insidePre = false;
+                    break;
 
                 case HtmlTagIndex.Font:
                 case HtmlTagIndex.Span:
 
-                        this.textMapping = TextMapping.Unicode;
-                        break;
+                    this.textMapping = TextMapping.Unicode;
+                    break;
 
                 default:
-                        if (tagDef.blockElement)
-                        {
-                            this.EndParagraph(false);
-                        }
-                        break;
+                    if (tagDef.blockElement)
+                    {
+                        this.EndParagraph(false);
+                    }
+                    break;
             }
 
             this.ignoreNextP = false;
@@ -875,21 +873,21 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         {
                             case RunTextType.NewLine:
 
-                                    this.output.OutputNewLine();
-                                    break;
+                                this.output.OutputNewLine();
+                                break;
 
                             case RunTextType.Space:
                             default:
 
-                                    if (this.treatNbspAsBreakable)
-                                    {
-                                        this.output.OutputSpace(run.Length);
-                                    }
-                                    else
-                                    {
-                                        this.output.OutputNbsp(run.Length);
-                                    }
-                                    break;
+                                if (this.treatNbspAsBreakable)
+                                {
+                                    this.output.OutputSpace(run.Length);
+                                }
+                                else
+                                {
+                                    this.output.OutputNbsp(run.Length);
+                                }
+                                break;
 
                             case RunTextType.Tabulation:
 #if false
@@ -898,8 +896,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                                     this.output.OutputSpace(extraSpaces);
 #endif
-                                    this.output.OutputTabulation(run.Length);
-                                    break;
+                                this.output.OutputTabulation(run.Length);
+                                break;
                         }
                     }
                     else if (run.TextType == RunTextType.Nbsp)

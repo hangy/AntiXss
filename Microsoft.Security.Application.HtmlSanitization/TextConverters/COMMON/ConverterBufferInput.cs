@@ -26,7 +26,7 @@ namespace Microsoft.Exchange.Data.TextConverters
     internal class ConverterBufferInput : ConverterInput, ITextSink, IDisposable
     {
         private const int DefaultMaxLength = 32 * 1024;
-        private int maxLength;
+        private readonly int maxLength;
         private string originalFragment;
         private char[] parseBuffer;
 

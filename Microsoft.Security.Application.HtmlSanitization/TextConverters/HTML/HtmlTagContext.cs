@@ -41,7 +41,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         private bool deleteEndTag;
 
         private bool isEndTag;
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification="Value set by internal method call. Can't change API at this time.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "Value set by internal method call. Can't change API at this time.")]
         private bool isEmptyElementTag = false;
 
         private HtmlNameIndex tagNameIndex;

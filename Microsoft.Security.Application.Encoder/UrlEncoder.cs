@@ -31,7 +31,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// A lock object to use when performing safe listing for parameter encoding.
         /// </summary>
-        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
+        private static readonly ReaderWriterLockSlim SyncLock = new();
 
         /// <summary>
         /// The values to output for each character.
@@ -56,7 +56,7 @@ namespace Microsoft.Security.Application
             }
 
             // Check for query strings - we shouldn't get them, but just in case
-            string[] parts = s.Split("?".ToCharArray());
+            string[] parts = s.Split('?');
             string actualPath = parts[0];
 
             string originalQueryString = string.Empty;

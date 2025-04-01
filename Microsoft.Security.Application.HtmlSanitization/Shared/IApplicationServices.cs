@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.Data.Internal
         /// <param name="subSectionName">Name of the subsection.</param>
         /// <returns>A list of <see cref="CtsConfigurationSetting"/>s for the specified section.</returns>
         IList<CtsConfigurationSetting> GetConfiguration(string subSectionName);
-        
+
         /// <summary>
         /// Refreshes the configuration from the application configuration file.
         /// </summary>

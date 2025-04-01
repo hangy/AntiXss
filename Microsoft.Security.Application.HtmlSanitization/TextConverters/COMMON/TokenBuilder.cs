@@ -179,7 +179,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
             this.token.wholePosition.Rewind(this.token.whole);
 
             this.AddSentinelRun();
-        }     
+        }
 
         public bool PrepareToAddMoreRuns(int numRuns, int start, uint skippedRunKind)
         {
@@ -197,7 +197,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
 
             if (start != this.tailOffset)
             {
-                numRuns ++;
+                numRuns++;
             }
 
             if (this.token.whole.tail + numRuns < this.token.runList.Length || this.ExpandRunsArray(numRuns))
@@ -205,7 +205,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
                 if (start != this.tailOffset)
                 {
 #if DEBUG
-                    this.preparedForNumRuns ++;
+                    this.preparedForNumRuns++;
 #endif
                     this.AddInvalidRun(start, skippedRunKind);
                 }
@@ -264,13 +264,13 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
         {
             InternalDebug.Assert(start == this.tailOffset);
             this.AddRun(RunType.Literal, textType, (uint)RunKind.Text, start, end, literal);
-        }     
+        }
 
         internal void AddRun(RunType type, RunTextType textType, uint kind, int start, int end, int value)
         {
 #if DEBUG
             InternalDebug.Assert(this.preparedForNumRuns > 0);
-            this.preparedForNumRuns --;
+            this.preparedForNumRuns--;
 #endif
             InternalDebug.Assert(this.state >= FirstStarted);
             InternalDebug.Assert(end >= start);
@@ -286,7 +286,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
         {
 #if DEBUG
             InternalDebug.Assert(this.preparedForNumRuns > 0);
-            this.preparedForNumRuns --;
+            this.preparedForNumRuns--;
 #endif
             InternalDebug.Assert(offset > this.tailOffset);
             InternalDebug.Assert(this.token.whole.tail + 1 < this.token.runList.Length);
@@ -299,7 +299,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal
         {
 #if DEBUG
             InternalDebug.Assert(this.preparedForNumRuns > 0);
-            this.preparedForNumRuns --;
+            this.preparedForNumRuns--;
 #endif
             InternalDebug.Assert(this.token.whole.tail + 1 < this.token.runList.Length);
 

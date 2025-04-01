@@ -27,11 +27,11 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal struct BufferString
     {
-        private char[] buffer;
+        private readonly char[] buffer;
         private int offset;
         private int count;
 
-        public static readonly BufferString Null = new BufferString();
+        public static readonly BufferString Null = new();
 
         public BufferString(char[] buffer, int offset, int count)
         {
@@ -59,7 +59,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             while (this.count != 0 && ParseSupport.WhitespaceCharacter(this.buffer[this.offset]))
             {
                 this.offset++;
-                this.count --;
+                this.count--;
             }
 
             if (this.count != 0)
@@ -67,7 +67,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 int end = this.offset + this.count - 1;
                 while (ParseSupport.WhitespaceCharacter(this.buffer[end--]))
                 {
-                    this.count --;
+                    this.count--;
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             get { return new BufferString(this.buffer, 0, this.count); }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="Erroneous FXCop warning.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Erroneous FXCop warning.")]
         public char this[int offset]
         {
             get

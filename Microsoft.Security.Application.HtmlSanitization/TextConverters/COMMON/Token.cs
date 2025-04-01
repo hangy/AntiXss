@@ -31,7 +31,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         EndOfFile,
         Text,
-        EncodingChange ,
+        EncodingChange,
     }
 
     internal enum RunType : uint
@@ -81,9 +81,9 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal struct TokenRun
     {
-        private Token token;
+        private readonly Token token;
 #if DEBUG
-        private int index;
+        private readonly int index;
 #endif
 
         internal TokenRun(Token token)
@@ -259,7 +259,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     }
                 }
 
-                run ++;
+                run++;
             }
 
             return result;
@@ -318,8 +318,8 @@ namespace Microsoft.Exchange.Data.TextConverters
                                 {
                                     InternalDebug.Assert(runDeltaOffset == 0);
 
-                                    buffer[offset++] = (char) runEntry.Value;
-                                    count --;
+                                    buffer[offset++] = (char)runEntry.Value;
+                                    count--;
                                 }
                                 else
                                 {
@@ -330,12 +330,12 @@ namespace Microsoft.Exchange.Data.TextConverters
                                         InternalDebug.Assert(runDeltaOffset == 1);
 
                                         buffer[offset++] = Token.LiteralLastChar(runEntry.Value);
-                                        count --;
+                                        count--;
                                     }
                                     else
                                     {
                                         buffer[offset++] = Token.LiteralFirstChar(runEntry.Value);
-                                        count --;
+                                        count--;
 
                                         if (count == 0)
                                         {
@@ -344,7 +344,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                                         }
 
                                         buffer[offset++] = Token.LiteralLastChar(runEntry.Value);
-                                        count --;
+                                        count--;
                                     }
                                 }
                             }
@@ -521,7 +521,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     return HashCode.CalculateLowerCase(this.buffer, runOffset, this.runList[run].Length);
                 }
 
-                HashCode hashCode = new HashCode(true);
+                HashCode hashCode = new(true);
 
                 do
                 {
@@ -562,7 +562,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     return HashCode.CalculateLowerCase(this.buffer, runOffset, runEntry.Length);
                 }
 
-                HashCode hashCode = new HashCode(true);
+                HashCode hashCode = new(true);
 
                 do
                 {
@@ -585,7 +585,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
 
             return HashCode.CalculateEmptyHash();
-        }     
+        }
 
         protected internal void WriteOriginalTo(ref Fragment fragment, ITextSink sink)
         {
@@ -665,7 +665,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                 }
                 while (runEntry.MajorKindPlusStartFlag == kind && !sink.IsEnough);
             }
-        }     
+        }
 
         protected internal string GetString(ref Fragment fragment, int maxLength)
         {
@@ -720,7 +720,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             return this.stringBuildSink.ToString();
         }
 
-        
 
         protected internal bool CaseInsensitiveCompareEqual(ref Fragment fragment, string str)
         {
@@ -779,7 +778,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             this.WriteTo(ref fragment, this.searchSink);
 
             return this.searchSink.IsFound;
-        }     
+        }
 
         protected internal void StripLeadingWhitespace(ref Fragment fragment)
         {
@@ -828,7 +827,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                                 break;
                             }
 
-                            offset ++;
+                            offset++;
                         }
 
                         if (offset < runOffset + this.runList[run].Length)
@@ -841,7 +840,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
                     runOffset += this.runList[run].Length;
 
-                    run ++;
+                    run++;
 
                     if (run != fragment.tail && this.runList[run].Type < RunType.Normal)
                     {
@@ -894,7 +893,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                                 break;
                             }
 
-                            offset ++;
+                            offset++;
                         }
 
                         if (offset < runOffset + runEntry.Length)
@@ -939,14 +938,14 @@ namespace Microsoft.Exchange.Data.TextConverters
                     position.runDeltaOffset = 0;
                 }
 
-                run ++;
+                run++;
 
                 if (skipInvalid)
                 {
                     while (run != fragment.tail && this.runList[run].Type == RunType.Invalid)
                     {
                         position.runOffset += this.runList[run].Length;
-                        run ++;
+                        run++;
                     }
                 }
 
@@ -965,7 +964,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             do
             {
                 runOffset += this.runList[run].Length;
-                run ++;
+                run++;
             }
             while (run != tail && this.runList[run].Type < RunType.Normal);
         }
@@ -981,7 +980,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         public struct RunEnumerator
         {
-            private Token token;
+            private readonly Token token;
 #if DEBUG
             private int index;
 #endif
@@ -1058,7 +1057,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         public struct TextReader
         {
-            private Token token;
+            private readonly Token token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -1101,7 +1100,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 this.token.StripLeadingWhitespace(ref this.token.whole);
                 this.Rewind();
-            }  
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -1149,7 +1148,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
             public override string ToString()
             {
-                return this.Type.ToString() + " - " + this.TextType.ToString() + " - " + ((this.Kind & ~(uint)RunKind.StartLexicalUnitFlag) >> 26).ToString() + "/" + ((this.Kind >> 24)  & 3).ToString() + " (" + this.Length + ") = " + this.Value.ToString("X6");
+                return this.Type.ToString() + " - " + this.TextType.ToString() + " - " + ((this.Kind & ~(uint)RunKind.StartLexicalUnitFlag) >> 26).ToString() + "/" + ((this.Kind >> 24) & 3).ToString() + " (" + this.Length + ") = " + this.Value.ToString("X6");
             }
         }
 
@@ -1341,7 +1340,6 @@ namespace Microsoft.Exchange.Data.TextConverters
             }
         }
 
-        
 
         private class LowerCaseSubstringSearchSink : ITextSink
         {
@@ -1374,14 +1372,14 @@ namespace Microsoft.Exchange.Data.TextConverters
                 {
                     if (ParseSupport.ToLowerCase(buffer[offset]) == this.str[this.strIndex])
                     {
-                        this.strIndex ++;
+                        this.strIndex++;
                     }
                     else
                     {
                         this.strIndex = 0;
                     }
 
-                    offset ++;
+                    offset++;
                 }
 
                 if (this.strIndex == this.str.Length)
@@ -1401,7 +1399,7 @@ namespace Microsoft.Exchange.Data.TextConverters
                     return;
                 }
 
-                this.strIndex ++;
+                this.strIndex++;
 
                 if (this.strIndex == this.str.Length)
                 {

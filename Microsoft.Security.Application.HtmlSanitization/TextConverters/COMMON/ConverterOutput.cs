@@ -41,7 +41,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         protected const int stringBufferReserve = 20;
         protected const int stringBufferThreshold = stringBufferMax - stringBufferReserve;
 
-        private IFallback fallback;
+        private readonly IFallback fallback;
 
         public ConverterOutput()
         {

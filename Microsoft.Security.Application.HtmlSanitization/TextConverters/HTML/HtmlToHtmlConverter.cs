@@ -19,39 +19,37 @@
 namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using System.Collections.Generic;
-    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.Globalization;
-    using Microsoft.Exchange.Data.TextConverters.Internal.Text;
-
+    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.TextConverters.Internal.Css;
-
+    using Microsoft.Exchange.Data.TextConverters.Internal.Text;
     using Security.Application.TextConverters.HTML;
 
     internal class HtmlToHtmlConverter : IProducerConsumer, IRestartable, IDisposable
     {
-        private bool convertFragment;
-        private bool outputFragment;
-        private bool filterForFragment;
+        private readonly bool convertFragment;
+        private readonly bool outputFragment;
+        private readonly bool filterForFragment;
 
-        private bool filterHtml;
-        private bool truncateForCallback;
+        private readonly bool filterHtml;
+        private readonly bool truncateForCallback;
 
-        private int smallCssBlockThreshold;
-        private bool preserveDisplayNoneStyle;
+        private readonly int smallCssBlockThreshold;
+        private readonly bool preserveDisplayNoneStyle;
 
-        private bool hasTailInjection;
+        private readonly bool hasTailInjection;
 
         private IHtmlParser parser;
         private bool endOfFile;
 
-        private bool normalizedInput;
+        private readonly bool normalizedInput;
 
         internal HtmlWriter writer;
 
-        private HtmlTagCallback callback;
+        private readonly HtmlTagCallback callback;
         private HtmlToHtmlTagContext callbackContext;
 
         internal HtmlToken token;
@@ -107,7 +105,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private VirtualScratchSink virtualScratchSink;
 
-        private IProgressMonitor progressMonitor;
+        private readonly IProgressMonitor progressMonitor;
 
         private const string NamePrefix = "x_";
 
@@ -1955,7 +1953,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
         }
 
-        private static object lockObject = new object();
+        private static readonly object lockObject = new object();
         private static bool textConvertersConfigured;
 
         private static Dictionary<string, string> safeUrlDictionary;
@@ -1995,7 +1993,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                         {
                             safeUrlSchemeListAdd = safeUrlSchemeSetting.Arguments[0].Name.Equals("Add", StringComparison.OrdinalIgnoreCase);
 
-                            string[] entries = safeUrlSchemeSetting.Arguments[0].Value.Split(new char[] { ',', ' ', ';', ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] entries = safeUrlSchemeSetting.Arguments[0].Value.Split([',', ' ', ';', ':'], StringSplitOptions.RemoveEmptyEntries);
                             string badEntries = "";
 
                             foreach (string entry in entries)
@@ -2831,8 +2829,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         internal class VirtualScratchSink : ITextSinkEx
         {
-            private HtmlToHtmlConverter converter;
-            private int maxLength;
+            private readonly HtmlToHtmlConverter converter;
+            private readonly int maxLength;
 
             public VirtualScratchSink(HtmlToHtmlConverter converter, int maxLength)
             {
@@ -2889,7 +2887,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
     internal class HtmlToHtmlTagContext : HtmlTagContext
     {
-        private HtmlToHtmlConverter converter;
+        private readonly HtmlToHtmlConverter converter;
 
         public HtmlToHtmlTagContext(HtmlToHtmlConverter converter)
         {

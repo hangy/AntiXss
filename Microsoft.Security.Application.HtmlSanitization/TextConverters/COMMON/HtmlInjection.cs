@@ -31,7 +31,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "Used in method call.  Not changing API at this time.")]
         protected bool filterHtml;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification="Used in method call.  Not changing API at this time.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "Used in method call.  Not changing API at this time.")]
         protected HtmlTagCallback callback;
 
         protected bool injectingHead;
@@ -288,9 +288,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             base.Dispose(disposing);
         }
 
-        
 
-        
 
         public override void InjectRtfFonts(int firstAvailableFontHandle)
         {
@@ -299,9 +297,8 @@ namespace Microsoft.Exchange.Data.TextConverters
         public override void InjectRtfColors(int nextColorIndex)
         {
         }
-        
 
-        
+
 
     }
 

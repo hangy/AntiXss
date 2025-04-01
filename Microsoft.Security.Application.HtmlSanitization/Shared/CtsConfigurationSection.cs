@@ -30,7 +30,7 @@ namespace Microsoft.Exchange.Data.Internal
         /// <summary>
         /// The subsections in the configuration file.
         /// </summary>
-        private readonly Dictionary<string, IList<CtsConfigurationSetting>> subSections = new Dictionary<string, IList<CtsConfigurationSetting>>();
+        private readonly Dictionary<string, IList<CtsConfigurationSetting>> subSections = [];
 
         /// <summary>
         /// The configuration properties.
@@ -55,7 +55,7 @@ namespace Microsoft.Exchange.Data.Internal
         {
             get
             {
-                return properties ?? (properties = new ConfigurationPropertyCollection());
+                return properties ?? (properties = []);
             }
         }
 
@@ -66,7 +66,7 @@ namespace Microsoft.Exchange.Data.Internal
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Input reader is always from app config.")]
         protected override void DeserializeSection(XmlReader reader)
         {
-            IList<CtsConfigurationSetting> unnamedSubSection = new List<CtsConfigurationSetting>();
+            IList<CtsConfigurationSetting> unnamedSubSection = [];
 
             this.subSections.Add(string.Empty, unnamedSubSection);
 
@@ -93,7 +93,7 @@ namespace Microsoft.Exchange.Data.Internal
 
                                 if (!this.subSections.TryGetValue(subSectionName, out IList<CtsConfigurationSetting> subSection))
                                 {
-                                    subSection = new List<CtsConfigurationSetting>();
+                                    subSection = [];
                                     this.subSections.Add(subSectionName, subSection);
                                 }
 
@@ -142,7 +142,7 @@ namespace Microsoft.Exchange.Data.Internal
         {
             string settingName = reader.Name;
 
-            CtsConfigurationSetting setting = new CtsConfigurationSetting(settingName);
+            CtsConfigurationSetting setting = new(settingName);
 
             if (reader.AttributeCount > 0)
             {

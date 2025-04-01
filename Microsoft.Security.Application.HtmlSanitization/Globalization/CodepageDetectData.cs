@@ -34,7 +34,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// The list of code pages and their masks.
         /// </summary>
         internal static readonly CodePage[] CodePages =
-        {
+        [
             new CodePage(20127, 0x00000001, false),
             new CodePage(28591, 0x00000002, false),
             new CodePage(28592, 0x00000004, false),
@@ -67,7 +67,7 @@ namespace Microsoft.Exchange.Data.Globalization
             new CodePage(51949, 0x20000000, false),
             new CodePage(50225, 0x40000000, false),
             new CodePage(52936, 0x80000000, false),
-        };
+        ];
 
         /// <summary>
         /// Represents a code page.

@@ -413,7 +413,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The Combining Diacritical Marks Supplement code table.
         /// </summary>
-        /// <remarks>http://www.unicode.org/charts/PDF/U1DC0.pdf</remarks>        
+        /// <remarks>http://www.unicode.org/charts/PDF/U1DC0.pdf</remarks>
         CombiningDiacriticalMarksSupplement = 1 << 0x1D,
 
         /// <summary>
@@ -569,7 +569,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The Miscellaneous Mathematical Symbols-B code table.
         /// </summary>
-        /// <remarks>http://www.unicode.org/charts/PDF/U2980.pdf</remarks>                
+        /// <remarks>http://www.unicode.org/charts/PDF/U2980.pdf</remarks>
         MiscellaneousMathematicalSymbolsB = 1 << 0x16,
 
         /// <summary>
@@ -581,7 +581,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The Miscellaneous Symbols and Arrows code table.
         /// </summary>
-        /// <remarks>http://www.unicode.org/charts/PDF/U2B00.pdf</remarks>        
+        /// <remarks>http://www.unicode.org/charts/PDF/U2B00.pdf</remarks>
         MiscellaneousSymbolsAndArrows = 1 << 0x18,
 
         /// <summary>
@@ -593,7 +593,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The Latin Extended-C code table.
         /// </summary>
-        /// <remarks>http://www.unicode.org/charts/PDF/U2C60.pdf</remarks>        
+        /// <remarks>http://www.unicode.org/charts/PDF/U2C60.pdf</remarks>
         LatinExtendedC = 1 << 0x1A,
 
         /// <summary>
@@ -763,7 +763,7 @@ namespace Microsoft.Security.Application
         /// <summary>
         /// The Lisu code table.
         /// </summary>
-        /// <remarks>http://www.unicode.org/charts/PDF/UA4D0.pdf</remarks>        
+        /// <remarks>http://www.unicode.org/charts/PDF/UA4D0.pdf</remarks>
         Lisu = 1 << 0x15,
 
         /// <summary>

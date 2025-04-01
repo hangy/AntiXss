@@ -19,7 +19,7 @@
 namespace Microsoft.Exchange.Data.Globalization
 {
     using Internal;
-    
+
     /// <summary>
     /// Represents the logic to choose a codepage.
     /// </summary>
@@ -34,7 +34,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// The ranges for the current codepage.
         /// </summary>
         private CodePageRange[] ranges;
-        
+
         /// <summary>
         /// The previous index used for range operations.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// The last codepage range used.
         /// </summary>
         private CodePageRange lastRange;
-        
+
         /// <summary>
         /// Chooses the current code page.
         /// </summary>
@@ -81,7 +81,7 @@ namespace Microsoft.Exchange.Data.Globalization
 
             return false;
         }
-       
+
         /// <summary>
         /// Decides if an extended chracter is unsafe for the current codepage.
         /// </summary>
@@ -98,10 +98,10 @@ namespace Microsoft.Exchange.Data.Globalization
             if (ch <= this.lastRange.Last)
             {
                 if (ch >= this.lastRange.First)
-                {                    
+                {
                     return this.lastRange.Offset != 0xFFFFu && (Bitmap[this.lastRange.Offset + (ch - this.lastRange.First)] & this.lastRange.Mask) == 0;
                 }
-                
+
                 int i = this.lastRangeIndex;
 
                 while (--i >= 0)
@@ -114,7 +114,7 @@ namespace Microsoft.Exchange.Data.Globalization
                     if (ch <= this.ranges[i].Last)
                     {
                         if (ch == this.ranges[i].First)
-                        {                                    
+                        {
                             return false;
                         }
 
@@ -131,7 +131,7 @@ namespace Microsoft.Exchange.Data.Globalization
             {
                 int i = this.lastRangeIndex;
 
-                while (++ i < this.ranges.Length)
+                while (++i < this.ranges.Length)
                 {
                     if (ch > this.ranges[i].Last)
                     {
@@ -141,7 +141,7 @@ namespace Microsoft.Exchange.Data.Globalization
                     if (ch >= this.ranges[i].First)
                     {
                         if (ch == this.ranges[i].First)
-                        {                                
+                        {
                             return false;
                         }
 

@@ -260,7 +260,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             ITextSink sink)
         {
             int lastIdx = offset;
-            for (int idx = offset; idx < offset + length; )
+            for (int idx = offset; idx < offset + length;)
             {
                 char ch = buffer[idx];
 
@@ -361,7 +361,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct PropertyEnumerator
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private int index;
 #endif
@@ -399,7 +399,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
                     return new CssProperty(this.token);
                 }
-            }     
+            }
 
             public bool MoveNext()
             {
@@ -436,7 +436,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public PropertyEnumerator GetEnumerator()
             {
                 return this;
-            }     
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -449,7 +449,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct PropertyNameTextReader
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -465,7 +465,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public void WriteOriginalTo(ITextSink sink)
             {
                 this.token.WriteOriginalTo(ref this.token.propertyList[this.token.currentProperty].name, sink);
-            }     
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -478,7 +478,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct PropertyValueTextReader
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -500,7 +500,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             {
                 return this.token.CaseInsensitiveContainsSubstring(ref this.token.propertyList[this.token.currentProperty].value, str);
             }
-            
+
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
             {
@@ -539,7 +539,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct SelectorEnumerator
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private int index;
 #endif
@@ -627,7 +627,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct SelectorNameTextReader
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -643,7 +643,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
             public void WriteOriginalTo(ITextSink sink)
             {
                 this.token.WriteOriginalTo(ref this.token.selectorList[this.token.currentSelector].name, sink);
-            }     
+            }
 
             [System.Diagnostics.Conditional("DEBUG")]
             private void AssertCurrent()
@@ -656,7 +656,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
         public struct SelectorClassTextReader
         {
-            private CssToken token;
+            private readonly CssToken token;
 #if DEBUG
             private FragmentPosition position;
 #endif
@@ -708,9 +708,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
     internal struct CssSelector
     {
-        private CssToken token;
+        private readonly CssToken token;
 #if DEBUG
-        private int index;
+        private readonly int index;
 #endif
 
         internal CssSelector(CssToken token)
@@ -784,9 +784,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
 
     internal struct CssProperty
     {
-        private CssToken token;
+        private readonly CssToken token;
 #if DEBUG
-        private int index;
+        private readonly int index;
 #endif
 
         internal CssProperty(CssToken token)

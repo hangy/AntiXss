@@ -32,11 +32,11 @@ namespace Microsoft.Exchange.Data.TextConverters
 
         private bool endOfFile;
 
-        private bool restartable;
+        private readonly bool restartable;
         private bool canRestart;
         private bool isFirstChar = true;
 
-        private TextCache cache = new TextCache();
+        private TextCache cache = new();
 
         public ConverterUnicodeOutput(object destination, bool push, bool restartable)
         {

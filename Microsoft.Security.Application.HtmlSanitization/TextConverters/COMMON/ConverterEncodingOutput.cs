@@ -21,8 +21,8 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System;
     using System.IO;
     using System.Text;
-    using Microsoft.Exchange.Data.Internal;
     using Microsoft.Exchange.Data.Globalization;
+    using Microsoft.Exchange.Data.Internal;
 
     internal class ConverterEncodingOutput : ConverterOutput, IByteSource, IRestartable, IReusable
     {
@@ -38,26 +38,26 @@ namespace Microsoft.Exchange.Data.TextConverters
         private bool restartablePushSink;
         private long restartPosition;
 
-        private bool encodingSameAsInput;
+        private readonly bool encodingSameAsInput;
 
-        private bool restartable;
+        private readonly bool restartable;
         private bool canRestart;
         private bool lineModeEncoding;
 
-        private int minCharsEncode;
+        private readonly int minCharsEncode;
 
         private char[] lineBuffer;
         private int lineBufferCount;
         private int lineBufferLastNL;
 
-        private ByteCache cache = new ByteCache();
+        private ByteCache cache = new();
 
-        private Encoding originalEncoding;
+        private readonly Encoding originalEncoding;
         private Encoding encoding;
         private Encoder encoder;
         private bool encodingCompleteUnicode;
 
-        private CodePageMap codePageMap = new CodePageMap();
+        private CodePageMap codePageMap = new();
 
         private bool isFirstChar = true;
 

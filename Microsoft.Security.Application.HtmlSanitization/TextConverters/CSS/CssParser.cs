@@ -51,8 +51,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Css
         protected CssTokenBuilder tokenBuilder;
         private CssToken token;
 
-        private static readonly string[] SafeTermFunctions = { "rgb", "counter" };
-        private static readonly string[] SafePseudoFunctions = { "lang" };
+        private static readonly string[] SafeTermFunctions = ["rgb", "counter"];
+        private static readonly string[] SafePseudoFunctions = ["lang"];
 
         internal const int MaxCssLength = 512 * 1024;
 
