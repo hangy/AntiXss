@@ -33,8 +33,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryBranch>main</RepositoryBranch>
-    <RepositoryCommit>bdf57d692e1506cb5e7b2245ecb11f8e6570f8c3</RepositoryCommit>
-    <Version>0.2.0</Version>
+    <RepositoryCommit>69fa09f2e8adb8ac602a4859f4242173e2e001ab</RepositoryCommit>
+    <Version>0.2.1-beta.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
