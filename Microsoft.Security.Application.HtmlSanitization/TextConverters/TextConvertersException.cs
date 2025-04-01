@@ -21,20 +21,20 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System;
     using System.Runtime.Serialization;
     using Strings = CtsResources.TextConvertersStrings;
-    
+
     internal enum HeaderFooterFormat
     {
-        Text,        
+        Text,
         Html,
     }
-    
+
     [Serializable]
     internal class TextConvertersException : ExchangeDataException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TextConvertersException"/> class.
         /// </summary>
-        internal TextConvertersException() :                 
+        internal TextConvertersException() :
             base("internal text conversion error (document too complex)")
         {
         }

@@ -34,6 +34,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <returns>
         /// <c>true</c> if flush is successful; otherwise <c>false</c>.
         /// </returns>
-        bool Flush();       
+        bool Flush();
     }
 }

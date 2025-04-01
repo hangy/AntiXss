@@ -19,13 +19,11 @@
 namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 {
     using System;
+    using System.Collections;
     using System.IO;
     using System.Text;
-    using System.Collections;
     using Microsoft.Exchange.Data.Internal;
-
     using Security.Application.TextConverters.HTML;
-
     using Strings = Microsoft.Exchange.CtsResources.TextConvertersStrings;
 
     internal class HtmlNormalizingParser : IHtmlParser, IRestartable, IReusable, IDisposable
@@ -33,7 +31,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         private HtmlParser parser;
         private IRestartable restartConsumer;
 
-        private int maxElementStack;
+        private readonly int maxElementStack;
 
         private Context context;
         private Context[] contextStack;
@@ -70,8 +68,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private SmallTokenBuilder tokenBuilder;
 
-        private HtmlInjection injection;
-        private DocumentState saveState;
+        private readonly HtmlInjection injection;
+        private readonly DocumentState saveState;
 
         public HtmlNormalizingParser(
                     HtmlParser parser,
@@ -150,7 +148,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 if (this.injection.Active)
                 {
-                    this.parser = (HtmlParser) this.injection.Pop();
+                    this.parser = (HtmlParser)this.injection.Pop();
                 }
 
                 this.injection.Reset();
@@ -359,7 +357,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 this.saveState.Restore(this);
                 this.EnqueueHead(QueueItemKind.InjectionEnd, this.injection.InjectingHead ? 1 : 0);
-                this.parser = (HtmlParser) this.injection.Pop();
+                this.parser = (HtmlParser)this.injection.Pop();
                 return;
             }
 
@@ -384,7 +382,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 if (this.injection.HaveTail && !this.injection.TailDone)
                 {
-                    this.parser = (HtmlParser) this.injection.Push(false, this.parser);
+                    this.parser = (HtmlParser)this.injection.Push(false, this.parser);
                     this.saveState.Save(this, this.elementStackTop);
                     this.EnqueueTail(QueueItemKind.InjectionBegin, 0);
                     if (this.injection.HeaderFooterFormat == HeaderFooterFormat.Text)
@@ -975,7 +973,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                 }
             }
 
-            stackPos = this.elementStackTop ++;
+            stackPos = this.elementStackTop++;
 
             this.elementStack[stackPos] = tagIndex;
 
@@ -1027,7 +1025,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
             else
             {
-                this.elementStackTop --;
+                this.elementStackTop--;
             }
 
             return stackPos;
@@ -1087,7 +1085,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
                 if (this.context.topElement > stackPos)
                 {
-                    this.context.topElement --;
+                    this.context.topElement--;
 
                     for (int i = this.contextStackTop - 1; i > 0; i--)
                     {
@@ -1098,12 +1096,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             break;
                         }
 
-                        this.contextStack[i].topElement --;
+                        this.contextStack[i].topElement--;
                     }
                 }
             }
 
-            this.elementStackTop --;
+            this.elementStackTop--;
         }
 
         private void AddNonspace(char firstChar, char lastChar)
@@ -1175,7 +1173,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             case HtmlTagIndex.A:
                             case HtmlTagIndex.Div:
                             case HtmlTagIndex.Span:
-                                    return true;
+                                return true;
                         }
 
                         return false;
@@ -1291,7 +1289,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                                         (allowWspRight ? QueueItemFlags.AllowWspRight : 0);
             this.queue[this.queueTail].argument = 0;
 
-            this.queueTail ++;
+            this.queueTail++;
         }
 
         private void EnqueueTail(QueueItemKind kind, int argument)
@@ -1306,7 +1304,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.queue[this.queueTail].flags = 0;
             this.queue[this.queueTail].argument = argument;
 
-            this.queueTail ++;
+            this.queueTail++;
         }
 
         private void EnqueueTail(QueueItemKind kind)
@@ -1321,19 +1319,19 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             this.queue[this.queueTail].flags = 0;
             this.queue[this.queueTail].argument = 0;
 
-            this.queueTail ++;
+            this.queueTail++;
         }
 
         private void EnqueueHead(QueueItemKind kind, HtmlTagIndex tagIndex, bool allowWspLeft, bool allowWspRight)
         {
             if (this.queueHead != this.queueStart)
             {
-                this.queueHead --;
+                this.queueHead--;
             }
             else
             {
                 InternalDebug.Assert(this.queueHead == this.queueTail);
-                this.queueTail ++;
+                this.queueTail++;
             }
 
             this.queue[this.queueHead].kind = kind;
@@ -1352,12 +1350,12 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         {
             if (this.queueHead != this.queueStart)
             {
-                this.queueHead --;
+                this.queueHead--;
             }
             else
             {
                 InternalDebug.Assert(this.queueHead == this.queueTail);
-                this.queueTail ++;
+                this.queueTail++;
             }
 
             this.queue[this.queueHead].kind = kind;
@@ -1374,237 +1372,237 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             {
                 case QueueItemKind.None:
 
-                        this.DoDequeueFirst();
+                    this.DoDequeueFirst();
 
-                        this.token = null;
+                    this.token = null;
 
-                        return HtmlTokenId.None;
+                    return HtmlTokenId.None;
 
                 case QueueItemKind.PassThrough:
 
-                        qi = this.DoDequeueFirst();
+                    qi = this.DoDequeueFirst();
 
-                        this.token = this.inputToken;
+                    this.token = this.inputToken;
 
-                        if (this.token.TokenId == HtmlTokenId.Tag)
+                    if (this.token.TokenId == HtmlTokenId.Tag)
+                    {
+                        this.token.Flags |= (((qi.flags & QueueItemFlags.AllowWspLeft) == QueueItemFlags.AllowWspLeft) ?
+                                                    HtmlToken.TagFlags.AllowWspLeft : 0) |
+                                            (((qi.flags & QueueItemFlags.AllowWspRight) == QueueItemFlags.AllowWspRight) ?
+                                                    HtmlToken.TagFlags.AllowWspRight : 0);
+
+                        if (this.token.OriginalTagId == HtmlTagIndex.Body &&
+                            this.token.IsTagEnd &&
+                            this.injection != null &&
+                            this.injection.HaveHead &&
+                            !this.injection.HeadDone)
                         {
-                            this.token.Flags |= (((qi.flags & QueueItemFlags.AllowWspLeft) == QueueItemFlags.AllowWspLeft) ?
-                                                        HtmlToken.TagFlags.AllowWspLeft : 0) |
-                                                (((qi.flags & QueueItemFlags.AllowWspRight) == QueueItemFlags.AllowWspRight) ?
-                                                        HtmlToken.TagFlags.AllowWspRight : 0);
+                            InternalDebug.Assert(this.token.IsEndTag == false);
 
-                            if (this.token.OriginalTagId == HtmlTagIndex.Body &&
-                                this.token.IsTagEnd &&
-                                this.injection != null &&
-                                this.injection.HaveHead &&
-                                !this.injection.HeadDone)
+                            int bodyLevel = this.FindContainer(HtmlTagIndex.Body, HtmlDtd.SetId.Empty);
+
+                            this.parser = (HtmlParser)this.injection.Push(true, this.parser);
+                            this.saveState.Save(this, bodyLevel + 1);
+                            this.EnqueueTail(QueueItemKind.InjectionBegin, 1);
+                            if (this.injection.HeaderFooterFormat == HeaderFooterFormat.Text)
                             {
-                                InternalDebug.Assert(this.token.IsEndTag == false);
-
-                                int bodyLevel = this.FindContainer(HtmlTagIndex.Body, HtmlDtd.SetId.Empty);
-
-                                this.parser = (HtmlParser) this.injection.Push(true, this.parser);
-                                this.saveState.Save(this, bodyLevel + 1);
-                                this.EnqueueTail(QueueItemKind.InjectionBegin, 1);
-                                if (this.injection.HeaderFooterFormat == HeaderFooterFormat.Text)
-                                {
-                                    this.OpenContainer(HtmlTagIndex.TT);
-                                    this.OpenContainer(HtmlTagIndex.Pre);
-                                }
+                                this.OpenContainer(HtmlTagIndex.TT);
+                                this.OpenContainer(HtmlTagIndex.Pre);
                             }
                         }
+                    }
 
-                        return this.token.TokenId;
+                    return this.token.TokenId;
 
                 case QueueItemKind.BeginElement:
                 case QueueItemKind.EndElement:
 
-                        qi = this.DoDequeueFirst();
+                    qi = this.DoDequeueFirst();
 
-                        this.tokenBuilder.BuildTagToken(
-                                            qi.tagIndex,
-                                            qi.kind == QueueItemKind.EndElement,
-                                            (qi.flags & QueueItemFlags.AllowWspLeft) == QueueItemFlags.AllowWspLeft,
-                                            (qi.flags & QueueItemFlags.AllowWspRight) == QueueItemFlags.AllowWspRight,
-                                            false);
+                    this.tokenBuilder.BuildTagToken(
+                                        qi.tagIndex,
+                                        qi.kind == QueueItemKind.EndElement,
+                                        (qi.flags & QueueItemFlags.AllowWspLeft) == QueueItemFlags.AllowWspLeft,
+                                        (qi.flags & QueueItemFlags.AllowWspRight) == QueueItemFlags.AllowWspRight,
+                                        false);
 
-                        this.token = this.tokenBuilder;
+                    this.token = this.tokenBuilder;
 
-                        if (qi.kind == QueueItemKind.BeginElement &&
-                            this.token.OriginalTagId == HtmlTagIndex.Body &&
-                            this.injection != null &&
-                            this.injection.HaveHead &&
-                            !this.injection.HeadDone)
+                    if (qi.kind == QueueItemKind.BeginElement &&
+                        this.token.OriginalTagId == HtmlTagIndex.Body &&
+                        this.injection != null &&
+                        this.injection.HaveHead &&
+                        !this.injection.HeadDone)
+                    {
+                        InternalDebug.Assert(this.token.IsEndTag == false);
+
+                        int bodyLevel = this.FindContainer(HtmlTagIndex.Body, HtmlDtd.SetId.Empty);
+
+                        this.parser = (HtmlParser)this.injection.Push(true, this.parser);
+                        this.saveState.Save(this, bodyLevel + 1);
+                        this.EnqueueTail(QueueItemKind.InjectionBegin, 1);
+                        if (this.injection.HeaderFooterFormat == HeaderFooterFormat.Text)
                         {
-                            InternalDebug.Assert(this.token.IsEndTag == false);
-
-                            int bodyLevel = this.FindContainer(HtmlTagIndex.Body, HtmlDtd.SetId.Empty);
-
-                            this.parser = (HtmlParser) this.injection.Push(true, this.parser);
-                            this.saveState.Save(this, bodyLevel + 1);
-                            this.EnqueueTail(QueueItemKind.InjectionBegin, 1);
-                            if (this.injection.HeaderFooterFormat == HeaderFooterFormat.Text)
-                            {
-                                this.OpenContainer(HtmlTagIndex.TT);
-                                this.OpenContainer(HtmlTagIndex.Pre);
-                            }
+                            this.OpenContainer(HtmlTagIndex.TT);
+                            this.OpenContainer(HtmlTagIndex.Pre);
                         }
+                    }
 
-                        return this.token.TokenId;
+                    return this.token.TokenId;
 
                 case QueueItemKind.EndLastTag:
 
-                        qi = this.DoDequeueFirst();
+                    qi = this.DoDequeueFirst();
 
-                        this.tokenBuilder.BuildTagToken(
-                                            qi.tagIndex,
-                                            false,
-                                            (qi.flags & QueueItemFlags.AllowWspLeft) == QueueItemFlags.AllowWspLeft,
-                                            (qi.flags & QueueItemFlags.AllowWspRight) == QueueItemFlags.AllowWspRight,
-                                            true);
+                    this.tokenBuilder.BuildTagToken(
+                                        qi.tagIndex,
+                                        false,
+                                        (qi.flags & QueueItemFlags.AllowWspLeft) == QueueItemFlags.AllowWspLeft,
+                                        (qi.flags & QueueItemFlags.AllowWspRight) == QueueItemFlags.AllowWspRight,
+                                        true);
 
-                        this.token = this.tokenBuilder;
+                    this.token = this.tokenBuilder;
 
-                        if (qi.kind == QueueItemKind.BeginElement &&
-                            this.token.OriginalTagId == HtmlTagIndex.Body &&
-                            this.injection != null &&
-                            this.injection.HaveHead &&
-                            !this.injection.HeadDone)
+                    if (qi.kind == QueueItemKind.BeginElement &&
+                        this.token.OriginalTagId == HtmlTagIndex.Body &&
+                        this.injection != null &&
+                        this.injection.HaveHead &&
+                        !this.injection.HeadDone)
+                    {
+                        InternalDebug.Assert(this.token.IsEndTag == false);
+
+                        int bodyLevel = this.FindContainer(HtmlTagIndex.Body, HtmlDtd.SetId.Empty);
+
+                        this.parser = (HtmlParser)this.injection.Push(true, this.parser);
+                        this.saveState.Save(this, bodyLevel + 1);
+                        this.EnqueueTail(QueueItemKind.InjectionBegin, 1);
+                        if (this.injection.HeaderFooterFormat == HeaderFooterFormat.Text)
                         {
-                            InternalDebug.Assert(this.token.IsEndTag == false);
-
-                            int bodyLevel = this.FindContainer(HtmlTagIndex.Body, HtmlDtd.SetId.Empty);
-
-                            this.parser = (HtmlParser) this.injection.Push(true, this.parser);
-                            this.saveState.Save(this, bodyLevel + 1);
-                            this.EnqueueTail(QueueItemKind.InjectionBegin, 1);
-                            if (this.injection.HeaderFooterFormat == HeaderFooterFormat.Text)
-                            {
-                                this.OpenContainer(HtmlTagIndex.TT);
-                                this.OpenContainer(HtmlTagIndex.Pre);
-                            }
+                            this.OpenContainer(HtmlTagIndex.TT);
+                            this.OpenContainer(HtmlTagIndex.Pre);
                         }
+                    }
 
-                        return this.token.TokenId;
+                    return this.token.TokenId;
 
                 case QueueItemKind.OverlappedClose:
                 case QueueItemKind.OverlappedReopen:
 
-                        qi = this.DoDequeueFirst();
+                    qi = this.DoDequeueFirst();
 
-                        this.tokenBuilder.BuildOverlappedToken(qi.kind == QueueItemKind.OverlappedClose, qi.argument);
+                    this.tokenBuilder.BuildOverlappedToken(qi.kind == QueueItemKind.OverlappedClose, qi.argument);
 
-                        this.token = this.tokenBuilder;
+                    this.token = this.tokenBuilder;
 
-                        return this.token.TokenId;
+                    return this.token.TokenId;
 
                 case QueueItemKind.Space:
 
-                        qi = this.DoDequeueFirst();
+                    qi = this.DoDequeueFirst();
 
-                        this.tokenBuilder.BuildSpaceToken();
+                    this.tokenBuilder.BuildSpaceToken();
 
-                        this.token = this.tokenBuilder;
+                    this.token = this.tokenBuilder;
 
-                        return this.token.TokenId;
+                    return this.token.TokenId;
 
                 case QueueItemKind.Text:
 
-                        bool requeueInjectionEnd = false;
-                        int requeueInjectionArgument = 0;
+                    bool requeueInjectionEnd = false;
+                    int requeueInjectionArgument = 0;
 
-                        InternalDebug.Assert(this.context.textType == HtmlDtd.ContextTextType.Full);
+                    InternalDebug.Assert(this.context.textType == HtmlDtd.ContextTextType.Full);
 
-                        qi = this.DoDequeueFirst();
+                    qi = this.DoDequeueFirst();
 
-                        if (this.queueHead != this.queueTail)
+                    if (this.queueHead != this.queueTail)
+                    {
+                        InternalDebug.Assert(this.queueHead == this.queueTail - 1 && this.QueueHeadKind() == QueueItemKind.InjectionEnd);
+                        requeueInjectionEnd = true;
+                        requeueInjectionArgument = this.queue[this.queueHead].argument;
+                        this.DoDequeueFirst();
+                    }
+
+                    this.tokenBuilder.BuildTextSliceToken(this.inputToken, this.currentRun, this.currentRunOffset, this.numRuns);
+
+                    this.token = this.tokenBuilder;
+
+                    Token.RunEnumerator runs = this.inputToken.Runs;
+
+                    if (runs.IsValidPosition)
+                    {
+                        int cnt = 0;
+
+                        InternalDebug.Assert(runs.Current.TextType <= RunTextType.LastWhitespace);
+
+                        do
                         {
-                            InternalDebug.Assert(this.queueHead == this.queueTail - 1 && this.QueueHeadKind() == QueueItemKind.InjectionEnd);
-                            requeueInjectionEnd = true;
-                            requeueInjectionArgument = this.queue[this.queueHead].argument;
-                            this.DoDequeueFirst();
+                            cnt += runs.Current.TextType == RunTextType.NewLine ? 1 : 2;
+                        }
+                        while (runs.MoveNext(true) && (runs.Current.TextType <= RunTextType.LastWhitespace));
+
+                        if (cnt != 0)
+                        {
+                            this.AddSpace(cnt == 1);
                         }
 
-                        this.tokenBuilder.BuildTextSliceToken(this.inputToken, this.currentRun, this.currentRunOffset, this.numRuns);
-
-                        this.token = this.tokenBuilder;
-
-                        Token.RunEnumerator runs = this.inputToken.Runs;
+                        this.currentRun = runs.CurrentIndex;
+                        this.currentRunOffset = runs.CurrentOffset;
 
                         if (runs.IsValidPosition)
                         {
-                            int cnt = 0;
-
-                            InternalDebug.Assert(runs.Current.TextType <= RunTextType.LastWhitespace);
-
+                            char firstChar = runs.Current.FirstChar;
+                            char lastChar = firstChar;
                             do
                             {
-                                cnt += runs.Current.TextType == RunTextType.NewLine ? 1 : 2;
+                                lastChar = runs.Current.LastChar;
                             }
-                            while (runs.MoveNext(true) && (runs.Current.TextType <= RunTextType.LastWhitespace));
+                            while (runs.MoveNext(true) && !(runs.Current.TextType <= RunTextType.LastWhitespace));
 
-                            if (cnt != 0)
-                            {
-                                this.AddSpace(cnt == 1);
-                            }
-
-                            this.currentRun = runs.CurrentIndex;
-                            this.currentRunOffset = runs.CurrentOffset;
-
-                            if (runs.IsValidPosition)
-                            {
-                                char firstChar = runs.Current.FirstChar;
-                                char lastChar = firstChar;
-                                do
-                                {
-                                    lastChar = runs.Current.LastChar;
-                                }
-                                while (runs.MoveNext(true) && !(runs.Current.TextType <= RunTextType.LastWhitespace));
-
-                                this.AddNonspace(firstChar, lastChar);
-                            }
-
-                            this.numRuns = runs.CurrentIndex - this.currentRun;
-                        }
-                        else
-                        {
-                            this.currentRun = runs.CurrentIndex;
-                            this.currentRunOffset = runs.CurrentOffset;
-                            this.numRuns = 0;
+                            this.AddNonspace(firstChar, lastChar);
                         }
 
-                        if (requeueInjectionEnd)
-                        {
-                            this.EnqueueTail(QueueItemKind.InjectionEnd, requeueInjectionArgument);
-                        }
+                        this.numRuns = runs.CurrentIndex - this.currentRun;
+                    }
+                    else
+                    {
+                        this.currentRun = runs.CurrentIndex;
+                        this.currentRunOffset = runs.CurrentOffset;
+                        this.numRuns = 0;
+                    }
 
-                        return this.token.TokenId;
+                    if (requeueInjectionEnd)
+                    {
+                        this.EnqueueTail(QueueItemKind.InjectionEnd, requeueInjectionArgument);
+                    }
+
+                    return this.token.TokenId;
 
                 case QueueItemKind.Eof:
 
-                        InternalDebug.Assert(this.queueHead + 1 == this.queueTail);
+                    InternalDebug.Assert(this.queueHead + 1 == this.queueTail);
 
-                        this.tokenBuilder.BuildEofToken();
+                    this.tokenBuilder.BuildEofToken();
 
-                        this.token = this.tokenBuilder;
+                    this.token = this.tokenBuilder;
 
-                        break;
+                    break;
 
                 case QueueItemKind.InjectionBegin:
                 case QueueItemKind.InjectionEnd:
 
-                        qi = this.DoDequeueFirst();
+                    qi = this.DoDequeueFirst();
 
-                        this.tokenBuilder.BuildInjectionToken(qi.kind == QueueItemKind.InjectionBegin, qi.argument != 0);
+                    this.tokenBuilder.BuildInjectionToken(qi.kind == QueueItemKind.InjectionBegin, qi.argument != 0);
 
-                        this.token = this.tokenBuilder;
+                    this.token = this.tokenBuilder;
 
-                        break;
+                    break;
 
                 default:
 
-                        InternalDebug.Assert(false);
-                        break;
+                    InternalDebug.Assert(false);
+                    break;
             }
 
             return this.token.TokenId;
@@ -1626,7 +1624,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
         {
             int head = this.queueHead;
 
-            this.queueHead ++;
+            this.queueHead++;
 
             if (this.queueHead == this.queueTail)
             {
@@ -1715,7 +1713,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             private int currentRun;
             private int currentRunOffset;
             private int numRuns;
-            private HtmlTagIndex[] savedElementStackEntries = new HtmlTagIndex[5];
+            private readonly HtmlTagIndex[] savedElementStackEntries = new HtmlTagIndex[5];
             private int savedElementStackEntriesCount;
             private bool hasSpace;
             private bool eatSpace;
@@ -1786,8 +1784,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
         private class SmallTokenBuilder : HtmlToken
         {
-            private char[] spareBuffer = new char[1];
-            private RunEntry[] spareRuns = new RunEntry[1];
+            private readonly char[] spareBuffer = new char[1];
+            private readonly RunEntry[] spareRuns = new RunEntry[1];
 
             public SmallTokenBuilder()
             {

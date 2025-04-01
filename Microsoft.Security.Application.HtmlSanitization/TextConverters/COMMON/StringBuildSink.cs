@@ -25,7 +25,7 @@ namespace Microsoft.Exchange.Data.TextConverters
 
     internal class StringBuildSink : ITextSinkEx
     {
-        private StringBuilder sb;
+        private readonly StringBuilder sb;
         int maxLength;
 
         public StringBuildSink()
@@ -71,7 +71,6 @@ namespace Microsoft.Exchange.Data.TextConverters
         {
             InternalDebug.Assert(!this.IsEnough);
 
-            
             this.sb.Append(value);
         }
 

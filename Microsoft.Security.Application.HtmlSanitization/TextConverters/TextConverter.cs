@@ -60,7 +60,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <param name="val">The value for the configuration parameter.</param>
         void Set(ConfigParameter parameterId, object val);
     }
-    
+
     /// <summary>
     /// Base class for a text convertor.
     /// </summary>
@@ -69,17 +69,17 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <summary>
         /// Value indicating if boundary conditions are to be tested.
         /// </summary>
-        private bool testBoundaryConditions = false;
+        private readonly bool testBoundaryConditions = false;
 
         /// <summary>
         /// The input buffer size.
         /// </summary>
-        private int inputBufferSize = 4096;
+        private readonly int inputBufferSize = 4096;
 
         /// <summary>
         /// The output buffer size.
         /// </summary>
-        private int outputBufferSize = 4096;
+        private readonly int outputBufferSize = 4096;
 
         /// <summary>
         /// Gets or sets the size of the input stream buffer.
@@ -140,7 +140,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 throw new ArgumentNullException(nameof(destinationStream));
             }
-            
+
             Stream converter = new ConverterStream(sourceReader, this);
 
             byte[] buf = new byte[this.outputBufferSize];
@@ -170,7 +170,7 @@ namespace Microsoft.Exchange.Data.TextConverters
             {
                 throw new ArgumentNullException(nameof(destinationWriter));
             }
-            
+
             using TextReader converter = new ConverterReader(sourceReader, this);
 
             char[] buf = new char[4096];
@@ -206,7 +206,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <param name="output">The output.</param>
         /// <returns>An <see cref="IProducerConsumer"/> for use in a chain.</returns>
         internal abstract IProducerConsumer CreatePushChain(ConverterStream converterStream, Stream output);
-        
+
         /// <summary>
         /// Creates the push chain.
         /// </summary>
@@ -230,7 +230,7 @@ namespace Microsoft.Exchange.Data.TextConverters
         /// <param name="converterStream">The converter stream.</param>
         /// <returns>An <see cref="IProducerConsumer"/> for use in a chain.</returns>
         internal abstract IProducerConsumer CreatePullChain(TextReader input, ConverterStream converterStream);
-        
+
         /// <summary>
         /// Creates the pull chain.
         /// </summary>

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>13.0</LangVersion>
     <Nullable>enable</Nullable>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
@@ -38,12 +38,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All"/>
   </ItemGroup>
 
-  <!-- Code Analysis -->
-  <ItemGroup>
-    <PackageReference Include="Roslynator.Analyzers" Version="4.13.1" PrivateAssets="All" />
-    <PackageReference Include="Roslynator.CodeFixes" Version="4.13.1" PrivateAssets="All" />
+  <ItemGroup Label="Roslynator">
+    <PackageReference Include="Roslynator.Analyzers" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.CodeFixes" PrivateAssets="All" />
   </ItemGroup>
 </Project>

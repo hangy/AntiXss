@@ -34,7 +34,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// <summary>
         /// An instance of the integer comparer.
         /// </summary>
-        private static readonly IntComparer IntComparerInstance = new IntComparer();
+        private static readonly IntComparer IntComparerInstance = new();
 
         /// <summary>
         /// The internal globalization data.
@@ -240,7 +240,7 @@ namespace Microsoft.Exchange.Data.Globalization
         private static GlobalizationData LoadGlobalizationData(string defaultCultureName)
         {
             InternalWindowsCodePage[] windowsCodePages =
-                {
+                [
                     new InternalWindowsCodePage(1200, "unicode", 0, null, 65001, 65001, "Unicode generic culture"),
                     new InternalWindowsCodePage(1250, "windows-1250", 0, null, 28592, 1250, "Central European generic culture"),
                     new InternalWindowsCodePage(1251, "windows-1251", 0, null, 20866, 1251, "Cyrillic generic culture"),
@@ -256,10 +256,10 @@ namespace Microsoft.Exchange.Data.Globalization
                     new InternalWindowsCodePage(936, "windows-936", 0x0004, "zh-CHS", 936, 936, null),
                     new InternalWindowsCodePage(949, "windows-949", 0x0012, "ko", 949, 949, null),
                     new InternalWindowsCodePage(950, "windows-950", 0x7C04, "zh-CHT", 950, 950, null),
-                };
+                ];
 
             CodePageCultureOverride[] codePageCultureOverrides =
-                {
+                [
                     new CodePageCultureOverride(37, "en"),
                     new CodePageCultureOverride(437, "en"),
                     new CodePageCultureOverride(860, "pt"),
@@ -295,10 +295,10 @@ namespace Microsoft.Exchange.Data.Globalization
                     new CodePageCultureOverride(57009, "ml-IN"),
                     new CodePageCultureOverride(57010, "gu"),
                     new CodePageCultureOverride(57011, "pa"),
-                };
+                ];
 
             CultureCodePageOverride[] cultureCodePageOverrides =
-                {
+                [
                     new CultureCodePageOverride("et", 28605, 28605),
                     new CultureCodePageOverride("lt", 28603, 28603),
                     new CultureCodePageOverride("lv", 28603, 28603),
@@ -315,10 +315,10 @@ namespace Microsoft.Exchange.Data.Globalization
                     new CultureCodePageOverride("tt", 1251, 1251),
                     new CultureCodePageOverride("uz-UZ-Cyrl", 1251, 1251),
                     new CultureCodePageOverride("mn", 65001, 65001),
-                };
+                ];
 
             CharsetName[] charsetNames =
-                {
+                [
                     new CharsetName("_autodetect", 50932),
                     new CharsetName("_autodetect_all", 50001),
                     new CharsetName("_autodetect_kr", 50949),
@@ -747,10 +747,10 @@ namespace Microsoft.Exchange.Data.Globalization
                     new CharsetName("x-unicode-2-0-utf-8", 65001),
                     new CharsetName("x-user-defined", 1252),
                     new CharsetName("x-x-big5", 950),
-                };
+                ];
 
             CultureData[] hardcodedCultures =
-                {
+                [
                     new CultureData(0x401, "ar-SA", 1256, 1256, 1256, "ar", "Arabic (Saudi Arabia)"),
                     new CultureData(0x402, "bg-BG", 1251, 1251, 1251, "bg", "Bulgarian (Bulgaria)"),
                     new CultureData(0x403, "ca-ES", 1252, 28591, 1252, "ca", "Catalan (Catalan)"),
@@ -847,7 +847,7 @@ namespace Microsoft.Exchange.Data.Globalization
                     new CultureData(0x64, "fil", 1252, 28591, 1252, null, "Filipino"),
                     new CultureData(0x7C04, "zh-CHT", 950, 950, 950, null, "Chinese (Traditional)"),
                     new CultureData(0x7C1A, "sr", 1251, 1251, 1251, null, "Serbian"),
-                };
+                ];
 
             var newData = new GlobalizationData();
 
@@ -2325,24 +2325,24 @@ namespace Microsoft.Exchange.Data.Globalization
             /// <summary>
             /// The local identifier to culture map.
             /// </summary>
-            private Dictionary<int, Culture> localeIdToCulture = new Dictionary<int, Culture>(IntComparerInstance);
+            private Dictionary<int, Culture> localeIdToCulture = new(IntComparerInstance);
 
             /// <summary>
             /// The name to character set map.
             /// </summary>
             private Dictionary<string, Charset> nameToCharset =
-                new Dictionary<string, Charset>(StringComparer.OrdinalIgnoreCase);
+                new(StringComparer.OrdinalIgnoreCase);
 
             /// <summary>
             /// The name to culture map.
             /// </summary>
             private Dictionary<string, Culture> nameToCulture =
-                new Dictionary<string, Culture>(StringComparer.OrdinalIgnoreCase);
+                new(StringComparer.OrdinalIgnoreCase);
 
             /// <summary>
             /// The code page to charset map.
             /// </summary>
-            private Dictionary<int, Charset> codePageToCharset = new Dictionary<int, Charset>(IntComparerInstance);
+            private Dictionary<int, Charset> codePageToCharset = new(IntComparerInstance);
 
             /// <summary>
             /// Gets or sets the default culture.
@@ -2445,7 +2445,7 @@ namespace Microsoft.Exchange.Data.Globalization
             /// <summary>
             /// Gets or sets the name to culture map.
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="Uses dictionary syntax to set value.  FXCop misses this.")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Uses dictionary syntax to set value.  FXCop misses this.")]
             internal Dictionary<string, Culture> NameToCulture
             {
                 get
@@ -2462,7 +2462,7 @@ namespace Microsoft.Exchange.Data.Globalization
             /// <summary>
             /// Gets or sets the ascii charset.
             /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="Uses default get/set syntax.")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Uses default get/set syntax.")]
             internal Charset AsciiCharset
             {
                 get;

@@ -58,7 +58,7 @@ namespace Microsoft.Exchange.Data.Internal
                 settings.Where(setting => string.Equals(setting.Name, settingName, StringComparison.OrdinalIgnoreCase)))
             {
                 if (result != null)
-                {                        
+                {
                     Provider.LogConfigurationErrorEvent();
                     break;
                 }

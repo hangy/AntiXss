@@ -31,12 +31,12 @@ namespace Microsoft.Exchange.Data.Internal
         /// <summary>
         /// A blank sub section.
         /// </summary>
-        private static readonly IList<CtsConfigurationSetting> EmptySubSection = new List<CtsConfigurationSetting>();
+        private static readonly IList<CtsConfigurationSetting> EmptySubSection = [];
 
         /// <summary>
         /// The lock used for thread safe syncronization.
         /// </summary>
-        private readonly object lockObject = new object();
+        private readonly object lockObject = new();
 
         /// <summary>
         /// The configuration sub sections from the CTS application settings.
@@ -80,7 +80,7 @@ namespace Microsoft.Exchange.Data.Internal
 
                             if (!string.IsNullOrEmpty(path))
                             {
-                                CtsConfigurationSetting newSetting = new CtsConfigurationSetting("TemporaryStorage");
+                                CtsConfigurationSetting newSetting = new("TemporaryStorage");
                                 newSetting.AddArgument("Path", path);
 
                                 subSection = this.configurationSubSections[string.Empty];

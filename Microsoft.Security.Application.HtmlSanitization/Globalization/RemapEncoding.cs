@@ -190,7 +190,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// </summary>
         /// <returns>
         /// A byte array containing a sequence of bytes that specifies the encoding used.
-        /// -or- 
+        /// -or-
         /// A byte array of length zero, if a preamble is not required.
         /// </returns>
         public override byte[] GetPreamble()
@@ -202,7 +202,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// Calculates the maximum number of bytes produced by encoding the specified number of characters.
         /// </summary>
         /// <param name="charCount">
-        /// The number of characters to encode. 
+        /// The number of characters to encode.
         /// </param>
         /// <returns>
         /// The maximum number of bytes produced by encoding the specified number of characters.
@@ -216,7 +216,7 @@ namespace Microsoft.Exchange.Data.Globalization
         /// Calculates the maximum number of characters produced by decoding the specified number of bytes.
         /// </summary>
         /// <param name="byteCount">
-        /// The number of bytes to decode. 
+        /// The number of bytes to decode.
         /// </param>
         /// <returns>
         /// The maximum number of characters produced by decoding the specified number of bytes.
@@ -230,13 +230,13 @@ namespace Microsoft.Exchange.Data.Globalization
         /// Calculates the number of bytes produced by encoding a set of characters from the specified character array.
         /// </summary>
         /// <param name="chars">
-        /// The character array containing the set of characters to encode. 
+        /// The character array containing the set of characters to encode.
         /// </param>
         /// <param name="index">
-        /// The index of the first character to encode. 
+        /// The index of the first character to encode.
         /// </param>
         /// <param name="count">
-        /// The number of characters to encode. 
+        /// The number of characters to encode.
         /// </param>
         /// <returns>
         /// The number of bytes produced by encoding the specified characters.
@@ -247,10 +247,10 @@ namespace Microsoft.Exchange.Data.Globalization
         }
 
         /// <summary>
-        /// Calculates the number of bytes produced by encoding the characters in the specified <see cref="String" />. 
+        /// Calculates the number of bytes produced by encoding the characters in the specified <see cref="String" />.
         /// </summary>
         /// <param name="s">
-        /// The <see cref="String" /> containing the set of characters to encode. 
+        /// The <see cref="String" /> containing the set of characters to encode.
         /// </param>
         /// <returns>
         /// The number of bytes produced by encoding the specified characters.
@@ -264,10 +264,10 @@ namespace Microsoft.Exchange.Data.Globalization
         /// Calculates the number of bytes produced by encoding a set of characters starting at the specified character pointer.
         /// </summary>
         /// <param name="chars">
-        /// A pointer to the first character to encode. 
+        /// A pointer to the first character to encode.
         /// </param>
         /// <param name="count">
-        /// The number of characters to encode. 
+        /// The number of characters to encode.
         /// </param>
         /// <returns>
         /// The number of bytes produced by encoding the specified characters.
@@ -278,25 +278,25 @@ namespace Microsoft.Exchange.Data.Globalization
         }
 
         /// <summary>
-        /// Encodes a set of characters from the specified String into the specified byte array. 
+        /// Encodes a set of characters from the specified String into the specified byte array.
         /// </summary>
         /// <param name="s">
-        /// The <see cref="string" /> containing the set of characters to encode. 
+        /// The <see cref="string" /> containing the set of characters to encode.
         /// </param>
         /// <param name="charIndex">
-        /// The index of the first character to encode. 
+        /// The index of the first character to encode.
         /// </param>
         /// <param name="charCount">
-        /// The number of characters to encode. 
+        /// The number of characters to encode.
         /// </param>
         /// <param name="bytes">
-        /// The byte array to contain the resulting sequence of bytes. 
+        /// The byte array to contain the resulting sequence of bytes.
         /// </param>
         /// <param name="byteIndex">
         /// The index at which to start writing the resulting sequence of bytes.
         /// </param>
         /// <returns>
-        /// The actual number of bytes written into bytes. 
+        /// The actual number of bytes written into bytes.
         /// </returns>
         public override int GetBytes(string s, int charIndex, int charCount, byte[] bytes, int byteIndex)
         {
@@ -307,22 +307,22 @@ namespace Microsoft.Exchange.Data.Globalization
         /// Encodes a set of characters from the specified character array into the specified byte array.
         /// </summary>
         /// <param name="chars">
-        /// The character array containing the set of characters to encode. 
+        /// The character array containing the set of characters to encode.
         /// </param>
         /// <param name="charIndex">
-        /// The index of the first character to encode. 
+        /// The index of the first character to encode.
         /// </param>
         /// <param name="charCount">
-        /// The number of characters to encode. 
+        /// The number of characters to encode.
         /// </param>
         /// <param name="bytes">
-        /// The byte array to contain the resulting sequence of bytes. 
+        /// The byte array to contain the resulting sequence of bytes.
         /// </param>
         /// <param name="byteIndex">
-        /// The index at which to start writing the resulting sequence of bytes. 
+        /// The index at which to start writing the resulting sequence of bytes.
         /// </param>
         /// <returns>
-        /// The actual number of bytes written into bytes. 
+        /// The actual number of bytes written into bytes.
         /// </returns>
         public override int GetBytes(char[] chars, int charIndex, int charCount, byte[] bytes, int byteIndex)
         {
@@ -333,16 +333,16 @@ namespace Microsoft.Exchange.Data.Globalization
         /// Encodes a set of characters starting at the specified character pointer into a sequence of bytes that are stored starting at the specified byte pointer.
         /// </summary>
         /// <param name="chars">
-        /// A pointer to the first character to encode. 
+        /// A pointer to the first character to encode.
         /// </param>
         /// <param name="charCount">
-        /// The number of characters to encode. 
+        /// The number of characters to encode.
         /// </param>
         /// <param name="bytes">
-        /// A pointer to the location at which to start writing the resulting sequence of bytes. 
+        /// A pointer to the location at which to start writing the resulting sequence of bytes.
         /// </param>
         /// <param name="byteCount">
-        /// The maximum number of bytes to write. 
+        /// The maximum number of bytes to write.
         /// </param>
         /// <returns>
         /// The actual number of bytes written at the location indicated by the bytes parameter.
@@ -356,13 +356,13 @@ namespace Microsoft.Exchange.Data.Globalization
         /// Calculates the number of characters produced by decoding a sequence of bytes from the specified byte array.
         /// </summary>
         /// <param name="bytes">
-        /// The byte array containing the sequence of bytes to decode. 
+        /// The byte array containing the sequence of bytes to decode.
         /// </param>
         /// <param name="index">
-        /// The index of the first byte to decode. 
+        /// The index of the first byte to decode.
         /// </param>
         /// <param name="count">
-        /// The number of bytes to decode. 
+        /// The number of bytes to decode.
         /// </param>
         /// <returns>
         /// The number of characters produced by decoding the specified sequence of bytes.
@@ -393,22 +393,22 @@ namespace Microsoft.Exchange.Data.Globalization
         /// Decodes a sequence of bytes from the specified byte array into the specified character array.
         /// </summary>
         /// <param name="bytes">
-        /// The byte array containing the sequence of bytes to decode. 
+        /// The byte array containing the sequence of bytes to decode.
         /// </param>
         /// <param name="byteIndex">
-        /// The index of the first byte to decode. 
+        /// The index of the first byte to decode.
         /// </param>
         /// <param name="byteCount">
-        /// The number of bytes to decode. 
+        /// The number of bytes to decode.
         /// </param>
         /// <param name="chars">
-        /// The character array to contain the resulting set of characters. 
+        /// The character array to contain the resulting set of characters.
         /// </param>
         /// <param name="charIndex">
         /// The index at which to start writing the resulting set of characters.
         /// </param>
         /// <returns>
-        /// The actual number of characters written into chars. 
+        /// The actual number of characters written into chars.
         /// </returns>
         public override int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
         {
@@ -428,10 +428,10 @@ namespace Microsoft.Exchange.Data.Globalization
         /// The characters written.
         /// </param>
         /// <param name="charCount">
-        /// The maximum number of characters to write. 
+        /// The maximum number of characters to write.
         /// </param>
         /// <returns>
-        /// The actual number of characters written at the location indicated by the chars parameter. 
+        /// The actual number of characters written at the location indicated by the chars parameter.
         /// </returns>
         public override unsafe int GetChars(byte* bytes, int byteCount, char* chars, int charCount)
         {
@@ -445,13 +445,13 @@ namespace Microsoft.Exchange.Data.Globalization
         /// The byte array containing the sequence of bytes to decode.
         /// </param>
         /// <param name="index">
-        /// The index of the first byte to decode. 
+        /// The index of the first byte to decode.
         /// </param>
         /// <param name="count">
-        /// The number of bytes to decode. 
+        /// The number of bytes to decode.
         /// </param>
         /// <returns>
-        /// A <see cref="string" /> containing the results of decoding the specified sequence of bytes. 
+        /// A <see cref="string" /> containing the results of decoding the specified sequence of bytes.
         /// </returns>
         public override string GetString(byte[] bytes, int index, int count)
         {

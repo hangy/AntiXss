@@ -22,14 +22,14 @@ namespace Microsoft.Security.Application
     using System;
 
     /// <summary>
-    /// Contains helpers for URI parsing 
+    /// Contains helpers for URI parsing
     /// </summary>
     internal static class UriUtil
     {
         /// <summary>
         /// Query Fragment separators.
         /// </summary>
-        private static readonly char[] QueryFragmentSeparators = new[] { '?', '#' };
+        private static readonly char[] QueryFragmentSeparators = ['?', '#'];
 
         /// <summary>
         /// Extracts the query string and fragment from the input path by splitting on the separator characters.

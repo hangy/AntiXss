@@ -20,8 +20,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Runtime.InteropServices;
+    using System.Text;
     using Microsoft.Exchange.Data.Internal;
 
     internal struct FlagProperties
@@ -34,9 +34,9 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
 
         internal uint bits;
 
-        public static readonly FlagProperties AllUndefined = new FlagProperties(0);
-        public static readonly FlagProperties AllOff = new FlagProperties(0);
-        public static readonly FlagProperties AllOn = new FlagProperties(0xFFFFFFFFu);
+        public static readonly FlagProperties AllUndefined = new(0);
+        public static readonly FlagProperties AllOff = new(0);
+        public static readonly FlagProperties AllOn = new(0xFFFFFFFFu);
 
         internal FlagProperties(uint bits)
         {
@@ -137,8 +137,8 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         internal uint bits1;
         internal uint bits2;
 
-        public static readonly PropertyBitMask AllOff = new PropertyBitMask(0, 0);
-        public static readonly PropertyBitMask AllOn = new PropertyBitMask(0xFFFFFFFFu, 0xFFFFFFFFu);
+        public static readonly PropertyBitMask AllOff = new(0, 0);
+        public static readonly PropertyBitMask AllOn = new(0xFFFFFFFFu, 0xFFFFFFFFu);
 
         internal PropertyBitMask(uint bits1, uint bits2)
         {
@@ -225,14 +225,14 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Format
         private PropertyBitMask propertyMask;
         private PropertyBitMask distinctPropertyMask;
 
-        [StructLayout(LayoutKind.Sequential, Pack=2)]
+        [StructLayout(LayoutKind.Sequential, Pack = 2)]
         private struct FlagPropertiesUndo
         {
             public PropertyId fakeId;
             public FlagProperties flags;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack=2)]
+        [StructLayout(LayoutKind.Sequential, Pack = 2)]
         private struct BitsUndo
         {
             public PropertyId fakeId;

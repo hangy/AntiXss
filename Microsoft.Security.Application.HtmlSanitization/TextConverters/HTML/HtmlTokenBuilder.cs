@@ -53,7 +53,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     bool testBoundaryConditions) :
             base(new HtmlToken(), buffer, maxRuns, testBoundaryConditions)
         {
-            this.htmlToken = (HtmlToken) base.Token;
+            this.htmlToken = (HtmlToken)base.Token;
 
             int initialAttrs = 8;
 
@@ -211,7 +211,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             }
 
             this.state = BuildStateTagBeforeAttr;
-        }     
+        }
 
         public bool CanAddAttribute()
         {
@@ -322,7 +322,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
             InternalDebug.Assert(ParseSupport.QuoteCharacter(ParseSupport.GetCharClass(ch)));
 
             this.htmlToken.attributeList[this.htmlToken.attributeTail].IsAttrValueQuoted = true;
-            this.htmlToken.attributeList[this.htmlToken.attributeTail].quoteChar = (byte) ch;
+            this.htmlToken.attributeList[this.htmlToken.attributeTail].quoteChar = (byte)ch;
         }
 
         public void EndValue()
@@ -347,7 +347,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
 
             this.htmlToken.attributeList[this.htmlToken.attributeTail].partMajor |= HtmlToken.AttrPartMajor.End;
 
-            this.htmlToken.attributeTail ++;
+            this.htmlToken.attributeTail++;
 
             if (this.htmlToken.attributeTail < this.htmlToken.attributeList.Length)
             {
@@ -442,7 +442,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                     }
                     else
                     {
-                         if (this.state == BuildStateTagAttrName)
+                        if (this.state == BuildStateTagAttrName)
                         {
                             if (this.htmlToken.attributeList[this.htmlToken.attributeTail].name.head == this.htmlToken.whole.tail)
                             {
@@ -733,7 +733,7 @@ namespace Microsoft.Exchange.Data.TextConverters.Internal.Html
                             }
                         }
 
-                        nameIndex ++;
+                        nameIndex++;
                     }
                     while (HtmlNameData.names[nameIndex].hash == nameHashValue);
                 }

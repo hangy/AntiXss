@@ -21,7 +21,7 @@ namespace Microsoft.Exchange.Data.TextConverters
     using System;
     using System.IO;
     using System.Text;
-    
+
     internal abstract class ConverterInput : IDisposable
     {
         protected bool endOfFile;
@@ -63,11 +63,11 @@ namespace Microsoft.Exchange.Data.TextConverters
         public virtual void SetRestartConsumer(IRestartable restartConsumer)
         {
         }
-        
+
         public abstract bool ReadMore(ref char[] buffer, ref int start, ref int current, ref int end);
-        
+
         public abstract void ReportProcessed(int processedSize);
-        
+
         public abstract int RemoveGap(int gapBegin, int gapEnd);
 
         /// <summary>

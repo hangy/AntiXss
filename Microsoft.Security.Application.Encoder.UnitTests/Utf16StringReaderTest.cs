@@ -88,8 +88,8 @@ namespace Microsoft.Security.Application.Tests
         {
             // Arrange
             const string inputString = "X-\uD800-\uDFFF-Z";
-            int[] expectedResult = new int[]
-            {
+            int[] expectedResult =
+            [
                 (int)'X',
                 (int)'-',
                 UnicodeReplacementCharacterCodePoint,
@@ -97,7 +97,7 @@ namespace Microsoft.Security.Application.Tests
                 UnicodeReplacementCharacterCodePoint,
                 (int)'-',
                 (int)'Z'
-            };
+            ];
 
             // Act
             int[] roundTrippedCodePoints = ReadAllScalarValues(inputString);
@@ -114,12 +114,12 @@ namespace Microsoft.Security.Application.Tests
         {
             // Arrange
             const string inputString = "X-\uD800";
-            int[] expectedResult = new int[]
-            {
+            int[] expectedResult =
+            [
                 (int)'X',
                 (int)'-',
                 UnicodeReplacementCharacterCodePoint
-            };
+            ];
 
             // Act
             int[] roundTrippedCodePoints = ReadAllScalarValues(inputString);
@@ -139,15 +139,15 @@ namespace Microsoft.Security.Application.Tests
 
             // Arrange
             const string inputString = "X-\uD800\uD800\uDD00-Z";
-            int[] expectedResult = new int[]
-            {
+            int[] expectedResult =
+            [
                 (int)'X',
                 (int)'-',
                 UnicodeReplacementCharacterCodePoint,
                 0x10100,
                 (int)'-',
                 (int)'Z'
-            };
+            ];
 
             // Act
             int[] roundTrippedCodePoints = ReadAllScalarValues(inputString);
@@ -164,8 +164,8 @@ namespace Microsoft.Security.Application.Tests
         {
             // Arrange
             const string inputString = "X-\U00010000-\uABCD-\U0010ABCD-Z";
-            int[] expectedResult = new int[]
-            {
+            int[] expectedResult =
+            [
                 (int)'X',
                 (int)'-',
                 0x10000,
@@ -175,7 +175,7 @@ namespace Microsoft.Security.Application.Tests
                 0x10ABCD,
                 (int)'-',
                 (int)'Z'
-            };
+            ];
 
             // Act
             int[] roundTrippedCodePoints = ReadAllScalarValues(inputString);
@@ -195,11 +195,11 @@ namespace Microsoft.Security.Application.Tests
             // and we might want to generate invalid strings.
             if (codePoint <= char.MaxValue)
             {
-                return new string(new char[] { (char)codePoint });
+                return new string([(char)codePoint]);
             }
 
             codePoint -= 0x10000;
-            return new string(new char[] { (char)((codePoint / 1024) + 0xD800), (char)((codePoint % 1024) + 0xDC00) });
+            return new string([(char)((codePoint / 1024) + 0xD800), (char)((codePoint % 1024) + 0xDC00)]);
         }
 
         /// <summary>
@@ -220,8 +220,8 @@ namespace Microsoft.Security.Application.Tests
         /// <returns>An array of scalar values contained in the string.</returns>
         private static int[] ReadAllScalarValues(string inputString)
         {
-            Utf16StringReader stringReader = new Utf16StringReader(inputString);
-            List<int> retVal = new List<int>();
+            Utf16StringReader stringReader = new(inputString);
+            List<int> retVal = [];
             while (true)
             {
                 int nextValue = stringReader.ReadNextScalarValue();

@@ -49,7 +49,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Georgian code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>        
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Georgian()
         {
             return CodeChartHelper.GetRange(0x10A0, 0x10FC, i => (i >= 0x10C6 && i <= 0x10CF));
@@ -58,7 +58,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Hangul Jamo code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable HangulJamo()
         {
             return CodeChartHelper.GetRange(0x1100, 0x11FF);
@@ -67,7 +67,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Ethiopic code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Ethiopic()
         {
             return CodeChartHelper.GetRange(
@@ -100,7 +100,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Ethiopic Supplement code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable EthiopicSupplement()
         {
             return CodeChartHelper.GetRange(0x1380, 0x1399);
@@ -109,7 +109,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Cherokee code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Cherokee()
         {
             return CodeChartHelper.GetRange(0x13A0, 0x13F4);
@@ -118,7 +118,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Unified Canadian Aboriginal Syllabic code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable UnifiedCanadianAboriginalSyllabics()
         {
             return CodeChartHelper.GetRange(0x1400, 0x167F);
@@ -127,7 +127,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Ogham code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns> 
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Ogham()
         {
             return CodeChartHelper.GetRange(0x1680, 0x169C);
@@ -136,7 +136,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Runic code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns> 
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Runic()
         {
             return CodeChartHelper.GetRange(0x16A0, 0x16F0);
@@ -145,7 +145,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Tagalog code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns> 
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Tagalog()
         {
             return CodeChartHelper.GetRange(0x1700, 0x1714, i => (i == 0x170D));
@@ -154,7 +154,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Hanunoo code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns> 
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Hanunoo()
         {
             return CodeChartHelper.GetRange(0x1720, 0x1736);
@@ -163,7 +163,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Buhid code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns> 
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Buhid()
         {
             return CodeChartHelper.GetRange(0x1740, 0x1753);
@@ -172,7 +172,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Tagbanwa code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns> 
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Tagbanwa()
         {
             return CodeChartHelper.GetRange(0x1760, 0x1773, i => (i == 0x176D || i == 0x1771));
@@ -181,7 +181,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Khmer code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns> 
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Khmer()
         {
             return CodeChartHelper.GetRange(
@@ -195,7 +195,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Mongolian code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns> 
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Mongolian()
         {
             return CodeChartHelper.GetRange(
@@ -209,7 +209,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Unified Canadian Aboriginal Syllabic Extended code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable UnifiedCanadianAboriginalSyllabicsExtended()
         {
             return CodeChartHelper.GetRange(0x18B0, 0x18F5);
@@ -218,7 +218,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Limbu code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Limbu()
         {
             return CodeChartHelper.GetRange(
@@ -237,7 +237,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Tai Le code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable TaiLe()
         {
             return CodeChartHelper.GetRange(0x1950, 0x1974, i => (i == 0x196E || i == 0x196F));
@@ -246,7 +246,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the New Tai Lue code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>          
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable NewTaiLue()
         {
             return CodeChartHelper.GetRange(
@@ -260,7 +260,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Khmer Symbols code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable KhmerSymbols()
         {
             return CodeChartHelper.GetRange(0x19E0, 0x19FF);
@@ -269,7 +269,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Khmer Symbols code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Buginese()
         {
             return CodeChartHelper.GetRange(0x1A00, 0x1A1F, i => (i == 0x1A1C || i == 0x1A1D));
@@ -278,7 +278,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Tai Tham code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable TaiTham()
         {
             return CodeChartHelper.GetRange(
@@ -294,7 +294,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Balinese code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Balinese()
         {
             return CodeChartHelper.GetRange(0x1B00, 0x1B7C, i => (i >= 0x1B4C && i <= 0x1B4F));
@@ -303,7 +303,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Sudanese code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Sudanese()
         {
             return CodeChartHelper.GetRange(0x1B80, 0x1BB9, i => (i >= 0x1BAB && i <= 0x1BAD));
@@ -312,7 +312,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Lepcha code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>   
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable Lepcha()
         {
             return CodeChartHelper.GetRange(0x1C00, 0x1C4F, i => ((i >= 0x1C38 && i <= 0x1C3A) || (i >= 0x1C4A && i <= 0x1C4C)));
@@ -321,7 +321,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Ol Chiki code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable OlChiki()
         {
             return CodeChartHelper.GetRange(0x1C50, 0x1C7F);
@@ -330,7 +330,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Vedic Extensions code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable VedicExtensions()
         {
             return CodeChartHelper.GetRange(0x1CD0, 0x1CF2);
@@ -339,7 +339,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Phonetic Extensions code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable PhoneticExtensions()
         {
             return CodeChartHelper.GetRange(0x1D00, 0x1D7F);
@@ -348,7 +348,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Phonetic Extensions Supplement code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable PhoneticExtensionsSupplement()
         {
             return CodeChartHelper.GetRange(0x1D80, 0x1DBF);
@@ -357,7 +357,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Combining Diacritical Marks Supplement code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable CombiningDiacriticalMarksSupplement()
         {
             return CodeChartHelper.GetRange(0x1DC0, 0x1DFF, i => (i >= 0x1DE7 && i <= 0x1DFC));
@@ -366,7 +366,7 @@ namespace Microsoft.Security.Application.CodeCharts
         /// <summary>
         /// Provides the safe characters for the Latin Extended Addition code table.
         /// </summary>
-        /// <returns>The safe characters for the code table.</returns>  
+        /// <returns>The safe characters for the code table.</returns>
         public static IEnumerable LatinExtendedAdditional()
         {
             return CodeChartHelper.GetRange(0x1E00, 0x1EFF);
