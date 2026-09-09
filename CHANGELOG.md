@@ -1,3 +1,10 @@
+## [0.2.5-beta.1](https://github.com/AlbusKavaliro/AntiXss/compare/v0.2.4...v0.2.5-beta.1) (2026-09-09)
+
+
+### Bug Fixes
+
+* **dev-deps:** Run npm audit fix ([#357](https://github.com/AlbusKavaliro/AntiXss/issues/357)) ([03c5ba7](https://github.com/AlbusKavaliro/AntiXss/commit/03c5ba7de7c58c72b1da40f21729f99e3bb90f53))
+
 ## [0.2.4](https://github.com/AlbusKavaliro/AntiXss/compare/v0.2.3...v0.2.4) (2026-08-16)
 
 
