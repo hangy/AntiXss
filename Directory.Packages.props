@@ -7,7 +7,7 @@
   <ItemGroup Label="Microsoft">
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.401" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="10.0.12" />
-    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.11.0" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.11.2" />
   </ItemGroup>
   <ItemGroup Label="Roslynator">
     <PackageVersion Include="Roslynator.Analyzers" Version="5.0.0" />
